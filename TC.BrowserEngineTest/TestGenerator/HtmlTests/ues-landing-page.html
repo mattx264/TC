@@ -1,0 +1,530 @@
+﻿<html>
+<head data-optly-e8f5ae9f-022f-47c5-b869-193272f6c428="">
+  <style type="text/css">
+    [uib-typeahead-popup].dropdown-menu {
+      display: block;
+    }
+  </style>
+  <style type="text/css">
+    .uib-time input {
+      width: 50px;
+    }
+  </style>
+  <style type="text/css">
+    [uib-tooltip-popup].tooltip.top-left > .tooltip-arrow, [uib-tooltip-popup].tooltip.top-right > .tooltip-arrow, [uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow, [uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow, [uib-tooltip-popup].tooltip.left-top > .tooltip-arrow, [uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow, [uib-tooltip-popup].tooltip.right-top > .tooltip-arrow, [uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow, [uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow, [uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow, [uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow, [uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow, [uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow, [uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow, [uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow, [uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow, [uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow, [uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow, [uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow, [uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow, [uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow, [uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow, [uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow, [uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow, [uib-popover-popup].popover.top-left > .arrow, [uib-popover-popup].popover.top-right > .arrow, [uib-popover-popup].popover.bottom-left > .arrow, [uib-popover-popup].popover.bottom-right > .arrow, [uib-popover-popup].popover.left-top > .arrow, [uib-popover-popup].popover.left-bottom > .arrow, [uib-popover-popup].popover.right-top > .arrow, [uib-popover-popup].popover.right-bottom > .arrow, [uib-popover-html-popup].popover.top-left > .arrow, [uib-popover-html-popup].popover.top-right > .arrow, [uib-popover-html-popup].popover.bottom-left > .arrow, [uib-popover-html-popup].popover.bottom-right > .arrow, [uib-popover-html-popup].popover.left-top > .arrow, [uib-popover-html-popup].popover.left-bottom > .arrow, [uib-popover-html-popup].popover.right-top > .arrow, [uib-popover-html-popup].popover.right-bottom > .arrow, [uib-popover-template-popup].popover.top-left > .arrow, [uib-popover-template-popup].popover.top-right > .arrow, [uib-popover-template-popup].popover.bottom-left > .arrow, [uib-popover-template-popup].popover.bottom-right > .arrow, [uib-popover-template-popup].popover.left-top > .arrow, [uib-popover-template-popup].popover.left-bottom > .arrow, [uib-popover-template-popup].popover.right-top > .arrow, [uib-popover-template-popup].popover.right-bottom > .arrow {
+      top: auto;
+      bottom: auto;
+      left: auto;
+      right: auto;
+      margin: 0;
+    }
+
+    [uib-popover-popup].popover, [uib-popover-html-popup].popover, [uib-popover-template-popup].popover {
+      display: block !important;
+    }
+  </style>
+  <style type="text/css">
+    .uib-datepicker-popup.dropdown-menu {
+      display: block;
+      float: none;
+      margin: 0;
+    }
+
+    .uib-button-bar {
+      padding: 10px 9px 2px;
+    }
+  </style>
+  <style type="text/css">
+    .uib-position-measure {
+      display: block !important;
+      visibility: hidden !important;
+      position: absolute !important;
+      top: -9999px !important;
+      left: -9999px !important;
+    }
+
+    .uib-position-scrollbar-measure {
+      position: absolute !important;
+      top: -9999px !important;
+      width: 50px !important;
+      height: 50px !important;
+      overflow: scroll !important;
+    }
+
+    .uib-position-body-scrollbar-measure {
+      overflow: scroll !important;
+    }
+  </style>
+  <style type="text/css">
+    .uib-datepicker .uib-title {
+      width: 100%;
+    }
+
+    .uib-day button, .uib-month button, .uib-year button {
+      min-width: 100%;
+    }
+
+    .uib-left, .uib-right {
+      width: 100%
+    }
+  </style>
+  <style type="text/css">
+    .ng-animate.item:not(.left):not(.right) {
+      -webkit-transition: 0s ease-in-out left;
+      transition: 0s ease-in-out left
+    }
+  </style>
+  <style type="text/css">
+    @charset "UTF-8";
+
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+      display: none !important;
+    }
+
+    ng\:form {
+      display: block;
+    }
+
+    .ng-animate-shim {
+      visibility: hidden;
+    }
+
+    .ng-anchor {
+      position: absolute;
+    }
+  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="user-scalable=0, width=device-width, initial-scale=1.0,  minimum-scale=1.0, maximum-scale=1.0">
+  <title>AIU </title>
+  <link rel="shortcut icon" type="image/png" href="Media/Content/Campus/5/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Dynalight" rel="stylesheet" type="text/css">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="format-detection" content="telephone=no">
+
+  <meta name="google-site-verification" content="vD6gomc-z9j6Xme18BJt4QwIu8WYPnBGzPOyPfwRVtM">
+
+  <base href="//int-enrollment.aiuniv.edu//" target="_blank">
+  <style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display: none !important;
+    }
+
+    .ng-show {
+      display: none !important;
+    }
+  </style>
+
+  <link href="Media/Bundle/style.min.css?v=20190727051909" rel="stylesheet" type="text/css">
+  <link href="Media/Content/Campus/5/5.min.css?v=20190727051910" rel="stylesheet" type="text/css">
+
+  <script async="" src="//s.btstatic.com/tag.js#site=Sowjc2j"></script>
+  <script src="https://cdn.optimizely.com/js/3013550378.js"></script>
+  <style data-optly-e8f5ae9f-022f-47c5-b869-193272f6c428="">
+        /*
+     * SUPPRESS FLICKER
+     *
+     */
+
+        /*
+    .banner-image-wrap .our-degree, .section.aiu-primary-background, .section.blue-background {
+      background-image: none !important;
+    }
+    */
+
+        #blue-bottom-form.banner-image-wrap .our-degree, #blue-bottom-form.section.aiu-primary-background, #blue-bottom-form.section.blue-background {
+          background-image: none !important;
+        }
+
+        #blue-bottom-form.aiu-primary-background {
+          background: #fff !important;
+        }
+
+        @media screen and (min-width: 768px) {
+          #blue-bottom-form .col-sm-push-3 {
+            left: 20px;
+          }
+
+          #blue-bottom-form .col-sm-6 {
+            width: 93.5%;
+          }
+        }
+  </style>
+  <script charset="UTF-8" src="https://lptag.liveperson.net/tag/tag.js?site=88375745"></script>
+  <style>
+    .ngf-hide {
+      display: none !important
+    }
+  </style>
+  <style type="text/css"></style>
+  <script charset="UTF-8" id="_lpTagScriptId_0" src="https://lptag.liveperson.net/lptag/api/account/88375745/configuration/applications/taglets/.jsonp?v=2.0&amp;df=0&amp;s=aiu&amp;b=1"></script>
+  <script type="text/javascript" charset="UTF-8" src="https://lpcdn.lpsnmedia.net/le_re/3.33.0.1-release_3263/jsv2/overlay.js?_v=3.33.0.1-release_3263"></script>
+  <script type="text/javascript" charset="UTF-8" src="https://lpcdn.lpsnmedia.net/le_re/3.33.0.1-release_3263/jsv2/UISuite.js?_v=3.33.0.1-release_3263"></script>
+  <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/37/10a/common.js"></script>
+  <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/37/10a/util.js"></script>
+</head>
+<body class="container body-content body-background ng-scope" data-ng-app="cecApplication">
+  <script type="text/javascript">
+                var lpTag = lpTag || {}; lpTag.vars = lpTag.vars || []; lpTag.dbs = lpTag.dbs || [];
+                lpTag.section = 'default';
+
+                window.lpTag = window.lpTag || {}; if (typeof window.lpTag._tagCount === 'undefined') { window.lpTag = { site: '88375745' || '', section: lpTag.section || '', autoStart: lpTag.autoStart === false ? false : true, ovr: lpTag.ovr || {}, _v: '1.6.0', _tagCount: 1, protocol: 'https:', events: { bind: function (app, ev, fn) { lpTag.defer(function () { lpTag.events.bind(app, ev, fn); }, 0); }, trigger: function (app, ev, json) { lpTag.defer(function () { lpTag.events.trigger(app, ev, json); }, 1); } }, defer: function (fn, fnType) { if (fnType == 0) { this._defB = this._defB || []; this._defB.push(fn); } else if (fnType == 1) { this._defT = this._defT || []; this._defT.push(fn); } else { this._defL = this._defL || []; this._defL.push(fn); } }, load: function (src, chr, id) { var t = this; setTimeout(function () { t._load(src, chr, id); }, 0); }, _load: function (src, chr, id) { var url = src; if (!src) { url = this.protocol + '//' + ((this.ovr && this.ovr.domain) ? this.ovr.domain : 'lptag.liveperson.net') + '/tag/tag.js?site=' + this.site; } var s = document.createElement('script'); s.setAttribute('charset', chr ? chr : 'UTF-8'); if (id) { s.setAttribute('id', id); } s.setAttribute('src', url); document.getElementsByTagName('head').item(0).appendChild(s); }, init: function () { this._timing = this._timing || {}; this._timing.start = (new Date()).getTime(); var that = this; if (window.attachEvent) { window.attachEvent('onload', function () { that._domReady('domReady'); }); } else { window.addEventListener('DOMContentLoaded', function () { that._domReady('contReady'); }, false); window.addEventListener('load', function () { that._domReady('domReady'); }, false); } if (typeof (window._lptStop) == 'undefined') { this.load(); } }, start: function () { this.autoStart = true; }, _domReady: function (n) { if (!this.isDom) { this.isDom = true; this.events.trigger('LPT', 'DOM_READY', { t: n }); } this._timing[n] = (new Date()).getTime(); }, vars: lpTag.vars || [], dbs: lpTag.dbs || [], ctn: lpTag.ctn || [], sdes: lpTag.sdes || [], ev: lpTag.ev || [] }; lpTag.init(); } else { window.lpTag._tagCount += 1; }
+
+                lpTag.tagletSection = "aiu"; //values can be "ctu" or "aiu"
+                lpTag.section = "Degrees";
+
+                lpTag.sdes = lpTag.sdes || [];
+                lpTag.sdes.push(
+                    {
+                        "type": "lead", //MANDATORY
+                        "lead": {
+                            "leadId": "<CampaignID>" //LEAD IDENTIFIER OR TICKET ID
+                        }
+                    },
+                    {
+                        "type": "service", //MANDATORY
+                        "service": {
+                            "topic": "<Degree>",
+                            "category": "<Program>",
+                            "serviceId": "<Concentration>"
+                        }
+                    }
+                );
+
+  </script>
+  <cec-loading style="display: none;">
+    <div class="cec-loading">
+      <div class="spinner">
+        <div>
+          <strong class="brand-primary-color ng-binding">
+            Loading...
+          </strong>
+        </div>
+        <div id="spinLoading">
+          <div class="spinner" role="progressbar" style="position: absolute; width: 0px; z-index: 2000000000; left: 50%; top: 50%;"><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-0-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(0deg) translate(42px, 0px); border-radius: 7px;"></div></div><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-1-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(27deg) translate(42px, 0px); border-radius: 7px;"></div></div><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-2-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(55deg) translate(42px, 0px); border-radius: 7px;"></div></div><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-3-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(83deg) translate(42px, 0px); border-radius: 7px;"></div></div><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-4-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(110deg) translate(42px, 0px); border-radius: 7px;"></div></div><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-5-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(138deg) translate(42px, 0px); border-radius: 7px;"></div></div><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-6-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(166deg) translate(42px, 0px); border-radius: 7px;"></div></div><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-7-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(193deg) translate(42px, 0px); border-radius: 7px;"></div></div><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-8-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(221deg) translate(42px, 0px); border-radius: 7px;"></div></div><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-9-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(249deg) translate(42px, 0px); border-radius: 7px;"></div></div><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-10-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(276deg) translate(42px, 0px); border-radius: 7px;"></div></div><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-11-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(304deg) translate(42px, 0px); border-radius: 7px;"></div></div><div style="position: absolute; top: -7px; opacity: 0.25; animation: 1s linear 0s infinite normal none running opacity-60-25-12-13;"><div style="position: absolute; width: 42px; height: 14px; background: rgb(0, 101, 164); box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px; transform-origin: left center; transform: rotate(332deg) translate(42px, 0px); border-radius: 7px;"></div></div></div>
+
+        </div>
+      </div>
+      <div class="background">
+
+      </div>
+    </div>
+  </cec-loading>
+  <div class="white-background-color">
+    <nav class="navbar navbar-default">
+      <div id="navbar" class="navbar-collapse ">
+        <div class="pull-left  mobile-icons visible-xs logo-icon" ng-click="logoClick()">
+          <span class="icon icon-logo-icon-aiu"></span>
+        </div>
+        <ul class="nav navbar-nav pull-left">
+          <li class="active hidden-xs logo-icon" ng-click="logoClick()">
+            <img class="logo-xs header-logo" src="/Media/Content/Campus/5/Images/logo_white_accredited.png" height="75">
+          </li>
+
+          <li>
+            <div class="hidden-sm">
+              <div class="header-text-container">
+                <h4 class="row header-text1" style="font-weight: bold">
+                  AIU<span>'s Application Center</span>
+                </h4>
+              </div>
+            </div>
+            <div class="visible-sm">
+              <div class="header-text-container">
+                <h4 class="row header-text1" style="font-weight: bold">
+                  AIU<span>'s </span>
+                </h4>
+                <h3 class="row header-text2" style="">Application Center</h3>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li class="hidden-xs ">
+            <!-- ngIf: firstName != null -->
+            <div class="white-text-color chat-wraper pull-right" ng-class="{'margin-top-15 ': firstName != null}" style="">
+              <span class="hidden-xs nav-phone-number">1-877-701-3800  </span>
+              <span class="margin-lg-10 hidden-tablet">|</span>
+              <span id="lpGlobalHeader3" class="start-mobile-chat">
+                <div id="LPMcontainer-1564772007613-1" class="LPMcontainer LPMoverlay" role="button" tabindex="0" style="margin: 1px; padding: 0px; border-style: solid; border-width: 0px; font-style: normal; font-weight: normal; font-variant: normal; list-style: none outside none; letter-spacing: normal; line-height: normal; text-decoration: none; vertical-align: baseline; white-space: normal; word-spacing: normal; background-repeat: repeat-x; background-position: left bottom; cursor: auto; display: block; position: relative; top: 0px; left: 0px;"><a data-lp-event="click"><img src="https://www.aiuniv.edu/Media/Default/aiu/chat/CHAT-AIUEnroll-DesktopHeader-Orange.png" border="0"></a></div>
+              </span>
+            </div>
+          </li>
+          <li class="visible-xs" style="width: 74px;">
+            <span id="lpButtonMobile">
+
+            </span>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="padding-right-15">
+
+
+      <div data-ng-controller="EnrolmentCtrl" class="row enrolment-page-container ng-scope">
+
+
+        <!-- ngIf: showNavigation -->
+
+        <div class="enrolment-page-container-without-navigation" ng-hide="showNavigation">
+          <!-- uiView: full --><div ui-view="full" class="ng-scope"></div>
+
+        </div>
+        <div class="enrolment-page-container-without-navigation" ng-hide="showNavigation">
+          <!-- uiView: landingPage --><div ui-view="landingPage" class="ng-scope" style="">
+            <div class="cec-landing-page-container login-page ng-scope">
+              <div class="hidden-xs" style="padding-top:50px"></div>
+              <div class="col-sm-offset-0-5 col-md-offset-0-5 hidden-xs">
+                <div style="padding-top:5px"></div>
+                <div class="row brand-primary-color h1-simple">
+                  <strong class="header-text">Welcome to the Application Center.</strong>
+
+                </div>
+
+                <div class="row">
+                  <div class=" col-md-5 col-sm-7-5 noPadding header-body">
+                    The Application Center is a tool to help you have a smooth experience while applying for admission. Please
+                    contact us with any questions or concerns you may have along the way. We are looking forward to
+                    helping you take the next step in advancing your education!
+
+                  </div>
+                </div>
+              </div>
+              <div class="visible-mobile mobile-info-phone visible-tablet">
+                <span class="icon icon-user-telephone"></span>
+                <span>Questions?</span>
+                <a class="white-text-color ng-binding" target="_self" href="tel:1-877-701-3800">Tap to Call 1-877-701-3800</a>
+              </div>
+              <div class="hidden-xs" style="padding-top:100px;"></div>
+              <div class="left-panel">
+                <div class="row noMargin">
+                  <div class="col-md-push-0-5 col-sm-offset-0-2 col-sm-6  xs-top-section">
+                    <h4 class="brand-primary-color margin-top-15">
+                      <strong class="text-apply-for-admission  ng-binding">
+                        Apply for Admission to AIU<cec-show-online><!-- ngIf: campusInformation.CampusId!=5 --></cec-show-online>
+                      </strong>
+                    </h4>
+                    <div style="margin-bottom:10px;" class=" container hidden-xs">
+
+                    </div>
+                    <div class="row noMargin-xs margin-bottom-15-xs">
+                      <div class="row login-page-point">
+                        <div class="col-xs-1 ">
+                          <div class="icon icon-check-circle cec-landingpage-circle cec-green-color"></div>
+                        </div>
+                        <div class="col-sm-11 hidden-xs visible-tablet">
+                          <div class=""><strong class="subheader">Fast.</strong></div>
+                          <div class="">Complete your online application in 10-15 minutes.</div>
+                        </div>
+                        <div class="col-xs-10 visible-xs hidden-tablet">
+                          <div style="margin-top: 8px;">Application takes 10-15 minutes to complete.</div>
+                        </div>
+                      </div>
+                      <div class="row login-page-point">
+                        <div class="col-xs-1">
+                          <div class="icon icon-check-circle cec-landingpage-circle cec-green-color"></div>
+                        </div>
+                        <div class="col-sm-11  hidden-xs visible-tablet">
+                          <div class=""><strong class="subheader">Convenient.</strong></div>
+                          <div class="">Start now and finish later if needed.</div>
+                        </div>
+                        <div class="col-xs-10 visible-xs hidden-tablet">
+                          <div style="margin-top: 8px;">Start now and finish later if needed.</div>
+                        </div>
+                      </div>
+                      <div class="row login-page-point">
+                        <div class="col-xs-1">
+                          <div class="icon icon-check-circle cec-landingpage-circle cec-green-color"></div>
+                        </div>
+                        <div class="col-sm-11  hidden-xs visible-tablet">
+                          <div class=""><strong class="subheader">Safe.</strong></div>
+                          <div class="">Your information is kept secure &amp; confidential.</div>
+                        </div>
+                        <div class="col-xs-10 visible-xs hidden-tablet">
+                          <div style="margin-top: 8px;">Your information is kept secure &amp; confidential.</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div ng-click="gotoSetupApplication()" class="btn  brand-gradient1-background btn-start-applicaton col-xs-12  ">
+                      <div class=" ">
+                        <div class="icon icon-arrow-right-circle start-applicaton-icon pull-left"></div>
+                      </div>
+                      <div class=" col-xs-10" style=" padding-left: 5px; ">
+                        <strong class="pull-left start-applicaton-new-user-text col-xs-7">New Users ―</strong>
+                        <span class="col-xs-7 start-applicaton-start-now-text">Start Your Application Now</span>
+                      </div>
+                    </div>
+                    <div class="text-does-not-do-business">
+                      AIU does not do business in the Commonwealth of Massachusetts or the European Union (EU) and does not accept applications from residents of these jurisdictions seeking to enroll at the University.
+                    </div>
+                  </div>
+                  <div style="margin-bottom:15px;" class=" container visible-xs ">
+
+                  </div>
+                  <div class="col-sm-5-5 col-xs-12 landingpage-background-xs margin-top-15">
+                    <div class="vertical-line hidden-tablet"></div>
+                    <div class="col-sm-1">
+                    </div>
+                    <div class="col-sm-10 col-sm-push-0-5 col-xs-offset-0-5">
+                      <form novalidate="" ng-submit="login()" class="form-horizontal ng-pristine ng-invalid ng-invalid-required" name="loginForm" id="loginForm">
+                        <h4 class="row brand-primary-color-sm h1-simple "><strong>Already have a username and password?</strong></h4>
+                        <div class="row hidden-xs">If you already have a username and password please log in below.</div>
+                        <label for="userName" class="row form-label">Username:</label>
+                        <div class="form-group margin-bottom-0">
+
+                          <div class="col-lg-8 col-md-12 col-sm-12 noPadding">
+                            <div ng-show="loginForm.$submitted  || loginForm.userName.$touched" role="alert" class="ng-hide">
+                              <div ng-show="loginForm.userName.$error.required" class="well well-sm cec-message-error">
+                                Username is required.
+                              </div>
+                            </div>
+                            <div ng-show="errorMessage" class="well well-sm cec-message-error ng-binding ng-hide">
+
+                            </div>
+                            <div class="two-col-container" style="overflow:inherit">
+                              <div class="right-col-100 hidden-xs" tooltip-append-to-body="true" uib-tooltip="Your username should be in an email you've received from us.">
+                                <div class="icon icon-question-circle" style="font-size:17px !important;margin-top:2px !important;"></div>
+                              </div>
+                              <div class="right-col-100 visible-xs" tooltip-placement="left" tooltip-append-to-body="true" uib-tooltip="Your username should be in an email you've received from us.">
+                                <div class="icon icon-question-circle" style="font-size:17px !important;"></div>
+                              </div>
+                              <div class="left-col-dynamic">
+                                <input name="userName" type="text" id="userName" ng-model="formData.userName" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row cec-single-checkbox-small">
+                          <input type="checkbox" id="usernameCheckbox" ng-model="local.rememberUser" class="ng-pristine ng-untouched ng-valid ng-empty"> <label for="usernameCheckbox">Remember Username</label>
+                        </div>
+                        <label for="passowrd" class="row form-label">Password:</label>
+                        <div class="form-group margin-bottom-0">
+                          <div class="col-lg-8 col-md-12 col-sm-12 noPadding">
+                            <div ng-show="loginForm.$submitted  || loginForm.password.$touched" role="alert" class="ng-hide">
+                              <div ng-show="loginForm.password.$error.required" class="well well-sm cec-message-error">
+                                Password is required.
+                              </div>
+                            </div>
+                            <div class="two-col-container" style="overflow:inherit">
+                              <div class="right-col-100 hidden-xs" tooltip-append-to-body="true" uib-tooltip="You created a password when you started the application process.">
+                                <div class="icon icon-question-circle" style="font-size:17px !important;margin-top:2px !important;"></div>
+                              </div>
+                              <div class="right-col-100 visible-xs" tooltip-placement="left" tooltip-append-to-body="true" uib-tooltip="You created a password when you started the application process.">
+                                <div class="icon icon-question-circle" style="font-size:17px !important;"></div>
+                              </div>
+                              <div class="left-col-dynamic">
+                                <input name="password" type="password" autocomplete="off" id="password" ng-model="formData.password" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row cec-single-checkbox-small">
+                          <input type="checkbox" id="showPasswordCheckbox" cecpasswordid="password" cec-show-password="" class="ng-isolate-scope">
+                          <label for="showPasswordCheckbox">Show Password</label>
+                        </div>
+                        <div class="row login-btn-contener">
+                          <button type="submit" class="btn btn-cec brand-gradient3-background btn-login pull-left" style="margin-right:15px;">
+                            <span class="icon icon-lock"></span>
+                            <span class="inner-text">Log In</span>
+                          </button>
+                          <input type="submit" class="hidden" value=""><!--for enter event-->
+                          <a target="_self" href="account/#/ForgotUsernamePassword" class="col-md-12 col-lg-8 col-sm-12 noPadding forgot-pass-username-link">Forgot username and/or password?</a>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <footer class="col-xs-12" style="  padding-top: 15px;  padding-bottom: 15px;">
+      <!-- ngIf: inited == true -->
+      <div class="col-sm-5 col-md-5 right-footer hidden-xs">
+        <div class="icon icon-chat-person "></div>
+        <div class="col-sm-10 col-sm-push-0-5 footer-contact-info">
+          <div class="row ">
+            <div class="questions">
+              Questions?
+            </div>
+          </div>
+          <div class="row call-chat-info">
+            Call us at <a class="white-text-color" href="tel:1-877-701-3800">1-877-701-3800</a>
+            <span id="lpButton6">
+              <div id="LPMcontainer-1564772007366-0" class="LPMcontainer LPMoverlay" role="button" tabindex="0" style="margin: 1px; padding: 0px; border-style: solid; border-width: 0px; font-style: normal; font-weight: normal; font-variant: normal; list-style: none outside none; letter-spacing: normal; line-height: normal; text-decoration: none; vertical-align: baseline; white-space: normal; word-spacing: normal; background-repeat: repeat-x; background-position: left bottom; cursor: auto; display: block; position: relative; top: 0px; left: 0px;">
+                <span>
+                  <span>or</span>
+                  <a data-lp-event="click" style="color:white;">
+                    Chat Live
+                  </a>
+                </span>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="pull-right col-sm-7 col-xs-12 col-md-6 left-footer">
+        <div class="row statement-list">
+          <small>
+            <a class="white-text-color" href="http://www.aiuniv.edu/privacy-statement">Privacy Policy</a> |
+            <a class="white-text-color" href="http://www.aiuniv.edu/terms-and-conditions"> Terms of Use</a> |
+            <a class="white-text-color" href="http://www.aiuniv.edu/about-our-ads"> About Our Ads</a> |
+            <a class="white-text-color" href="http://www.aiuniv.edu/student-disclosures">Student Disclosures</a>
+          </small>
+        </div>
+        <div class="row"><small>© 2019 American InterContinental University. All rights reserved.</small></div>
+        <div class="row"><small>AIU does not guarantee employment or salary.</small></div>
+      </div>
+    </footer>
+
+  </div>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false&amp;key=AIzaSyC7Fy-xvtKGkdupxKjKBPcZ9t1gUFJScp0"></script><iframe src="https://a2443900815.cdn.optimizely.com/client_storage/a2443900815.html" hidden="" aria-hidden="true" tabindex="-1" title="Optimizely Internal Frame" height="0" width="0" style="display: none;"></iframe>
+  <script src="Media/Bundle/script.min.js?v=20190727051909"></script>
+
+  <script src="/bundles/angularCtrl?v=tbeNnU0WI7-Tk_ZXejzxpXirjIHVEMada5855NTmHys1"></script>
+
+
+
+
+  <script>
+        function getCampusInformation() {
+            return {"ID":0,"CampusSite":null,"CampusId":5,"SSID":2,"CampusName":"AIU","CampusLongName":"American InterContinental University","CampusShortName":"AIU","PhoneNumber":"1-877-701-3800","TechPhoneNumber":"1-877-221-5800","TechPhoneNumberExtn":"Option 2","PrivacyStatementUrl":"http://www.aiuniv.edu/privacy-statement","LegalTermsConditionsUrl":"http://www.aiuniv.edu/terms-and-conditions","AboutOurAdsUrl":"http://www.aiuniv.edu/about-our-ads","StudentDisclosuresUrl":"http://www.aiuniv.edu/student-disclosures","FaxNumber":"1-866-347-7383","EnrollEmail":"850Enroll@careered.com","SchoolCatalogUrl":"http://www.aiuniv.edu/students/publications/catalogs","FacebookUrl":"https://www.facebook.com/AmericanInterContinentalUniversity","LinkedInUrl":"https://www.linkedin.com/company/american-intercontinental-university","TwitterUrl":"https://twitter.com/aiuniv","FsaUrl":"https://fsaid.ed.gov/","FafsaUrl":"https://fafsa.ed.gov/","FafsaSchoolCode":"014720","VaShoppingSheetUrl":"https://careeredshoppingsheet.studentaidcalculator.com/","ReEntrytPhoneNumber":"1-877-221-5800","ReEntryPhoneNumberExtn":"x13782","ReEntryPolicyUrl":"http://www.aiuniv.edu/admissions-financial-aid/admissions/return","AppleAppStoreUrl":"https://itunes.apple.com/us/app/aiu/id1070313944?mt=8","GooglePlayStoreUrl":"https://play.google.com/store/apps/details?id=edu.aiuniv&hl=en","MobileAppReviewUrl":"https://youtu.be/i-eVvYCIPJM","IsLiveEngage":true,"VaInfoMsgTimeOut":"2000","VaDisableTimeOut":"13000","WetSignatoryValidator":1.0};
+        }
+  </script>
+  <script type="text/javascript">
+            (function () {
+                var tagjs = document.createElement("script");
+                var s = document.getElementsByTagName("script")[0];
+                tagjs.async = true;
+                tagjs.src = "//s.btstatic.com/tag.js#site=Sowjc2j";
+                s.parentNode.insertBefore(tagjs, s);
+            }());
+  </script>
+  <noscript>
+    <iframe src="//s.thebrighttag.com/iframe?c=Sowjc2j" width="1" height="1" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+  </noscript>
+
+
+
+  <iframe tabindex="-1" aria-hidden="true" role="presentation" title="Intentionally blank" name="lpSS_33304374013" id="lpSS_33304374013" src="https://lpcdn.lpsnmedia.net/le_secure_storage/3.7.0.1-release_442/storage.secure.min.html?loc=https%3A%2F%2Fint-enrollment.aiuniv.edu&amp;site=88375745&amp;env=prod" style="width: 0px; height: 0px; position: absolute; top: -1000px; left: -1000px; display: none;"></iframe><div id="LPMcontainer-1564772068476-2" class="LPMcontainer LPMoverlay" style="margin: -110px 1px 1px auto; padding: 0px; border-style: solid; border-width: 0px; font-style: normal; font-weight: normal; font-variant: normal; list-style: none outside none; letter-spacing: normal; line-height: normal; text-decoration: none; vertical-align: baseline; white-space: normal; word-spacing: normal; background-repeat: repeat-x; background-position: left bottom; cursor: auto; display: block; z-index: 107158; position: fixed; top: 50%; bottom: auto; left: 0px; right: auto;">
+    <div>
+      <div>
+        <a data-lp-event="click">
+          <img src="https://www.aiuniv.edu/Media/Default/aiu/chat/chat_prompt_top.gif" alt="Start Chat" id="lpNeedHelp" border="0" tabindex="2">
+        </a>
+      </div>
+      <div>
+        <a data-lp-event="close">
+          <img src="https://www.aiuniv.edu/Media/Default/aiu/chat/chat_prompt_btm.gif" alt="No thanks" id="lpNoThanks" border="0" tabindex="3">
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
