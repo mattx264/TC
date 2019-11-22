@@ -30,6 +30,7 @@ namespace TC.WebService.Helpers
             return claimsPrincipal.FindFirst("Guid").Value;
            
         }
+
         public static string GetClaims(ClaimsPrincipal claimsPrincipal, string name) {
             return claimsPrincipal.FindFirst(name).Value;
         }

@@ -42,7 +42,7 @@ namespace TC.BrowserEngine.Selenium.Commands
             {
                 case BrowserOperationEnum.GoToUrl:
                     this.GoToUrl(values[0]);
-                break;
+                    break;
                 case BrowserOperationEnum.WaitUntilBrowserReady:
                     this.WaitUntilBrowserReady();
                     break;
@@ -51,6 +51,6 @@ namespace TC.BrowserEngine.Selenium.Commands
                     break;
             }
         }
-       
+
     }
 }

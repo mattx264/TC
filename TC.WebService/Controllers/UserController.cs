@@ -100,7 +100,7 @@ namespace TC.WebService.Controllers
             var token = new JwtSecurityToken(issuer: _config["Jwt:Issuer"],
                audience: _config["Jwt:Issuer"],
                claims: claimsForAccessToken.ToArray(),
-              expires: DateTime.Now.AddMinutes(120),
+              expires: DateTime.Now.AddMonths(1),
               signingCredentials: creds
 
              );

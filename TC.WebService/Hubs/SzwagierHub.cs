@@ -58,17 +58,17 @@ namespace TC.WebService.Hubs
                 ConnectionId = Context.ConnectionId,
                 UserId = Context.User.Claims.First(x => x.Type == "Guid").Value
             };
-            if (szwagier.SzwagierType == SzwagierType.SzwagierConsole)
-            {
-                //if szwagier is public 
-                // by login in with user name and password is private by default 
-                // TODO if you want to create public 
-                // 1. make option in user settings to change pref to have public browser agent 
-                // 2. public browser agent can be only created 
-                szwagierModels.Add(szwagier);
-            }
-            else
-            {
+            //if (szwagier.SzwagierType == SzwagierType.SzwagierConsole)
+            //{
+            //    //if szwagier is public 
+            //    // by login in with user name and password is private by default 
+            //    // TODO if you want to create public 
+            //    // 1. make option in user settings to change pref to have public browser agent 
+            //    // 2. public browser agent can be only created 
+            //    szwagierModels.Add(szwagier);
+            //}
+            //else
+            //{
                 var searchedSzwagier = szwagierModels.Where(x => x.UserId == szwagier.UserId && x.SzwagierType == szwagier.SzwagierType);
                 if (searchedSzwagier != null)
                 {
@@ -81,7 +81,7 @@ namespace TC.WebService.Hubs
 
                 }
                 szwagierModels.Add(szwagier);
-            }
+          //  }
             _distributedCache.SetAsync<List<SzwagierModel>>(getCacheKey(), szwagierModels, new DistributedCacheEntryOptions() { AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2) }).GetAwaiter();
 
             foreach (var szw in szwagierModels)

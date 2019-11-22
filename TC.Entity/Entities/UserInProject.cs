@@ -4,9 +4,13 @@ using System.Text;
 
 namespace TC.Entity.Entities
 {
-    public class TestProject : IEntity
+    public class UserInProject : IEntity
     {
         public int Id { get; set; }
+        public int ProjectId { get; set; }
+        public int UserModelId { get; set; }
+        public virtual Project Project { get; set; }
+        public virtual UserModel UserModel { get; set; }
         public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }

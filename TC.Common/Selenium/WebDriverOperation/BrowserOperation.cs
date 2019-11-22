@@ -5,7 +5,7 @@ using System.Text;
 namespace TC.Common.Selenium
 {
     //https://www.automatetheplanet.com/selenium-webdriver-csharp-cheat-sheet/
-    public enum BrowserOperationEnum
+    public enum BrowserOperationEnum 
     {
         WebDriverWait,
         WaitUntil,

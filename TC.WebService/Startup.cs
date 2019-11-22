@@ -57,7 +57,7 @@ namespace TC.WebService
                        LifetimeValidator = (before, expires, token, param) =>
                        {
                            return expires > DateTime.UtcNow;
-                       },
+                       },                      
                        ValidateAudience = false,
                        ValidateIssuer = false,
                        ValidateActor = false,
@@ -125,6 +125,7 @@ namespace TC.WebService
             services.AddScoped<ILoggerManager, LoggerManager>();
             services.AddScoped<UserRepository>();
             services.AddScoped<ProjectRepository>();
+            services.AddScoped<TestInfoRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerManager logger)

@@ -50,6 +50,19 @@ namespace TC.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Projects");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2019, 11, 18, 15, 38, 10, 552, DateTimeKind.Local).AddTicks(5979),
+                            DateModified = new DateTime(2019, 11, 18, 15, 38, 10, 552, DateTimeKind.Local).AddTicks(6663),
+                            Description = "",
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            Name = "Google"
+                        });
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.ProjectDomain", b =>
@@ -77,7 +90,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -85,6 +98,30 @@ namespace TC.DataAccess.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectDomain");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2019, 11, 18, 15, 38, 10, 554, DateTimeKind.Local).AddTicks(2895),
+                            DateModified = new DateTime(2019, 11, 18, 15, 38, 10, 554, DateTimeKind.Local).AddTicks(3385),
+                            Domain = "google.com",
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            ProjectId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2019, 11, 18, 15, 38, 10, 554, DateTimeKind.Local).AddTicks(4297),
+                            DateModified = new DateTime(2019, 11, 18, 15, 38, 10, 554, DateTimeKind.Local).AddTicks(4319),
+                            Domain = "google.pl",
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            ProjectId = 1
+                        });
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.TestInfo", b =>
@@ -103,6 +140,9 @@ namespace TC.DataAccess.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -112,9 +152,32 @@ namespace TC.DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SeleniumCommands")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("ProjectId");
+
                     b.ToTable("TestInfo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2019, 11, 18, 15, 38, 10, 555, DateTimeKind.Local).AddTicks(1115),
+                            DateModified = new DateTime(2019, 11, 18, 15, 38, 10, 555, DateTimeKind.Local).AddTicks(1654),
+                            Description = "Using google search find c# tutorial",
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            Name = "Search for c# tutorial",
+                            ProjectId = 1,
+                            SeleniumCommands = "[{\"OperationId\":3,\"WebDriverOperationType\":0,\"Values\":[\"https://www.google.com\"]}]"
+                        });
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.UserGroup", b =>
@@ -169,24 +232,56 @@ namespace TC.DataAccess.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int>("UserGroupId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserGroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserModelId")
+                    b.Property<int>("UserModelId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
 
                     b.HasIndex("UserGroupId");
 
                     b.HasIndex("UserModelId");
 
                     b.ToTable("UserInGroup");
+                });
+
+            modelBuilder.Entity("TC.Entity.Entities.UserInProject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserModelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("UserModelId");
+
+                    b.ToTable("UserInProject");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.UserModel", b =>
@@ -271,22 +366,48 @@ namespace TC.DataAccess.Migrations
                 {
                     b.HasOne("TC.Entity.Entities.Project", "Project")
                         .WithMany("ProjectDomains")
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TC.Entity.Entities.TestInfo", b =>
+                {
+                    b.HasOne("TC.Entity.Entities.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.UserInGroup", b =>
                 {
-                    b.HasOne("TC.Entity.Entities.Project", null)
-                        .WithMany("UserGroups")
-                        .HasForeignKey("ProjectId");
-
                     b.HasOne("TC.Entity.Entities.UserGroup", "UserGroup")
                         .WithMany("UserInGroup")
-                        .HasForeignKey("UserGroupId");
+                        .HasForeignKey("UserGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TC.Entity.Entities.UserModel", "UserModel")
                         .WithMany("UserGroups")
-                        .HasForeignKey("UserModelId");
+                        .HasForeignKey("UserModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TC.Entity.Entities.UserInProject", b =>
+                {
+                    b.HasOne("TC.Entity.Entities.Project", "Project")
+                        .WithMany("UserInProject")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TC.Entity.Entities.UserModel", "UserModel")
+                        .WithMany()
+                        .HasForeignKey("UserModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

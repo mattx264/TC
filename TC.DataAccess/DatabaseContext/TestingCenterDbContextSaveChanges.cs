@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using TC.Entity;
 
 namespace TC.DataAccess.DatabaseContext
@@ -25,10 +26,12 @@ namespace TC.DataAccess.DatabaseContext
 
             var dateModified = DateTime.Now;
 
-            // string currentPrincipalName = string.IsNullOrEmpty(Thread.CurrentPrincipal.Identity.Name)
+            //  string currentPrincipalName = string.IsNullOrEmpty(Thread.CurrentPrincipal.Identity.Name)
             //    ? "Unknown"
-            //   : Thread.CurrentPrincipal.Identity.Name;
-            string currentPrincipalName = "not set";
+            //    : Thread.CurrentPrincipal.Identity.Name;
+            string currentPrincipalName = "TODO";
+
+
             foreach (var entity in addedEntities)
             {
                 entity.CreatedBy = currentPrincipalName;

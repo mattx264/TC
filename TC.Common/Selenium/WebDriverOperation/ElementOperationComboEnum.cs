@@ -8,6 +8,6 @@ namespace TC.Common.Selenium.WebDriverOperation
     {
         Click,
         SendKeys,
-        DropDownSelect
+        DropDownSelectByValue
     }
 }

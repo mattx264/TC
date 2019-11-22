@@ -42,7 +42,7 @@ namespace TC.BrowserEngine.Selenium
 
                 element = RunCommand(command);
             }
-           
+            test(_driver, "");
         }
         private IWebElement RunCommand(SeleniumCommand command)
         {
@@ -50,6 +50,11 @@ namespace TC.BrowserEngine.Selenium
             {
                 throw new Exception("Driver can not be null");
             }
+            // TODO config
+            // _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
+           
+
             switch (command.WebDriverOperationType)
             {
                 case WebDriverOperationType.Locators:
@@ -66,12 +71,35 @@ namespace TC.BrowserEngine.Selenium
                     return null;
                     
             }
+            
             return null;
         }
 
         public string GetPageSource()
         {
            return _driver.PageSource;
+        }
+        public static void test(IWebDriver driver, String action)
+        {
+            // driver.Manage().Timeouts().ImplicitWaitsetScriptTimeout(5, TimeUnit.SECONDS);
+           // ((IJavaScriptExecutor)driver).ExecuteAsyncScript(
+          //          "alert('get');");
+            ((IJavaScriptExecutor)driver).ExecuteScript("alert('Hello');");
+
+        }
+        public static void WaitForAjax(IWebDriver driver, String action)
+        {
+           // driver.Manage().Timeouts().ImplicitWaitsetScriptTimeout(5, TimeUnit.SECONDS);
+            ((IJavaScriptExecutor)driver).ExecuteAsyncScript(
+                    "var callback = arguments[arguments.length - 1];" +
+                            "var xhr = new XMLHttpRequest();" +
+                            "xhr.open('POST', '/" + action + "', true);" +
+                            "xhr.onreadystatechange = function() {" +
+                            "  if (xhr.readyState == 4) {" +
+                            "    callback(xhr.responseText);" +
+                            "  }" +
+                            "};" +
+                            "xhr.send();");
         }
     }
 }

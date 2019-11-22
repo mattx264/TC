@@ -27,24 +27,6 @@ namespace TC.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TestInfo",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    IsActive = table.Column<bool>(nullable: false),
-                    CreatedBy = table.Column<string>(nullable: true),
-                    ModifiedBy = table.Column<string>(nullable: true),
-                    DateAdded = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TestInfo", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserGroup",
                 columns: table => new
                 {
@@ -103,8 +85,8 @@ namespace TC.DataAccess.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Domain = table.Column<string>(nullable: true),
+                    ProjectId = table.Column<int>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
-                    ProjectId = table.Column<int>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
                     ModifiedBy = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: false),
@@ -118,7 +100,34 @@ namespace TC.DataAccess.Migrations
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TestInfo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProjectId = table.Column<int>(nullable: false),
+                    SeleniumCommands = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    DateAdded = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestInfo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TestInfo_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -127,37 +136,81 @@ namespace TC.DataAccess.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserGroupId = table.Column<int>(nullable: true),
-                    UserModelId = table.Column<int>(nullable: true),
+                    UserModelId = table.Column<int>(nullable: false),
+                    UserGroupId = table.Column<int>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
                     CreatedBy = table.Column<string>(nullable: true),
                     ModifiedBy = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
-                    ProjectId = table.Column<int>(nullable: true)
+                    DateModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserInGroup", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserInGroup_Projects_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Projects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_UserInGroup_UserGroup_UserGroupId",
                         column: x => x.UserGroupId,
                         principalTable: "UserGroup",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserInGroup_UserModel_UserModelId",
                         column: x => x.UserModelId,
                         principalTable: "UserModel",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "UserInProject",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProjectId = table.Column<int>(nullable: false),
+                    UserModelId = table.Column<int>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    DateAdded = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserInProject", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserInProject_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserInProject_UserModel_UserModelId",
+                        column: x => x.UserModelId,
+                        principalTable: "UserModel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Projects",
+                columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Description", "IsActive", "ModifiedBy", "Name" },
+                values: new object[] { 1, "system", new DateTime(2019, 11, 18, 15, 38, 10, 552, DateTimeKind.Local).AddTicks(5979), new DateTime(2019, 11, 18, 15, 38, 10, 552, DateTimeKind.Local).AddTicks(6663), "", true, "system", "Google" });
+
+            migrationBuilder.InsertData(
+                table: "ProjectDomain",
+                columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Domain", "IsActive", "ModifiedBy", "ProjectId" },
+                values: new object[] { 1, "system", new DateTime(2019, 11, 18, 15, 38, 10, 554, DateTimeKind.Local).AddTicks(2895), new DateTime(2019, 11, 18, 15, 38, 10, 554, DateTimeKind.Local).AddTicks(3385), "google.com", true, "system", 1 });
+
+            migrationBuilder.InsertData(
+                table: "ProjectDomain",
+                columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Domain", "IsActive", "ModifiedBy", "ProjectId" },
+                values: new object[] { 2, "system", new DateTime(2019, 11, 18, 15, 38, 10, 554, DateTimeKind.Local).AddTicks(4297), new DateTime(2019, 11, 18, 15, 38, 10, 554, DateTimeKind.Local).AddTicks(4319), "google.pl", true, "system", 1 });
+
+            migrationBuilder.InsertData(
+                table: "TestInfo",
+                columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Description", "IsActive", "ModifiedBy", "Name", "ProjectId", "SeleniumCommands" },
+                values: new object[] { 1, "system", new DateTime(2019, 11, 18, 15, 38, 10, 555, DateTimeKind.Local).AddTicks(1115), new DateTime(2019, 11, 18, 15, 38, 10, 555, DateTimeKind.Local).AddTicks(1654), "Using google search find c# tutorial", true, "system", "Search for c# tutorial", 1, "[{\"OperationId\":3,\"WebDriverOperationType\":0,\"Values\":[\"https://www.google.com\"]}]" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectDomain_ProjectId",
@@ -165,8 +218,8 @@ namespace TC.DataAccess.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserInGroup_ProjectId",
-                table: "UserInGroup",
+                name: "IX_TestInfo_ProjectId",
+                table: "TestInfo",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
@@ -177,6 +230,16 @@ namespace TC.DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_UserInGroup_UserModelId",
                 table: "UserInGroup",
+                column: "UserModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserInProject_ProjectId",
+                table: "UserInProject",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserInProject_UserModelId",
+                table: "UserInProject",
                 column: "UserModelId");
         }
 
@@ -192,10 +255,13 @@ namespace TC.DataAccess.Migrations
                 name: "UserInGroup");
 
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "UserInProject");
 
             migrationBuilder.DropTable(
                 name: "UserGroup");
+
+            migrationBuilder.DropTable(
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "UserModel");

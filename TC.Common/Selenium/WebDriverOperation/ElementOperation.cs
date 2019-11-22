@@ -16,5 +16,7 @@ namespace TC.Common.Selenium
         Enabled,
         Displayed,
         DragAndDropToOffset,
+        SelectByText,
+        SelectByValue,
     }
 }

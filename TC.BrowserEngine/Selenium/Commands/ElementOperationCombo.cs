@@ -1,8 +1,6 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
-using System.Text;
-using OpenQA.Selenium;
-using TC.Common.Selenium;
 using TC.Common.Selenium.WebDriverOperation;
 
 namespace TC.BrowserEngine.Selenium.Commands
@@ -15,17 +13,24 @@ namespace TC.BrowserEngine.Selenium.Commands
         {
             _locator = new Locator(driver);
         }
-        public void SendKeys(string selector,string value)
+        public void SendKeys(string selector, string value)
         {
             var element = _locator.XPath(selector);
             if (value.Contains("Keys."))
             {
-                //TODO finish this
-                element.SendKeys(Keys.Enter);
+                //TODO finish this - add more keys
+                switch (value)
+                {
+                    case "Keys.ENTER":
+                        element.SendKeys(Keys.Enter);
+                        break;
+                    case "Keys.TAB":
+                        element.SendKeys(Keys.Tab);
+                        break;
+                }
             }
             else
             {
-                
                 element.SendKeys(value);
             }
         }
@@ -34,9 +39,18 @@ namespace TC.BrowserEngine.Selenium.Commands
             var element = _locator.XPath(selector);
             element.Click();
         }
+        public void DropDownSelectByValue(string selector, string value)
+        {
+            var element = _locator.XPath(selector);
+
+            var selectElement = new SelectElement(element);
+            selectElement.SelectByValue(value);
+
+        }
 
         public void GetByEnum(int operationId, IList<string> values)
         {
+            
             switch ((ElementOperationComboEnum)operationId)
             {
                 case ElementOperationComboEnum.SendKeys:
@@ -44,6 +58,9 @@ namespace TC.BrowserEngine.Selenium.Commands
                     break;
                 case ElementOperationComboEnum.Click:
                     this.Click(values[0]);
+                    break;
+                case ElementOperationComboEnum.DropDownSelectByValue:
+                    this.DropDownSelectByValue(values[0], values[1]);
                     break;
             }
         }

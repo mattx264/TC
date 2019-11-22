@@ -20,6 +20,10 @@ namespace TC.DataAccess.Repositories
             Guid guid = new Guid(guidString);
             return context.UserModel.FirstOrDefault(x => x.Guid == guid);
         }
+        public UserModel GetByEmail(string email)
+        {
+            return context.UserModel.FirstOrDefault(x => x.Email == email);
+        }
     }
 
 }

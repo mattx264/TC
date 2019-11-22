@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Http;
+using TC.BrowserEngine.AdminPanel.ViewModels;
 
 namespace TC.BrowserEngine.Helpers
 {
@@ -12,7 +12,6 @@ namespace TC.BrowserEngine.Helpers
     public static class Login
     {
         static HttpClient client = new HttpClient();
-
 
         public static async Task<string> LoginAsync(string email, string password)
         {
@@ -49,11 +48,7 @@ namespace TC.BrowserEngine.Helpers
                 return null;
             }
         }
-        public class LoginViewModel
-        {
-            public string Email { get; set; }
-            public string Password { get; set; }
-        }
+      
         public class LoginResponse
         {
             public string Name { get; set; }
