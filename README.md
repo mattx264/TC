@@ -19,7 +19,7 @@
  1. Open vscode 
  2. Go to \TC\TC.FrontEnd\Angular
  4. Run in console `npm install`
- 5. Run in console `ng serve`
+ 5. Run in console `ng serve` local service will start on port 4200, go to website http://localhost:4200/ - don't forget about backend setup 
  ### Setup chrome extension 
  1. Go to \TC\TC.FrontEnd\Angular
  2. Run command `ng build tc-browser-recorder`
@@ -30,11 +30,17 @@
  # Back end
  Project architecture:
  ...
+ ### Start backend
+ 1. Open wsl ubuntu console and run `redis-server` (if redis is not setup - follow instruction in TC/Redis-setup.txt)
+ 1. Open solution in visual studio
+ 2. Start IIS express project TC.WebService (it should be by default)
+ 3. 
+ 
  #### Technology:
 * .NetCore
 * SignalR
-* EntityFramework
+* EntityFramework - code first 
 * JWT
 * WebApi
 * NUnit
- 
+* Redis
