@@ -26,7 +26,7 @@ namespace TC.BrowserEngine
 
             //await new FileUploadHelper().UploadImageAsync(fileInfo.CreateReadStream(), "test.jpg");
 
-            return;
+         
             var localServer = LocalServer.Instance;
 
             string token = new LocalUserRepository().GetToken();

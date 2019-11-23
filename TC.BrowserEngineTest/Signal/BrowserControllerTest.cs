@@ -12,7 +12,7 @@ namespace TC.BrowserEngineTest.Signal
     public class BrowserControllerTest
     {
         [Test]
-        public async System.Threading.Tasks.Task OpenBrowserAsync()
+        public async void OpenBrowserAsync()
         {
             var browser = new BrowserController(BrowserType.Chrome);
             await browser.Start();
@@ -24,6 +24,22 @@ namespace TC.BrowserEngineTest.Signal
                     Values=new string[]{ "https://www.google.com/" }
             } });
         
+        }
+
+        [Test]
+        public async void ClickElement()
+        {
+            //TODO
+            var browser = new BrowserController(BrowserType.Chrome);
+            await browser.Start();
+            browser.ExecCommand(new List<SeleniumCommand> {
+                new SeleniumCommand()
+                {
+                    WebDriverOperationType=WebDriverOperationType.BrowserNavigationOperation,
+                    OperationId=3,
+                    Values=new string[]{ "https://www.google.com/" }
+            } });
+
         }
     }
 }
