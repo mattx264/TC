@@ -18,11 +18,11 @@
  # Start coding - front end
  1. Open vscode 
  2. Go to \TC\TC.FrontEnd\Angular
- 4. npm install
- 5. Run `ng serve`
- Setup chrome extension 
+ 4. Run in console `npm install`
+ 5. Run in console `ng serve`
+ ### Setup chrome extension 
  1. Go to \TC\TC.FrontEnd\Angular
- 2. Run ng build tc-browser-recorder
+ 2. Run command `ng build tc-browser-recorder`
  1. Open Chrome
  2. Settings -> Extnesnions -> turn on "Developer mode"
  3. "Load unpacked" set path \TC\TC.FrontEnd\Angular\dist\tc-browser-recorder
