@@ -1,6 +1,6 @@
 # TC
- Setup local
- what you need to start:
+## Local setup
+### What you need to start:
  1. visual studio 2019
  2. visual code
  3. Mssql
@@ -8,12 +8,12 @@
  5. Angular https://angular.io/guide/setup-local
  6. .Net core 3.0 https://dotnet.microsoft.com/download
  
- # Setup:
+ ##W Setup:
  1. Clone git
  2. Create local database
- 21. Run TC/recreate-db.bat - script will create database and seed data.
- 3. Setup redis (required WSL)
- 3.a Follow setup in TC/Redis-setup.txt
+ 3. Run TC/recreate-db.bat - script will create database and seed data.
+ 4. Setup redis (required WSL)
+ 5. Follow setup in TC/Redis-setup.txt
  
  # Start coding - front end
  1. Open vscode 
@@ -30,11 +30,11 @@
  # Back end
  Project architecture:
  ...
- Technology:
- .NetCore
- SignalR
- EntityFramework
- JWT
- WebApi
- NUnit
+ #### Technology:
+* .NetCore
+* SignalR
+* EntityFramework
+* JWT
+* WebApi
+* NUnit
  
