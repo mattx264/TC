@@ -1,0 +1,10 @@
+.main-wrapper {
+  display: flex;
+  margin: 0 1rem;
+  app-sidebar {
+    width: 300px;
+  }
+  main {
+    width: 100%;
+  }
+}

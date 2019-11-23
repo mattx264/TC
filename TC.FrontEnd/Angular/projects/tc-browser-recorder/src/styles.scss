@@ -1,0 +1,18 @@
+@import "styles/variables";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+// Import Bootstrap Reboot
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/grid"; // add the grid
+@import "~bootstrap/scss/utilities"; // add css utilities
+
+@import "styles/reset";
+
+html,
+body,
+app-root,
+main {
+  height: 100%;
+  font-size: 1rem;
+}

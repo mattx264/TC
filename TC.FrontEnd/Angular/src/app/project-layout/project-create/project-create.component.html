@@ -1,0 +1,9 @@
+<h1>Add new project</h1>
+<form [formGroup]="formGroup" (ngSubmit)="save()">
+    <app-text-field formControlName="name" name="name" label="Name"></app-text-field>
+    <app-text-field formControlName="description" name="description" label="Description"></app-text-field>
+    <app-text-field formControlName="domains" name="domains" label="Domains" extraInfo="Please insert in comma-separated format format.e.g https://www.tc.net"></app-text-field>
+    <app-text-field formControlName="usersEmail" name="nausersEmailme" label="Users Email" extraInfo="Please insert in comma-separated."></app-text-field>
+    <button mat-raised-button color="primary" type="submit">Save</button>
+
+</form>

@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+// @import 'styles/style';
+// Imports functions, variables, and mixins that are needed by other Bootstrap files
+@import 'styles/variables';
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+// Import Bootstrap Reboot
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/grid"; // add the grid
+@import "~bootstrap/scss/utilities"; // add css utilities
+
+@import 'styles/reset';
+
+body{
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+}
+html,
+body,
+app-root {
+  height: 100%;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  border-radius: 50px;
+
+  &.green {
+    background-color: green;
+  }
+
+  &.red {
+    background-color: red;
+  }
+}
+
+h1.h1-extra-margin {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+form{
+    label{
+        font-weight: bold;
+    }
+    .form-button-wrapper{
+      margin-top: 15px;
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+table.mat-table{
+  width: 100%;
+}
+mat-card{
+  margin-bottom: 15px;
+}

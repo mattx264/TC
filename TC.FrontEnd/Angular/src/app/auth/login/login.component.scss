@@ -1,0 +1,108 @@
+.main-wrapper {
+  width: 0px !important;
+}
+.container {
+  height: 100%;
+  z-index: 1;
+}
+
+#background-img {
+  height: 100%;
+  width: 100%;
+  background: url("/assets/images/HiResHead2_0000_OH Walnut Creek 5.jpg");
+  z-index: -1;
+  background-size: cover;
+  filter: grayscale(50%) blur(2px);
+  position: absolute;
+}
+
+.row {
+  height: 100%;
+}
+
+input {
+  width: 100%;
+  padding-left: 5px;
+}
+
+.center-vertical {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#form {
+  background-color: white;
+  padding: 21px;
+  border-radius: 15px;
+  margin-top: 4rem;
+}
+
+h1,
+p {
+  text-align: center;
+
+  line-height: 1.5;
+  color: #666666;
+}
+
+#loginBtn {
+  margin-top: 10px;
+  height: 45px;
+  border-radius: 25px;
+}
+
+#forgotPass {
+  font-size: 12px;
+  text-align: right;
+  margin: 0;
+  cursor: pointer;
+}
+
+.social-media {
+  text-align: center;
+  
+  a {
+    color: white !important;
+    overflow: hidden;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: inline-flex;
+    margin: 5px;
+    text-decoration: none;
+    .fa {
+      font-size: 25px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  a:hover {
+    background-color: #333333;
+    text-decoration: none;
+  }
+  .facebook-wrapper {
+    background-color: #3b5998;
+    color: white;
+  }
+  .twitter-wrapper {
+    color: white;
+    background-color: #1da1f2;
+  }
+  .google-wrapper {
+    color: white;
+    background-color: #ea4335;
+  }
+}
+
+#sing-up {
+  cursor: pointer;
+}
+
+#unathorized {
+  color: #9f6000;
+  background-color: #feefb3;
+  margin: 10px 0;
+}

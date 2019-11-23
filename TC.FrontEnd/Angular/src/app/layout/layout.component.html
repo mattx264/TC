@@ -1,0 +1,15 @@
+<header *ngIf='showHeader'>
+    <app-header></app-header>
+</header>
+<div class="main-wrapper">
+    <app-sidebar *ngIf='showSidebar'>
+
+    </app-sidebar>
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+</div>
+
+<footer>
+    <app-footer></app-footer>
+</footer>

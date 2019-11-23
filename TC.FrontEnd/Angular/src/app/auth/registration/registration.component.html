@@ -1,0 +1,53 @@
+<div id="background-img">
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 offset-md-4 center-vertical">
+      <div id="form">
+        <h1 class="h1-extra-margin">Create Your Account</h1>
+        <div id="form">
+          <form [formGroup]="registerForm" (ngSubmit)="registerNewUser()">
+            <div class="form-group">
+              <label for="name">First Name</label>
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                <input type="text" pInputText placeholder="Name" class="" id="name"
+                  formControlName="name" name="name">
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                <input type="text" pInputText placeholder="Last Name" class="" id="lastName" formControlName="lastName"
+                  name="email">
+              </div>
+            </div> -->
+            <div class="form-group">
+              <label for="email">Email</label>
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-envelope-o"></i></span>
+                <input type="text" pInputText placeholder="Email" class="" id="email" formControlName="email"
+                  name="email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" pInputText placeholder="Password" class="" id="password"
+                  formControlName="password" name="email">
+              </div>
+            </div>
+            <div class="button-wrapper">
+              <button id="loginBtn" pButton type="button" label="Submit" type="submit"
+              [disabled]="registerForm.invalid"></button>
+            </div>
+         
+
+          </form>
+          <p>or <a id="sing-up" [routerLink]="['/login']">Login</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
