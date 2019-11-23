@@ -8,7 +8,7 @@
  5. Angular https://angular.io/guide/setup-local
  6. .Net core 3.0 https://dotnet.microsoft.com/download
  
- ##W Setup:
+ ## Setup:
  1. Clone git
  2. Create local database
  3. Run TC/recreate-db.bat - script will create database and seed data.
