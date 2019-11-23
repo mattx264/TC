@@ -11,16 +11,16 @@ namespace TC.WebService.Controllers
     [ApiController]
     public class TestManagementController : ControllerBase
     {
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
             return Ok();
         }
-        public async Task<IActionResult> Post()
+        public IActionResult Post()
         {
             return Created("http://example.org/myitem", new { name = "testitem" });
-            
+
         }
-        public async Task<IActionResult> Put()
+        public IActionResult Put()
         {
             return Ok();
         }

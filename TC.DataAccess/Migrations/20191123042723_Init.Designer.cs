@@ -10,7 +10,7 @@ using TC.DataAccess.DatabaseContext;
 namespace TC.DataAccess.Migrations
 {
     [DbContext(typeof(TestingCenterDbContext))]
-    [Migration("20191118213811_Init")]
+    [Migration("20191123042723_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,8 +58,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 11, 18, 15, 38, 10, 552, DateTimeKind.Local).AddTicks(5979),
-                            DateModified = new DateTime(2019, 11, 18, 15, 38, 10, 552, DateTimeKind.Local).AddTicks(6663),
+                            DateAdded = new DateTime(2019, 11, 22, 22, 27, 22, 520, DateTimeKind.Local).AddTicks(6756),
+                            DateModified = new DateTime(2019, 11, 22, 22, 27, 22, 523, DateTimeKind.Local).AddTicks(3549),
                             Description = "",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -106,8 +106,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 11, 18, 15, 38, 10, 554, DateTimeKind.Local).AddTicks(2895),
-                            DateModified = new DateTime(2019, 11, 18, 15, 38, 10, 554, DateTimeKind.Local).AddTicks(3385),
+                            DateAdded = new DateTime(2019, 11, 22, 22, 27, 22, 525, DateTimeKind.Local).AddTicks(3328),
+                            DateModified = new DateTime(2019, 11, 22, 22, 27, 22, 525, DateTimeKind.Local).AddTicks(3953),
                             Domain = "google.com",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -117,8 +117,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 11, 18, 15, 38, 10, 554, DateTimeKind.Local).AddTicks(4297),
-                            DateModified = new DateTime(2019, 11, 18, 15, 38, 10, 554, DateTimeKind.Local).AddTicks(4319),
+                            DateAdded = new DateTime(2019, 11, 22, 22, 27, 22, 525, DateTimeKind.Local).AddTicks(4829),
+                            DateModified = new DateTime(2019, 11, 22, 22, 27, 22, 525, DateTimeKind.Local).AddTicks(4857),
                             Domain = "google.pl",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -171,8 +171,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 11, 18, 15, 38, 10, 555, DateTimeKind.Local).AddTicks(1115),
-                            DateModified = new DateTime(2019, 11, 18, 15, 38, 10, 555, DateTimeKind.Local).AddTicks(1654),
+                            DateAdded = new DateTime(2019, 11, 22, 22, 27, 22, 526, DateTimeKind.Local).AddTicks(2133),
+                            DateModified = new DateTime(2019, 11, 22, 22, 27, 22, 526, DateTimeKind.Local).AddTicks(2710),
                             Description = "Using google search find c# tutorial",
                             IsActive = true,
                             ModifiedBy = "system",
