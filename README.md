@@ -19,7 +19,7 @@
  1. Open vscode 
  2. Go to \TC\TC.FrontEnd\Angular
  4. npm install
- 5. Run ng serve
+ 5. Run `ng serve`
  Setup chrome extension 
  1. Go to \TC\TC.FrontEnd\Angular
  2. Run ng build tc-browser-recorder
