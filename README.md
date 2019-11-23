@@ -11,7 +11,7 @@
  # Setup:
  1. Clone git
  2. Create local database
- 2.a Run TC/recreate-db.bat - script will create database and seed data.
+ 21. Run TC/recreate-db.bat - script will create database and seed data.
  3. Setup redis (required WSL)
  3.a Follow setup in TC/Redis-setup.txt
  
