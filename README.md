@@ -27,7 +27,7 @@
  2. Settings -> Extnesnions -> turn on "Developer mode"
  3. "Load unpacked" set path \TC\TC.FrontEnd\Angular\dist\tc-browser-recorder
  
- #Back end
+ # Back end
  Project architecture:
  ...
  Technology:
