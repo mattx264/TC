@@ -15,7 +15,7 @@ namespace TC.BrowserEngine.Controllers
         {
             _browserType = browserType;
         }
-        public async Task Start(List<Common.Selenium.SeleniumCommand> list)
+        public void Start(List<Common.Selenium.SeleniumCommand> list)
         {
 
             ChromeDriver driver = new BrowserDriver(_browserType).GetDriver() as ChromeDriver;

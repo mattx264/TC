@@ -27,7 +27,7 @@ namespace TC.BrowserEngine.Signal
                 {
                     Console.WriteLine("Server is not avaiable reconnent in 5s");
                     await Task.Delay(5000);
-                    token = await Login.LoginAsync("test@test", "test");
+                    token =  Login.LoginAsync("test@test", "test");
                 }
 
                 connection = new HubConnectionBuilder()

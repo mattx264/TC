@@ -17,7 +17,7 @@ namespace TC.BrowserEngine
 {
     internal class Program
     {
-        private static async Task Main(string[] args)
+        private static void Main(string[] args)
         {
 
             //var provider = new PhysicalFileProvider(@"C:\Users\mmachaj\source\repos\TestingCenter\TC.BrowserEngine\ImageTemp");
@@ -26,7 +26,7 @@ namespace TC.BrowserEngine
 
             //await new FileUploadHelper().UploadImageAsync(fileInfo.CreateReadStream(), "test.jpg");
 
-         
+
             var localServer = LocalServer.Instance;
 
             string token = new LocalUserRepository().GetToken();

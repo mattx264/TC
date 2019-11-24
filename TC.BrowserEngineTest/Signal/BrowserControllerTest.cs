@@ -15,7 +15,7 @@ namespace TC.BrowserEngineTest.Signal
         public async void OpenBrowserAsync()
         {
             var browser = new BrowserController(BrowserType.Chrome);
-            await browser.Start();
+            browser.Start();
             browser.ExecCommand(new List<SeleniumCommand> {
                 new SeleniumCommand()
                 {
@@ -31,7 +31,7 @@ namespace TC.BrowserEngineTest.Signal
         {
             //TODO
             var browser = new BrowserController(BrowserType.Chrome);
-            await browser.Start();
+            browser.Start();
             browser.ExecCommand(new List<SeleniumCommand> {
                 new SeleniumCommand()
                 {

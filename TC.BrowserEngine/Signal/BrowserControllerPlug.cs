@@ -23,21 +23,21 @@ namespace TC.BrowserEngine.Signal
                     //TODO what to do when connectio is null?
                     return; 
                 }
-                connection.On("ReciveTriggerTest", async (int testId, List<SeleniumCommand> commands) =>
+                connection.On("ReciveTriggerTest", (int testId, List<SeleniumCommand> commands) =>
                 {
                     Console.WriteLine(testId);
                     browserController = new BrowserController(BrowserType.Chrome);
-                    browserController.Start().GetAwaiter();
+                    browserController.Start();
                     browserController.RunCommandProcessor(commands);
                     browserController = null;
                 });
-                connection.On("ReciveCommand", async (List<SeleniumCommand> commands) =>
+                connection.On("ReciveCommand", (List<SeleniumCommand> commands) =>
                 {
                     if (browserController == null)
                     {
                         browserController = new BrowserController(BrowserType.Chrome);
 
-                        browserController.Start().GetAwaiter();
+                        browserController.Start();
                     }
                     // after browser is close run clean up
                     browserController.ExecCommand(commands);

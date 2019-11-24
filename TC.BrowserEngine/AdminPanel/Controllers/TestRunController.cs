@@ -22,11 +22,11 @@ namespace TC.BrowserEngine.AdminPanel.Controllers
             _localUserRepository = new LocalUserRepository();
         }
         [HttpPost]
-        public async Task<ActionResult> PostAsync(List<SeleniumCommand> commands)
+        public  ActionResult PostAsync(List<SeleniumCommand> commands)
         {
             var browserController = new BrowserController(BrowserType.Chrome);
 
-            browserController.Start().GetAwaiter();
+             browserController.Start();
 
             // after browser is close run clean up
             browserController.ExecCommand(commands);

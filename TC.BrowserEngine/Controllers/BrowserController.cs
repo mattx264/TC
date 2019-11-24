@@ -19,7 +19,7 @@ namespace TC.BrowserEngine.Controllers
         {
             _browserType = browserType;
         }
-        public async Task Start()
+        public void Start()
         {
             driver = new BrowserDriver(_browserType).GetDriver() as ChromeDriver;
             _commandProcessor = new CommandProcessor(driver);
@@ -27,7 +27,7 @@ namespace TC.BrowserEngine.Controllers
             //driver.ExecuteAsyncScript("alert('hey')");
             //Task.Delay(10000);
         }
-        public async void RunCommandProcessor(List<SeleniumCommand> list)
+        public void RunCommandProcessor(List<SeleniumCommand> list)
         {
             // should be always new instance or not ???
             new CommandProcessor(driver).Start(list);

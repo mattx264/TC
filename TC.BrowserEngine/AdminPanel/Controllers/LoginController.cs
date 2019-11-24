@@ -29,7 +29,7 @@ namespace TC.BrowserEngine.AdminPanel.Controllers
         [HttpPost]
         public async Task<ActionResult> PostAsync(LoginViewModel loginViewModel)
         {
-            var token= await Login.LoginAsync(loginViewModel.Email, loginViewModel.Password);
+            var token=  Login.LoginAsync(loginViewModel.Email, loginViewModel.Password);
             if(token == null)
             {
                 return Unauthorized();

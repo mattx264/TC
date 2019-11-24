@@ -34,7 +34,7 @@ namespace TC.BrowserEngine.Services
             Console.WriteLine("I stopped");
 
         }
-        public void Dispose()
+        public new void Dispose()
         {
             throw new NotImplementedException();
         }
