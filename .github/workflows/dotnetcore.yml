@@ -15,3 +15,5 @@ jobs:
         dotnet-version: 3.0.100
     - name: Build with dotnet
       run: cd TC.WebService && dotnet build --configuration Release
+    - name: Build with dotnet
+      run: cd TC.WebServiceTest && dotnet test 
