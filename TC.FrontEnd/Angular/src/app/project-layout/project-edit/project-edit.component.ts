@@ -11,5 +11,7 @@ export class ProjectEditComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  save() {
+      alert('Edit successful');
+  }
 }
