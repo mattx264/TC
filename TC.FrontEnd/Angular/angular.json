@@ -149,6 +149,7 @@
               "projects/tc-browser-recorder/src/manifest.json",
               "projects/tc-browser-recorder/src/background.js",
               "projects/tc-browser-recorder/src/chrome/main.js",
+              "projects/tc-browser-recorder/src/chrome/requestMonitor.js",
               "projects/tc-browser-recorder/src/chrome/xpathHelper.js",
               "projects/tc-browser-recorder/src/chrome/main.css"
             ],

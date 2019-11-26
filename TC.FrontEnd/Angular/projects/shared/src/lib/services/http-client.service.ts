@@ -4,12 +4,13 @@ import { LoadingService } from './loading/loading.service';
 import { throwError as observableThrowError, Observable } from 'rxjs';
 import { catchError, first, finalize, map } from 'rxjs/operators';
 import { AuthService } from './auth/auth.service';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class HttpClientService {
   address: string;
-  constructor( @Inject('environment') private environment,private http: HttpClient, private loadingService: LoadingService, private authService: AuthService) {
+  constructor(@Inject('environment') private environment, private http: HttpClient, private router: Router, private loadingService: LoadingService, private authService: AuthService) {
     // check if angular is compile for prod and if it is dev api
     if (environment.production === true) {
       this.address = '/api/';
@@ -52,7 +53,7 @@ export class HttpClientService {
       this.loadingService.setValue(false);
     }), first());
   }
-  put(url: string, data: object | number){
+  put(url: string, data: object | number) {
     this.loadingService.setValue(true);
 
     return this.http.put(this.apiUrl(url), data).pipe(map(returnData => {
@@ -88,9 +89,14 @@ export class HttpClientService {
   public handleError = (error: HttpErrorResponse) => {
 
     // Do messaging and error handling here
-    if (error.status === 500) {
-      // this.toasterService.pop('error', error.message);
-      throw new Error(error.message);
+    if (error.status===0) {
+      this.router.navigate(['server-not-avaiable']);
+    }
+    if (error.status === 500 || error.status===0) {
+    
+      this.router.navigate(['server-not-avaiable']);
+     // throw new Error(error.message);
+      // TODO log error be sending it to backend
     }
     // Unauthorize
     if (error.status === 401) {
