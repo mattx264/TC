@@ -8,7 +8,7 @@ namespace TC.Entity.Entities
     public class UserModel : IdentityUser, IEntity
     {
         [Key]
-        public int Id { get; set; }
+        public new int Id { get; set; }
         public Guid Guid { get; set; }
         public virtual List<UserInGroup> UserGroups { get; set; }
         public override string Email { get; set; }

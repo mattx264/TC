@@ -18,7 +18,7 @@ namespace TC.BrowserEngine.AdminPanel.Controllers
             _localUserRepository = new LocalUserRepository();
         }
         [HttpPost]
-        public async Task<ActionResult> PostAsync()
+        public ActionResult Post()
         {
             _localUserRepository.LogoutCurrentUser();
             BrowserEngineManager.Instance.StopInstances();

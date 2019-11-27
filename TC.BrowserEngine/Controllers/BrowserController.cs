@@ -32,7 +32,7 @@ namespace TC.BrowserEngine.Controllers
             //driver.ExecuteAsyncScript("alert('hey')");
             //Task.Delay(10000);
         }
-        public async void RunCommandProcessor(List<SeleniumCommand> list)
+        public void RunCommandProcessor(List<SeleniumCommand> list)
         {
             // should be always new instance or not ???
             new CommandProcessor(driver).Start(list);

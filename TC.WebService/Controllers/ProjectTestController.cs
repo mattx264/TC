@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using TC.DataAccess.Repositories;
 using TC.WebService.Helpers;
 using TC.WebService.ViewModels;
@@ -36,6 +34,11 @@ namespace TC.WebService.Controllers
                 Description = x.Description,
                 Commands = x.SeleniumCommands
             }).ToList();
+        }
+        [HttpPost]
+        public IActionResult Post(ProjectTestViewModel viewModel)
+        {
+            return Ok();
         }
     }
 }

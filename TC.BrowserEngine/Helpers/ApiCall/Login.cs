@@ -13,7 +13,7 @@ namespace TC.BrowserEngine.Helpers
     {
         static HttpClient client = new HttpClient();
 
-        public static async Task<string> LoginAsync(string email, string password)
+        public static string LoginAsync(string email, string password)
         {
             try
             {
@@ -39,11 +39,11 @@ namespace TC.BrowserEngine.Helpers
                 // return URI of the created resource.
                 return data.Token;// response.Content
             }
-            catch (HttpRequestException ex)
+            catch (HttpRequestException )
             {
                 return null;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return null;
             }

@@ -11,6 +11,7 @@
  ## Setup:
  1. Clone git
  2. Create local database
+ 3. Run in console `dotnet tool install --global dotnet-ef --version 3.0.0`
  3. Run TC/recreate-db.bat - script will create database and seed data.
  4. Setup redis (required WSL)
  5. Follow setup in TC/Redis-setup.txt

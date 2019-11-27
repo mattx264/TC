@@ -34,7 +34,7 @@ namespace TC.BrowserEngine.AdminPanel
             //    //services.AddScoped<ProjectRepository>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //app.Run(async (context) =>
             //{

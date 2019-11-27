@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
@@ -128,7 +129,7 @@ namespace TC.WebService
             services.AddScoped<TestInfoRepository>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerManager logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
         {
             if (env.IsDevelopment())
             {
@@ -152,11 +153,13 @@ namespace TC.WebService
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseCors("CorsPolicy");
-            _ = app.UseSignalR(routes =>
-              {
-                  routes.MapHub<ChatHub>("/chathub");
-                  routes.MapHub<SzwagierHub>("/hubs/szwagier");
-              });
+
+            app.UseEndpoints((endpoints) =>
+            {
+                endpoints.MapHub<ChatHub>("/chathub");
+                endpoints.MapHub<SzwagierHub>("/hubs/szwagier");
+            });
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

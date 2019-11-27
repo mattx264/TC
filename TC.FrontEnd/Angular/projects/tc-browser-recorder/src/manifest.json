@@ -22,10 +22,13 @@
         "*://*/*"
       ],
       "js": [
+        "chrome/requestMonitor.js",
         "chrome/xpathHelper.js",
         "chrome/main.js"
       ],
-      "css": [ "chrome/main.css"]
+      "css": [
+        "chrome/main.css"
+      ]
     }
   ],
   "permissions": [
