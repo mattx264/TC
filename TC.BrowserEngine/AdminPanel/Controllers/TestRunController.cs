@@ -26,7 +26,7 @@ namespace TC.BrowserEngine.AdminPanel.Controllers
         {
             var browserController = new BrowserController(BrowserType.Chrome);
 
-            browserController.Start().GetAwaiter();
+            browserController.Start();
 
             // after browser is close run clean up
             browserController.ExecCommand(commands);

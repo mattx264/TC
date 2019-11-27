@@ -20,16 +20,14 @@ export class TextFieldComponent extends FieldBase {
   @Input() minLength: number;
   @Input() regExpPatern: string = null;
   formControlText = new FormControl();
-  
+
   constructor(public renderer2: Renderer2, zone: NgZone, el: ElementRef) {
     super(renderer2, zone, el);
     this.colSize = 'col-sm-7';
     this.formControlText.valueChanges
       .subscribe(val => {
-        
         this.value = val;
-        this.propagateChange(val);      
-
+        this.propagateChange(val);
       });
   }
   writeValue(obj: any): void {

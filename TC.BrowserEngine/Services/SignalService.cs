@@ -6,6 +6,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TC.BrowserEngine.Controllers;
 using TC.BrowserEngine.Signal;
 
 namespace TC.BrowserEngine.Services
@@ -15,7 +16,7 @@ namespace TC.BrowserEngine.Services
         BrowserControllerPlug browserControllerPlug;
         public void Start()
         {
-            browserControllerPlug = new BrowserControllerPlug("szwagier");
+            browserControllerPlug = new BrowserControllerPlug("szwagier", new BrowserControllerFactory());
             this.StartBase();
             Timers.Start("Poller", 1000 *60, () =>
             {

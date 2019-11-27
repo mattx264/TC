@@ -42,7 +42,7 @@ namespace TC.BrowserEngine.Selenium
 
                 element = RunCommand(command);
             }
-            test(_driver, "");
+           // test(_driver, "");
         }
         private IWebElement RunCommand(SeleniumCommand command)
         {

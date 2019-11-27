@@ -10,16 +10,21 @@ using TC.Common.Selenium.WebDriverOperation;
 
 namespace TC.BrowserEngine.Controllers
 {
-    public class BrowserController
+    public interface IBrowserController
+    {
+        public void Start();
+        public void ExecCommand(List<SeleniumCommand> list);
+    }
+    public class BrowserController : IBrowserController
     {
         private readonly BrowserType _browserType;
         private IWebDriver driver;
         private CommandProcessor _commandProcessor;
-        public BrowserController(BrowserType browserType) 
+        public BrowserController(BrowserType browserType)
         {
             _browserType = browserType;
         }
-        public async Task Start()
+        public void Start()
         {
             driver = new BrowserDriver(_browserType).GetDriver() as ChromeDriver;
             _commandProcessor = new CommandProcessor(driver);
