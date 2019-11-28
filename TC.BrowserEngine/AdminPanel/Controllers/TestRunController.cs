@@ -22,19 +22,8 @@ namespace TC.BrowserEngine.AdminPanel.Controllers
             _localUserRepository = new LocalUserRepository();
         }
         [HttpPost]
-        public  ActionResult PostAsync(List<SeleniumCommand> commands)
+        public async Task<ActionResult> PostAsync(List<SeleniumCommand> commands)
         {
-            var browserController = new BrowserController(BrowserType.Chrome);
-
-             browserController.Start();
-
-            // after browser is close run clean up
-            browserController.ExecCommand(commands);
-            var lastCommand = commands[commands.Count - 1];
-            if (lastCommand.WebDriverOperationType == WebDriverOperationType.BrowserNavigationOperation && lastCommand.OperationId == (int)BrowserOperationEnum.CloseBrowser)
-            {
-                browserController = null;
-            }
             return Ok();
         }
     }

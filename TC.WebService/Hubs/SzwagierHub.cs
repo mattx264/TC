@@ -26,6 +26,7 @@ namespace TC.WebService.Hubs
 
         public override Task OnConnectedAsync()
         {
+            
             string type = Context.GetHttpContext().Request.Query["t"];
             SzwagierType szwagierType;
             switch (type)
