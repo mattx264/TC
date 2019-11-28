@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-project-edit',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-edit.component.scss']
 })
 export class ProjectEditComponent implements OnInit {
+  formGroup: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.formGroup = this.buildForm();
+  }
+  buildForm(): FormGroup {
+    return this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      domains: ['', Validators.required],
+      usersEmail: [''],
+    });
   }
   save() {
       alert('Edit successful');
