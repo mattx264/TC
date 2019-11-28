@@ -13,7 +13,7 @@ import { HttpClientService } from '../../../../projects/shared/src/lib/services/
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  registerForm: FormGroup;
+  formGroup: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -32,8 +32,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   buildForm() {
-    this.registerForm = this.fb.group({
-
+    this.formGroup = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email], EmailExistsValidator.emailExists(this.httpClientService)],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
@@ -41,7 +40,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   registerNewUser() {
-    const userToCreate = this.registerForm.value;
+    const userToCreate = this.formGroup.value;
     userToCreate.timeZone = new Date();
 
     this.httpClientService.post('user/Registration', userToCreate).subscribe((response: any) => {

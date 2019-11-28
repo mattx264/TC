@@ -9,7 +9,7 @@ using TC.Common.Selenium.WebDriverOperation;
 
 namespace TC.BrowserEngineTest.Signal
 {
-    public class BrowserControllerTest
+   /* public class BrowserControllerTest
     {
         [Test]
         public async void OpenBrowserAsync()
@@ -41,5 +41,5 @@ namespace TC.BrowserEngineTest.Signal
             } });
 
         }
-    }
+    }*/
 }

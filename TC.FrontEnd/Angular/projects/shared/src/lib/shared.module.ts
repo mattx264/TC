@@ -12,10 +12,14 @@ import { SignalSzwagierService } from './services/signalr/signal-szwagier.servic
 import { TextFieldComponent } from './field/text-field/text-field.component';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ServerNotAvaiableComponent } from './components/server-not-avaiable/server-not-avaiable.component';
 
 
 @NgModule({
-  declarations: [SharedComponent, TextFieldComponent],
+  declarations: 
+    [SharedComponent, TextFieldComponent, ServerNotAvaiableComponent],
+  exports: 
+    [SharedComponent, TextFieldComponent,ServerNotAvaiableComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -30,8 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LocalStorageService,
     LoadingService,
     SignalSzwagierService
-  ],
-  exports: [SharedComponent, TextFieldComponent]
+  ]
+  
 })
 export class SharedModule {
   static forRoot(environment: any): ModuleWithProviders {

@@ -1,10 +1,11 @@
+
 class Main {
     xpathHelper: XpathHelper;
     tempEventElement: HTMLElement;
     tempElementValue: string;
     rightClickElementClicked: HTMLElement;
     constructor() {
-
+       new RequestionMonitor().startMonitor(this);
         this.xpathHelper = new XpathHelper();
         document.addEventListener("click", this.addClickEventListener);
         document.addEventListener("mousedown", this.addRightMouseListener);

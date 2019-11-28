@@ -25,6 +25,7 @@ namespace TC.WebService.Controllers
 
         public ActionResult<IEnumerable<string>> Get()
         {
+       
             var test = _distributedCache.GetAsync("test");
             return new string[] { "value1", "value2" };
         }
