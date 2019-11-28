@@ -16,9 +16,9 @@ namespace TC.BrowserEngine.Signal
         // TODO move to config
         public int maxBrowserOpen= 2;
         private BrowserController browserController;
-        private IBrowserControllerFactory _browserControllerFactory;
+        private IBrowserControllerQueue _browserControllerFactory;
 
-        public BrowserControllerPlug(string hubName, IBrowserControllerFactory browserControllerFactory) : base(hubName)
+        public BrowserControllerPlug(string hubName, IBrowserControllerQueue browserControllerFactory) : base(hubName)
         {
             _browserControllerFactory = browserControllerFactory;
             HubConnection connection = StartAsync().GetAwaiter().GetResult();
@@ -46,28 +46,19 @@ namespace TC.BrowserEngine.Signal
         }
         public void ReciveTriggerTest(int testId, List<SeleniumCommand> commands)
         {
-            Console.WriteLine(testId);
-            browserController = new BrowserController(BrowserType.Chrome);
-            browserController.Start();
-            browserController.RunCommandProcessor(commands);
-            browserController = null;
+            _browserControllerFactory.AddNewBrowser(commands);
+            //Console.WriteLine(testId);
+            //browserController = new BrowserController();
+
+            //browserController.Start(BrowserType.Chrome, commands);
+            //browserController.RunCommandProcessor(commands);
+            //browserController = null;
         }
         public void ReciveCommand(List<SeleniumCommand> commands)
         {
-            while (_browserControllerFactory.GetCount() > maxBrowserOpen)
-            {
-                Thread.Sleep(1000);
-                
-            }
-            var browserController = _browserControllerFactory.AddNewBrowser();
-            browserController.Start();
-            browserController.ExecCommand(commands);
-            var lastCommand = commands[commands.Count - 1];
-            if (lastCommand.WebDriverOperationType == WebDriverOperationType.BrowserNavigationOperation && lastCommand.OperationId == (int)BrowserOperationEnum.CloseBrowser)
-            {
-                _browserControllerFactory.RemoveBrowserController(browserController);
-                browserController = null;
-            }
+           
+             _browserControllerFactory.AddNewBrowser(commands);
+           
             ////  if (browserController == null)
             ////  {
             //browserController = new BrowserController(BrowserType.Chrome);

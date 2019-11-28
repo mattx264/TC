@@ -16,7 +16,7 @@ namespace TC.BrowserEngine.Services
         BrowserControllerPlug browserControllerPlug;
         public void Start()
         {
-            browserControllerPlug = new BrowserControllerPlug("szwagier", new BrowserControllerFactory());
+            browserControllerPlug = new BrowserControllerPlug("szwagier", new BrowserControllerQueue());
             this.StartBase();
             Timers.Start("Poller", 1000 *60, () =>
             {

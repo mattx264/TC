@@ -28,22 +28,9 @@ namespace TC.BrowserEngine.Selenium
 
                 element = RunCommand(command);
             }
-            _driver.Close();
+           // _driver.Close();
         }
-        /// <summary>
-        /// Exec list of commands but browser will wait for next call.
-        /// </summary>
-        /// <param name="SeleniumCommands"></param>
-        public void Exec(List<SeleniumCommand> SeleniumCommands)
-        {
-           
-            foreach (var command in SeleniumCommands)
-            {
-
-                element = RunCommand(command);
-            }
-           // test(_driver, "");
-        }
+       
         private IWebElement RunCommand(SeleniumCommand command)
         {
             if (_driver == null)

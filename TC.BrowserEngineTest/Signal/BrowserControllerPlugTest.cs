@@ -43,7 +43,7 @@ namespace TC.BrowserEngineTest.Signal
                 count = 0;
             });
 
-            var browserControllerFactoryMock = new Mock<IBrowserControllerFactory>();
+            var browserControllerFactoryMock = new Mock<IBrowserControllerQueue>();
             browserControllerFactoryMock.Setup(x => x.GetCount())
                 .Returns(() =>
                 {

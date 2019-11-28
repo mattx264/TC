@@ -15,7 +15,7 @@ namespace TC.BrowserEngine.Controllers
 
         public TestGeneratorController()
         {
-            _browserController = new BrowserController(BrowserType.Chrome);
+            _browserController = new BrowserController();
             _browserController.Start();
         }
         public void StartGenerator(string startUrl)
