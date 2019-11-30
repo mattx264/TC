@@ -124,8 +124,9 @@ namespace TC.WebService
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ILoggerManager, LoggerManager>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<UserRepository>();
-            services.AddScoped<ProjectRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<TestInfoRepository>();
         }
 

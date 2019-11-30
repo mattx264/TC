@@ -5,7 +5,15 @@ using TC.Entity.Entities;
 
 namespace TC.DataAccess.Repositories
 {
-    public class UserRepository : RepositoryBase<UserModel>
+    public interface IUserRepository : IRepositoryBase<UserModel>
+    {
+        public UserModel Login(string email, string password)
+;
+        public UserModel GetByGuid(string guidString)
+;
+        public UserModel GetByEmail(string email);
+    }
+    public class UserRepository : RepositoryBase<UserModel>,IUserRepository
     {
         public UserRepository(TestingCenterDbContext context) : base(context)
         {

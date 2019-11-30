@@ -13,18 +13,17 @@ namespace TC.WebService.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class UserManagerController : ControllerBase
+    public class UserManagerController : AuthBaseController
     {
-        private UserRepository _userRepository;
 
-        public UserManagerController(UserRepository userRepository)
+        public UserManagerController(IUserHelper userHelper)
+            :base(userHelper)
         {
-            _userRepository = userRepository;
+           
         }
         public IActionResult Get()
         {
-            string guid = UserHelper.GetGuid(User);
-            var user = _userRepository.GetByGuid(guid);
+            var user = GetUser();
             return Ok(new {
                 Name= user.Name,
                 Email=user.Email,

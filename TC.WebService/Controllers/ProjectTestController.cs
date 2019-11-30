@@ -13,19 +13,19 @@ namespace TC.WebService.Controllers
     [ApiController]
     [Authorize]
 
-    public class ProjectTestController : ControllerBase
+    public class ProjectTestController : AuthBaseController
     {
         private TestInfoRepository _testInfoRepository;
 
-        public ProjectTestController(TestInfoRepository testInfoRepository)
+        public ProjectTestController(TestInfoRepository testInfoRepository,IUserHelper userHelper)
+            : base(userHelper)
         {
+
             _testInfoRepository = testInfoRepository;
         }
         [HttpGet("{projectId}")]
         public async Task<List<TestInfoViewModel>> Get(int projectId)
         {
-            string guid = UserHelper.GetGuid(User);
-
             var testInfos = await _testInfoRepository.GetTestInfos(projectId);
             return testInfos.Select(x => new TestInfoViewModel()
             {
@@ -38,6 +38,7 @@ namespace TC.WebService.Controllers
         [HttpPost]
         public IActionResult Post(ProjectTestViewModel viewModel)
         {
+            var user = GetUser();
             return Ok();
         }
     }

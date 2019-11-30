@@ -7,7 +7,12 @@ using TC.Entity.Entities;
 
 namespace TC.DataAccess.Repositories
 {
-    public class ProjectRepository : RepositoryBase<Project>
+    public interface IProjectRepository : IRepositoryBase<Project>
+    {
+        public List<Project> GetProjectsByUser(string guid);
+        public Project GetProjectByUser(string guid, int projectId);
+    }
+    public class ProjectRepository : RepositoryBase<Project>, IProjectRepository
     {
         public ProjectRepository(TestingCenterDbContext context) : base(context)
         {

@@ -5,15 +5,29 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using TC.DataAccess.Repositories;
+using TC.Entity.Entities;
 
 namespace TC.WebService.Helpers
 {
-    public static class UserHelper
+    public interface IUserHelper
+    {
+        public string PasswordHash(string password);
+        public string GetGuid(ClaimsPrincipal claimsPrincipal);
+        public string GetClaims(ClaimsPrincipal claimsPrincipal, string name);
+        UserModel GetUser(ClaimsPrincipal user);
+    }
+    public class UserHelper: IUserHelper
     {
         // TODO move Salt to appsettings
         private const string Salt = "NZsP7NnmfBuYeJrRAKNuVQ==";
+        private UserRepository _userRepository;
 
-        public static string PasswordHash(string password)
+        public UserHelper(UserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+        public string PasswordHash(string password)
         {
 
             // derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
@@ -25,16 +39,24 @@ namespace TC.WebService.Helpers
                 numBytesRequested: 256 / 8));
             return hashed;
         }
-        public static string GetGuid (ClaimsPrincipal claimsPrincipal)
+        public string GetGuid(ClaimsPrincipal claimsPrincipal)
         {
             return claimsPrincipal.FindFirst("Guid").Value;
-           
+
         }
 
-        public static string GetClaims(ClaimsPrincipal claimsPrincipal, string name) {
+        public string GetClaims(ClaimsPrincipal claimsPrincipal, string name)
+        {
             return claimsPrincipal.FindFirst(name).Value;
         }
-
-}
+        public UserModel GetUser(ClaimsPrincipal user)
+        {
+            if(user == null)
+            {
+                return null;
+            }
+            return _userRepository.GetByGuid(GetGuid(user));
+        }
+    }
 
 }
