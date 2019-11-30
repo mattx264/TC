@@ -34,8 +34,13 @@
  ### Start backend
  1. Open wsl ubuntu console and run `redis-server` (if redis is not setup - follow instruction in TC/Redis-setup.txt)
  1. Open solution in visual studio
- 2. Start IIS express project TC.WebService (it should be by default)
- 3. 
+ 2. Set TC.WebService as a default project to start (right click)
+ 3. Start IIS express project TC.WebService (it should be by default)
+ 
+  ### Database connection
+  name of database you can find in:
+  ..\TC.WebService\appsettings.Development.json
+
  
  #### Technology:
 * .NetCore
