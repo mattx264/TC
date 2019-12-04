@@ -40,7 +40,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   registerNewUser() {
-    if(this.formGroup.invalid) {
+    if (this.formGroup.invalid) {
       return;
     }
     const userToCreate = this.formGroup.value;

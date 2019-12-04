@@ -56,7 +56,7 @@ const routes: Routes = [
     path: '**', redirectTo: 'szwagierDashboard', pathMatch: 'full'
   },
   { path: '', component: SidebarEmptyComponent, outlet: 'sidebar' },
-  { path: 'privacy-policy', component: PrivacyPolicyComponent, outlet: 'sidebar' }
+  { path: 'privacy-policy', component: PrivacyPolicyComponent, outlet: 'privacy-policy' }
 
 
 ];
