@@ -6,6 +6,7 @@ import { WebRtcComponent } from './web-rtc/web-rtc.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { AuthGuard } from './auth/guard/auth.guard';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { SidebarEmptyComponent } from './layout/sidebar/sidebar-empty/sidebar-empty.component';
 import { GroupLayoutComponent } from './group-layout/group-layout.component';
 import { GroupEditComponent } from './group-layout/group-edit/group-edit.component';
@@ -38,7 +39,7 @@ const routes: Routes = [
   },
   {
     path: 'project-create', component: ProjectCreateComponent, canActivate: [AuthGuard]
-  },  
+  },
   {
     path: 'project/:id', component: ProjectEditComponent, canActivate: [AuthGuard]
   },
@@ -54,7 +55,8 @@ const routes: Routes = [
   }, {
     path: '**', redirectTo: 'szwagierDashboard', pathMatch: 'full'
   },
-  { path: '', component: SidebarEmptyComponent, outlet: 'sidebar' }
+  { path: '', component: SidebarEmptyComponent, outlet: 'sidebar' },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent, outlet: 'sidebar' }
 
 
 ];
