@@ -42,6 +42,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import { TestFlowLayoutComponent } from './test-flow-layout/test-flow-layout.component';
 import { TestFlowCreateComponent } from './test-flow-layout/test-flow-create/test-flow-create.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { TestFlowCreateComponent } from './test-flow-layout/test-flow-create/tes
     SendTestComponent,
     SelectSzwagierDialogComponent,
     TestFlowLayoutComponent,
-    TestFlowCreateComponent
+    TestFlowCreateComponent,
+    PrivacyPolicyComponent
 
   ],
   imports: [
