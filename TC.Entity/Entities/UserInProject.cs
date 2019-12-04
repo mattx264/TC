@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using TC.Entity.Entities.User;
 
 namespace TC.Entity.Entities
 {
+    [Table("UserInProject", Schema = "user")]
     public class UserInProject : IEntity
     {
         public int Id { get; set; }

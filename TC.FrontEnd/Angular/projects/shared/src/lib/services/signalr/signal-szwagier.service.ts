@@ -23,6 +23,7 @@ export class SignalSzwagierService {
       .withUrl('https://localhost:44384/hubs/szwagier?t=e', {
         accessTokenFactory: () => this.authService.getToken()
       })
+      .configureLogging(signalR.LogLevel.Information)
       .withAutomaticReconnect()
       .build();
     this.hubConnection

@@ -17,13 +17,13 @@ namespace TC.WebService.Helpers
         public string GetClaims(ClaimsPrincipal claimsPrincipal, string name);
         UserModel GetUser(ClaimsPrincipal user);
     }
-    public class UserHelper: IUserHelper
+    public class UserHelper : IUserHelper
     {
         // TODO move Salt to appsettings
         private const string Salt = "NZsP7NnmfBuYeJrRAKNuVQ==";
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
 
-        public UserHelper(UserRepository userRepository)
+        public UserHelper(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -51,7 +51,7 @@ namespace TC.WebService.Helpers
         }
         public UserModel GetUser(ClaimsPrincipal user)
         {
-            if(user == null)
+            if (user == null)
             {
                 return null;
             }

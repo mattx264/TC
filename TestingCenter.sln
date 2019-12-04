@@ -19,10 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TC.BrowserEngineTest", "TC.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4851FCA0-C4B0-4FA4-B97E-9B2D6C34D19B}"
 	ProjectSection(SolutionItems) = preProject
+		recreate-db.bat = recreate-db.bat
 		Redis-setup.txt = Redis-setup.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TC.WebServiceTest", "TC.WebServiceTest\TC.WebServiceTest.csproj", "{2D9C2693-7241-4C6A-9805-42011A227CB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TC.WebServiceTest", "TC.WebServiceTest\TC.WebServiceTest.csproj", "{2D9C2693-7241-4C6A-9805-42011A227CB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

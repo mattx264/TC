@@ -24,12 +24,12 @@ namespace TC.WebService.Controllers
     public class UserController : ControllerBase
     {
         private IConfiguration _config;
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private ILogger<UserController> _logger;
         private IUnitOfWork _unitOfWork;
         private IUserHelper _userHelper;
 
-        public UserController(ILogger<UserController> logger,UserRepository userRepository, IConfiguration config, IUnitOfWork unitOfWork,IUserHelper userHelper )
+        public UserController(ILogger<UserController> logger, IUserRepository userRepository, IConfiguration config, IUnitOfWork unitOfWork, IUserHelper userHelper)
         {
             _config = config;
             _userRepository = userRepository;

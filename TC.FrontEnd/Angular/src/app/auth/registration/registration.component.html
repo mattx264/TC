@@ -16,11 +16,14 @@
                     <mat-error *ngIf="formGroup.get('password').hasError('required')">
                       Password is <strong>required</strong>
                     </mat-error>
+                    <mat-hint>
+                      The password must be of minimum 6 characters length
+                    </mat-hint>
                   </mat-form-field>
                 </div>
               </div>
             <div class="button-wrapper">
-                <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid"  [disabled]="registerForm.invalid">
+                <button mat-raised-button color="primary" type="submit" >
                   Submit
                 </button>
             </div>

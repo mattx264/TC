@@ -17,23 +17,23 @@ namespace TC.WebService.Controllers
     public class ProjectUserController : AuthBaseController
     {
         private ProjectRepository _projectRepository;
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private IUnitOfWork _unitOfWork;
 
-        public ProjectUserController(ProjectRepository projectRepository, UserRepository userRepository, IUnitOfWork unitOfWork,IUserHelper userHelper)
-            :base(userHelper)
+        public ProjectUserController(ProjectRepository projectRepository, IUserRepository userRepository, IUnitOfWork unitOfWork, IUserHelper userHelper)
+            : base(userHelper)
         {
             _projectRepository = projectRepository;
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
-            
+
         }
         [HttpPost]
         public IActionResult Post(ProjectUserViewModel viewModel)
         {
             var user = GetUser();
             var project = _projectRepository.FindById(viewModel.ProjectId);
-            if(project == null)
+            if (project == null)
             {
                 return BadRequest();
             }

@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 
-import { SignalSzwagierService } from '../services/signal-szwagier.service';
 import { SzwagierType, SzwagierTypeLabel } from '../../../projects/shared/src/lib/models/SzwagierType';
 import { SzwagierModel } from '../../../projects/shared/src/lib/models/szwagierModel';
+import { SignalSzwagierService } from 'projects/shared/src/lib/services/signalr/signal-szwagier.service';
 @Component({
   selector: 'app-szwagier-dashboard',
   templateUrl: './szwagier-dashboard.component.html',

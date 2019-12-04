@@ -34,12 +34,15 @@ export class RegistrationComponent implements OnInit {
   buildForm() {
     this.formGroup = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email], EmailExistsValidator.emailExists(this.httpClientService)],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
   registerNewUser() {
+    if(this.formGroup.invalid){
+      return;
+    }
     const userToCreate = this.formGroup.value;
     userToCreate.timeZone = new Date();
 

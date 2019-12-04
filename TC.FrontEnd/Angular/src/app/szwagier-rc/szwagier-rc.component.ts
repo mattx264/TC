@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SignalSzwagierService } from '../services/signal-szwagier.service';
 import { SeleniumCommand } from '../../../projects/shared/src/lib/models/selenium/SeleniumCommand';
 import { BasicViewModel } from '../../../projects/shared/src/lib/models/basicViewModel';
+import { SignalSzwagierService } from 'projects/shared/src/lib/services/signalr/signal-szwagier.service';
 
 @Component({
   selector: 'app-szwagier-rc',
