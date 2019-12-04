@@ -38,8 +38,8 @@ export class LoginComponent implements OnInit {
   }
   buildForm() {
     this.formGroup = this.fb.group({
-      'email': [null, Validators.compose([Validators.required, Validators.email])],
-      'password': [null, Validators.required],
+      email: [null, Validators.compose([Validators.required, Validators.email])],
+      password: [null, Validators.required],
     });
   }
   login() {
