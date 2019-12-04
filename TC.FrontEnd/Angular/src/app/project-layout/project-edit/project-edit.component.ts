@@ -19,7 +19,7 @@ export class ProjectEditComponent implements OnInit {
       name: ['', Validators.required],
       description: ['', Validators.required],
       domains: ['', Validators.required],
-      usersEmail: [''],
+      usersEmail: ['', Validators.required],
     });
   }
   save() {
