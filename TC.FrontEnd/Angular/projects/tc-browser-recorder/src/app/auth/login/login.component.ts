@@ -24,19 +24,19 @@ export class LoginComponent implements OnInit {
     private httpClientService: HttpClientService,
     private route: ActivatedRoute,
     private router: Router
-  ) {   
+  ) {
   }
 
   ngOnInit() {
     this.buildForm();
     this.authService.logout();
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
   buildForm() {
     this.formGroup = this.fb.group({
-      'email': [null, Validators.compose([Validators.required, Validators.email])],
-      'password': [null, Validators.required],
+      email: [null, Validators.compose([Validators.required, Validators.email])],
+      password: [null, Validators.required],
     });
   }
   login() {

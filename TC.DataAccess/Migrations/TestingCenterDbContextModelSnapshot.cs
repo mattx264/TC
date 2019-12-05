@@ -15,7 +15,7 @@ namespace TC.DataAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -49,15 +49,15 @@ namespace TC.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Project","project");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 11, 25, 19, 3, 49, 917, DateTimeKind.Local).AddTicks(8203),
-                            DateModified = new DateTime(2019, 11, 25, 19, 3, 49, 920, DateTimeKind.Local).AddTicks(588),
+                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 386, DateTimeKind.Local).AddTicks(3175),
+                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 386, DateTimeKind.Local).AddTicks(3880),
                             Description = "",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -97,15 +97,15 @@ namespace TC.DataAccess.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectDomain");
+                    b.ToTable("ProjectDomain","project");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 11, 25, 19, 3, 49, 921, DateTimeKind.Local).AddTicks(2669),
-                            DateModified = new DateTime(2019, 11, 25, 19, 3, 49, 921, DateTimeKind.Local).AddTicks(3074),
+                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 386, DateTimeKind.Local).AddTicks(9269),
+                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 386, DateTimeKind.Local).AddTicks(9934),
                             Domain = "google.com",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -115,8 +115,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 11, 25, 19, 3, 49, 921, DateTimeKind.Local).AddTicks(3659),
-                            DateModified = new DateTime(2019, 11, 25, 19, 3, 49, 921, DateTimeKind.Local).AddTicks(3678),
+                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 387, DateTimeKind.Local).AddTicks(907),
+                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 387, DateTimeKind.Local).AddTicks(938),
                             Domain = "google.pl",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -169,14 +169,86 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 11, 25, 19, 3, 49, 921, DateTimeKind.Local).AddTicks(8243),
-                            DateModified = new DateTime(2019, 11, 25, 19, 3, 49, 921, DateTimeKind.Local).AddTicks(8797),
+                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 388, DateTimeKind.Local).AddTicks(2489),
+                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 388, DateTimeKind.Local).AddTicks(3266),
                             Description = "Using google search find c# tutorial",
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Search for c# tutorial",
                             ProjectId = 1,
                             SeleniumCommands = "[{\"OperationId\":3,\"WebDriverOperationType\":0,\"Values\":[\"https://www.google.com\"]}]"
+                        });
+                });
+
+            modelBuilder.Entity("TC.Entity.Entities.User.UserProjectStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserProjectStatus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 380, DateTimeKind.Local).AddTicks(9772),
+                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(659),
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            Name = "Pending"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(1562),
+                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(1594),
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            Name = "Accepted"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(1610),
+                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(1615),
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            Name = "Rejected"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(1619),
+                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(1622),
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            Name = "Deleted"
                         });
                 });
 
@@ -275,13 +347,18 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("UserModelId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserProjectStatusId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
 
                     b.HasIndex("UserModelId");
 
-                    b.ToTable("UserInProject");
+                    b.HasIndex("UserProjectStatusId");
+
+                    b.ToTable("UserInProject","user");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.UserModel", b =>
@@ -359,7 +436,7 @@ namespace TC.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserModel");
+                    b.ToTable("UserModel","user");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.ProjectDomain", b =>
@@ -406,6 +483,12 @@ namespace TC.DataAccess.Migrations
                     b.HasOne("TC.Entity.Entities.UserModel", "UserModel")
                         .WithMany()
                         .HasForeignKey("UserModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TC.Entity.Entities.User.UserProjectStatus", "UserProjectStatus")
+                        .WithMany()
+                        .HasForeignKey("UserProjectStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

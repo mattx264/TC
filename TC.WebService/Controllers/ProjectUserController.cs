@@ -14,25 +14,26 @@ namespace TC.WebService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectUserController : ControllerBase
+    public class ProjectUserController : AuthBaseController
     {
         private ProjectRepository _projectRepository;
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private IUnitOfWork _unitOfWork;
 
-        public ProjectUserController(ProjectRepository projectRepository, UserRepository userRepository, IUnitOfWork unitOfWork)
+        public ProjectUserController(ProjectRepository projectRepository, IUserRepository userRepository, IUnitOfWork unitOfWork, IUserHelper userHelper)
+            : base(userHelper)
         {
             _projectRepository = projectRepository;
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
+
         }
         [HttpPost]
         public IActionResult Post(ProjectUserViewModel viewModel)
         {
-            string guid = UserHelper.GetGuid(User);
-            var user = _userRepository.GetByGuid(guid);
+            var user = GetUser();
             var project = _projectRepository.FindById(viewModel.ProjectId);
-            if(project == null)
+            if (project == null)
             {
                 return BadRequest();
             }

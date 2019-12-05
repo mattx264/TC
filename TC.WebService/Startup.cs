@@ -16,6 +16,7 @@ using TC.DataAccess;
 using TC.DataAccess.DatabaseContext;
 using TC.DataAccess.Repositories;
 using TC.Entity.Entities;
+using TC.WebService.Helpers;
 using TC.WebService.Hubs;
 using TC.WebService.Services;
 
@@ -50,49 +51,49 @@ namespace TC.WebService
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
                 .AddJwtBearer(options =>
-            {
-                // Configure JWT Bearer Auth to expect our security key
-                options.TokenValidationParameters =
-                   new TokenValidationParameters
-                   {
-                       LifetimeValidator = (before, expires, token, param) =>
-                       {
-                           return expires > DateTime.UtcNow;
-                       },                      
-                       ValidateAudience = false,
-                       ValidateIssuer = false,
-                       ValidateActor = false,
-                       ValidateLifetime = true,
-                       ValidateIssuerSigningKey = true,
-                       ValidIssuer = Configuration["Jwt:Issuer"],
-                       ValidAudience = Configuration["Jwt:Issuer"],
-                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-                   };
-               
-                // We have to hook the OnMessageReceived event in order to
-                // allow the JWT authentication handler to read the access
-                // token from the query string when a WebSocket or 
-                // Server-Sent Events request comes in.
-                options.Events = new JwtBearerEvents
                 {
-                    OnMessageReceived = context =>
-                    {
-                        var accessToken = context.Request.Query["access_token"];
+                    // Configure JWT Bearer Auth to expect our security key
+                    options.TokenValidationParameters =
+                       new TokenValidationParameters
+                       {
+                           LifetimeValidator = (before, expires, token, param) =>
+                           {
+                               return expires > DateTime.UtcNow;
+                           },
+                           ValidateAudience = false,
+                           ValidateIssuer = false,
+                           ValidateActor = false,
+                           ValidateLifetime = true,
+                           ValidateIssuerSigningKey = true,
+                           ValidIssuer = Configuration["Jwt:Issuer"],
+                           ValidAudience = Configuration["Jwt:Issuer"],
+                           IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                       };
 
-                        // If the request is for our hub...
-                        var path = context.HttpContext.Request.Path;
-                        if (!string.IsNullOrEmpty(accessToken) &&
-                            (path.StartsWithSegments("/hubs")))
+                    // We have to hook the OnMessageReceived event in order to
+                    // allow the JWT authentication handler to read the access
+                    // token from the query string when a WebSocket or 
+                    // Server-Sent Events request comes in.
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
                         {
-                            // Read the token out of the query string
-                            context.Token = accessToken;
-                            context.HttpContext.Request.Headers["Authorization"] = accessToken;
-                            // context.HttpCon = accessToken;
+                            var accessToken = context.Request.Query["access_token"];
+
+                            // If the request is for our hub...
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) &&
+                                (path.StartsWithSegments("/hubs")))
+                            {
+                                // Read the token out of the query string
+                                context.Token = accessToken;
+                                context.HttpContext.Request.Headers["Authorization"] = accessToken;
+                                // context.HttpCon = accessToken;
+                            }
+                            return Task.CompletedTask;
                         }
-                        return Task.CompletedTask;
-                    }
-                };
-            }
+                    };
+                }
                 );
 
             services.AddDbContext<TestingCenterDbContext>(options =>
@@ -100,21 +101,21 @@ namespace TC.WebService
              .UseLazyLoadingProxies()
              .UseSqlServer(
                  Configuration.GetConnectionString("DefaultConnection")));
+
+
             services.AddMvc();
 
-            services.AddSignalR();
             services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder =>
                 {
-                    builder.AllowAnyMethod()
-                            .AllowAnyHeader()
-                            .WithMethods("GET", "POST")
+                    builder.AllowAnyMethod().AllowAnyHeader()
                            .WithOrigins("http://localhost:53353")
                            .WithOrigins("http://localhost:4200")
                            .WithOrigins("http://localhost:5000")
                            .AllowCredentials();
                 }));
-         
+
+            services.AddSignalR();
             services.AddDistributedRedisCache(options =>
             {
                 options.Configuration = "localhost";
@@ -124,8 +125,10 @@ namespace TC.WebService
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ILoggerManager, LoggerManager>();
-            services.AddScoped<UserRepository>();
-            services.AddScoped<ProjectRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<TestInfoRepository>();
         }
 
@@ -146,7 +149,7 @@ namespace TC.WebService
             app.UseRouting();
 
             app.UseAuthentication();
-           // app.UseIdentityServer();
+            // app.UseIdentityServer();
             app.UseAuthorization();
 
             app.UseHttpsRedirection();
@@ -159,7 +162,7 @@ namespace TC.WebService
                 endpoints.MapHub<ChatHub>("/chathub");
                 endpoints.MapHub<SzwagierHub>("/hubs/szwagier");
             });
-          
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,13 +16,14 @@ namespace TC.WebService.Controllers
     [Route("api/[controller]")]
     [Authorize]
     [ApiController]
-    public class ProjectController : ControllerBase
+    public class ProjectController : AuthBaseController
     {
-        private ProjectRepository _projectRepository;
-        private UserRepository _userRepository;
+        private IProjectRepository _projectRepository;
+        private IUserRepository _userRepository;
         private IUnitOfWork _unitOfWork;
 
-        public ProjectController(ProjectRepository projectRepository, UserRepository userRepository, IUnitOfWork unitOfWork)
+        public ProjectController(IProjectRepository projectRepository, IUserHelper userHelper, IUnitOfWork unitOfWork, IUserRepository userRepository)
+            : base(userHelper)
         {
             _projectRepository = projectRepository;
             _userRepository = userRepository;
@@ -30,14 +32,14 @@ namespace TC.WebService.Controllers
         [HttpGet]
         public async Task<List<ProjectViewModel>> Get()
         {
-            string guid = UserHelper.GetGuid(User);
+            string guid = GetUserGuid();
 
             return _projectRepository.GetProjectsByUser(guid).Select(x => GetProjectViewModel(x)).ToList();
         }
         [HttpGet("{id}")]
         public async Task<ProjectViewModel> Get(int id)
         {
-            string guid = UserHelper.GetGuid(User);
+            string guid = GetUserGuid();
 
             var project = _projectRepository.GetProjectByUser(guid, id);
             return GetProjectViewModel(project);
@@ -47,26 +49,28 @@ namespace TC.WebService.Controllers
         [HttpPost]
         public IActionResult Post(ProjectCreateViewModel viewModel)
         {
-            string guid = UserHelper.GetGuid(User);
-            var currnetUser = _userRepository.GetByGuid(guid);
+
+            var currnetUser = GetUser();
 
             var domains = new List<ProjectDomain>();
             foreach (var domain in viewModel.Domains.Split(","))
             {
-                Uri myUri = null;
                 try
                 {
-                    myUri = new Uri(domain);
+                    string host = GetDomain(domain);
+                    if (host == null)
+                    {
+                        return BadRequest($"Missing or Incorrect Domain Name: { domain}");
+                    }
+                    domains.Add(new ProjectDomain
+                    {
+                        Domain = host
+                    });
                 }
                 catch (Exception ex)
                 {
                     return BadRequest(ex.Message);
                 }
-                var host = myUri.Host.Replace("www.", "");
-                domains.Add(new ProjectDomain
-                {
-                    Domain = host
-                });
 
             }
             var users = new List<UserInProject>();
@@ -79,12 +83,12 @@ namespace TC.WebService.Controllers
                 UserModel user = _userRepository.GetByEmail(email);
                 if (user == null)
                 {
-                    var password = System.Guid.NewGuid().ToString();
+                    var password = Guid.NewGuid().ToString();
                     //TODO send email with activation link and password
                     _userRepository.Create(new UserModel
                     {
                         Email = email,
-                        Password = UserHelper.PasswordHash(password),
+                        Password = _userHelper.PasswordHash(password),
                         Guid = System.Guid.NewGuid(),
                         Name = viewModel.Name,
                     });
@@ -105,7 +109,7 @@ namespace TC.WebService.Controllers
                     UserModelId = currnetUser.Id
                 });
             }
-            
+
             _projectRepository.Create(new Project()
             {
                 Name = viewModel.Name,
@@ -116,14 +120,101 @@ namespace TC.WebService.Controllers
             _unitOfWork.SaveChanges();
             return Ok();
         }
+        [HttpPut]
+        public IActionResult Put(ProjectCreateViewModel viewModel)
+        {
+            var currnetUser = GetUser();
+            if (viewModel.Id == null)
+            {
+                return BadRequest("Project id has to be set");
+            }
+            var project = _projectRepository.FindById(viewModel.Id.Value);
+            var userInProject = project.UserInProject.FirstOrDefault(x => x.UserModelId == currnetUser.Id);
+            if (userInProject == null)
+            {
+                return BadRequest("User is not part of project");
+            }
+
+            var domainsToCheck = new List<string>();
+            foreach (var domain in viewModel.Domains.Split(","))
+            {
+                try
+                {
+                    string host = GetDomain(domain);
+                    domainsToCheck.Add(host);
+                    if (project.ProjectDomains.FirstOrDefault(x => x.Domain == host) == null)
+                    {
+                        project.ProjectDomains.Add(new ProjectDomain
+                        {
+                            Domain = host
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+
+
+
+            var users = new List<UserInProject>();
+            foreach (var email in viewModel.UsersEmail.Split(","))
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    continue;
+                }
+                UserModel user = _userRepository.GetByEmail(email);
+                if (user == null)
+                {
+                    var password = System.Guid.NewGuid().ToString();
+                    //TODO send email with activation link and password
+                    _userRepository.Create(new UserModel
+                    {
+                        Email = email,
+                        Password = _userHelper.PasswordHash(password),
+                        Guid = System.Guid.NewGuid(),
+                        Name = viewModel.Name,
+                    });
+                    _unitOfWork.SaveChanges();
+                    user = _userRepository.GetByEmail(email);
+                }
+                users.Add(new UserInProject
+                {
+                    UserModelId = user.Id
+                });
+
+            }
+            // check is current user is in list if not added
+            if (users.FirstOrDefault(x => x.Id == currnetUser.Id) == null)
+            {
+                users.Add(new UserInProject
+                {
+                    UserModelId = currnetUser.Id
+                });
+            }
+
+            _unitOfWork.SaveChanges();
+            return Ok();
+        }
         private ProjectViewModel GetProjectViewModel(Project project)
         {
             return new ProjectViewModel()
             {
                 Id = project.Id,
                 Name = project.Name,
-                ProjectDomain = project.ProjectDomains.Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList()
+                ProjectDomain = project.ProjectDomains == null ? null : project.ProjectDomains.Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList(),
+                UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList()
             };
+        }
+        private string GetDomain(string domainInput)
+        {
+
+            string domain = new Regex(@"^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)(\.[a-z]+)").Match(domainInput).Value;
+
+            return string.IsNullOrEmpty(domain) ? null : domain;
+
         }
     }
 }

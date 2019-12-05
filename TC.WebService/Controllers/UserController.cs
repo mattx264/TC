@@ -24,16 +24,18 @@ namespace TC.WebService.Controllers
     public class UserController : ControllerBase
     {
         private IConfiguration _config;
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private ILogger<UserController> _logger;
         private IUnitOfWork _unitOfWork;
+        private IUserHelper _userHelper;
 
-        public UserController(ILogger<UserController> logger,UserRepository userRepository, IConfiguration config, IUnitOfWork unitOfWork )
+        public UserController(ILogger<UserController> logger, IUserRepository userRepository, IConfiguration config, IUnitOfWork unitOfWork, IUserHelper userHelper)
         {
             _config = config;
             _userRepository = userRepository;
             _logger = logger;
             _unitOfWork = unitOfWork;
+            _userHelper = userHelper;
         }
         [AllowAnonymous]
         [HttpPost()]
@@ -83,7 +85,7 @@ namespace TC.WebService.Controllers
             _userRepository.Create(new UserModel
             {
                 Email = viewModel.Email,
-                Password = UserHelper.PasswordHash(viewModel.Password),
+                Password = _userHelper.PasswordHash(viewModel.Password),
                 Guid = System.Guid.NewGuid(),
                 Name = viewModel.Name,
             });
@@ -111,7 +113,7 @@ namespace TC.WebService.Controllers
         private UserModel Authenticate(LoginModelViewModel login)
         {
 
-            UserModel user = _userRepository.Login(login.Email, UserHelper.PasswordHash(login.Password));
+            UserModel user = _userRepository.Login(login.Email, _userHelper.PasswordHash(login.Password));
 
             // if (login.e == "mario" && login.Password == "secret")
             // {

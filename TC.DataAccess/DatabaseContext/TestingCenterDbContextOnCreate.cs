@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TC.Common.Selenium;
 using TC.Common.Selenium.WebDriverOperation;
 using TC.Entity.Entities;
+using TC.Entity.Entities.User;
 
 namespace TC.DataAccess.DatabaseContext
 {
@@ -30,6 +31,42 @@ namespace TC.DataAccess.DatabaseContext
             //    DateAdded = DateTime.Now,
             //    DateModified = DateTime.Now
             //});
+            modelBuilder.Entity<UserProjectStatus>().HasData(new UserProjectStatus()
+            {
+                Id = 1,
+                Name = "Pending",              
+                IsActive = true,
+                CreatedBy = "system",
+                ModifiedBy = "system",
+                DateAdded = DateTime.Now,
+                DateModified = DateTime.Now
+            }, new UserProjectStatus() {
+                Id = 2,
+                Name = "Accepted",
+                IsActive = true,
+                CreatedBy = "system",
+                ModifiedBy = "system",
+                DateAdded = DateTime.Now,
+                DateModified = DateTime.Now
+            }, new UserProjectStatus()
+            {
+                Id = 3,
+                Name = "Rejected",
+                IsActive = true,
+                CreatedBy = "system",
+                ModifiedBy = "system",
+                DateAdded = DateTime.Now,
+                DateModified = DateTime.Now
+            }, new UserProjectStatus()
+            {
+                Id = 4,
+                Name = "Deleted",
+                IsActive = true,
+                CreatedBy = "system",
+                ModifiedBy = "system",
+                DateAdded = DateTime.Now,
+                DateModified = DateTime.Now
+            });
             const int projectId = 1;
             modelBuilder.Entity<Project>().HasData(new Project
             {

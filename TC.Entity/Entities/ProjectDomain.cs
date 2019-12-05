@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace TC.Entity.Entities
 {
+    [Table("ProjectDomain",Schema = "project")]
     public class ProjectDomain : IEntity
     {
         public int Id { get; set; }

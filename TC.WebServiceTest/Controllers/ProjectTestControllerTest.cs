@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework;
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,15 +14,18 @@ using TC.Common.Selenium;
 using System.Threading.Tasks;
 using TC.Common.Selenium.WebDriverOperation;
 using Microsoft.AspNetCore.Mvc;
+using TC.Entity.Entities;
+using TC.WebService.Helpers;
+using Xunit;
 
 namespace TC.WebServiceTest.Controllers
 {
-    class ProjectTestControllerTest
+    public class ProjectTestControllerTest
     {
         private TestingCenterDbContext context;
         private ProjectTestController projectTestController;
 
-        [SetUp]
+
         public void Setup()
         {
             var options = new DbContextOptionsBuilder<TestingCenterDbContext>()
@@ -30,36 +33,31 @@ namespace TC.WebServiceTest.Controllers
                .Options;
             context = new TestingCenterDbContext(options);
             TestInfoRepository testInfoRepository = new TestInfoRepository(context);
-            projectTestController = new ProjectTestController(testInfoRepository);
+            var userHelper = new Mock<IUserHelper>();
+
+            projectTestController = new ProjectTestController(testInfoRepository, userHelper.Object);
 
 
         }
-        [Test]
-        public void UserWithoutValidToken()
-        {
-
-            var respose = PostSimpleRequestion();
-            // Project not exist return 405
-            Assert.AreEqual(respose, new StatusCodeResult(405));
-        }
-        [Test]
+        [Fact]
         public void ProjectNotExist()
         {
-
+           
             var respose = PostSimpleRequestion();
             // Project not exist return 400
-            Assert.AreEqual(respose, new NotFoundResult());
+          //  Assert.Equal(respose, new NotFoundResult());
         }
-        [Test]
+        [Fact]
         public void UserNotPartOfProject()
         {
-
+          
             var respose = PostSimpleRequestion();
             // Project not exist return 400
-            Assert.AreEqual(respose, new NotFoundResult());
+           // Assert.Equal(respose, new NotFoundResult());
         }
         private IActionResult PostSimpleRequestion()
         {
+            Setup();
             return projectTestController.Post(new ProjectTestViewModel()
             {
                 ProjectId = 1,
