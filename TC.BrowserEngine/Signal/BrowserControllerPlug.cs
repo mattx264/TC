@@ -5,73 +5,71 @@ using System.Text;
 using System.Threading;
 using TC.BrowserEngine.Controllers;
 using TC.BrowserEngine.Helpers.Enums;
+using TC.BrowserEngine.Services;
 using TC.Common.Selenium;
 using TC.Common.Selenium.WebDriverOperation;
 
 namespace TC.BrowserEngine.Signal
 {
-   
+    public delegate void SendTestProgressDelegate();
+
     public class BrowserControllerPlug : SignalClientBase
     {
-        // TODO move to config
-        public int maxBrowserOpen= 2;
         private BrowserController browserController;
         private IBrowserControllerQueue _browserControllerFactory;
+        private HubConnection _connection;
+        // TODO move to config
+        public int maxBrowserOpen= 2;       
+        public TestProgressSubscriber _subsciber;
+        public SendTestProgressDelegate _sendTestProgressDelegate;
 
         public BrowserControllerPlug(string hubName, IBrowserControllerQueue browserControllerFactory) : base(hubName)
         {
             _browserControllerFactory = browserControllerFactory;
-            HubConnection connection = StartAsync().GetAwaiter().GetResult();
+            _connection = StartAsync().GetAwaiter().GetResult();
+            _sendTestProgressDelegate = SendTestProgress;
+            _subsciber = new TestProgressSubscriber(_sendTestProgressDelegate);
+            TestProgressSubscriber.Set(new Guid(), _subsciber);
+            
+            
             try
             {
-                if (connection == null)
+                if (_connection == null)
                 {
                     //TODO what to do when connectio is null?
                     return;
                 }
-                connection.On("ReciveTriggerTest", async (int testId, List<SeleniumCommand> commands) =>
+                _connection.On("ReciveTriggerTest", async (int testId, List<SeleniumCommand> commands) =>
                 {
                     ReciveTriggerTest(testId, commands);
                 });
-                connection.On("ReciveCommand", async (List<SeleniumCommand> commands) =>
+                _connection.On("ReciveCommand", async (List<SeleniumCommand> commands) =>
                 {
                     ReciveCommand(commands);
                 });
+                
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                connection.InvokeAsync("SendError", ex);
+                _connection.InvokeAsync("SendError", ex);
             }
+        }
+        public void SendTestProgress()
+        {
+            _connection.SendAsync("TestProgress");
         }
         public void ReciveTriggerTest(int testId, List<SeleniumCommand> commands)
         {
-            _browserControllerFactory.AddNewBrowser(commands);
-            //Console.WriteLine(testId);
-            //browserController = new BrowserController();
 
-            //browserController.Start(BrowserType.Chrome, commands);
-            //browserController.RunCommandProcessor(commands);
-            //browserController = null;
+            _browserControllerFactory.AddNewBrowser(commands,this);
+            
         }
         public void ReciveCommand(List<SeleniumCommand> commands)
         {
            
-             _browserControllerFactory.AddNewBrowser(commands);
-           
-            ////  if (browserController == null)
-            ////  {
-            //browserController = new BrowserController(BrowserType.Chrome);
-
-            //browserController.Start().GetAwaiter();
-            ////    }
-            //// after browser is close run clean up
-            //browserController.ExecCommand(commands);
-            //var lastCommand = commands[commands.Count - 1];
-            //if (lastCommand.WebDriverOperationType == WebDriverOperationType.BrowserNavigationOperation && lastCommand.OperationId == (int)BrowserOperationEnum.CloseBrowser)
-            //{
-            //    browserController = null;
-            //}
+             _browserControllerFactory.AddNewBrowser(commands,this);
+          
         }
     }
 }

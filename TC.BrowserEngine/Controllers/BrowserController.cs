@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TC.BrowserEngine.Helpers.Enums;
 using TC.BrowserEngine.Selenium;
+using TC.BrowserEngine.Services;
 using TC.Common.Selenium;
 using TC.Common.Selenium.WebDriverOperation;
 
@@ -33,7 +34,7 @@ namespace TC.BrowserEngine.Controllers
         }
         public void Start()
         {
-            if(_commands == null)
+            if (_commands == null)
             {
                 throw new Exception("Browser controller has to be Setup before call Start method");
             }
@@ -45,8 +46,7 @@ namespace TC.BrowserEngine.Controllers
         }
         public void RunCommandProcessor()
         {
-            // should be always new instance or not ???
-            if (_commands == null )
+            if (_commands == null)
             {
                 throw new Exception("Browser controller has to be Setup before call RunCommandProcessor method");
             }
@@ -54,6 +54,7 @@ namespace TC.BrowserEngine.Controllers
             {
                 throw new Exception("Browser controller has to be Start before call RunCommandProcessor method");
             }
+
             _commandProcessor.Start(_commands);
 
         }
@@ -72,6 +73,9 @@ namespace TC.BrowserEngine.Controllers
         {
             return _commandProcessor.GetPageSource();
         }
-      
+
     }
+   
+   
+   
 }

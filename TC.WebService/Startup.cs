@@ -100,21 +100,21 @@ namespace TC.WebService
              .UseLazyLoadingProxies()
              .UseSqlServer(
                  Configuration.GetConnectionString("DefaultConnection")));
-
-
             services.AddMvc();
 
+            services.AddSignalR();
             services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder =>
                 {
-                    builder.AllowAnyMethod().AllowAnyHeader()
+                    builder.AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .WithMethods("GET", "POST")
                            .WithOrigins("http://localhost:53353")
                            .WithOrigins("http://localhost:4200")
                            .WithOrigins("http://localhost:5000")
                            .AllowCredentials();
                 }));
-
-            services.AddSignalR();
+         
             services.AddDistributedRedisCache(options =>
             {
                 options.Configuration = "localhost";

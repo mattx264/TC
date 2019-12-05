@@ -13,6 +13,6 @@ namespace TC.Common.Selenium
         [NotMapped]
         public string[] Values { get; set; }
 
-      
+        public string Guid { get; set; }
     }
 }

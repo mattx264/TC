@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TC.BrowserEngine.Controllers;
 using TC.BrowserEngine.Selenium.Commands;
+using TC.BrowserEngine.Services;
 using TC.Common.Selenium;
 using TC.Common.Selenium.WebDriverOperation;
 
@@ -12,21 +14,26 @@ namespace TC.BrowserEngine.Selenium
     {
         private IWebDriver _driver;
         IWebElement element;
+       
         public CommandProcessor(IWebDriver driver)
         {
             _driver = driver;
+           
         }
+       
         /// <summary>
         /// Run full test from start to end and close browser.
         /// </summary>
         /// <param name="SeleniumCommands"></param>
         public void Start(List<SeleniumCommand> SeleniumCommands)
         {
-            
+            TestProgressEmitter testProgressEmitter = new TestProgressEmitter();
+
             foreach (var command in SeleniumCommands)
             {
 
                 element = RunCommand(command);
+                testProgressEmitter.CommandComplete(command);
             }
            // _driver.Close();
         }

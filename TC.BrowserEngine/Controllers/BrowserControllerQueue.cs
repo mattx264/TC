@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TC.BrowserEngine.Helpers.Enums;
+using TC.BrowserEngine.Services;
+using TC.BrowserEngine.Signal;
 using TC.Common.Selenium;
 
 namespace TC.BrowserEngine.Controllers
@@ -13,7 +15,7 @@ namespace TC.BrowserEngine.Controllers
         public int ActiveBrowsers { get; set; }
         public Queue<IBrowserController> BrowserControllers { get; set; }
         public int GetCount();
-        public void AddNewBrowser(List<SeleniumCommand> commands);
+        public void AddNewBrowser(List<SeleniumCommand> commands, BrowserControllerPlug browserControllerPlug);
         public void StartBrowserFromQueue();
     }
     public class BrowserControllerQueue : IBrowserControllerQueue
@@ -21,6 +23,8 @@ namespace TC.BrowserEngine.Controllers
         public Queue<IBrowserController> BrowserControllers { get; set; }      
         public int ActiveBrowsers { get; set; } = 0;
         private int maxActiveBrowsers = 3;
+        private BrowserControllerPlug _browserController;
+
         public BrowserControllerQueue()
         {
             BrowserControllers = new Queue<IBrowserController>();
@@ -30,18 +34,14 @@ namespace TC.BrowserEngine.Controllers
             return BrowserControllers.Count();
         }
 
-        public void AddNewBrowser(List<SeleniumCommand> commands)
+        public void AddNewBrowser(List<SeleniumCommand> commands, BrowserControllerPlug browserControllerPlug)
         {
+            _browserController = browserControllerPlug;
             var browser = new BrowserController();
             browser.Setup(BrowserType.Chrome, commands);
             BrowserControllers.Enqueue(browser);
             Task.Run(() => StartBrowserFromQueue());
-            //var lastCommand = commands[commands.Count - 1];
-            //if (lastCommand.WebDriverOperationType == WebDriverOperationType.BrowserNavigationOperation && lastCommand.OperationId == (int)BrowserOperationEnum.CloseBrowser)
-            //{
-            //    _browserControllerFactory.RemoveBrowserController(browserController);
-            //    browserController = null;
-            //}           
+                  
         }
         public virtual void StartBrowserFromQueue()
         {
@@ -52,7 +52,9 @@ namespace TC.BrowserEngine.Controllers
             ActiveBrowsers++;
             var browser = BrowserControllers.Dequeue();
             browser.Start();
+
             browser.RunCommandProcessor();
+            _browserController.SendTestProgress();
             ActiveBrowsers--;
             StartBrowserFromQueue();
         }

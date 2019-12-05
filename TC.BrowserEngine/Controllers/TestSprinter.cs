@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TC.BrowserEngine.Helpers.Enums;
 using TC.BrowserEngine.Selenium;
+using TC.Common.Selenium;
 
 namespace TC.BrowserEngine.Controllers
 {
@@ -15,11 +16,11 @@ namespace TC.BrowserEngine.Controllers
         {
             _browserType = browserType;
         }
-        public void Start(List<Common.Selenium.SeleniumCommand> list)
+        public void Start(List<SeleniumCommand> list)
         {
 
-            ChromeDriver driver = new BrowserDriver(_browserType).GetDriver() as ChromeDriver;
-            new CommandProcessor(driver).Start(list);
+          //  ChromeDriver driver = new BrowserDriver(_browserType).GetDriver() as ChromeDriver;
+           // new CommandProcessor(driver).Start(list);
             //driver.Url = "http://www.google.com";
 
             //driver.ExecuteAsyncScript("alert('hey')");
