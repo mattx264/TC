@@ -1,6 +1,12 @@
-:host{
-    font-size: 1rem;
+:host {
+  font-size: 1rem;
 }
-main{
+main {
+  margin: 15px;
+}
+.buttons-wrapper {
+  display: flex;
+  button {
     margin: 15px;
+  }
 }

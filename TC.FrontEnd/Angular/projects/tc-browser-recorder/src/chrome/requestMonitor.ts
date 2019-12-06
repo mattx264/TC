@@ -1,26 +1,29 @@
+
 class RequestionMonitor {
     constructor() {
 
     }
-    startMonitor(main: Main) {
+    startMonitor(sendMessage) {
 
-        var proxied = (<any>window).XMLHttpRequest.prototype.send;
-        (<any>window).XMLHttpRequest.prototype.send = function () {
-            console.log(arguments);
-            //Here is where you can add any code to process the request.
-            //If you want to pass the Ajax request object, pass the 'pointer' below
-            var pointer = this
-            var intervalId = window.setInterval(function () {
-                if (pointer.readyState != 4) {
-                    return;
-                }
-                console.log(pointer.responseText);
-                //Here is where you can add any code to process the response.
-                //If you want to pass the Ajax request object, pass the 'pointer' below
-                clearInterval(intervalId);
+        var port = (<any>chrome).extension.connect({
+            name: "Sample Communication"
+        });
 
-            }, 1);//I found a delay of 1 to be sufficient, modify it as you need.
-            return proxied.apply(this, [].slice.call(arguments));
-        };
+        port.onMessage.addListener(function (msg) {
+            console.log(msg);
+            if (msg.type === 'xhrStart') {
+                sendMessage({
+                    action: msg.type,
+                    value: [msg.data.url, msg.data.method],
+                    path: null
+                });
+            } else if (msg.type === 'xhrDone') {
+                sendMessage({
+                    action: msg.type,
+                    value: [msg.data.url, msg.data.method, msg.data.statusCode],
+                    path: null
+                });
+            }
+        });
     }
 }

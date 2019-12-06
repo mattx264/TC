@@ -1,16 +1,21 @@
+import { OperatorModel } from "../../../shared/src/lib/models/operatorModel";
 
 class Main {
     xpathHelper: XpathHelper;
     tempEventElement: HTMLElement;
     tempElementValue: string;
     rightClickElementClicked: HTMLElement;
+    actionLog: OperatorModel[] = [];
     constructor() {
-       new RequestionMonitor().startMonitor(this);
+
+        new RequestionMonitor().startMonitor(this.sendMessage.bind(this));
         this.xpathHelper = new XpathHelper();
-        document.addEventListener("click", this.addClickEventListener);
+        // click is not always working so let try mousedown
+        //document.addEventListener("click", this.addClickEventListener);
         document.addEventListener("mousedown", this.addRightMouseListener);
 
-        document.addEventListener("keyup", this.addKeyDownEventListener);
+        document.addEventListener("keyup", this.addKeyUpEventListener);
+        document.addEventListener("keydown", this.addKeyDownEventListener);
         document.addEventListener("dblclick", this.addDoubleClickEventListener);
 
         chrome.runtime.onMessage.addListener((message: any, sender: any, sendResponse: any) => {
@@ -18,50 +23,57 @@ class Main {
                 this.sendMessage({
                     action: 'goToUrl',
                     value: location.href,
-                    xpath: ''
+                    path: null
                 });
             }
         });
     }
     addKeyDownEventListener = (e: KeyboardEvent) => {
-        if (e.code == "Tab") {
+        const activeElement = document.activeElement as HTMLInputElement;
+        var xpath = this.xpathHelper.getInputElementXPath(activeElement);
 
-            const newEle = document.activeElement as HTMLInputElement;
-            if (newEle.nodeName == "INPUT") {
-                this.tempEventElement.removeEventListener("blur", this.inputOnBlur);
-                this.addEventToEventElement(newEle);
-            }
-            this.sendMessage({
-                action: 'sendKeys', xpath: xpath, value: 'Keys.TAB'
-            })
-            return;
-        } else if (e.keyCode == 13) {//ENTER 
+        if (e.keyCode == 13) {//ENTER 
             e.preventDefault();
-            const newEle = document.activeElement as HTMLInputElement;
-            if (newEle.nodeName == "INPUT") {
-                this.tempElementValue = '';
-                this.getInputTextAndSend(newEle);
-            }
-            var xpath = this.xpathHelper.getInputElementXPath(newEle);
             this.sendMessage({
-                action: 'sendKeys', xpath: xpath, value: 'Keys.ENTER'
+                action: 'sendKeys', path: xpath, value: 'Keys.ENTER'
             })
             setTimeout(() => {
+                //TODO check if object 'e' can be resubmited. - issue can be when you have more than 1 form
                 document.querySelector('form').submit();
             }, 100);
         }
-        /*when user selected input and put value it createing new blur event so it not possible to detect change in input
-         if (this.tempEventElement != null && e.code != "Enter") {
-             const newEle = document.activeElement as HTMLInputElement;
-             if (newEle.nodeName == "INPUT") {
-                 this.tempEventElement.removeEventListener("blur", this.inputOnBlur);
-                 this.addEventToEventElement(newEle);
-             }
-             return;
-         }*/
-        console.log(e);
+    };
+    addKeyUpEventListener = (e: KeyboardEvent) => {
+        const activeElement = document.activeElement as HTMLInputElement;
+        var xpath = this.xpathHelper.getInputElementXPath(activeElement);
+        if (e.code == "Tab" || e.code == "ShiftLeft" || e.code == "ShiftRight"
+            || e.code == "ControlRight" || e.code == "ControlLeft" || e.code == "AltRight" || e.code == "AltLeft") {
+            this.sendMessage({
+                action: 'sendKeys', path: xpath, value: 'Keys.' + e.code.toUpperCase()
+            });
+            return;
+        } else if (e.keyCode == 13) {
+            //ENTER is handler in addKeyDownEventListener
+            return;
+        } else if (e.code === "Backspace") {
+
+            this.sendMessage({
+                action: 'sendKeys', path: xpath, value: 'Keys.BACKSPACE'
+            })
+
+        }
+        else if (activeElement instanceof HTMLInputElement) {
+
+            var xpath = this.xpathHelper.getActionElementXPath(activeElement);
+            if (xpath === '/HTML') {
+                xpath = this.xpathHelper.getElementXPath(activeElement);
+            }
+            let data = { action: 'sendKeys', path: xpath, value: e.key };
+            this.sendMessage(data);
+        }
     }
     addClickEventListener = (e: Event) => {
+        this.checkAndMonitorSelectElement(e.target);
         var xpath = this.xpathHelper.getActionElementXPath(e.target as Node);
         if (xpath === '/HTML') {
             xpath = this.xpathHelper.getElementXPath(e.target as Node);
@@ -69,32 +81,11 @@ class Main {
         if (xpath === null) {
             return;
         }
-        var data = { action: 'click', xpath: xpath }
-        //window.postMessage(data, "*")
-        // window.postMessage({ type: "FROM_PAGE", text: "Hello from the webpage!" }, "*");
-        var ele = this.xpathHelper.getElementByXPath(xpath, document);
-        if (ele.nodeName === "INPUT") {
-            if (!ele.isSameNode(this.tempEventElement) && this.tempEventElement != null) {
-                this.tempEventElement.removeEventListener("blur", this.inputOnBlur);
-            }
-            if (!ele.isSameNode(this.tempEventElement)) {
-                this.addEventToEventElement(ele);
-            }
-        } else if (ele.nodeName === "SELECT") {
-            if (!ele.isSameNode(this.tempEventElement) && this.tempEventElement != null) {
-                this.tempEventElement.removeEventListener("blur", this.inputOnBlur);
-            }
-            if (!ele.isSameNode(this.tempEventElement)) {
-                this.addEventToEventElement(ele);
-            }
-        }
-        else if (this.tempEventElement != null) {
-            this.tempEventElement.removeEventListener("blur", this.inputOnBlur);
-            this.tempEventElement = null;
-        }
-        if (ele.nodeName === "BUTTON") {
+        var data: OperatorModel = { action: 'click', path: xpath, value: null }
 
-        }
+        this.tempEventElement = this.xpathHelper.getElementByXPath(xpath, document);
+
+
         this.sendMessage(data);
     }
     addDoubleClickEventListener = (e: MouseEvent) => {
@@ -103,49 +94,50 @@ class Main {
     }
     addRightMouseListener = (e: MouseEvent) => {
         if (e.which !== 3) {
-            return;
+            this.addClickEventListener(e);
         }
         this.rightClickElementClicked = e.target as HTMLElement;
         this.rightClickElementClicked.classList.add("tc-selected-element");
         //right click 
     }
-    inputOnBlur = (event: FocusEvent) => {
 
-        this.getInputTextAndSend(event.currentTarget as HTMLInputElement);
+    sendMessage(data: OperatorModel) {
+        if (!chrome.runtime) {
+            return;
+        }
+        if (this.actionLog.length > 0) {
+            const prev = this.actionLog[this.actionLog.length - 1];
+            if (prev.path === data.path && data.action === 'sendKeys' && prev.action === 'sendKeys') {
+                this.sendUpdateMessage(data);
+                return;
+            }
+        }
+        this.actionLog.push(data);
+        this.sendMessageToPopup({ type: 'insert', data: data });
 
     }
-    sendMessage(data: { action: string, xpath: string, value?: string }) {
-        console.log(data);
+    sendUpdateMessage(data: OperatorModel) {
+        this.sendMessageToPopup({ type: 'appendLastValue', data: data });
+
+    }
+    sendMessageToPopup(message) {
         if (chrome.runtime) {
-            chrome.runtime.sendMessage(data, function (response: any) {
+            chrome.runtime.sendMessage(message, function (response: any) {
                 console.log(response);
             });
         }
     }
-    private getInputTextAndSend(node: HTMLInputElement) {
-        if (this.tempElementValue == (node).value) {
+    checkAndMonitorSelectElement(element: any) {
+        if (element.nodeName !== "SELECT") {
             return;
         }
-        this.tempElementValue = (node).value;
-        var xpath = this.xpathHelper.getActionElementXPath(this.tempEventElement);
-        if (xpath === '/HTML') {
-            xpath = this.xpathHelper.getElementXPath(this.tempEventElement);
-        }
-        let data = { action: 'sendKeys', xpath: xpath, value: (node).value };
-        if (node.nodeName === "INPUT") {
-            data.action= 'sendKeys';
-        } else if (node.nodeName === "SELECT") {
-            data.action= 'selectByValue';
-        }
 
-        this.sendMessage(data);
-
+        element.addEventListener('change', this.onChangeSelect);
     }
-    private addEventToEventElement(ele: HTMLInputElement) {
+    onChangeSelect = (event) => {
+        const xpath = this.xpathHelper.getElementXPath(event.target, document);
+        this.sendMessage({ value: event.target.value, action: 'selectByValue', path: xpath });
 
-        this.tempElementValue = JSON.parse(JSON.stringify(ele.value));
-        ele.addEventListener("blur", this.inputOnBlur);
-        this.tempEventElement = ele;
     }
 }
 // //document.addEventListener('DOMContentLoaded', function () {

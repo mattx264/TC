@@ -7,7 +7,7 @@ document.addEventListener("click", function (e) {
   if (xpath === null) {
     return;
   }
-  var data = { type: 'click', xpath: xpath }
+  var data = { type: 'click', path: xpath }
   //window.postMessage(data, "*")
   // window.postMessage({ type: "FROM_PAGE", text: "Hello from the webpage!" }, "*");
   var ele = getElementByXPath(xpath, document);
@@ -15,7 +15,7 @@ document.addEventListener("click", function (e) {
     if (!ele.isSameNode(tempEventElement) && tempEventElement != null) {
       tempEventElement.removeEventListener("blur");
       ele.addEventListener("blur", (event) => {
-        data = { type: 'SendKeys', xpath: xpath, value: event.currentTarget.value };
+        data = { type: 'SendKeys', path: xpath, value: event.currentTarget.value };
 
       });
       tempEventElement = ele;

@@ -1,14 +1,3 @@
-<header class="">
-    <nav>
-        <div *ngIf="project">
-            <small>Project: </small>
-            <strong>{{project.name}}</strong>
-        </div>
-        <div>
-            <button mat-button (click)="logout()">Logout</button>
-        </div>
-    </nav>
-</header>
 <section *ngIf="isStarted === true">
     <div class="buttons-wrapper">
         <!-- <button pButton type="button" [class.ui-button-secondary]="isStarted===false" (click)="startRecordingClick()"
