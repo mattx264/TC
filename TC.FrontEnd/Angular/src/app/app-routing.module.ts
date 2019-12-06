@@ -16,56 +16,25 @@ import { SendTestComponent } from './test-layout/send-test/send-test.component';
 import { ServerNotAvaiableComponent } from '../../projects/shared/src/lib/components/server-not-avaiable/server-not-avaiable.component';
 import { SimpleErrorPageComponent } from '../../projects/shared/src/lib/components/simple-error-page/simple-error-page.component';
 
-
-
 const routes: Routes = [
-
-  {
-    path: 'szwagierDashboard', data: { showSidebar: true }, component: SzwagierDashboardComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'szwagier-rc/:id', component: SzwagierRCComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'webrtc', component: WebRtcComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'group', component: GroupLayoutComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'group/:id', component: GroupEditComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'project', component: ProjectLayoutComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'project-create', component: ProjectCreateComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'project/:id', component: ProjectEditComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'send-test/:projectId', component: SendTestComponent, canActivate: [AuthGuard]
-  }, {
-    path: 'send-test', component: SendTestComponent, canActivate: [AuthGuard]
-  },
+  { path: 'szwagierDashboard', data: { showSidebar: true }, component: SzwagierDashboardComponent, canActivate: [AuthGuard]  },
+  { path: 'szwagier-rc/:id', component: SzwagierRCComponent, canActivate: [AuthGuard]  },
+  { path: 'webrtc', component: WebRtcComponent, canActivate: [AuthGuard]  },
+  { path: 'group', component: GroupLayoutComponent, canActivate: [AuthGuard]  },
+  { path: 'group/:id', component: GroupEditComponent, canActivate: [AuthGuard]  },
+  { path: 'project', component: ProjectLayoutComponent, canActivate: [AuthGuard]  },
+  { path: 'project-create', component: ProjectCreateComponent, canActivate: [AuthGuard]  },
+  { path: 'project/:id', component: ProjectEditComponent, canActivate: [AuthGuard]  },
+  { path: 'send-test/:projectId', component: SendTestComponent, canActivate: [AuthGuard]  }, 
+  { path: 'send-test', component: SendTestComponent, canActivate: [AuthGuard]  }, 
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
-  {
-    path: '', redirectTo: 'szwagierDashboard', pathMatch: 'full'
-  },
-  {
-    path: 'server-not-avaiable', component: ServerNotAvaiableComponent
-  },
-  {
-    path: 'error', component: SimpleErrorPageComponent
-  },
-  {
-    path: '**', redirectTo: 'szwagierDashboard', pathMatch: 'full'
-  },
-  { path: '', component: SidebarEmptyComponent, outlet: 'sidebar' }
-
-
+  { path: '', redirectTo: 'szwagierDashboard', pathMatch: 'full'  },
+  { path: '', component: SidebarEmptyComponent, outlet: 'sidebar' },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent, outlet: 'sidebar' },
+  { path: 'server-not-avaiable', component: ServerNotAvaiableComponent  },
+  { path: 'error', component: SimpleErrorPageComponent  },
+  { path: '**', redirectTo: 'szwagierDashboard', pathMatch: 'full'  }
 ];
 
 @NgModule({
