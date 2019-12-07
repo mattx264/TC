@@ -8,6 +8,7 @@ namespace TC.BrowserEngine.Services
 
     public struct TestProgress
     {
+        public string senderConnectionId;
         public SeleniumCommand command;
     }
 
@@ -41,11 +42,9 @@ namespace TC.BrowserEngine.Services
                 if (_observer != null && _observers.Contains(_observer))
                     _observers.Remove(_observer);
             }
-        }
+        }            
 
-
-
-        internal void CommandComplete(SeleniumCommand command)
+        internal void CommandComplete(TestProgress? testProgress)
         {
             foreach(var observer in TestProgressSubscriber.Get())
             {
@@ -58,13 +57,10 @@ namespace TC.BrowserEngine.Services
 
             foreach (var observer in observers)
             {
-                if (command == null)
+                if (testProgress == null)
                     observer.OnError(new Exception("Command is empty"));
                 else
-                    observer.OnNext(new TestProgress()
-                    {
-                        command = command
-                    });
+                    observer.OnNext(testProgress.Value);
             }
         }
     }
@@ -104,7 +100,7 @@ namespace TC.BrowserEngine.Services
 
         public void OnNext(TestProgress value)
         {
-            _sendTestProgressDelegate();
+            _sendTestProgressDelegate(value.senderConnectionId, value.command.Guid);
         }
     }
 }

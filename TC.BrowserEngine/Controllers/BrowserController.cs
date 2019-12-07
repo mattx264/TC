@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TC.BrowserEngine.Helpers.Enums;
 using TC.BrowserEngine.Selenium;
 using TC.BrowserEngine.Services;
+using TC.Common.DTO;
 using TC.Common.Selenium;
 using TC.Common.Selenium.WebDriverOperation;
 
@@ -14,7 +15,7 @@ namespace TC.BrowserEngine.Controllers
     public interface IBrowserController
     {
         public void Start();
-        public void Setup(BrowserType browserType, List<SeleniumCommand> commands);
+        public void Setup(BrowserType browserType, CommandMessage commandMessage);
         public void RunCommandProcessor();
     }
     public class BrowserController : IBrowserController
@@ -22,19 +23,19 @@ namespace TC.BrowserEngine.Controllers
         private BrowserType _browserType;
         private IWebDriver driver;
         private CommandProcessor _commandProcessor;
-        private List<SeleniumCommand> _commands;
+        private CommandMessage _commandMessage;
         public BrowserController()
         {
 
         }
-        public void Setup(BrowserType browserType, List<SeleniumCommand> commands)
+        public void Setup(BrowserType browserType, CommandMessage commandMessage)
         {
             _browserType = browserType;
-            _commands = commands;
+            _commandMessage = commandMessage;
         }
         public void Start()
         {
-            if (_commands == null)
+            if (_commandMessage == null)
             {
                 throw new Exception("Browser controller has to be Setup before call Start method");
             }
@@ -46,7 +47,7 @@ namespace TC.BrowserEngine.Controllers
         }
         public void RunCommandProcessor()
         {
-            if (_commands == null)
+            if (_commandMessage == null)
             {
                 throw new Exception("Browser controller has to be Setup before call RunCommandProcessor method");
             }
@@ -55,7 +56,7 @@ namespace TC.BrowserEngine.Controllers
                 throw new Exception("Browser controller has to be Start before call RunCommandProcessor method");
             }
 
-            _commandProcessor.Start(_commands);
+            _commandProcessor.Start(_commandMessage);
 
         }
         //public void ExecCommand(List<SeleniumCommand> list)

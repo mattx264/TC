@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TC.BrowserEngine.Controllers;
+using TC.Common.DTO;
 
 namespace TC.BrowserEngineTest.Controllers
 {
@@ -29,9 +30,9 @@ namespace TC.BrowserEngineTest.Controllers
             var browserFactory = new Mock<BrowserControllerQueue>();
             browserFactory.CallBase = true;
             browserFactory.Setup(x => x.StartBrowserFromQueue());//.Callback(() => { });
-            browserFactory.Object.AddNewBrowser(new List<Common.Selenium.SeleniumCommand>());
+            browserFactory.Object.AddNewBrowser(new CommandMessage());
             Assert.AreEqual(browserFactory.Object.GetCount(), 1);
-            browserFactory.Object.AddNewBrowser(new List<Common.Selenium.SeleniumCommand>());
+            browserFactory.Object.AddNewBrowser(new CommandMessage());
             Assert.AreEqual(browserFactory.Object.GetCount(), 2);
 
         }

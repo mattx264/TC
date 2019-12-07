@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TC.BrowserEngine.Helpers.Enums;
 using TC.BrowserEngine.Services;
 using TC.BrowserEngine.Signal;
+using TC.Common.DTO;
 using TC.Common.Selenium;
 
 namespace TC.BrowserEngine.Controllers
@@ -15,7 +16,7 @@ namespace TC.BrowserEngine.Controllers
         public int ActiveBrowsers { get; set; }
         public Queue<IBrowserController> BrowserControllers { get; set; }
         public int GetCount();
-        public void AddNewBrowser(List<SeleniumCommand> commands, BrowserControllerPlug browserControllerPlug);
+        public void AddNewBrowser(CommandMessage commandMessage);
         public void StartBrowserFromQueue();
     }
     public class BrowserControllerQueue : IBrowserControllerQueue
@@ -23,7 +24,6 @@ namespace TC.BrowserEngine.Controllers
         public Queue<IBrowserController> BrowserControllers { get; set; }      
         public int ActiveBrowsers { get; set; } = 0;
         private int maxActiveBrowsers = 3;
-        private BrowserControllerPlug _browserController;
 
         public BrowserControllerQueue()
         {
@@ -34,11 +34,11 @@ namespace TC.BrowserEngine.Controllers
             return BrowserControllers.Count();
         }
 
-        public void AddNewBrowser(List<SeleniumCommand> commands, BrowserControllerPlug browserControllerPlug)
+        public void AddNewBrowser(CommandMessage commandMessage)
         {
-            _browserController = browserControllerPlug;
+          
             var browser = new BrowserController();
-            browser.Setup(BrowserType.Chrome, commands);
+            browser.Setup(BrowserType.Chrome, commandMessage);
             BrowserControllers.Enqueue(browser);
             Task.Run(() => StartBrowserFromQueue());
                   
@@ -54,7 +54,6 @@ namespace TC.BrowserEngine.Controllers
             browser.Start();
 
             browser.RunCommandProcessor();
-            _browserController.SendTestProgress();
             ActiveBrowsers--;
             StartBrowserFromQueue();
         }
