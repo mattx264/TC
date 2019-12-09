@@ -16,6 +16,7 @@ using TC.DataAccess;
 using TC.DataAccess.DatabaseContext;
 using TC.DataAccess.Repositories;
 using TC.Entity.Entities;
+using TC.WebService.Helpers;
 using TC.WebService.Hubs;
 using TC.WebService.Services;
 
@@ -58,7 +59,7 @@ namespace TC.WebService
                        LifetimeValidator = (before, expires, token, param) =>
                        {
                            return expires > DateTime.UtcNow;
-                       },                      
+                       },
                        ValidateAudience = false,
                        ValidateIssuer = false,
                        ValidateActor = false,
@@ -68,7 +69,7 @@ namespace TC.WebService
                        ValidAudience = Configuration["Jwt:Issuer"],
                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                    };
-               
+
                 // We have to hook the OnMessageReceived event in order to
                 // allow the JWT authentication handler to read the access
                 // token from the query string when a WebSocket or 
@@ -124,9 +125,10 @@ namespace TC.WebService
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ILoggerManager, LoggerManager>();
-            services.AddScoped<UserRepository>();
-            services.AddScoped<ProjectRepository>();
+            services.AddScoped<IUserRepository,UserRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<TestInfoRepository>();
+            services.AddScoped<IUserHelper, UserHelper>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
@@ -146,7 +148,7 @@ namespace TC.WebService
             app.UseRouting();
 
             app.UseAuthentication();
-           // app.UseIdentityServer();
+            // app.UseIdentityServer();
             app.UseAuthorization();
 
             app.UseHttpsRedirection();
@@ -159,7 +161,7 @@ namespace TC.WebService
                 endpoints.MapHub<ChatHub>("/chathub");
                 endpoints.MapHub<SzwagierHub>("/hubs/szwagier");
             });
-          
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

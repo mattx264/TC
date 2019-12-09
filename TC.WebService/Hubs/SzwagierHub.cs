@@ -12,7 +12,7 @@ using TC.Entity.Entities;
 
 namespace TC.WebService.Hubs
 {
-    [Authorize]
+   // [Authorize]
     public partial class SzwagierHub : Hub
     {
         // private static List<SzwagierModel> szwagierModels = new List<SzwagierModel>();

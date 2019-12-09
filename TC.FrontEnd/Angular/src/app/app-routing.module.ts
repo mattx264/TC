@@ -15,6 +15,7 @@ import { ProjectEditComponent } from './project-layout/project-edit/project-edit
 import { SendTestComponent } from './test-layout/send-test/send-test.component';
 import { ServerNotAvaiableComponent } from '../../projects/shared/src/lib/components/server-not-avaiable/server-not-avaiable.component';
 import { SimpleErrorPageComponent } from '../../projects/shared/src/lib/components/simple-error-page/simple-error-page.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   { path: 'szwagierDashboard', data: { showSidebar: true }, component: SzwagierDashboardComponent, canActivate: [AuthGuard]  },

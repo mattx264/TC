@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import {  MatCardModule } from '@angular/material/card';
 import { RunTestComponent } from './run-test/run-test.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +23,8 @@ import { RunTestComponent } from './run-test/run-test.component';
     LandingPageComponent,
     LoginComponent,
     OperatorItemComponent,
-    RunTestComponent
-    
+    RunTestComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

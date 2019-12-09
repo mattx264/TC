@@ -3,7 +3,6 @@ import { SzwagierModel } from '../../../../shared/src/lib/models/szwagierModel';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ProjectViewModel } from '../../../../shared/src/lib/models/project/projectViewModel';
 import { ProjectDomainViewModel } from '../../../../shared/src/lib/models/project/projectDomainViewModel';
-import { AuthService } from '../../../../shared/src/lib/services/auth/auth.service';
 import { StoreService } from '../services/store.service';
 import { OperatorModel } from '../../../../shared/src/lib/models/operatorModel';
 
@@ -23,7 +22,7 @@ export class LandingPageComponent implements OnInit {
   project: ProjectViewModel;
   projectDomain: ProjectDomainViewModel;
   constructor(route: ActivatedRoute,
-    private cdr: ChangeDetectorRef, private authService: AuthService, private router: Router,
+    private cdr: ChangeDetectorRef, private router: Router,
     private storeService: StoreService) {
     route.data.subscribe((res: any) => {
       this.projects = res.project;
@@ -76,10 +75,7 @@ export class LandingPageComponent implements OnInit {
   createNewProject() {
     window.open("http://tc.net/project/create")
   }
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
+  
   private addNewOperation(request: OperatorModel) {
     let newOperation: OperatorModel = {
       action: request.action,
