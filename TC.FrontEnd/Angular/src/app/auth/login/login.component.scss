@@ -12,8 +12,15 @@
   background: url("/assets/images/HiResHead2_0000_OH Walnut Creek 5.jpg");
   z-index: -1;
   background-size: cover;
-  filter: grayscale(50%) blur(2px);
+  filter: grayscale(80%);
   position: absolute;
+}
+
+.login-header {
+  height: 100px;
+  img {
+    height: 100px;
+  }
 }
 
 .row {
@@ -34,7 +41,14 @@ input {
   background-color: white;
   padding: 21px;
   border-radius: 15px;
-  margin-top: 4rem;
+  margin-top: 2rem;
+  border: 1px solid rgb(94, 94, 94);
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  -webkit-box-shadow: rgb(124, 122, 122) 0px 2px 3px;
+  -moz-box-shadow: rgb(85, 85, 85) 0px 2px 3px;
+  box-shadow: rgb(83, 83, 83) 0px 2px 3px;
+  behavior: url(/pie/PIE.htc);
 }
 
 h1,
