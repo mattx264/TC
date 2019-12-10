@@ -14,11 +14,11 @@ export class SzwagierDashboardComponent implements OnInit {
   displayedColumns: string[] = ['name', 'szwagierType', 'connectionId', 'location', 'userId', 'RC', 'Send test'];
   szwagiers: SzwagierModel[];
   hubConnection: signalR.HubConnection;
-  constructor(private signalSzwagierService: SignalSzwagierService, private cd: ChangeDetectorRef) {
-
+  constructor( signalSzwagierService: SignalSzwagierService, private cd: ChangeDetectorRef) {
+    this.hubConnection = signalSzwagierService.start();
   }
   ngOnInit() {
-    this.hubConnection = this.signalSzwagierService.start();
+  
     this.hubConnection.on('UpdateSzwagierList', (data: SzwagierModel[]) => {
       this.szwagiers = [];
       if (data == null) {

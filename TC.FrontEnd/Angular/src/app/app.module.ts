@@ -92,7 +92,6 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     MatCardModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
     LayoutService
   ],
   entryComponents: [

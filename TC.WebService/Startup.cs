@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,10 +110,12 @@ namespace TC.WebService
             services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder =>
                 {
-                    builder.AllowAnyMethod().AllowAnyHeader()
-                           .WithOrigins("http://localhost:53353")
+                    builder.WithOrigins("http://localhost:53353")
                            .WithOrigins("http://localhost:4200")
                            .WithOrigins("http://localhost:5000")
+                           .WithOrigins("chrome-extension://kiaoamdhbhjfgjjfodecilhhohjpabni")
+                           .AllowAnyMethod()
+                           .AllowAnyHeader()                           
                            .AllowCredentials();
                 }));
 
@@ -130,13 +134,19 @@ namespace TC.WebService
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<TestInfoRepository>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
         {
             if (env.IsDevelopment())
             {
-
+                // Enable middleware to serve generated Swagger as a JSON endpoint.
+                app.UseSwagger();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -156,7 +166,12 @@ namespace TC.WebService
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseCors("CorsPolicy");
-
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
             app.UseEndpoints((endpoints) =>
             {
                 endpoints.MapHub<ChatHub>("/chathub");
