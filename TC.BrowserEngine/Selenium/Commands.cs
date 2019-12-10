@@ -5,6 +5,7 @@ using System.Text;
 using TC.BrowserEngine.Controllers;
 using TC.BrowserEngine.Selenium.Commands;
 using TC.BrowserEngine.Services;
+using TC.Common.DTO;
 using TC.Common.Selenium;
 using TC.Common.Selenium.WebDriverOperation;
 
@@ -25,15 +26,19 @@ namespace TC.BrowserEngine.Selenium
         /// Run full test from start to end and close browser.
         /// </summary>
         /// <param name="SeleniumCommands"></param>
-        public void Start(List<SeleniumCommand> SeleniumCommands)
+        public void Start(CommandMessage commandMessage)
         {
             TestProgressEmitter testProgressEmitter = new TestProgressEmitter();
 
-            foreach (var command in SeleniumCommands)
+            foreach (var command in commandMessage.Commands)
             {
-
                 element = RunCommand(command);
-                testProgressEmitter.CommandComplete(command);
+                var testProgress = new TestProgress()
+                {
+                    command = command,
+                    senderConnectionId = commandMessage.SenderConnectionId
+                };
+                testProgressEmitter.CommandComplete(testProgress);
             }
            // _driver.Close();
         }

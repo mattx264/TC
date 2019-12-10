@@ -14,13 +14,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import {  MatCardModule } from '@angular/material/card';
+import { RunTestComponent } from './run-test/run-test.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     LoginComponent,
-    OperatorItemComponent
+    OperatorItemComponent,
+    RunTestComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

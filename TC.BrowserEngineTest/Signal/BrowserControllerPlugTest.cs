@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TC.BrowserEngine.Controllers;
 using TC.BrowserEngine.Helpers.Enums;
 using TC.BrowserEngine.Signal;
+using TC.Common.DTO;
 using TC.Common.Selenium;
 
 namespace TC.BrowserEngineTest.Signal
@@ -51,8 +52,8 @@ namespace TC.BrowserEngineTest.Signal
                 });
             var browserControllerPlug = new BrowserControllerPlug("hub name", browserControllerFactoryMock.Object);
             browserControllerPlug.maxBrowserOpen = 1;
-            var commands = new List<SeleniumCommand>();
-            browserControllerPlug.ReciveCommand(commands);
+            var commandMessage = new CommandMessage();
+            browserControllerPlug.ReciveCommand(commandMessage);
 
 
 

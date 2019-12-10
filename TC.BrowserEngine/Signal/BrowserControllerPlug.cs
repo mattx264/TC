@@ -6,12 +6,13 @@ using System.Threading;
 using TC.BrowserEngine.Controllers;
 using TC.BrowserEngine.Helpers.Enums;
 using TC.BrowserEngine.Services;
+using TC.Common.DTO;
 using TC.Common.Selenium;
 using TC.Common.Selenium.WebDriverOperation;
 
 namespace TC.BrowserEngine.Signal
 {
-    public delegate void SendTestProgressDelegate();
+    public delegate void SendTestProgressDelegate(string senderConnectionId, string commandTestGuid);
 
     public class BrowserControllerPlug : SignalClientBase
     {
@@ -29,8 +30,7 @@ namespace TC.BrowserEngine.Signal
             _connection = StartAsync().GetAwaiter().GetResult();
             _sendTestProgressDelegate = SendTestProgress;
             _subsciber = new TestProgressSubscriber(_sendTestProgressDelegate);
-            TestProgressSubscriber.Set(new Guid(), _subsciber);
-            
+            TestProgressSubscriber.Set(new Guid(), _subsciber);            
             
             try
             {
@@ -39,13 +39,13 @@ namespace TC.BrowserEngine.Signal
                     //TODO what to do when connectio is null?
                     return;
                 }
-                _connection.On("ReciveTriggerTest", async (int testId, List<SeleniumCommand> commands) =>
+                _connection.On("ReciveTriggerTest", async (int testId, CommandMessage commandMessage) =>
                 {
-                    ReciveTriggerTest(testId, commands);
+                    ReciveTriggerTest(testId, commandMessage);
                 });
-                _connection.On("ReciveCommand", async (List<SeleniumCommand> commands) =>
+                _connection.On("ReciveCommand", async (CommandMessage commandMessage) =>
                 {
-                    ReciveCommand(commands);
+                    ReciveCommand(commandMessage);
                 });
                 
             }
@@ -55,20 +55,20 @@ namespace TC.BrowserEngine.Signal
                 _connection.InvokeAsync("SendError", ex);
             }
         }
-        public void SendTestProgress()
+        public void SendTestProgress(string senderConnectionId, string commandTestGuid )
         {
-            _connection.SendAsync("TestProgress");
+            _connection.SendAsync("TestProgress",true);
         }
-        public void ReciveTriggerTest(int testId, List<SeleniumCommand> commands)
+        public void ReciveTriggerTest(int testId, CommandMessage commandMessage)
         {
 
-            _browserControllerFactory.AddNewBrowser(commands,this);
+            _browserControllerFactory.AddNewBrowser(commandMessage);
             
         }
-        public void ReciveCommand(List<SeleniumCommand> commands)
+        public void ReciveCommand(CommandMessage commandMessage)
         {
            
-             _browserControllerFactory.AddNewBrowser(commands,this);
+             _browserControllerFactory.AddNewBrowser(commandMessage);
           
         }
     }

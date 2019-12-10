@@ -10,7 +10,7 @@ using TC.DataAccess.DatabaseContext;
 namespace TC.DataAccess.Migrations
 {
     [DbContext(typeof(TestingCenterDbContext))]
-    [Migration("20191204034830_Init")]
+    [Migration("20191209203707_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,8 +58,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 386, DateTimeKind.Local).AddTicks(3175),
-                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 386, DateTimeKind.Local).AddTicks(3880),
+                            DateAdded = new DateTime(2019, 12, 9, 14, 37, 7, 60, DateTimeKind.Local).AddTicks(5985),
+                            DateModified = new DateTime(2019, 12, 9, 14, 37, 7, 60, DateTimeKind.Local).AddTicks(6419),
                             Description = "",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -106,8 +106,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 386, DateTimeKind.Local).AddTicks(9269),
-                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 386, DateTimeKind.Local).AddTicks(9934),
+                            DateAdded = new DateTime(2019, 12, 9, 14, 37, 7, 60, DateTimeKind.Local).AddTicks(9702),
+                            DateModified = new DateTime(2019, 12, 9, 14, 37, 7, 61, DateTimeKind.Local).AddTicks(116),
                             Domain = "google.com",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -117,8 +117,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 387, DateTimeKind.Local).AddTicks(907),
-                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 387, DateTimeKind.Local).AddTicks(938),
+                            DateAdded = new DateTime(2019, 12, 9, 14, 37, 7, 61, DateTimeKind.Local).AddTicks(750),
+                            DateModified = new DateTime(2019, 12, 9, 14, 37, 7, 61, DateTimeKind.Local).AddTicks(770),
                             Domain = "google.pl",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -171,8 +171,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 388, DateTimeKind.Local).AddTicks(2489),
-                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 388, DateTimeKind.Local).AddTicks(3266),
+                            DateAdded = new DateTime(2019, 12, 9, 14, 37, 7, 61, DateTimeKind.Local).AddTicks(5795),
+                            DateModified = new DateTime(2019, 12, 9, 14, 37, 7, 61, DateTimeKind.Local).AddTicks(6213),
                             Description = "Using google search find c# tutorial",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -216,8 +216,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 380, DateTimeKind.Local).AddTicks(9772),
-                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(659),
+                            DateAdded = new DateTime(2019, 12, 9, 14, 37, 7, 56, DateTimeKind.Local).AddTicks(9982),
+                            DateModified = new DateTime(2019, 12, 9, 14, 37, 7, 59, DateTimeKind.Local).AddTicks(2172),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Pending"
@@ -226,8 +226,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(1562),
-                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(1594),
+                            DateAdded = new DateTime(2019, 12, 9, 14, 37, 7, 59, DateTimeKind.Local).AddTicks(2743),
+                            DateModified = new DateTime(2019, 12, 9, 14, 37, 7, 59, DateTimeKind.Local).AddTicks(2764),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Accepted"
@@ -236,8 +236,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(1610),
-                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(1615),
+                            DateAdded = new DateTime(2019, 12, 9, 14, 37, 7, 59, DateTimeKind.Local).AddTicks(2773),
+                            DateModified = new DateTime(2019, 12, 9, 14, 37, 7, 59, DateTimeKind.Local).AddTicks(2776),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Rejected"
@@ -246,8 +246,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 4,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(1619),
-                            DateModified = new DateTime(2019, 12, 3, 21, 48, 29, 384, DateTimeKind.Local).AddTicks(1622),
+                            DateAdded = new DateTime(2019, 12, 9, 14, 37, 7, 59, DateTimeKind.Local).AddTicks(2778),
+                            DateModified = new DateTime(2019, 12, 9, 14, 37, 7, 59, DateTimeKind.Local).AddTicks(2780),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Deleted"
