@@ -34,12 +34,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatSliderModule } from '@angular/material/slider';
 import { TestLayoutComponent } from './test-layout/test-layout.component';
 import { SendTestComponent } from './test-layout/send-test/send-test.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SelectSzwagierDialogComponent } from './test-layout/send-test/select-szwagier-dialog/select-szwagier-dialog.component';
-import {MatIconModule} from '@angular/material/icon';
-import {MatCardModule} from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 import { TestFlowLayoutComponent } from './test-flow-layout/test-flow-layout.component';
 import { TestFlowCreateComponent } from './test-flow-layout/test-flow-create/test-flow-create.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
@@ -88,8 +90,10 @@ import { SimpleErrorPageComponent } from '../../projects/shared/src/lib/componen
     MatButtonModule,
     MatInputModule,
     MatTableModule,
+    MatSliderModule,
     MatDialogModule,
     MatIconModule,
+    MatTabsModule,
     MatCardModule
   ],
   providers: [
