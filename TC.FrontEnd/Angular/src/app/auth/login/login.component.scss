@@ -6,18 +6,46 @@
   z-index: 1;
 }
 
-#background-img {
+.colorful {
   height: 100%;
   width: 100%;
-  background: url("/assets/images/HiResHead2_0000_OH Walnut Creek 5.jpg");
   z-index: -1;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  //filter: grayscale(80%);
+  position: absolute;
+    background:
+      -webkit-linear-gradient(315deg, hsla(49.81, 75.77%, 49.02%, 1) 0%, hsla(49.81, 75.77%, 49.02%, 0) 70%),
+      -webkit-linear-gradient(65deg, hsla(23.46, 99.43%, 40.25%, 1) 10%, hsla(23.46, 99.43%, 40.25%, 0) 80%),
+      -webkit-linear-gradient(135deg, hsla(142.64, 83.67%, 35.51%, 1) 15%, hsla(142.64, 83.67%, 35.51%, 0) 80%),
+      -webkit-linear-gradient(205deg, hsla(199.8, 69.81%, 22.26%, 1) 100%, hsla(199.8, 69.81%, 22.26%, 0) 70%);
+    background:
+      linear-gradient(135deg, hsla(49.81, 75.77%, 49.02%, 1) 0%, hsla(49.81, 75.77%, 49.02%, 0) 70%),
+      linear-gradient(25deg, hsla(23.46, 99.43%, 40.25%, 1) 10%, hsla(23.46, 99.43%, 40.25%, 0) 80%),
+      linear-gradient(315deg, hsla(142.64, 83.67%, 35.51%, 1) 15%, hsla(142.64, 83.67%, 35.51%, 0) 80%),
+      linear-gradient(245deg, hsla(199.8, 69.81%, 22.26%, 1) 100%, hsla(199.8, 69.81%, 22.26%, 0) 70%);
+  }
+
+/*#background-img {
+  height: 100%;
+  width: 100%;
+  background: url("/assets/images/HiResHead2_0000_OH Walnut Creek 5.jpg") no-repeat center center fixed;
+  z-index: -1;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
   filter: grayscale(80%);
   position: absolute;
-}
+}*/
 
 .login-header {
   height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   img {
     height: 100px;
   }

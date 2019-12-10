@@ -1,11 +1,12 @@
-<div id="background-img">
+<div id="background-img" class="colorful">
 </div>
-<div class="container" style="border: 2px">
+<div class="container">
   <div class="row" >
     <div class="col-md-4 offset-md-4 center-vertical">
       <div id="form">
         <div class="login-header">
-          <span><img src="/assets/images/logo.jpg" alt="logo"><h3>Test Center Pack</h3></span>
+          <img src="/assets/images/logo.jpg" alt="logo">
+          <h2>Test Center Pack</h2>
         </div>
         <h1 class="h1-extra-margin">Login</h1>
         <div id="unathorized" *ngIf="unathorized">
@@ -43,7 +44,7 @@
             <i class="fa fa-google fa-3x"></i>
           </a>
         </div>
-        <p style="padding-top: 155px;">or <strong><a id="sing-up" [routerLink]="['/registration']">SING UP</a></strong>
+        <p style="padding-top: 15px;">or <strong><a id="sing-up" [routerLink]="['/registration']">SING UP</a></strong>
         </p>
         <p><a id="privacy-policy" [routerLink]="['/privacy-policy']">privacy policy</a></p>
 
