@@ -20,6 +20,7 @@ namespace TC.BrowserEngine.Selenium
         {
             _browserType = browserType;
             var path = FileHelper.GetRootPath();
+
             if (browserType == BrowserType.Chrome)
             {
                 //TODO get dynamic way to get version wmic datafile where name="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" get Version /value

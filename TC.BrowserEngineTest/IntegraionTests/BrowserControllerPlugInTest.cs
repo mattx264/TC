@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TC.BrowserEngine.Controllers;
+using TC.BrowserEngine.Helpers.Enums;
+using TC.BrowserEngine.Selenium;
 using TC.BrowserEngine.Signal;
 using TC.Common.DTO;
 using TC.Common.Selenium;
@@ -21,7 +23,7 @@ namespace TC.BrowserEngineTest.IntegraionTests
             {
                 WebDriverOperationType = WebDriverOperationType.BrowserNavigationOperation,
                 OperationId = 3,
-                Values = new string[] { "https://www.google.com/" }
+                Values = new string[] { "https://www.onet.pl/" }
             });
 
             var commandMessage = new CommandMessage()
@@ -34,6 +36,29 @@ namespace TC.BrowserEngineTest.IntegraionTests
             browserControllerPlugIn.ReciveCommand(commandMessage);
             // TODO add Assert
            
+        }
+        [Test]
+        public void BrowserDriverCreateTest()
+        {
+            var commands = new List<SeleniumCommand>();
+            commands.Add(new SeleniumCommand()
+            {
+                WebDriverOperationType = WebDriverOperationType.BrowserNavigationOperation,
+                OperationId = 3,
+                Values = new string[] { "https://www.onet.pl/" }
+            });
+            var commandMessage = new CommandMessage()
+            {
+                ReceiverConnectionId = "receiverTest",
+                SenderConnectionId = "senderTest",
+                Commands = commands
+            };
+            var browser = new BrowserController();
+            browser.Setup(BrowserType.Chrome, commandMessage);
+            var browserControllerQueue = new BrowserControllerQueue();
+            browserControllerQueue.BrowserControllers.Enqueue(browser);
+            browserControllerQueue.StartBrowserFromQueue();
+          
         }
     }
 }
