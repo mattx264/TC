@@ -57,7 +57,12 @@ namespace TC.BrowserEngine.Signal
         }
         public void SendTestProgress(string senderConnectionId, string commandTestGuid )
         {
-            _connection.SendAsync("TestProgress",true);
+            _connection.SendAsync("TestProgress",new TestProgressMessage()
+            {
+                IsSuccesful=true,
+                commandTestGuid= commandTestGuid,
+                SenderConnectionId =senderConnectionId
+            });
         }
         public void ReciveTriggerTest(int testId, CommandMessage commandMessage)
         {

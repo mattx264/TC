@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import {  MatCardModule } from '@angular/material/card';
 import { RunTestComponent } from './run-test/run-test.component';
 import { HeaderComponent } from './header/header.component';
+import { SelectBrowserEngineComponent } from './select-browser-engine/select-browser-engine.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HeaderComponent } from './header/header.component';
     LoginComponent,
     OperatorItemComponent,
     RunTestComponent,
-    HeaderComponent
+    HeaderComponent,
+    SelectBrowserEngineComponent
   ],
   imports: [
     BrowserModule,

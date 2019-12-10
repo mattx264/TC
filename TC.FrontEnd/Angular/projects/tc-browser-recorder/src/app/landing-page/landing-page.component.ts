@@ -52,11 +52,11 @@ export class LandingPageComponent implements OnInit {
     this.sendMessageToBrowser('getUrl');
   }
   saveClick() {
-   
+
   }
   sendClick() {
     this.storeService.setOperatorsData(this.operatorsData);
-    this.router.navigate(['/run-test']);
+    this.router.navigate(['/select-browser-engine']);
   }
   restartClick() {
     this.operatorsData = [];
@@ -75,7 +75,7 @@ export class LandingPageComponent implements OnInit {
   createNewProject() {
     window.open("http://tc.net/project/create")
   }
-  
+
   private addNewOperation(request: OperatorModel) {
     let newOperation: OperatorModel = {
       action: request.action,

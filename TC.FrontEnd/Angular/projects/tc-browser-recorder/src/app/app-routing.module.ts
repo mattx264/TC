@@ -1,3 +1,4 @@
+import { SelectBrowserEngineComponent } from './select-browser-engine/select-browser-engine.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -15,6 +16,9 @@ const routes: Routes = [
   }, {
     path: 'run-test', component: RunTestComponent
   }, {
+    path: 'select-browser-engine', component: SelectBrowserEngineComponent
+  },
+  {
     path: 'server-not-avaiable', component: ServerNotAvaiableComponent
   }, {
     path: '**', component: LandingPageComponent

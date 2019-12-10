@@ -7,6 +7,7 @@ namespace TC.Common.DTO
 {
     public class TestProgressMessage
     {
+        public string commandTestGuid { get; set; }
         public string SenderConnectionId { get; set; }
         public bool IsSuccesful { get; set; }
 

@@ -1,26 +1,42 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { SignalSzwagierService } from '../../../../shared/src/lib/services/signalr/signal-szwagier.service';
-import { SzwagierModel } from '../../../../shared/src/lib/models/szwagierModel';
-import { SzwagierType } from '../../../../shared/src/lib/models/SzwagierType';
+import { SzwagierModel } from 'projects/shared/src/lib/models/szwagierModel';
+import { SignalSzwagierService } from 'projects/shared/src/lib/services/signalr/signal-szwagier.service';
 import { StoreService } from '../services/store.service';
+import { Router, Route, ActivatedRoute } from '@angular/router';
+import { SzwagierType } from 'projects/shared/src/lib/models/SzwagierType';
 
 @Component({
-  selector: 'app-run-test',
-  templateUrl: './run-test.component.html',
-  styleUrls: ['./run-test.component.scss']
+  selector: 'app-select-browser-engine',
+  templateUrl: './select-browser-engine.component.html',
+  styleUrls: ['./select-browser-engine.component.scss']
 })
-export class RunTestComponent implements OnInit {
+export class SelectBrowserEngineComponent implements OnInit {
+  hubConnection: signalR.HubConnection;
+  szwagiersConsoles: SzwagierModel[];
+  selectedSzwagierConsole: SzwagierModel;
+  constructor(signalSzwagierService: SignalSzwagierService, private storeService: StoreService, private router: Router
+    ,         private route: ActivatedRoute) {
+    this.hubConnection = signalSzwagierService.start();
+  }
 
-  constructor(private storeService: StoreService) {
+  ngOnInit() {
+    console.log(this.route.snapshot.queryParams.returnUrl)
+    this.hubConnection.on('UpdateSzwagierList', (data: SzwagierModel[]) => {
+      if (data == null) {
+        return;
+      }
+      this.szwagiersConsoles = data.filter(x => x.szwagierType === SzwagierType.SzwagierConsole);
+    });
+  }
+  saveTestClick() {
 
   }
-  ngOnInit() {
-
+  backClick() {
+    this.router.navigate(['**']);
   }
   sendClick(index: number) {
-
     // opend modal
+    this.selectedSzwagierConsole = this.szwagiersConsoles[index];
 
     var data = [];
 
@@ -64,6 +80,5 @@ export class RunTestComponent implements OnInit {
 
     this.hubConnection.invoke('SendCommand', message);
   }
-
 
 }
