@@ -22,7 +22,6 @@ namespace TC.WebService.Controllers
         }
         // GET api/values
         [HttpGet]
-
         public ActionResult<IEnumerable<string>> Get()
         {
        

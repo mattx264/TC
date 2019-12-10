@@ -11,15 +11,18 @@ namespace TC.WebService.Controllers
     [ApiController]
     public class TestManagementController : ControllerBase
     {
+        [HttpGet]
         public IActionResult Get()
         {
             return Ok();
         }
+        [HttpPost]
         public IActionResult Post()
         {
             return Created("http://example.org/myitem", new { name = "testitem" });
 
         }
+        [HttpPut]
         public IActionResult Put()
         {
             return Ok();

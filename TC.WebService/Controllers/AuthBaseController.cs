@@ -13,10 +13,12 @@ namespace TC.WebService.Controllers
         {
             _userHelper = userHelper;
         }
+        [NonAction]
         public string GetUserGuid()
         {
             return _userHelper.GetGuid(User);
         }
+        [NonAction]
         public UserModel GetUser()
         {
             return _userHelper.GetUser(User); 

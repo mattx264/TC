@@ -43,7 +43,7 @@ import {MatCardModule} from '@angular/material/card';
 import { TestFlowLayoutComponent } from './test-flow-layout/test-flow-layout.component';
 import { TestFlowCreateComponent } from './test-flow-layout/test-flow-create/test-flow-create.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { SimpleErrorPageComponent } from 'projects/shared/src/lib/components/simple-error-page/simple-error-page.component';
+import { SimpleErrorPageComponent } from '../../projects/shared/src/lib/components/simple-error-page/simple-error-page.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +72,7 @@ import { SimpleErrorPageComponent } from 'projects/shared/src/lib/components/sim
     TestFlowLayoutComponent,
     TestFlowCreateComponent,
     PrivacyPolicyComponent,
-    SimpleErrorPageComponent
+    SimpleErrorPageComponent 
   ],
   imports: [
     BrowserModule,
@@ -93,7 +93,6 @@ import { SimpleErrorPageComponent } from 'projects/shared/src/lib/components/sim
     MatCardModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
     LayoutService
   ],
   entryComponents: [

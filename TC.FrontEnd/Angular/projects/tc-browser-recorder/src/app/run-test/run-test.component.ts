@@ -68,7 +68,13 @@ export class RunTestComponent implements OnInit {
     // close browser
     data.push({
       operationId: 18, webDriverOperationType: 4
-    })
-    this.hubConnection.invoke('SendCommand', data);
+    });
+    const message={
+      ReceiverConnectionId:  this.selectedSzwagierConsole.connectionId,
+     
+      Commands:data
+    }
+ 
+    this.hubConnection.invoke('SendCommand', message);
   }
 }

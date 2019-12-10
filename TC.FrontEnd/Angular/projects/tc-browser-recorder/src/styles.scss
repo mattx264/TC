@@ -16,3 +16,9 @@ main {
   height: 100%;
   font-size: 1rem;
 }
+.buttons-wrapper {
+  display: flex;
+  button {
+    margin: 15px;
+  }
+}

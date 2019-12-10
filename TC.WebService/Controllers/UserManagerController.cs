@@ -21,6 +21,7 @@ namespace TC.WebService.Controllers
         {
            
         }
+        [HttpGet]
         public IActionResult Get()
         {
             var user = GetUser();
