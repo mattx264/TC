@@ -17,6 +17,10 @@ import {  MatCardModule } from '@angular/material/card';
 import { RunTestComponent } from './run-test/run-test.component';
 import { HeaderComponent } from './header/header.component';
 import { SelectBrowserEngineComponent } from './select-browser-engine/select-browser-engine.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
@@ -34,10 +38,13 @@ import { SelectBrowserEngineComponent } from './select-browser-engine/select-bro
     AppRoutingModule,
     SharedModule.forRoot(environment),
     FormsModule,
-    ReactiveFormsModule,  
+    ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthGuard

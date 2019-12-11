@@ -7,16 +7,14 @@
       <button mat-raised-button type="button" color="accent" (click)="backClick()">Back</button>
 
   </div>
-  <div *ngFor="let item of szwagiersConsoles">
-      {{item.name}}
-  </div>
+
   <table id="actionTable" class="table-wrapper">
       <thead class="table-thead">
           <tr>
               <th style="width: 60px;"></th>
-              <th>Action</th>
-              <th>Path</th>
-              <th>Value</th>
+              <th>Name</th>
+              <th>Connection Id</th>
+              <th>Szwagier Type</th>
           </tr>
       </thead>
       <tbody class="table-tbody">
@@ -31,7 +29,7 @@
                   {{item.szwagierType}}
               </td>
               <td class="" >
-                  <button (click)="sendClick(i)" mat-button>Run</button>
+                  <button (click)="selectClick(i)" mat-button>Run</button>
               </td>
           </tr>
       </tbody>

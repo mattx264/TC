@@ -19,7 +19,7 @@ namespace TC.WebService.Hubs
         public async Task TestProgress(TestProgressMessage message)
         {
             // TODO add to testHistory
-            await Clients.Client(message.SenderConnectionId).SendAsync("TestProgress", message.IsSuccesful);
+            await Clients.Client(message.SenderConnectionId).SendAsync("TestProgress", message);
         }
         
         public async Task SendScreenShot(byte[] image)

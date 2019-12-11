@@ -1,39 +1,42 @@
-<section>
-    <div class="buttons-wrapper">
-        <!-- <button pButton type="button" [class.ui-button-secondary]="isStarted===false" (click)="startRecordingClick()"
-                    label="Start recording"></button> -->
-        <button mat-raised-button type="button" color="primary" (click)="saveTestClick()">Save test</button>
+<button (click)="sendClick()">Start Test</button>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-        <button mat-raised-button type="button" color="accent" (click)="backClick()">Back</button>
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.action}} </mat-cell>
+  </ng-container>
 
-    </div>
-    <div *ngFor="let item of szwagiersConsoles">
-        {{item.name}}
-    </div>
-    <table id="actionTable" class="table-wrapper">
-        <thead class="table-thead">
-            <tr>
-                <th style="width: 60px;"></th>
-                <th>Action</th>
-                <th>Path</th>
-                <th>Value</th>
-            </tr>
-        </thead>
-        <tbody class="table-tbody">
-            <tr *ngFor="let item of szwagiersConsoles;let i = index">
-                <td>
-                    {{item.name}}
-                </td>
-                <td class="">
-                    {{item.connectionId}}
-                </td>
-                <td class="">
-                    {{item.szwagierType}}
-                </td>
-                <td class="" >
-                    <button (click)="sendClick(i)" mat-button>Run</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
+  <ng-container matColumnDef="path">
+    <mat-header-cell *matHeaderCellDef> Path </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.path}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="value">
+    <mat-header-cell *matHeaderCellDef> Value </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="progress">
+    <mat-header-cell *matHeaderCellDef> Progress </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div [ngSwitch]="element.status">
+        <span *ngSwitchCase="'inprogress'">
+            <mat-spinner></mat-spinner>
+        </span>
+        <span *ngSwitchCase="'done'">
+          <mat-icon>done</mat-icon>
+        </span>
+        <span *ngSwitchCase="'failed'">
+          <mat-icon>error</mat-icon>
+        </span>
+        <span *ngSwtichDefault>Unknown</span>
+      </div>
+
+
+
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</table>

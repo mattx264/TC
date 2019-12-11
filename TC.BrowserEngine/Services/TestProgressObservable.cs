@@ -10,6 +10,8 @@ namespace TC.BrowserEngine.Services
     {
         public string senderConnectionId;
         public SeleniumCommand command;
+        public bool IsSuccesfull;
+        public string Message;
     }
 
     public class TestProgressEmitter : IObservable<TestProgress>

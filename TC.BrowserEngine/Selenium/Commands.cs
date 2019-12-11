@@ -32,12 +32,21 @@ namespace TC.BrowserEngine.Selenium
 
             foreach (var command in commandMessage.Commands)
             {
-                element = RunCommand(command);
-                var testProgress = new TestProgress()
+                TestProgress testProgress = new TestProgress()
                 {
-                    command = command,
-                    senderConnectionId = commandMessage.SenderConnectionId
+                    senderConnectionId = commandMessage.SenderConnectionId,
+                    command = command
                 };
+                try
+                {
+                    element = RunCommand(command);
+                }catch(Exception ex)
+                {
+                    testProgress.IsSuccesfull = false;
+                    testProgress.Message = ex.Message;
+                    testProgressEmitter.CommandComplete(testProgress);
+                }
+                testProgress.IsSuccesfull = true;               
                 testProgressEmitter.CommandComplete(testProgress);
             }
            // _driver.Close();

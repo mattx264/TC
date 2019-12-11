@@ -15,7 +15,7 @@ export class SelectBrowserEngineComponent implements OnInit {
   szwagiersConsoles: SzwagierModel[];
   selectedSzwagierConsole: SzwagierModel;
   constructor(signalSzwagierService: SignalSzwagierService, private storeService: StoreService, private router: Router
-    ,         private route: ActivatedRoute) {
+    , private route: ActivatedRoute) {
     this.hubConnection = signalSzwagierService.start();
   }
 
@@ -34,51 +34,10 @@ export class SelectBrowserEngineComponent implements OnInit {
   backClick() {
     this.router.navigate(['**']);
   }
-  sendClick(index: number) {
+  selectClick(index: number) {
+
     // opend modal
-    this.selectedSzwagierConsole = this.szwagiersConsoles[index];
-
-    var data = [];
-
-    const operatorsData = this.storeService.getOperatorsData();
-
-    for (let i = 0; i < operatorsData.length; i++) {
-      const row = operatorsData[i];
-
-      switch (row.action) {
-        case 'goToUrl':
-          data.push({
-            operationId: 3, webDriverOperationType: 4, values: [row.value]
-          });
-          break;
-        case 'click':
-          data.push({
-            operationId: 0, webDriverOperationType: 5, values: [row.path]
-          });
-          break;
-        case 'sendKeys':
-          data.push({
-            operationId: 1, webDriverOperationType: 5, values: [row.path, row.value]
-          });
-          break;
-        case 'selectByValue':
-          data.push({
-            operationId: 2, webDriverOperationType: 5, values: [row.path, row.value]
-          });
-          break;
-      }
-    }
-    // close browser
-    data.push({
-      operationId: 18, webDriverOperationType: 4
-    });
-    const message = {
-      ReceiverConnectionId: this.selectedSzwagierConsole.connectionId,
-
-      Commands: data
-    }
-
-    this.hubConnection.invoke('SendCommand', message);
+    this.storeService.setSelectedBrowserEngine(this.szwagiersConsoles[index]);
+    this.router.navigate(['/run-test']);
   }
-
 }

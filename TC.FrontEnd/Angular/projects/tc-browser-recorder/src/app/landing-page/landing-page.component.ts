@@ -1,3 +1,4 @@
+import { GuidGeneratorService } from './../../../../shared/src/lib/services/guid-generator.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SzwagierModel } from '../../../../shared/src/lib/models/szwagierModel';
 import { ActivatedRoute, Route, Router } from '@angular/router';
@@ -23,7 +24,7 @@ export class LandingPageComponent implements OnInit {
   projectDomain: ProjectDomainViewModel;
   constructor(route: ActivatedRoute,
     private cdr: ChangeDetectorRef, private router: Router,
-    private storeService: StoreService) {
+    private storeService: StoreService, private guidGeneratorService: GuidGeneratorService) {
     route.data.subscribe((res: any) => {
       this.projects = res.project;
     });
@@ -77,10 +78,11 @@ export class LandingPageComponent implements OnInit {
   }
 
   private addNewOperation(request: OperatorModel) {
-    let newOperation: OperatorModel = {
+    const newOperation: OperatorModel = {
       action: request.action,
       path: request.path,
-      value: request.value
+      value: request.value,
+      guid: this.guidGeneratorService.get()
     }
     switch (request.action) {
       case 'xhrStart':
