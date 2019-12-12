@@ -13,6 +13,7 @@ namespace TC.Entity.Entities
         public string Description { get; set; }
         public virtual List<ProjectDomain> ProjectDomains { get; set; }
         public virtual List<UserInProject> UserInProject { get; set; }
+        public virtual List<TestInfo> TestInfos { get; set; }
         public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }

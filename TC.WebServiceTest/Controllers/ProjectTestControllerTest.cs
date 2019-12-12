@@ -17,16 +17,16 @@ using Microsoft.AspNetCore.Mvc;
 using TC.Entity.Entities;
 using TC.WebService.Helpers;
 using Xunit;
+using TC.DataAccess;
 
 namespace TC.WebServiceTest.Controllers
 {
     public class ProjectTestControllerTest
     {
         private TestingCenterDbContext context;
-        private ProjectTestController projectTestController;
 
 
-        public void Setup()
+        public ProjectTestController Setup()
         {
             var options = new DbContextOptionsBuilder<TestingCenterDbContext>()
                .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
@@ -34,31 +34,44 @@ namespace TC.WebServiceTest.Controllers
             context = new TestingCenterDbContext(options);
             TestInfoRepository testInfoRepository = new TestInfoRepository(context);
             var userHelper = new Mock<IUserHelper>();
-
-            projectTestController = new ProjectTestController(testInfoRepository, userHelper.Object);
-
-
+            var unitOfWork = new Mock<IUnitOfWork>();
+            var projectRepository = new Mock<IProjectRepository>();
+            projectRepository.Setup(x => x.GetProjectByUser(It.IsAny<string>(), It.IsAny<int>())).Returns(() => new Project() { 
+            TestInfos=new List<TestInfo>()
+            });
+            return new ProjectTestController(testInfoRepository, projectRepository.Object, unitOfWork.Object, userHelper.Object);
         }
         [Fact]
-        public void ProjectNotExist()
+        public void ProjectOrNotBelongToUserNotExist()
+        {
+            var options = new DbContextOptionsBuilder<TestingCenterDbContext>()
+                .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
+                .Options;
+            context = new TestingCenterDbContext(options);
+            TestInfoRepository testInfoRepository = new TestInfoRepository(context);
+            var userHelper = new Mock<IUserHelper>();
+            var unitOfWork = new Mock<IUnitOfWork>();
+            var projectRepository = new Mock<IProjectRepository>();
+            projectRepository.Setup(x => x.GetProjectByUser(It.IsAny<string>(), It.IsAny<int>())).Returns(()=> null);
+            var  projectTestController = new ProjectTestController(testInfoRepository, projectRepository.Object, unitOfWork.Object, userHelper.Object);
+
+            var respose = PostSimpleRequestion(projectTestController);
+           
+            // Project not exist return 400
+            Assert.IsType<BadRequestResult>(respose);
+        }
+        [Fact]
+        public void ProjectAdd()
+        {
+            var projectTestController=Setup();
+            var respose = PostSimpleRequestion(projectTestController);
+           
+            Assert.IsType<CreatedAtActionResult>(respose);
+        }
+        private IActionResult PostSimpleRequestion(ProjectTestController controller)
         {
            
-            var respose = PostSimpleRequestion();
-            // Project not exist return 400
-          //  Assert.Equal(respose, new NotFoundResult());
-        }
-        [Fact]
-        public void UserNotPartOfProject()
-        {
-          
-            var respose = PostSimpleRequestion();
-            // Project not exist return 400
-           // Assert.Equal(respose, new NotFoundResult());
-        }
-        private IActionResult PostSimpleRequestion()
-        {
-            Setup();
-            return projectTestController.Post(new ProjectTestViewModel()
+            return controller.Post(new ProjectTestViewModel()
             {
                 ProjectId = 1,
                 SeleniumCommands = new List<SeleniumCommand>()

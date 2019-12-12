@@ -1,14 +1,9 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using TC.BrowserEngine.Helpers.Enums;
 using TC.BrowserEngine.Selenium;
-using TC.BrowserEngine.Services;
 using TC.Common.DTO;
-using TC.Common.Selenium;
-using TC.Common.Selenium.WebDriverOperation;
 
 namespace TC.BrowserEngine.Controllers
 {
@@ -76,7 +71,7 @@ namespace TC.BrowserEngine.Controllers
         }
 
     }
-   
-   
-   
+
+
+
 }

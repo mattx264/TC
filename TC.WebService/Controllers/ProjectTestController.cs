@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TC.DataAccess;
 using TC.DataAccess.Repositories;
+using TC.Entity.Entities;
 using TC.WebService.Helpers;
 using TC.WebService.ViewModels;
 
@@ -15,13 +17,16 @@ namespace TC.WebService.Controllers
 
     public class ProjectTestController : AuthBaseController
     {
+        private IProjectRepository _projectRepository;
         private TestInfoRepository _testInfoRepository;
+        private IUnitOfWork _unitOfWork;
 
-        public ProjectTestController(TestInfoRepository testInfoRepository,IUserHelper userHelper)
+        public ProjectTestController(TestInfoRepository testInfoRepository,IProjectRepository projectRepository,IUnitOfWork unitOfWork,IUserHelper userHelper)
             : base(userHelper)
         {
-
+            _projectRepository = projectRepository;
             _testInfoRepository = testInfoRepository;
+            _unitOfWork = unitOfWork;
         }
         [HttpGet("{projectId}")]
         public async Task<List<TestInfoViewModel>> Get(int projectId)
@@ -39,7 +44,19 @@ namespace TC.WebService.Controllers
         public IActionResult Post(ProjectTestViewModel viewModel)
         {
             var user = GetUser();
-            return Ok();
+           var project= _projectRepository.GetProjectByUser(GetUserGuid(), viewModel.ProjectId);
+            if (project == null)
+            {
+                return BadRequest();
+            }
+            var testInfo = new TestInfo()
+            {
+                ProjectId=viewModel.ProjectId,
+                SeleniumCommands=viewModel.SeleniumCommands
+            };
+            project.TestInfos.Add(testInfo);
+            _unitOfWork.SaveChanges();
+            return CreatedAtAction(nameof(Get), new { id = testInfo.Id });
         }
     }
 }
