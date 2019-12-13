@@ -5,7 +5,7 @@ using TC.Common.Selenium.WebDriverOperation;
 
 namespace TC.BrowserEngine.Selenium.Commands
 {
-    public class ElementOperationCombo : SeleiumOperationBase
+    public class ElementOperationCombo : SeleiumOperationBase, IOperationsMethod
     {
         private Locator _locator;
 
@@ -48,7 +48,7 @@ namespace TC.BrowserEngine.Selenium.Commands
 
         }
 
-        public void GetByEnum(int operationId, IList<string> values)
+        public  void GetByEnum(int operationId, IList<string> values)
         {
             
             switch ((ElementOperationComboEnum)operationId)

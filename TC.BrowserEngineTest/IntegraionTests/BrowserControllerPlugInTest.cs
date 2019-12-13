@@ -38,7 +38,7 @@ namespace TC.BrowserEngineTest.IntegraionTests
            
         }
         [Test]
-        public void BrowserDriverCreateTest()
+        public void CheckIfBrowserIsCloseAfterSimpleCommand()
         {
             var commands = new List<SeleniumCommand>();
             commands.Add(new SeleniumCommand()
@@ -58,7 +58,50 @@ namespace TC.BrowserEngineTest.IntegraionTests
             var browserControllerQueue = new BrowserControllerQueue();
             browserControllerQueue.BrowserControllers.Enqueue(browser);
             browserControllerQueue.StartBrowserFromQueue();
-          
+           
+            Assert.IsFalse(browser.IsBrowserRunning());         
+        }
+        [Test]
+        public void BrowserDriverCreateTest()
+        {
+            var commands = new List<SeleniumCommand>();
+            commands.Add(new SeleniumCommand()
+            {
+                WebDriverOperationType = WebDriverOperationType.BrowserNavigationOperation,
+                OperationId = 3,
+                Values = new string[] { "https://www.onet.pl/" }
+            });
+            commands.Add(new SeleniumCommand()
+            {
+                WebDriverOperationType = WebDriverOperationType.JavascriptOperation,
+                Values = new string[] { "function myF(){return 't';};alert(myF());" }
+
+            });
+            commands.Add(new SeleniumCommand()
+            {
+                WebDriverOperationType = WebDriverOperationType.JavascriptOperation,
+                Values = new string[] { "myF();" }
+
+            });
+            commands.Add(new SeleniumCommand()
+            {
+                WebDriverOperationType = WebDriverOperationType.JavascriptOperation,
+                Values = new string[] { "alert(myF())" }
+
+            });
+            var commandMessage = new CommandMessage()
+            {
+                ReceiverConnectionId = "receiverTest",
+                SenderConnectionId = "senderTest",
+                Commands = commands
+            };
+            var browser = new BrowserController();
+            browser.Setup(BrowserType.Chrome, commandMessage);
+            var browserControllerQueue = new BrowserControllerQueue();
+            browserControllerQueue.BrowserControllers.Enqueue(browser);
+            browserControllerQueue.StartBrowserFromQueue();
+
+            Assert.IsFalse(browser.IsBrowserRunning());
         }
     }
 }

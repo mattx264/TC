@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TC.BrowserEngine.Selenium.Commands
 {
-    public class SeleiumOperationBase
+    public abstract class SeleiumOperationBase
     {
         internal readonly IWebDriver _driver;
 
@@ -14,5 +14,9 @@ namespace TC.BrowserEngine.Selenium.Commands
             _driver = driver;
         }
        
+    }
+    public interface IOperationsMethod
+    {
+        public void GetByEnum(int operationId, IList<string> values);
     }
 }

@@ -40,14 +40,17 @@ namespace TC.BrowserEngine.Selenium
                 try
                 {
                     element = RunCommand(command);
-                }catch(Exception ex)
+                    testProgress.IsSuccesfull = true;
+                    testProgressEmitter.CommandComplete(testProgress);
+                }
+                catch(Exception ex)
                 {
+                    // TODO - should it break when there is error ?????
                     testProgress.IsSuccesfull = false;
                     testProgress.Message = ex.Message;
                     testProgressEmitter.CommandComplete(testProgress);
                 }
-                testProgress.IsSuccesfull = true;               
-                testProgressEmitter.CommandComplete(testProgress);
+               
             }
            // _driver.Close();
         }
@@ -77,7 +80,9 @@ namespace TC.BrowserEngine.Selenium
                 case WebDriverOperationType.ElementOperationCombo:
                     new ElementOperationCombo(_driver).GetByEnum(command.OperationId, command.Values);
                     return null;
-                    
+                case WebDriverOperationType.JavascriptOperation:
+                    new JavascriptOperation(_driver).RunJS(command.Values);
+                    return null;
             }
             
             return null;
@@ -87,14 +92,7 @@ namespace TC.BrowserEngine.Selenium
         {
            return _driver.PageSource;
         }
-        public static void test(IWebDriver driver, String action)
-        {
-            // driver.Manage().Timeouts().ImplicitWaitsetScriptTimeout(5, TimeUnit.SECONDS);
-           // ((IJavaScriptExecutor)driver).ExecuteAsyncScript(
-          //          "alert('get');");
-            ((IJavaScriptExecutor)driver).ExecuteScript("alert('Hello');");
-
-        }
+       
         public static void WaitForAjax(IWebDriver driver, String action)
         {
            // driver.Manage().Timeouts().ImplicitWaitsetScriptTimeout(5, TimeUnit.SECONDS);

@@ -48,6 +48,7 @@ namespace TC.BrowserEngine.Selenium.Commands
         {
             return _driver.FindElement(By.XPath(xpath));
         }
+       
         public IWebElement GetByEnum(int operationId, IList<string> values)
         {
             switch ((LocatorsEnum)operationId)
@@ -72,6 +73,7 @@ namespace TC.BrowserEngine.Selenium.Commands
                     throw new Exception("LocatiorsEnum not exist:" + operationId);
             }
         }
+
         public IReadOnlyCollection<IWebElement> GetElements(LocatorsEnum locator, string value)
         {
             switch (locator)

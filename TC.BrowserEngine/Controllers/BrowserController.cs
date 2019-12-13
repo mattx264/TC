@@ -52,6 +52,7 @@ namespace TC.BrowserEngine.Controllers
             }
 
             _commandProcessor.Start(_commandMessage);
+            driver.Quit();
 
         }
         //public void ExecCommand(List<SeleniumCommand> list)
@@ -68,6 +69,17 @@ namespace TC.BrowserEngine.Controllers
         public string GetPageSource()
         {
             return _commandProcessor.GetPageSource();
+        }
+        public bool IsBrowserRunning()
+        {
+            try
+            {
+                var count = driver.WindowHandles.Count;
+                return count > 0 ? true : false;
+            }catch(Exception ex)
+            {
+                return false;
+            }
         }
 
     }

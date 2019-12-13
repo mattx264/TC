@@ -7,7 +7,7 @@ using TC.Common.Selenium;
 
 namespace TC.BrowserEngine.Selenium.Commands
 {
-    public class BrowserNavigationOperation : SeleiumOperationBase
+    public class BrowserNavigationOperation : SeleiumOperationBase, IOperationsMethod
     {
         public BrowserNavigationOperation(IWebDriver driver) : base(driver)
         {
