@@ -26,4 +26,8 @@ describe('PrivacyPolicyComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h3').textContent).toContain('Log Data');
   });
+  it('should contain email adress', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('.info-privacy').textContent).toContain('@');
+  });
 });

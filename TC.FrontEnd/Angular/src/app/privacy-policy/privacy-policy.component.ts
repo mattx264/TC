@@ -7,9 +7,9 @@ import { LayoutService } from '../layout/layout.service';
   styleUrls: ['./privacy-policy.component.scss']
 })
 export class PrivacyPolicyComponent implements OnInit {
-
+  country: string;
   constructor(private layoutService: LayoutService) {
-    
+    this.country = 'Polandia';
    }
 
   ngOnInit() {
