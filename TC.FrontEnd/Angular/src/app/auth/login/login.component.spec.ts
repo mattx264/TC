@@ -4,7 +4,7 @@ import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+  let fixture: ComponentFixture<LoginComponent>; // explanation
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -21,5 +21,11 @@ describe('LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should have return url', () => {
+    expect(component.returnUrl).toBeTruthy();
+  });
+  it('should contain /szwagierDasboard', () => {
+    expect(component.returnUrl).toContain('/szwagierDashboard');
   });
 });

@@ -29,10 +29,10 @@ const routes: Routes = [
   { path: 'send-test/:projectId', component: SendTestComponent, canActivate: [AuthGuard]  },
   { path: 'send-test', component: SendTestComponent, canActivate: [AuthGuard]  },
   { path: 'login', component: LoginComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent  },
   { path: 'registration', component: RegistrationComponent },
   { path: '', redirectTo: 'szwagierDashboard', pathMatch: 'full'  },
   { path: '', component: SidebarEmptyComponent, outlet: 'sidebar' },
-  { path: 'privacy-policy', component: PrivacyPolicyComponent, outlet: 'sidebar' },
   { path: 'server-not-avaiable', component: ServerNotAvaiableComponent  },
   { path: 'error', component: SimpleErrorPageComponent  },
   { path: '**', redirectTo: 'szwagierDashboard', pathMatch: 'full'  }

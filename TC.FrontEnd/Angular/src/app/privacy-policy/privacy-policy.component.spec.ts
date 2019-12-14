@@ -22,7 +22,8 @@ describe('PrivacyPolicyComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should ngOnInit have  been called 1 time', () => {
-    expect(component.ngOnInit).toHaveBeenCalledTimes(1);
+  it('should have h3 tag with Log Data', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h3').textContent).toContain('Log Data');
   });
 });
