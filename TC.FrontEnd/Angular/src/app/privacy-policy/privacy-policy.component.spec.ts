@@ -22,4 +22,7 @@ describe('PrivacyPolicyComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should ngOnInit have  been called 1 time', () => {
+    expect(component.ngOnInit).toHaveBeenCalledTimes(1);
+  });
 });
