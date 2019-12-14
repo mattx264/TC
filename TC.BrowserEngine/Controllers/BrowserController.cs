@@ -76,7 +76,7 @@ namespace TC.BrowserEngine.Controllers
             {
                 var count = driver.WindowHandles.Count;
                 return count > 0 ? true : false;
-            }catch(Exception ex)
+            }catch(Exception)
             {
                 return false;
             }

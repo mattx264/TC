@@ -23,9 +23,21 @@ namespace TC.BrowserEngine.Selenium
 
             if (browserType == BrowserType.Chrome)
             {
+                var proxy = new Proxy
+                {
+                    HttpProxy = "http://localhost:18882",
+                    SslProxy = "http://localhost:18882",
+                    FtpProxy = "http://localhost:18882"
+                };
+                var options = new ChromeOptions
+                {
+                    Proxy = proxy
+                };
                 //TODO get dynamic way to get version wmic datafile where name="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" get Version /value
                 _browserVersion = "78";
-                _driver = new ChromeDriver($"{path}/BrowserDrivers/Chrome/{_browserVersion}");
+                _driver = new ChromeDriver($"{path}/BrowserDrivers/Chrome/{_browserVersion}",new ChromeOptions() { 
+                Proxy= proxy
+                });
             } else if(browserType== BrowserType.Firefox)
             {
                 _browserVersion = "0.24";

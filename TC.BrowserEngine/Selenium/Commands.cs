@@ -28,6 +28,7 @@ namespace TC.BrowserEngine.Selenium
         /// <param name="SeleniumCommands"></param>
         public void Start(CommandMessage commandMessage)
         {
+            
             TestProgressEmitter testProgressEmitter = new TestProgressEmitter();
 
             foreach (var command in commandMessage.Commands)
