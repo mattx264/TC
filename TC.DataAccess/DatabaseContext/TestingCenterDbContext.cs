@@ -15,5 +15,10 @@ namespace TC.DataAccess.DatabaseContext
         public DbSet<UserModel> UserModel { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<UserInProject> UserInProject { get; set; }
+        public DbSet<ProjectTestRunConfig> ProjectTestRunConfig { get; set; }
+        public DbSet<TestRunConfig> TestRunConfig { get; set; }
+        public DbSet<TestRunHistory> TestRunHistory { get; set; }
+        public DbSet<TestRunResult> TestRunRestult { get; set; }
+        
     }
 }

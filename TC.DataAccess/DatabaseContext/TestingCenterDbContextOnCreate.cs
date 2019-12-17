@@ -31,6 +31,7 @@ namespace TC.DataAccess.DatabaseContext
             //    DateAdded = DateTime.Now,
             //    DateModified = DateTime.Now
             //});
+            modelBuilder.Entity<TestRunConfig>().Property(c => c.Type).HasConversion<int>();
             modelBuilder.Entity<UserProjectStatus>().HasData(new UserProjectStatus()
             {
                 Id = 1,
@@ -124,6 +125,57 @@ namespace TC.DataAccess.DatabaseContext
                 DateAdded = DateTime.Now,
                 DateModified = DateTime.Now
 
+            });
+            modelBuilder.Entity<TestRunConfig>().HasData(new TestRunConfig()
+            {
+                Id = 1,
+                Name = "Take Screenshot After Every Command",
+                Description = "It will take a screenshot after every command.",
+                Type=Entity.Entities.TestRunConfig.TestRunConfigType.Boolean,
+                Value=null,
+                IsActive = true,
+                CreatedBy = "system",
+                ModifiedBy = "system",
+                DateAdded = DateTime.Now,
+                DateModified = DateTime.Now
+            });
+            modelBuilder.Entity<TestRunConfig>().HasData(new TestRunConfig()
+            {
+                Id = 2,
+                Name = "Monitoring Http Calls",
+                Description = "Test will monitor every http call.",
+                Type = Entity.Entities.TestRunConfig.TestRunConfigType.Boolean,
+                Value = null,
+                IsActive = true,
+                CreatedBy = "system",
+                ModifiedBy = "system",
+                DateAdded = DateTime.Now,
+                DateModified = DateTime.Now
+            });
+            modelBuilder.Entity<TestRunConfig>().HasData(new TestRunConfig()
+            {
+                Id = 3,
+                Name = "Continue After Command Failure",
+                Description = "Test will continue even if a command will fail.",
+                Type = Entity.Entities.TestRunConfig.TestRunConfigType.Boolean,
+                Value = null,
+                IsActive = true,
+                CreatedBy = "system",
+                ModifiedBy = "system",
+                DateAdded = DateTime.Now,
+                DateModified = DateTime.Now
+            });
+            modelBuilder.Entity<ProjectTestRunConfig>().HasData(new ProjectTestRunConfig()
+            {
+                Id = 1,
+                ProjectId = projectId,
+                TestRunConfigId = 1,
+                Value="true",
+                IsActive = true,
+                CreatedBy = "system",
+                ModifiedBy = "system",
+                DateAdded = DateTime.Now,
+                DateModified = DateTime.Now
             });
             base.OnModelCreating(modelBuilder);
         }

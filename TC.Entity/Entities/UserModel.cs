@@ -12,7 +12,6 @@ namespace TC.Entity.Entities
         [Key]
         public new int Id { get; set; }
         public Guid Guid { get; set; }
-        public virtual List<UserInGroup> UserGroups { get; set; }
         public override string Email { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }

@@ -60,7 +60,7 @@ namespace TC.BrowserEngine.Signal
             _connection.SendAsync("TestProgress",new TestProgressMessage()
             {
                 IsSuccesful=true,
-                commandTestGuid= commandTestGuid,
+                CommandTestGuid= commandTestGuid,
                 SenderConnectionId =senderConnectionId
             });
         }

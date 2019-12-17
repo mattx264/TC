@@ -21,7 +21,7 @@ namespace TC.WebService.Controllers
         private TestInfoRepository _testInfoRepository;
         private IUnitOfWork _unitOfWork;
 
-        public ProjectTestController(TestInfoRepository testInfoRepository,IProjectRepository projectRepository,IUnitOfWork unitOfWork,IUserHelper userHelper)
+        public ProjectTestController(TestInfoRepository testInfoRepository, IProjectRepository projectRepository, IUnitOfWork unitOfWork, IUserHelper userHelper)
             : base(userHelper)
         {
             _projectRepository = projectRepository;
@@ -44,15 +44,15 @@ namespace TC.WebService.Controllers
         public IActionResult Post(ProjectTestViewModel viewModel)
         {
             var user = GetUser();
-           var project= _projectRepository.GetProjectByUser(GetUserGuid(), viewModel.ProjectId);
+            var project = _projectRepository.GetProjectByUser(GetUserGuid(), viewModel.ProjectId);
             if (project == null)
             {
                 return BadRequest();
             }
             var testInfo = new TestInfo()
             {
-                ProjectId=viewModel.ProjectId,
-                SeleniumCommands=viewModel.SeleniumCommands
+                ProjectId = viewModel.ProjectId,
+                SeleniumCommands = viewModel.SeleniumCommands
             };
             project.TestInfos.Add(testInfo);
             _unitOfWork.SaveChanges();
