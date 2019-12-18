@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LayoutService } from '../layout/layout.service';
+import { __importDefault } from 'tslib';
 
 @Component({
   selector: 'app-privacy-policy',
@@ -7,14 +8,14 @@ import { LayoutService } from '../layout/layout.service';
   styleUrls: ['./privacy-policy.component.scss']
 })
 export class PrivacyPolicyComponent implements OnInit {
-  country: string;
+  country = 'Poland';
+  @Input() companyName = 'Testing Center';
+
   constructor(private layoutService: LayoutService) {
-    this.country = 'Polandia';
    }
 
   ngOnInit() {
     this.layoutService.hideSidebarHeader();
-    console.log('oninit');
   }
 
 }

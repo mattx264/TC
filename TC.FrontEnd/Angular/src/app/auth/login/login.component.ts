@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   formGroup: FormGroup;
   returnUrl: any;
   unathorized = false;
+  companyName = 'Testing Center';
 
   constructor(
     private authService: AuthService,
