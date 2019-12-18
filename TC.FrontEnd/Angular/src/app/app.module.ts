@@ -46,6 +46,7 @@ import { TestFlowLayoutComponent } from './test-flow-layout/test-flow-layout.com
 import { TestFlowCreateComponent } from './test-flow-layout/test-flow-create/test-flow-create.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { SimpleErrorPageComponent } from '../../projects/shared/src/lib/components/simple-error-page/simple-error-page.component';
+import { CompanyInfoComponent } from './company-info/company-info.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { SimpleErrorPageComponent } from '../../projects/shared/src/lib/componen
     TestFlowLayoutComponent,
     TestFlowCreateComponent,
     PrivacyPolicyComponent,
-    SimpleErrorPageComponent 
+    SimpleErrorPageComponent,
+    CompanyInfoComponent 
   ],
   imports: [
     BrowserModule,
