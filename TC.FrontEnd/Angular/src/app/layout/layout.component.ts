@@ -11,6 +11,7 @@ import { LayoutService } from './layout.service';
 export class LayoutComponent implements OnInit {
   showSidebar = true;
   showHeader = true;
+  showFooter = false;
   constructor(private layoutService: LayoutService, private router: Router) { }
 
   ngOnInit() {
@@ -25,6 +26,11 @@ export class LayoutComponent implements OnInit {
       } else {
         this.showHeader = false;
       }
+      if (data.footer === true) {
+        this.showFooter = true;
+      } else {
+        this.showFooter = false;
+      }
     });
     this.router.events
       // NavigationStart have to be on start because this.layoutService.onUpdate is trigger later
@@ -34,6 +40,7 @@ export class LayoutComponent implements OnInit {
         this.layoutService.resetValues();
         this.showSidebar = true;
         this.showHeader = true;
+        this.showFooter = true;
       });
   }
 }

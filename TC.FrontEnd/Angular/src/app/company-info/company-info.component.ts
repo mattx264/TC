@@ -6,9 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./company-info.component.scss']
 })
 export class CompanyInfoComponent implements OnInit {
-  @Input() companyName = 'Testing Center';
-  @Input() email = 'default@email.com';
-  @Input() country = 'Poland';
+  @Input() isVertical: boolean = false;
+  @Input() companyName: string = 'Testing Center';
+  @Input() email: string = 'default@email.com';
+  @Input() country: string = 'Poland';
   constructor() {
 
   }

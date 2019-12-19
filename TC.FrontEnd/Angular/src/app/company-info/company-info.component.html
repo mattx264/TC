@@ -1,3 +1,8 @@
-<p>{{companyName}}</p>
-<p>{{email}}</p>
-<p>{{country}}</p>
+<div *ngIf="isVertical; else elseBlock">
+  <p>{{companyName}}</p>
+  <p>{{email}}</p>
+  <p>{{country}}</p>
+</div>
+<ng-template #elseBlock>
+  <span>{{companyName}} {{email}} {{country}}</span>
+</ng-template>
