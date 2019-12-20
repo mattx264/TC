@@ -9,7 +9,7 @@ import { __importDefault } from 'tslib';
 })
 export class PrivacyPolicyComponent implements OnInit {
   @Input() companyName = 'Testing Center';
-  dataToExport = { country: 'USA', companyName: 'TestingCenter', email: 'dd@dd'};
+  dataToExport = { country: 'USA', companyName: 'TestingCenter', email: 'dd@dd', isVertical: true};
 
   constructor(private layoutService: LayoutService) {
    }

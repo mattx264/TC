@@ -35,6 +35,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { TestLayoutComponent } from './test-layout/test-layout.component';
 import { SendTestComponent } from './test-layout/send-test/send-test.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -74,7 +76,7 @@ import { CompanyInfoComponent } from './company-info/company-info.component';
     TestFlowLayoutComponent,
     TestFlowCreateComponent,
     PrivacyPolicyComponent,
-    CompanyInfoComponent 
+    CompanyInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +92,8 @@ import { CompanyInfoComponent } from './company-info/company-info.component';
     MatButtonModule,
     MatInputModule,
     MatTableModule,
+    MatSidenavModule,
+    MatToolbarModule,
     MatSliderModule,
     MatDialogModule,
     MatIconModule,
