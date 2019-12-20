@@ -52,7 +52,9 @@ namespace TC.WebService.Controllers
             var testInfo = new TestInfo()
             {
                 ProjectId = viewModel.ProjectId,
-                SeleniumCommands = viewModel.SeleniumCommands
+                SeleniumCommands = viewModel.SeleniumCommands,
+                Description=viewModel.Description,
+                Name=viewModel.Name
             };
             project.TestInfos.Add(testInfo);
             _unitOfWork.SaveChanges();

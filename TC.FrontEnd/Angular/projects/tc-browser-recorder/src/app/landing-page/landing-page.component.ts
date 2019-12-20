@@ -1,3 +1,5 @@
+import { SaveTestModalComponent } from './../save-test-modal/save-test-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 import { GuidGeneratorService } from './../../../../shared/src/lib/services/guid-generator.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SzwagierModel } from '../../../../shared/src/lib/models/szwagierModel';
@@ -24,7 +26,8 @@ export class LandingPageComponent implements OnInit {
   projectDomain: ProjectDomainViewModel;
   constructor(route: ActivatedRoute,
     private cdr: ChangeDetectorRef, private router: Router,
-    private storeService: StoreService, private guidGeneratorService: GuidGeneratorService) {
+    private storeService: StoreService, private guidGeneratorService: GuidGeneratorService,
+    private dialog: MatDialog) {
     route.data.subscribe((res: any) => {
       this.projects = res.project;
     });
@@ -34,7 +37,7 @@ export class LandingPageComponent implements OnInit {
     chrome.runtime.onMessage.addListener(
       (request: { type: string, data: OperatorModel }, sender, sendResponse) => {
         if (this.isStarted === false) {
-          this.beforeStart(request);
+          this.beforeStart(request.data);
           return;
         }
         if (request.type == 'insert') {
@@ -53,6 +56,9 @@ export class LandingPageComponent implements OnInit {
     this.sendMessageToBrowser('getUrl');
   }
   saveClick() {
+    const dialogRef = this.dialog.open(SaveTestModalComponent, {
+
+    });
 
   }
   sendClick() {
@@ -106,9 +112,9 @@ export class LandingPageComponent implements OnInit {
     this.operatorsData[this.operatorsData.length - 1].value += <string>request.value;
   }
 
-  private beforeStart(request) {
+  private beforeStart(request: OperatorModel) {
     if (request.action === "goToUrl") {
-      var matches = request.value.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+      var matches = (request.value as string).match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
       this.domain = matches && matches[1];
       this.domain = this.domain.replace('www.', '');
       this.projects.forEach(p => {
@@ -116,6 +122,7 @@ export class LandingPageComponent implements OnInit {
           this.project = p;
           this.storeService.setValue(this.project);
           this.projectDomain = p.projectDomain.find(x => x.domain === this.domain);
+          this.cdr.detectChanges();
         }
       });
     }

@@ -10,5 +10,7 @@ namespace TC.WebService.ViewModels
     {
         public IList<SeleniumCommand> SeleniumCommands { get; set; }
         public int ProjectId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

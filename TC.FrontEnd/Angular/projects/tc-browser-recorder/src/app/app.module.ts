@@ -14,12 +14,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import {  MatCardModule } from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
 import { RunTestComponent } from './run-test/run-test.component';
 import { HeaderComponent } from './header/header.component';
 import { SelectBrowserEngineComponent } from './select-browser-engine/select-browser-engine.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { SaveTestModalComponent } from './save-test-modal/save-test-modal.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 
 @NgModule({
@@ -30,7 +34,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     OperatorItemComponent,
     RunTestComponent,
     HeaderComponent,
-    SelectBrowserEngineComponent
+    SelectBrowserEngineComponent,
+    SaveTestModalComponent
   ],
   imports: [
     BrowserModule,
@@ -44,10 +49,15 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatCardModule,
     MatTableModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatFormFieldModule
   ],
   providers: [
     AuthGuard
+  ],
+  entryComponents: [
+    SaveTestModalComponent
   ],
   bootstrap: [AppComponent]
 })

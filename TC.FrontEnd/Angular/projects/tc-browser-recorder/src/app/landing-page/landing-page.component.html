@@ -42,6 +42,7 @@
         <button mat-raised-button type="button" color="primary" type="button" (click)="startRecordingClick()">Start
             recording</button>
     </div>
+
     <div *ngIf="!projectDomain">
         <mat-card>
             <mat-card-subtitle>
@@ -84,7 +85,7 @@
         <br />
     </p>
     <p *ngIf="szwagiersConsoles.length ==0">
-        There is no server avaiable to be connected. Please create a local server. <a target="_blank" href="#">See how create local server</a>. 
+        There is no server avaiable to be connected. Please create a local server. <a target="_blank" href="#">See how create local server</a>.
     </p>
     <p-footer>
         <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Done"></button>

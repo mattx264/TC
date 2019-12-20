@@ -15,6 +15,7 @@ namespace TC.Entity.Entities
         public override string Email { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
+        public virtual UserModel Master { get; set; }
         public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }

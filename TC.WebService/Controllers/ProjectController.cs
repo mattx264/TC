@@ -74,39 +74,43 @@ namespace TC.WebService.Controllers
 
             }
             var users = new List<UserInProject>();
-            foreach (var email in viewModel.UsersEmail.Split(","))
-            {
-                if (string.IsNullOrEmpty(email))
+            if (!string.IsNullOrEmpty(viewModel.UsersEmail)){
+                foreach (var email in viewModel.UsersEmail.Split(","))
                 {
-                    continue;
-                }
-                UserModel user = _userRepository.GetByEmail(email);
-                if (user == null)
-                {
-                    var password = Guid.NewGuid().ToString();
-                    //TODO send email with activation link and password
-                    _userRepository.Create(new UserModel
+                    if (string.IsNullOrEmpty(email))
                     {
-                        Email = email,
-                        Password = _userHelper.PasswordHash(password),
-                        Guid = System.Guid.NewGuid(),
-                        Name = viewModel.Name,
+                        continue;
+                    }
+                    UserModel user = _userRepository.GetByEmail(email);
+                    if (user == null)
+                    {
+                        var password = Guid.NewGuid().ToString();
+                        //TODO send email with activation link and password
+                        _userRepository.Create(new UserModel
+                        {
+                            Email = email,
+                            Password = _userHelper.PasswordHash(password),
+                            Guid = System.Guid.NewGuid(),
+                            Name = viewModel.Name,
+                        });
+                        _unitOfWork.SaveChanges();
+                        user = _userRepository.GetByEmail(email);
+                    }
+                    users.Add(new UserInProject
+                    {
+                        UserModelId = user.Id,
+                        UserProjectStatusId = 1
                     });
-                    _unitOfWork.SaveChanges();
-                    user = _userRepository.GetByEmail(email);
-                }
-                users.Add(new UserInProject
-                {
-                    UserModelId = user.Id
-                });
 
+                }
             }
             // check is current user is in list if not added
             if (users.FirstOrDefault(x => x.Id == currnetUser.Id) == null)
             {
                 users.Add(new UserInProject
                 {
-                    UserModelId = currnetUser.Id
+                    UserModelId = currnetUser.Id,
+                    UserProjectStatusId=2
                 });
             }
 

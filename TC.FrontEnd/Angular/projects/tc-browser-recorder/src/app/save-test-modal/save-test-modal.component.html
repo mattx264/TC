@@ -1,0 +1,24 @@
+<h2 mat-dialog-tiitle>Save Test</h2>
+<mat-dialog-content>
+
+  <form [formGroup]="formGroupp">
+    <mat-form-field>
+      <input matInput placeholder="Name" type="text" formControlName="name" >
+      <mat-error *ngIf="formGroupp.get('name').hasError('required')">
+        This Field is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Description" type="text" formControlName="description">
+      <mat-error *ngIf="formGroupp.get('description').hasError('required')">
+        This Field is required.
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="saveTest()" [disabled]="!formGroupp.valid">Save</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
