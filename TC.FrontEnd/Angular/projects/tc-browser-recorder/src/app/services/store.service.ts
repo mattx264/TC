@@ -20,10 +20,10 @@ export class StoreService {
   }
 
   private _project: ProjectViewModel;
-  getValue(): ProjectViewModel {
+  getProject(): ProjectViewModel {
     return this.state$.getValue();
   }
-  setValue(nextState: ProjectViewModel): void {
+  setProject(nextState: ProjectViewModel): void {
     this.state$.next(nextState);
   }
   setOperatorsData(operatorsData: OperatorModel[]) {

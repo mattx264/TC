@@ -13,13 +13,14 @@ import { TextFieldComponent } from './field/text-field/text-field.component';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ServerNotAvaiableComponent } from './components/server-not-avaiable/server-not-avaiable.component';
+import { SimpleErrorPageComponent } from './components/simple-error-page/simple-error-page.component';
 
 
 @NgModule({
   declarations: 
-    [SharedComponent, TextFieldComponent, ServerNotAvaiableComponent],
+    [SharedComponent, TextFieldComponent, ServerNotAvaiableComponent,SimpleErrorPageComponent],
   exports: 
-    [SharedComponent, TextFieldComponent,ServerNotAvaiableComponent],
+    [SharedComponent, TextFieldComponent,ServerNotAvaiableComponent,SimpleErrorPageComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

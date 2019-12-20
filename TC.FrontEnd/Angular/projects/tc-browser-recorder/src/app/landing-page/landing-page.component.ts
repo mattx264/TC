@@ -1,13 +1,13 @@
-import { SaveTestModalComponent } from './../save-test-modal/save-test-modal.component';
-import { MatDialog } from '@angular/material/dialog';
+
 import { GuidGeneratorService } from './../../../../shared/src/lib/services/guid-generator.service';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { SzwagierModel } from '../../../../shared/src/lib/models/szwagierModel';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ProjectViewModel } from '../../../../shared/src/lib/models/project/projectViewModel';
 import { ProjectDomainViewModel } from '../../../../shared/src/lib/models/project/projectDomainViewModel';
 import { StoreService } from '../services/store.service';
 import { OperatorModel } from '../../../../shared/src/lib/models/operatorModel';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-landing-page',
@@ -24,10 +24,11 @@ export class LandingPageComponent implements OnInit {
   domain: string;
   project: ProjectViewModel;
   projectDomain: ProjectDomainViewModel;
-  constructor(route: ActivatedRoute,
+  formGroupp: any;
+  constructor(route: ActivatedRoute, private ngZone: NgZone,
     private cdr: ChangeDetectorRef, private router: Router,
     private storeService: StoreService, private guidGeneratorService: GuidGeneratorService,
-    private dialog: MatDialog) {
+  ) {
     route.data.subscribe((res: any) => {
       this.projects = res.project;
     });
@@ -56,10 +57,11 @@ export class LandingPageComponent implements OnInit {
     this.sendMessageToBrowser('getUrl');
   }
   saveClick() {
-    const dialogRef = this.dialog.open(SaveTestModalComponent, {
+    this.storeService.setOperatorsData(this.operatorsData);
 
-    });
-
+    this.ngZone.run(() =>
+      this.router.navigate(['/save-test'])
+    );
   }
   sendClick() {
     this.storeService.setOperatorsData(this.operatorsData);
@@ -74,8 +76,11 @@ export class LandingPageComponent implements OnInit {
     this.cdr.detectChanges();
   }
   sendMessageToBrowser(methodName) {
-    var id = location.href.substr(location.href.indexOf("?") + 4);
-    chrome.tabs.sendMessage(+id, { method: methodName }, function (response) {
+    if (localStorage.getItem('tabId') == null) {
+      var id = location.href.substr(location.href.indexOf("?") + 4);
+      localStorage.setItem('tabId', id);
+    }
+    chrome.tabs.sendMessage(+localStorage.getItem('tabId'), { method: methodName }, function (response) {
       // reponse coming back by chrome.runtime.onMessage.addListener(
     });
   }
@@ -120,7 +125,7 @@ export class LandingPageComponent implements OnInit {
       this.projects.forEach(p => {
         if (p.projectDomain.find(x => x.domain === this.domain)) {
           this.project = p;
-          this.storeService.setValue(this.project);
+          this.storeService.setProject(this.project);
           this.projectDomain = p.projectDomain.find(x => x.domain === this.domain);
           this.cdr.detectChanges();
         }

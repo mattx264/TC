@@ -13,7 +13,7 @@ html,
 body,
 app-root,
 main {
-  height: 100%;
+  height: calc(100% - 36px);
   font-size: 1rem;
 }
 .buttons-wrapper {
@@ -21,4 +21,10 @@ main {
   button {
     margin: 15px;
   }
+}
+.buttons-wrapper button {
+  margin: 12px;
+}
+.remove-operator-btn{  
+  zoom: 0.7;
 }

@@ -8,6 +8,7 @@ import { StoreService } from '../services/store.service';
 import { OperatorModel } from 'projects/shared/src/lib/models/operatorModel';
 import { MatTableDataSource } from '@angular/material/table';
 import { TestProgressMessage } from 'projects/shared/src/lib/models/TestProgressMessage';
+import { OperatorService } from '../services/operator.service';
 
 @Component({
   selector: 'app-run-test',
@@ -22,7 +23,9 @@ export class RunTestComponent implements OnInit {
   displayedColumns = ['action', 'path', 'value', 'progress'];
 
 
-  constructor(private storeService: StoreService, signalSzwagierService: SignalSzwagierService) {
+  constructor(private storeService: StoreService,
+    signalSzwagierService: SignalSzwagierService,
+    private operatorService: OperatorService) {
     this.hubConnection = signalSzwagierService.start();
   }
   ngOnInit() {
@@ -32,40 +35,10 @@ export class RunTestComponent implements OnInit {
   }
   sendClick() {
 
-    var data = [];
+
 
     const operatorsData = this.storeService.getOperatorsData();
-
-    for (let i = 0; i < operatorsData.length; i++) {
-      const row = operatorsData[i];
-
-      switch (row.action) {
-        case 'goToUrl':
-          data.push({
-            operationId: 3, webDriverOperationType: 4, values: [row.value], guid: row.guid
-          });
-          break;
-        case 'click':
-          data.push({
-            operationId: 0, webDriverOperationType: 5, values: [row.path], guid: row.guid
-          });
-          break;
-        case 'sendKeys':
-          data.push({
-            operationId: 1, webDriverOperationType: 5, values: [row.path, row.value], guid: row.guid
-          });
-          break;
-        case 'selectByValue':
-          data.push({
-            operationId: 2, webDriverOperationType: 5, values: [row.path, row.value], guid: row.guid
-          });
-          break;
-      }
-    }
-    // close browser
-    data.push({
-      operationId: 18, webDriverOperationType: 4
-    });
+    var data = this.operatorService.packageOperators(operatorsData);
     const message = {
       ReceiverConnectionId: this.storeService.getSelectedBrowserEngine().connectionId,
 

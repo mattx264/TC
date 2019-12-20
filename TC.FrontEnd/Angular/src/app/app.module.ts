@@ -45,7 +45,6 @@ import { MatCardModule } from '@angular/material/card';
 import { TestFlowLayoutComponent } from './test-flow-layout/test-flow-layout.component';
 import { TestFlowCreateComponent } from './test-flow-layout/test-flow-create/test-flow-create.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { SimpleErrorPageComponent } from '../../projects/shared/src/lib/components/simple-error-page/simple-error-page.component';
 import { CompanyInfoComponent } from './company-info/company-info.component';
 
 @NgModule({
@@ -75,7 +74,6 @@ import { CompanyInfoComponent } from './company-info/company-info.component';
     TestFlowLayoutComponent,
     TestFlowCreateComponent,
     PrivacyPolicyComponent,
-    SimpleErrorPageComponent,
     CompanyInfoComponent 
   ],
   imports: [

@@ -7,6 +7,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { ProjectResolver } from './services/resolvers/project-resolver';
 import { ServerNotAvaiableComponent } from '../../../shared/src/lib/components/server-not-avaiable/server-not-avaiable.component';
 import { RunTestComponent } from './run-test/run-test.component';
+import { SaveTestComponent } from './save-test/save-test.component';
+import { SimpleErrorPageComponent } from '../../../shared/src/lib/components/simple-error-page/simple-error-page.component';
 
 
 
@@ -17,9 +19,18 @@ const routes: Routes = [
     path: 'run-test', component: RunTestComponent
   }, {
     path: 'select-browser-engine', component: SelectBrowserEngineComponent
-  },
-  {
+  }, {
+    path: 'save-test', component: SaveTestComponent
+  }, {
+    path: 'error-page', component: SimpleErrorPageComponent
+  }, {
     path: 'server-not-avaiable', component: ServerNotAvaiableComponent
+  }, {
+    path: 'landing-page', component: LandingPageComponent
+    , canActivate: [AuthGuard]
+    , resolve: {
+      project: ProjectResolver
+    }
   }, {
     path: '**', component: LandingPageComponent
     , canActivate: [AuthGuard]

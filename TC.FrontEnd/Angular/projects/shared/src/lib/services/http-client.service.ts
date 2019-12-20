@@ -94,7 +94,7 @@ export class HttpClientService {
     }
     if (error.status === 500 || error.status===0) {
     
-      this.router.navigate(['server-not-avaiable']);
+      this.router.navigate(['error-page']);
      // throw new Error(error.message);
       // TODO log error be sending it to backend
     }
