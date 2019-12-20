@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-company-info',
@@ -6,13 +6,15 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./company-info.component.scss']
 })
 export class CompanyInfoComponent implements OnInit {
-  @Input() isVertical: boolean = false;
-  @Input() companyName: string = 'Testing Center';
-  @Input() email: string = 'default@email.com';
-  @Input() country: string = 'Poland';
-  constructor() {
+  @Input() dataToImport = {country: 'Poland', companyName: 'TC', email: 'test@test'};
+  @Input() isVertical = false;
+  @Input() companyName = 'Testing Center';
+  @Input() email = 'default@email.com';
+  @Input() country = 'Poland';
 
-  }
+  // tslint:disable-next-line: new-parens
+  @Output() emitYear = new EventEmitter<number>();
+  constructor() {}
 
   ngOnInit() {
   }

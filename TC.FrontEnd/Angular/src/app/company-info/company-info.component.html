@@ -1,8 +1,9 @@
 <div *ngIf="isVertical; else elseBlock">
-  <p>{{companyName}}</p>
-  <p>{{email}}</p>
-  <p>{{country}}</p>
+  <p>{{dataToImport.companyName}}</p>
+  <p>{{dataToImport.email}}</p>
+  <p>{{dataToImport.country}}</p>
+  <button>Agree</button>
 </div>
 <ng-template #elseBlock>
-  <span>{{companyName}} {{email}} {{country}}</span>
+  <span>{{dataToImport.companyName}} {{dataToImport.email}} {{dataToImport.country}}<button>Agree</button></span>
 </ng-template>

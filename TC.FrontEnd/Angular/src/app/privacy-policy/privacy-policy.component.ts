@@ -8,8 +8,8 @@ import { __importDefault } from 'tslib';
   styleUrls: ['./privacy-policy.component.scss']
 })
 export class PrivacyPolicyComponent implements OnInit {
-  country = 'Poland';
   @Input() companyName = 'Testing Center';
+  dataToExport = { country: 'USA', companyName: 'TestingCenter', email: 'dd@dd'};
 
   constructor(private layoutService: LayoutService) {
    }
