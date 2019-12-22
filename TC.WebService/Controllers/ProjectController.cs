@@ -36,6 +36,13 @@ namespace TC.WebService.Controllers
 
             return _projectRepository.GetProjectsByUser(guid).Select(x => GetProjectViewModel(x)).ToList();
         }
+        [HttpGet("domain/{domain}")]
+        public async Task<ProjectViewModel> Get(string domain)
+        {
+            string guid = GetUserGuid();
+            var project = _projectRepository.GetProjectByDomain(guid, domain);
+            return project == null ? null : GetProjectViewModel(project);
+        }
         [HttpGet("{id}")]
         public async Task<ProjectViewModel> Get(int id)
         {
@@ -159,9 +166,6 @@ namespace TC.WebService.Controllers
                     return BadRequest(ex.Message);
                 }
             }
-
-
-
             var users = new List<UserInProject>();
             foreach (var email in viewModel.UsersEmail.Split(","))
             {
@@ -188,7 +192,6 @@ namespace TC.WebService.Controllers
                 {
                     UserModelId = user.Id
                 });
-
             }
             // check is current user is in list if not added
             if (users.FirstOrDefault(x => x.Id == currnetUser.Id) == null)
@@ -198,7 +201,6 @@ namespace TC.WebService.Controllers
                     UserModelId = currnetUser.Id
                 });
             }
-
             _unitOfWork.SaveChanges();
             return Ok();
         }

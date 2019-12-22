@@ -22,6 +22,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SaveTestComponent } from './save-test/save-test.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { OperatorService } from './services/operator.service';
+import { InformationPageComponent } from './information-page/information-page.component';
 
 
 
@@ -34,7 +35,8 @@ import { OperatorService } from './services/operator.service';
     RunTestComponent,
     HeaderComponent,
     SelectBrowserEngineComponent,
-    SaveTestComponent
+    SaveTestComponent,    
+    InformationPageComponent
   ],
   imports: [
     BrowserModule,

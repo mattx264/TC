@@ -34,9 +34,6 @@ export class RunTestComponent implements OnInit {
 
   }
   sendClick() {
-
-
-
     const operatorsData = this.storeService.getOperatorsData();
     var data = this.operatorService.packageOperators(operatorsData);
     const message = {

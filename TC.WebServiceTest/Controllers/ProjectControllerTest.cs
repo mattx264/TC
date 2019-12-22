@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using TC.DataAccess;
+using TC.DataAccess.DatabaseContext;
 using TC.DataAccess.Repositories;
 using TC.Entity.Entities;
+using TC.Entity.Entities.User;
 using TC.WebService.Controllers;
 using TC.WebService.Helpers;
 using TC.WebService.ViewModels;
@@ -16,6 +20,7 @@ namespace TC.WebServiceTest.Controllers
 {
     public class ProjectControllerTest
     {
+        #region Get
         [Theory]
         [MemberData(nameof(GetData))]
         public void Get(List<ProjectDomain> domains, List<UserInProject> userInProject)
@@ -63,6 +68,59 @@ namespace TC.WebServiceTest.Controllers
           
             };
         }
+        #endregion //Get
+        #region GetByDomain
+        [Fact]
+        public void GetByDomain()
+        {
+            var options = new DbContextOptionsBuilder<TestingCenterDbContext>()
+               .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
+               .Options;
+           var  context = new TestingCenterDbContext(options);
+            context.Projects.Add(new Project() { 
+                Name="Test",
+                IsActive=true,
+                ProjectDomains=new List<ProjectDomain>()
+                {
+                    new ProjectDomain()
+                    {
+                        Domain="test.com",
+                        IsActive=true
+                    }
+                },
+                UserInProject=new List<UserInProject>()
+                {
+                    new UserInProject(){
+                        IsActive=true,
+                        UserModel=new UserModel()
+                        {
+                            IsActive=true
+                            
+                        },
+                       UserProjectStatus=new UserProjectStatus()
+                       {
+                           Name="Pending"
+                       }
+                    }
+
+                }
+            });
+            context.SaveChanges();
+            var user = context.UserModel.FirstOrDefault(x=>x.IsActive);
+            var projectRepository = new ProjectRepository(context);
+            var userHelper = new Mock<IUserHelper>();
+            var unitOfWork = new Mock<IUnitOfWork>();
+            var userRepository = new Mock<IUserRepository>();
+            userHelper.Setup(x => x.GetGuid(It.IsAny<ClaimsPrincipal>())).Returns(() => user.Guid.ToString());
+           
+
+            var controller = new ProjectController(projectRepository, userHelper.Object, unitOfWork.Object, userRepository.Object);
+            
+            var result=controller.Get("test.com").GetAwaiter().GetResult();
+
+            Assert.NotNull(result);
+        }
+        #endregion //GetByDomain
         [Fact]
         public void Post()
         {
