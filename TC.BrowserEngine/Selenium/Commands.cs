@@ -1,8 +1,5 @@
 ﻿using OpenQA.Selenium;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using TC.BrowserEngine.Controllers;
 using TC.BrowserEngine.Selenium.Commands;
 using TC.BrowserEngine.Services;
 using TC.Common.DTO;
@@ -15,20 +12,20 @@ namespace TC.BrowserEngine.Selenium
     {
         private IWebDriver _driver;
         IWebElement element;
-       
+
         public CommandProcessor(IWebDriver driver)
         {
             _driver = driver;
-           
+
         }
-       
+
         /// <summary>
         /// Run full test from start to end and close browser.
         /// </summary>
         /// <param name="SeleniumCommands"></param>
         public void Start(CommandMessage commandMessage)
         {
-            
+
             TestProgressEmitter testProgressEmitter = new TestProgressEmitter();
 
             foreach (var command in commandMessage.Commands)
@@ -44,18 +41,18 @@ namespace TC.BrowserEngine.Selenium
                     testProgress.IsSuccesfull = true;
                     testProgressEmitter.CommandComplete(testProgress);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     // TODO - should it break when there is error ?????
                     testProgress.IsSuccesfull = false;
                     testProgress.Message = ex.Message;
                     testProgressEmitter.CommandComplete(testProgress);
                 }
-               
+
             }
-           // _driver.Close();
+            // _driver.Close();
         }
-       
+
         private IWebElement RunCommand(SeleniumCommand command)
         {
             if (_driver == null)
@@ -65,7 +62,7 @@ namespace TC.BrowserEngine.Selenium
             // TODO config
             // _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
-           
+
 
             switch (command.WebDriverOperationType)
             {
@@ -85,18 +82,18 @@ namespace TC.BrowserEngine.Selenium
                     new JavascriptOperation(_driver).RunJS(command.Values);
                     return null;
             }
-            
+
             return null;
         }
 
         public string GetPageSource()
         {
-           return _driver.PageSource;
+            return _driver.PageSource;
         }
-       
+
         public static void WaitForAjax(IWebDriver driver, String action)
         {
-           // driver.Manage().Timeouts().ImplicitWaitsetScriptTimeout(5, TimeUnit.SECONDS);
+            // driver.Manage().Timeouts().ImplicitWaitsetScriptTimeout(5, TimeUnit.SECONDS);
             ((IJavaScriptExecutor)driver).ExecuteAsyncScript(
                     "var callback = arguments[arguments.length - 1];" +
                             "var xhr = new XMLHttpRequest();" +

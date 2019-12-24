@@ -19,12 +19,13 @@
   <ng-container matColumnDef="progress">
     <mat-header-cell *matHeaderCellDef> Progress </mat-header-cell>
     <mat-cell *matCellDef="let element">
+      {{element.status}}
       <div [ngSwitch]="element.status">
         <span *ngSwitchCase="'inprogress'">
-            <mat-spinner></mat-spinner>
+          <mat-spinner class="zoom05"></mat-spinner>
         </span>
         <span *ngSwitchCase="'done'">
-          <mat-icon>done</mat-icon>
+          <mat-icon color="success">done</mat-icon>
         </span>
         <span *ngSwitchCase="'failed'">
           <mat-icon>error</mat-icon>

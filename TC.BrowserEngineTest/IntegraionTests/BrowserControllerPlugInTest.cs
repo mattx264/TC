@@ -69,12 +69,12 @@ namespace TC.BrowserEngineTest.IntegraionTests
             {
                 WebDriverOperationType = WebDriverOperationType.BrowserNavigationOperation,
                 OperationId = 3,
-                Values = new string[] { "https://www.onet.pl/" }
+                Values = new string[] { "https://int-enrollment.aiuniv.edu/#/LandingPage" }
             });
             commands.Add(new SeleniumCommand()
             {
                 WebDriverOperationType = WebDriverOperationType.JavascriptOperation,
-                Values = new string[] { "function myF(){return 't';};alert(myF());" }
+                Values = new string[] { "alert(getCampusInformation().CampusId);" }
 
             });
             commands.Add(new SeleniumCommand()

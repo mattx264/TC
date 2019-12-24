@@ -40,11 +40,13 @@ export class LandingPageComponent implements OnInit {
   ngOnInit() {
     chrome.runtime.onMessage.addListener(
       (request: { type: string, data: OperatorModel }, sender, sendResponse) => {
-        if (this.isStarted === false) {
-          this.beforeStart(request.data);
+        if (request.type === 'getInfo' && request.data.action === 'isStarted') {
+          sendResponse(this.isStarted);
+          this.setupPageScript();
           return;
         }
-        if (request.data.action === 'xhrStart' || request.data.action === 'xhrDone') {
+        if (this.isStarted === false) {
+          this.beforeStart(request.data);
           return;
         }
         if (request.type == 'insert') {
@@ -54,8 +56,8 @@ export class LandingPageComponent implements OnInit {
         }
         this.cdr.detectChanges();
       });
+    this.setupPageScript();
 
-    this.sendMessageToBrowser('getUrl');
   }
 
   startRecordingClick() {
@@ -78,7 +80,8 @@ export class LandingPageComponent implements OnInit {
   }
   restartClick() {
     this.operatorsData = [];
-    this.sendMessageToBrowser('getUrl');
+    this.setupPageScript();
+
   }
   removeOperatorItem(index: number) {
     this.operatorsData.splice(index, 1);
@@ -100,17 +103,30 @@ export class LandingPageComponent implements OnInit {
         }
       });
     } catch (error) {
-      if (error.indexOf('No matching signature') > -1) {
+
+      if ((typeof error === "string") && error.indexOf('No matching signature') > -1) {
         this.ngZone.run(() =>
-          this.router.navigate(['/ information-page'])
+          this.router.navigate(['/information-page'])
         );
       } else {
         console.error(error);
+        // Dont know what to do with this
+        this.ngZone.run(() =>
+          this.router.navigate(['/information-page'])
+        );
       }
     }
   }
   createNewProject() {
     window.open("http://tc.net/project/create")
+  }
+  private setupPageScript() {
+    this.sendMessageToBrowser('startBrowserActionMonitor');
+    if (this.operatorsData.length === 0) {
+      this.sendMessageToBrowser('getUrl');
+    }
+    //TODO add config
+    // this.sendMessageToBrowser('startXHRMonitor');
   }
   private getTabIdFromUrl(url): string {
     const id = url.substr(url.indexOf("?") + 4)
@@ -153,7 +169,10 @@ export class LandingPageComponent implements OnInit {
       var matches = (request.value as string).match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
       this.domain = matches && matches[1];
       this.domain = this.domain.replace('www.', '');
-      this.httpClientService.get('project/domain/'+this.domain).toPromise<any>().then((response: ProjectViewModel) => {
+      this.httpClientService.get('project/domain/' + this.domain).toPromise<any>().then((response: ProjectViewModel) => {
+        if (response == null) {
+          return;
+        }
         this.project = response;
         this.storeService.setProject(this.project);
         this.projectDomain = this.project.projectDomain.find(x => x.domain === this.domain);
