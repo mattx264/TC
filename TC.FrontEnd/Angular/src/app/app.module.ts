@@ -48,6 +48,8 @@ import { TestFlowLayoutComponent } from './test-flow-layout/test-flow-layout.com
 import { TestFlowCreateComponent } from './test-flow-layout/test-flow-create/test-flow-create.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { CompanyInfoComponent } from './company-info/company-info.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,8 @@ import { CompanyInfoComponent } from './company-info/company-info.component';
     TestFlowLayoutComponent,
     TestFlowCreateComponent,
     PrivacyPolicyComponent,
-    CompanyInfoComponent
+    CompanyInfoComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +101,8 @@ import { CompanyInfoComponent } from './company-info/company-info.component';
     MatDialogModule,
     MatIconModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    LayoutModule
   ],
   providers: [
     LayoutService
