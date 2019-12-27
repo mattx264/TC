@@ -20,9 +20,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <header *ngIf='showHeader'>
-    <app-header></app-header>
-</header>
+      <app-header></app-header>
     </mat-toolbar>
     <!-- Add Content Here -->
     <div class="main-wrapper">
@@ -33,6 +31,9 @@
           <router-outlet></router-outlet>
       </main>
   </div>
+  <footer *ngIf='showFooter'>
+    <app-footer></app-footer>
+</footer>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
