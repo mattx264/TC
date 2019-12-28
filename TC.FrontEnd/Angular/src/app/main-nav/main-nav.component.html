@@ -24,16 +24,10 @@
     </mat-toolbar>
     <!-- Add Content Here -->
     <div class="main-wrapper">
-      <app-sidebar *ngIf='showSidebar'>
-
-      </app-sidebar>
       <main>
           <router-outlet></router-outlet>
       </main>
-  </div>
-  <footer *ngIf='showFooter'>
-    <app-footer></app-footer>
-</footer>
+  </div><app-footer></app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
