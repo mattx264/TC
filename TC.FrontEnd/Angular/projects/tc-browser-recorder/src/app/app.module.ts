@@ -22,6 +22,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SaveTestComponent } from './save-test/save-test.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { OperatorService } from './services/operator.service';
+import { MatToolbarModule } from '@angular/material';
 
 
 
@@ -49,7 +50,8 @@ import { OperatorService } from './services/operator.service';
     MatTableModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatToolbarModule
   ],
   providers: [
     AuthGuard,

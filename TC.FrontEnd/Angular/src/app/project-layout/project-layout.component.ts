@@ -37,6 +37,7 @@ export class ProjectLayoutComponent implements OnInit {
   }
 
   deleteProject(): void {
+    //To do
     console.log("delete");
   }
 

@@ -118,7 +118,7 @@ export class LandingPageComponent implements OnInit {
     }
   }
   createNewProject() {
-    window.open("http://tc.net/project/create")
+    window.open("http://localhost:4200/project-create")
   }
   private setupPageScript() {
     this.sendMessageToBrowser('startBrowserActionMonitor');

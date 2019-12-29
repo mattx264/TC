@@ -10,7 +10,6 @@
       <mat-checkbox (change)="$event ? masterToggle() : null"
                     [checked]="selection.hasValue() && isAllSelected()"
                     [indeterminate]="selection.hasValue() && !isAllSelected()"
-                    [aria-label]="checkboxLabel()"
                     [color]="accent">
       </mat-checkbox>
     </th>
@@ -18,7 +17,6 @@
       <mat-checkbox (click)="$event.stopPropagation()"
                     (change)="$event ? selection.toggle(row) : null"
                     [checked]="selection.isSelected(row)"
-                    [aria-label]="checkboxLabel(row)"
                     [color]="accent">
       </mat-checkbox>
     </td>

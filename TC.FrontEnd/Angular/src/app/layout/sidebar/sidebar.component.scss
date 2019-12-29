@@ -2,6 +2,22 @@ mat-icon {
     margin-right: 10px;
 }
 
-h1 {
-    padding: 0px 10px;
+label.project-name {
+    padding: 3px 10px;
+    font-weight: bold;
+    font-size: large;
+    margin-left: 1em;
+    text-decoration: underline;
+}
+
+img {
+    height: 2em;
+    width: 3em;
+    margin-right: 2em;
+}
+
+.header-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
 }

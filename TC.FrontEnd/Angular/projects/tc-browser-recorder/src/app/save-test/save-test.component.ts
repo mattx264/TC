@@ -40,8 +40,7 @@ export class SaveTestComponent implements OnInit {
     data.seleniumCommands = this.operatorService.packageOperators(this.storeService.getOperatorsData());
     this.httpClient.post('projectTest', data).subscribe(response => {
       this.router.navigate(['/landing-page']);
-      alert("Save successful");
-
+        alert("Save successful");
     });
   }
 

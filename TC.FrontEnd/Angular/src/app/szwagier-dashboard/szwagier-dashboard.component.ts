@@ -65,12 +65,4 @@ export class SzwagierDashboardComponent implements OnInit {
         this.selection.clear() :
         this.dataSource.data.forEach(row => this.selection.select(row));
   }
-
-  checkboxLabel(row?: SzwagierModel): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name}`;
-  }
-
 }
