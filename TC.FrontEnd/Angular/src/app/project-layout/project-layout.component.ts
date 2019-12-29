@@ -9,7 +9,7 @@ import { ProjectViewModel } from '../../../projects/shared/src/lib/viewModels/pr
 })
 export class ProjectLayoutComponent implements OnInit {
   projects: ProjectViewModel[];
-  displayedColumns: string[] = ['name','edit','send test'];
+  displayedColumns: string[] = ['name', 'edit', 'send test'];
 
   constructor(private httpClient: HttpClientService) { }
 

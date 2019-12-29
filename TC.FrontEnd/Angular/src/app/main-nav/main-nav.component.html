@@ -3,11 +3,16 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>TestingCenter</mat-toolbar>
+    <mat-toolbar>
+      <div class="login-header">
+      <img src="/assets/images/logo.jpg" alt="logo">
+    </div>TestingCenter</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a mat-list-item href="#">About</a>
+      <a mat-list-item href="#">FAQ</a>
+      <a mat-list-item href="#">Privacy policy</a>
+      <a mat-list-item href="#">Report a bug</a>
+      <a mat-list-item href="#">Contact</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
