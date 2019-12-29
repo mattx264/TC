@@ -1,19 +1,16 @@
-<nav>
-    <ul class="nav-links">
-        <li>
-          <button mat-button routerLink="szwagierDashboard"><mat-icon>dashboard</mat-icon>Dashboard</button>
-        </li>
-        <li>
-          <button mat-button routerLink="project"><mat-icon>list_alt</mat-icon>Project</button>
-        </li>
-        <li>
-          <button mat-button routerLink="group"><mat-icon>group</mat-icon>Groups</button>
-        </li>
-        <!-- <li>
-            <a routerLink="webrtc">webrtc</a>
-        </li> -->
-    </ul>
+<mat-toolbar color="primary">  
+  <mat-toolbar-row>
+    <button mat-icon-button (click) = "toggleMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-button routerLink="szwagierDashboard"><mat-icon>dashboard</mat-icon>Dashboard</button>
+    <button mat-button routerLink="project"><mat-icon>list_alt</mat-icon>Project</button>
+    <button mat-button routerLink="group"><mat-icon>group</mat-icon>Groups</button>
+
+    <span class="space-filler"></span>
     <div class="logout-wrapper">
-        <button mat-button (click)="logout()"><mat-icon>power_settings_new</mat-icon>Logout</button>
+      <button mat-button (click)="logout()"><mat-icon>power_settings_new</mat-icon>Logout</button>    
     </div>
-</nav>
+    
+  </mat-toolbar-row>
+</mat-toolbar>

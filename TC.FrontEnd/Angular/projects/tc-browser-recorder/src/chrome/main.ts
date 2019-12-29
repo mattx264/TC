@@ -19,25 +19,14 @@ class Main {
         document.addEventListener("dblclick", this.addDoubleClickEventListener);
 
         chrome.runtime.onMessage.addListener((message: any, sender: any, sendResponse: any) => {
-            switch (message.method) {
-                case 'getUrl':
-                    this.sendMessage({
-                        action: 'goToUrl',
-                        value: location.href,
-                        path: null
-                    });
-
-                    break;
-                case 'startXHRMonitor':
-
-                    break;
-                default:
-                    throw new Error("Message method not support - add new case " + message.method);
-                   
+            if (message.method === 'getUrl') {
+                this.sendMessage({
+                    action: 'goToUrl',
+                    value: location.href,
+                    path: null
+                });
             }
-            sendResponse({successful:true})
         });
-        this.sendMessageToPopup({ type: 'hello' });
     }
     addKeyDownEventListener = (e: KeyboardEvent) => {
         const activeElement = document.activeElement as HTMLInputElement;

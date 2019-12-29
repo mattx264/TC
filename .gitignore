@@ -85,3 +85,5 @@ baseline.json
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+/TC.DataAccess/Migrations/20191221175313_Init.cs
+/TC.DataAccess/Migrations/20191221175313_Init.Designer.cs

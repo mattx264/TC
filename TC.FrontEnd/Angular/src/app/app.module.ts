@@ -48,6 +48,8 @@ import { TestFlowLayoutComponent } from './test-flow-layout/test-flow-layout.com
 import { TestFlowCreateComponent } from './test-flow-layout/test-flow-create/test-flow-create.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { CompanyInfoComponent } from './company-info/company-info.component';
+import { MatMenuModule } from '@angular/material/menu'
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,9 @@ import { CompanyInfoComponent } from './company-info/company-info.component';
     MatDialogModule,
     MatIconModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule,
+    MatCheckboxModule
   ],
   providers: [
     LayoutService

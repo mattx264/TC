@@ -8,8 +8,6 @@ import { ProjectDomainViewModel } from '../../../../shared/src/lib/models/projec
 import { StoreService } from '../services/store.service';
 import { OperatorModel } from '../../../../shared/src/lib/models/operatorModel';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { settings } from 'cluster';
-import { HttpClientService } from 'projects/shared/src/lib/services/http-client.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -22,19 +20,18 @@ export class LandingPageComponent implements OnInit {
   szwagiersConsoles: SzwagierModel[] = [];
   selectedSzwagierConsole: SzwagierModel;
   isStarted: boolean = false;
+  projects: ProjectViewModel[];
   domain: string;
   project: ProjectViewModel;
   projectDomain: ProjectDomainViewModel;
   formGroupp: any;
-  constructor(
-    private ngZone: NgZone,
-    private cdr: ChangeDetectorRef,
-    private router: Router,
-    private storeService: StoreService,
-    private guidGeneratorService: GuidGeneratorService,
-    private httpClientService: HttpClientService
+  constructor(route: ActivatedRoute, private ngZone: NgZone,
+    private cdr: ChangeDetectorRef, private router: Router,
+    private storeService: StoreService, private guidGeneratorService: GuidGeneratorService,
   ) {
-
+    route.data.subscribe((res: any) => {
+      this.projects = res.project;
+    });
 
   }
   ngOnInit() {
@@ -42,9 +39,6 @@ export class LandingPageComponent implements OnInit {
       (request: { type: string, data: OperatorModel }, sender, sendResponse) => {
         if (this.isStarted === false) {
           this.beforeStart(request.data);
-          return;
-        }
-        if (request.data.action === 'xhrStart' || request.data.action === 'xhrDone') {
           return;
         }
         if (request.type == 'insert') {
@@ -71,10 +65,7 @@ export class LandingPageComponent implements OnInit {
   }
   sendClick() {
     this.storeService.setOperatorsData(this.operatorsData);
-
-    this.ngZone.run(() =>
-      this.router.navigate(['/select-browser-engine'])
-    );
+    this.router.navigate(['/select-browser-engine']);
   }
   restartClick() {
     this.operatorsData = [];
@@ -85,37 +76,18 @@ export class LandingPageComponent implements OnInit {
     this.cdr.detectChanges();
   }
   sendMessageToBrowser(methodName) {
-    if (localStorage.getItem('tabId') == null || this.getTabIdFromUrl(location.href) != localStorage.getItem('tabId')) {
-      var id = this.getTabIdFromUrl(location.href);
+    if (localStorage.getItem('tabId') == null) {
+      var id = location.href.substr(location.href.indexOf("?") + 4);
       localStorage.setItem('tabId', id);
     }
-    try {
-      chrome.tabs.sendMessage(+localStorage.getItem('tabId'), { method: methodName }, (response) => {
-        if (response === undefined) {
-          this.ngZone.run(() =>
-            this.router.navigate(['/information-page', 'refreshPage'])
-          );
-        } else {
-          // Do whatever you want, background script is ready now
-        }
-      });
-    } catch (error) {
-      if (error.indexOf('No matching signature') > -1) {
-        this.ngZone.run(() =>
-          this.router.navigate(['/ information-page'])
-        );
-      } else {
-        console.error(error);
-      }
-    }
+    chrome.tabs.sendMessage(+localStorage.getItem('tabId'), { method: methodName }, function (response) {
+      // reponse coming back by chrome.runtime.onMessage.addListener(
+    });
   }
   createNewProject() {
     window.open("http://tc.net/project/create")
   }
-  private getTabIdFromUrl(url): string {
-    const id = url.substr(url.indexOf("?") + 4)
-    return id == null ? null : id;
-  }
+
   private addNewOperation(request: OperatorModel) {
     const newOperation: OperatorModel = {
       action: request.action,
@@ -123,14 +95,12 @@ export class LandingPageComponent implements OnInit {
       value: request.value,
       guid: this.guidGeneratorService.get()
     }
-
     switch (request.action) {
       case 'xhrStart':
       case 'xhrDone':
         newOperation.value = request.value.toString()
         break;
     }
-
     this.operatorsData.push(
       newOperation
     );
@@ -149,24 +119,17 @@ export class LandingPageComponent implements OnInit {
 
   private beforeStart(request: OperatorModel) {
     if (request.action === "goToUrl") {
-
       var matches = (request.value as string).match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
       this.domain = matches && matches[1];
       this.domain = this.domain.replace('www.', '');
-      this.httpClientService.get('project/domain/'+this.domain).toPromise<any>().then((response: ProjectViewModel) => {
-        this.project = response;
-        this.storeService.setProject(this.project);
-        this.projectDomain = this.project.projectDomain.find(x => x.domain === this.domain);
-        this.cdr.detectChanges();
+      this.projects.forEach(p => {
+        if (p.projectDomain.find(x => x.domain === this.domain)) {
+          this.project = p;
+          this.storeService.setProject(this.project);
+          this.projectDomain = p.projectDomain.find(x => x.domain === this.domain);
+          this.cdr.detectChanges();
+        }
       });
-      // this.projects.forEach(p => {
-      //   if (p.projectDomain.find(x => x.domain === this.domain)) {
-      //     this.project = p;
-      //     this.storeService.setProject(this.project);
-      //     this.projectDomain = p.projectDomain.find(x => x.domain === this.domain);
-      //     this.cdr.detectChanges();
-      //   }
-      // });
     }
   }
 }

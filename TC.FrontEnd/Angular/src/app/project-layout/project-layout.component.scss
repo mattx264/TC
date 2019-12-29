@@ -1,0 +1,46 @@
+section {
+    margin: 10px 0px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  table td, table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  table tr:nth-child(even){background-color: #f2f2f2;}
+  
+  table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #3f51b5;
+    color: white;
+  }
+
+  .delete-icon {
+      margin-left: 1em;
+      margin-top: 7px;
+  }
+
+.center-checkbox {
+    text-align: center !important;
+  }
+
+  tr td.checkbox {
+    padding: 0;
+    margin: 0;
+    max-width: 2em;
+    text-align: center;
+  }
+
+  tr th.checkbox {
+    padding: 0;
+    margin: 0;
+    max-width: 2em;
+    text-align: center;
+  }
