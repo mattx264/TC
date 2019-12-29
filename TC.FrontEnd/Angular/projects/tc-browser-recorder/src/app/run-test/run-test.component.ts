@@ -1,6 +1,6 @@
 import { OperatorModelStatus } from './../../../../shared/src/lib/models/operatorModel';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SignalSzwagierService } from '../../../../shared/src/lib/services/signalr/signal-szwagier.service';
 import { SzwagierModel } from '../../../../shared/src/lib/models/szwagierModel';
 import { SzwagierType } from '../../../../shared/src/lib/models/SzwagierType';
@@ -25,7 +25,8 @@ export class RunTestComponent implements OnInit {
 
   constructor(private storeService: StoreService,
     signalSzwagierService: SignalSzwagierService,
-    private operatorService: OperatorService) {
+    private operatorService: OperatorService,
+    private cdr: ChangeDetectorRef) {
     this.hubConnection = signalSzwagierService.start();
   }
   ngOnInit() {
@@ -49,17 +50,19 @@ export class RunTestComponent implements OnInit {
     this.startTestProgressMonitor();
   }
   startTestProgressMonitor() {
-    this.dataSource.data[0].status = 'inprogess';
+    this.dataSource.data[0].status = 'inprogress';
     this.hubConnection.on('TestProgress', (testProgressMessage: TestProgressMessage) => {
       const test = this.dataSource.data.find(x => x.guid === testProgressMessage.commandTestGuid);
       if (testProgressMessage.isSuccesful) {
         test.status = 'done';
         const currentIndex = this.dataSource.data.findIndex(x => x.guid === testProgressMessage.commandTestGuid);
-        this.dataSource.data[currentIndex].status = 'inprogess';
+        this.dataSource.data[currentIndex+1].status = 'inprogress';
+       
       } else {
         test.status = 'failed';
       }
       this.dataSource._updateChangeSubscription();
+      this.cdr.detectChanges();
     });
   }
 

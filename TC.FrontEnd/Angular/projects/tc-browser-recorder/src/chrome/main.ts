@@ -6,27 +6,45 @@ class Main {
     tempElementValue: string;
     rightClickElementClicked: HTMLElement;
     actionLog: OperatorModel[] = [];
+
+    isInit: { startBrowserActionMonitor, startXHRMonitor } = { startBrowserActionMonitor: false, startXHRMonitor: false };
+
     constructor() {
-
-        new RequestionMonitor().startMonitor(this.sendMessage.bind(this));
-        this.xpathHelper = new XpathHelper();
-        // click is not always working so let try mousedown
-        //document.addEventListener("click", this.addClickEventListener);
-        document.addEventListener("mousedown", this.addRightMouseListener);
-
-        document.addEventListener("keyup", this.addKeyUpEventListener);
-        document.addEventListener("keydown", this.addKeyDownEventListener);
-        document.addEventListener("dblclick", this.addDoubleClickEventListener);
-
+        if (localStorage.getItem('isStart') === 'true') {
+            this.sendMessageToPopup({
+                type: 'getInfo', data: {
+                    action: 'isStarted'
+                }
+            }, (response) => {
+                if (response !== true) {
+                    localStorage.setItem('isStart', 'false');
+                }
+            });
+        }
         chrome.runtime.onMessage.addListener((message: any, sender: any, sendResponse: any) => {
-            if (message.method === 'getUrl') {
-                this.sendMessage({
-                    action: 'goToUrl',
-                    value: location.href,
-                    path: null
-                });
+            switch (message.method) {
+                case 'getUrl':
+                    this.sendMessage({
+                        action: 'goToUrl',
+                        value: location.href,
+                        path: null
+                    });
+
+                    break;
+                case 'startBrowserActionMonitor':
+                    localStorage.setItem('isStart', 'true');
+                    this.startBrowserActionMonitor();
+                    break;
+                case 'startXHRMonitor':
+                    this.startXHRMonitor();
+                    break;
+                default:
+                    throw new Error("Message method not support - add new case " + message.method);
+
             }
+            sendResponse({ successful: true })
         });
+        this.sendMessageToPopup({ type: 'hello' });
     }
     addKeyDownEventListener = (e: KeyboardEvent) => {
         const activeElement = document.activeElement as HTMLInputElement;
@@ -107,7 +125,7 @@ class Main {
         }
         if (this.actionLog.length > 0) {
             const prev = this.actionLog[this.actionLog.length - 1];
-            if (prev.path === data.path && data.action === 'sendKeys' && prev.action === 'sendKeys') {
+            if (prev.path === data.path && prev.action === 'sendKeys' && (data.value !== null && data.value.indexOf('Keys.') === -1)) {
                 this.sendUpdateMessage(data);
                 return;
             }
@@ -120,10 +138,11 @@ class Main {
         this.sendMessageToPopup({ type: 'appendLastValue', data: data });
 
     }
-    sendMessageToPopup(message) {
+    sendMessageToPopup(message, callBack?) {
         if (chrome.runtime) {
             chrome.runtime.sendMessage(message, function (response: any) {
                 console.log(response);
+                callBack(response);
             });
         }
     }
@@ -138,6 +157,29 @@ class Main {
         const xpath = this.xpathHelper.getElementXPath(event.target, document);
         this.sendMessage({ value: event.target.value, action: 'selectByValue', path: xpath });
 
+    }
+    private startXHRMonitor() {
+        if (this.isInit.startXHRMonitor === true) {
+            return;
+        }
+        this.isInit.startXHRMonitor = true;
+        localStorage.setItem('isInit', JSON.stringify(this.isInit));
+        new RequestionMonitor().startMonitor(this.sendMessage.bind(this));
+    }
+    private startBrowserActionMonitor() {
+        if (this.isInit.startBrowserActionMonitor === true) {
+            return;
+        }
+        this.isInit.startBrowserActionMonitor = true;
+        localStorage.setItem('isInit', JSON.stringify(this.isInit));
+        this.xpathHelper = new XpathHelper();
+        // click is not always working so let try mousedown
+        //document.addEventListener("click", this.addClickEventListener);
+        document.addEventListener("mousedown", this.addRightMouseListener);
+
+        document.addEventListener("keyup", this.addKeyUpEventListener);
+        document.addEventListener("keydown", this.addKeyDownEventListener);
+        document.addEventListener("dblclick", this.addDoubleClickEventListener);
     }
 }
 // //document.addEventListener('DOMContentLoaded', function () {

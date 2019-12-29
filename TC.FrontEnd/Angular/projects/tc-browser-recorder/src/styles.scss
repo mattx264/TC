@@ -25,6 +25,16 @@ main {
 .buttons-wrapper button {
   margin: 12px;
 }
-.remove-operator-btn{  
+.remove-operator-btn {
   zoom: 0.7;
+}
+
+.mat-success {
+  color: #28a745 !important; 
+}
+.mat-success[disabled] {
+  color: rgba(0, 0, 0, 0.12) !important;
+}
+.zoom05 {
+  zoom: 0.5;
 }

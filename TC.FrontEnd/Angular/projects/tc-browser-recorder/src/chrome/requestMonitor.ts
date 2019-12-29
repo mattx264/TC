@@ -10,7 +10,6 @@ class RequestionMonitor {
         });
 
         port.onMessage.addListener(function (msg) {
-            console.log(msg);
             if (msg.type === 'xhrStart') {
                 sendMessage({
                     action: msg.type,
