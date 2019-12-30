@@ -10,6 +10,8 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./project-layout.component.scss']
 })
 export class ProjectLayoutComponent implements OnInit {
+  deleteProjectEndpoint: string = 'deleteProject';
+
   selection = new SelectionModel<ProjectViewModel>(true, []);
 
   projects: ProjectViewModel[];
@@ -18,6 +20,10 @@ export class ProjectLayoutComponent implements OnInit {
   constructor(private httpClient: HttpClientService) { }
 
   ngOnInit() {
+    this.loadProjects();
+  }
+
+  loadProjects(): void {
     this.httpClient.get('project').toPromise().then((projects: ProjectViewModel[]) => {
       this.projects = projects;
       this.dataSource.data = this.projects;
@@ -36,9 +42,20 @@ export class ProjectLayoutComponent implements OnInit {
         this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  deleteProject(): void {
-    //To do
-    console.log("delete");
+  deleteSelectedProjects(): void {
+     let question: string = this.selection.selected.length == 1
+      ? `Are you sure you want to delete the project: ${this.selection.selected[0].name}?`
+      : "Are you sure you want to delete the selected projects?";
+  
+    let rsp = confirm(question);
+
+    if(!rsp) return;
+
+    let ids = this.selection.selected.map(x => x.id);
+    
+    this.httpClient.post(`project/${this.deleteProjectEndpoint}`, ids).subscribe(
+      success => this.loadProjects(),
+      error => alert(error.error));
   }
 
 }

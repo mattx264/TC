@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClientService } from '../../../../projects/shared/src/lib/services/http-client.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-create',
@@ -9,8 +10,11 @@ import { HttpClientService } from '../../../../projects/shared/src/lib/services/
 })
 export class ProjectCreateComponent implements OnInit {
   formGroup: FormGroup;
+  saveProjectEndPoint: string = 'project';
 
-  constructor(private fb: FormBuilder, private httpClient: HttpClientService) { }
+  constructor(private fb: FormBuilder, 
+    private router: Router,
+    private http: HttpClientService) { }
 
   ngOnInit() {
     this.formGroup = this.buildForm();
@@ -27,8 +31,11 @@ export class ProjectCreateComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
-    this.httpClient.post('project', this.formGroup.getRawValue()).subscribe(response => {
-      alert("Save successful");
-    });
+    
+    this.http.post(this.saveProjectEndPoint, this.formGroup.getRawValue())
+      .subscribe(
+        r => this.router.navigate(['project']),
+        e => alert(e.error)
+    );
   }
 }

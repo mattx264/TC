@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, UrlTree, DefaultUrlSerializer, UrlSerializer } from '@angular/router';
 import { SzwagierDashboardComponent } from './szwagier-dashboard/szwagier-dashboard.component';
 import { SzwagierRCComponent } from './szwagier-rc/szwagier-rc.component';
 import { WebRtcComponent } from './web-rtc/web-rtc.component';
@@ -18,7 +18,7 @@ import { SimpleErrorPageComponent } from '../../projects/shared/src/lib/componen
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
-  { path: 'szwagierDashboard', data: { showSidebar: true }, component: SzwagierDashboardComponent, canActivate: [AuthGuard]  },
+  { path: 'szwagier-dashboard', data: { showSidebar: true }, component: SzwagierDashboardComponent, canActivate: [AuthGuard]  },
   { path: 'szwagier-rc/:id', component: SzwagierRCComponent, canActivate: [AuthGuard]  },
   { path: 'webrtc', component: WebRtcComponent, canActivate: [AuthGuard]  },
   { path: 'group', component: GroupLayoutComponent, canActivate: [AuthGuard]  },
@@ -31,15 +31,25 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent  },
   { path: 'registration', component: RegistrationComponent },
-  { path: '', redirectTo: 'szwagierDashboard', pathMatch: 'full'  },
+  { path: '', redirectTo: 'szwagier-Dashboard', pathMatch: 'full'  },
+  { path: 'szwagierdashboard', redirectTo: 'szwagier-Dashboard', pathMatch: 'full'  },
   { path: '', component: SidebarEmptyComponent, outlet: 'sidebar' },
   { path: 'server-not-avaiable', component: ServerNotAvaiableComponent  },
   { path: 'error', component: SimpleErrorPageComponent  },
   { path: '**', redirectTo: 'szwagierDashboard', pathMatch: 'full'  }
 ];
 
+export class LowerCaseUrlSerializer extends DefaultUrlSerializer {
+  parse(url: string): UrlTree {
+    return super.parse(url.toLocaleLowerCase());
+  }
+}
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    { provide: UrlSerializer, useClass: LowerCaseUrlSerializer}
+  ]
 })
 export class AppRoutingModule { }

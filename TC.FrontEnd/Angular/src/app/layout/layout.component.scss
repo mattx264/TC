@@ -2,9 +2,6 @@
   display: flex;
   margin: 0 1rem;
   min-height: 80vh;
-  app-sidebar {
-    width: 300px;
-  }
   main {
     width: 100%;
    
@@ -17,4 +14,8 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+mat-sidenav {
+  width: 15em;
 }

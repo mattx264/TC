@@ -23,12 +23,16 @@ table {
   }
 
   .delete-icon {
-      margin-left: 1em;
-      margin-top: 7px;
+      margin-right: 6px;
   }
 
 .center-checkbox {
     text-align: center !important;
+  }
+
+  .checkbox-selection {
+    display: flex;
+    justify-content: center;
   }
 
   tr td.checkbox {
@@ -43,4 +47,13 @@ table {
     margin: 0;
     max-width: 2em;
     text-align: center;
+  }
+
+  .span-content {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .space-filler {
+    flex: 1 1 auto;
   }

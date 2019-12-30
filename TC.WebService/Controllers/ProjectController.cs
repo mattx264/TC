@@ -222,5 +222,24 @@ namespace TC.WebService.Controllers
             return string.IsNullOrEmpty(domain) ? null : domain;
 
         }
+
+        [HttpPost]
+        [Route("deleteProject")]
+        public IActionResult DeleteProject(int[] projectId)
+        {
+            var user = GetUser();
+
+            projectId.AsEnumerable()
+            .Select(x => _projectRepository.FindById(x)).ToList()
+            .ForEach(x =>
+            {
+                x.IsActive = false;
+                x.ModifiedBy = user.Name;
+                x.DateModified = DateTime.Now;
+            });
+
+            _unitOfWork.SaveChanges();
+            return Ok();
+        }
     }
 }
