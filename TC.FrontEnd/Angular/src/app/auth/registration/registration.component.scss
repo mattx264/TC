@@ -11,6 +11,7 @@
 .container {
   height: 100%;
   z-index: 1;
+  opacity: 0.7;
 }
 
 #background-img {
@@ -19,7 +20,7 @@
   background: url("/assets/images/HiResHead2_0000_OH Walnut Creek 5.jpg");
   z-index: -1;
   background-size: cover;
-  filter: grayscale(50%) blur(2px);
+  filter: grayscale(30%) blur(20px);
   position: absolute;
 }
 

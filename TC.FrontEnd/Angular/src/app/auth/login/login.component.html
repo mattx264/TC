@@ -5,8 +5,8 @@
     <div class="col-md-4 offset-md-4 center-vertical">
       <div id="form">
         <div class="login-header">
-          <img src="/assets/images/logo.jpg" alt="logo">
-          <h2>{{companyName}}</h2>
+          <mat-icon class="mat-18">code</mat-icon>
+          <label class="project-name">Testing<b class="primary">.Center</b></label>
         </div>
         <h1 class="h1-extra-margin">Login</h1>
         <div id="unathorized" *ngIf="unathorized">
@@ -27,9 +27,9 @@
               </mat-form-field>
             </div>
 
-          
+
             <p id="forgotPass"><a target="_blank" href="http://tc.net/forgetPassword">Forgot password?</a></p>
-          
+
 
           <div class="login-buttons">
             <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">Login</button>
