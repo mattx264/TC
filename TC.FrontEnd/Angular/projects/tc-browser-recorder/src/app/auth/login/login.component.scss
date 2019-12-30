@@ -59,6 +59,9 @@ p {
   text-align: right;
   margin: 0;
   cursor: pointer;
+  padding-right: 15px;
+  margin-top: -20px;
+  margin-bottom: 20px;
 }
 
 .social-media {
@@ -114,6 +117,25 @@ p {
   margin: 10px 0;
 }
 
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
 .field {
+  padding: 0px 15px;
   width: 100%;
+}
+
+.login-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 5px;
 }

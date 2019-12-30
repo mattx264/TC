@@ -74,6 +74,9 @@ p {
   text-align: right;
   margin: 0;
   cursor: pointer;
+  padding-right: 15px;
+  margin-top: -20px;
+  margin-bottom: 20px;
 }
 
 .social-media {
@@ -126,4 +129,29 @@ p {
   color: #9f6000;
   background-color: #feefb3;
   margin: 10px 0;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.field {
+  padding: 0px 15px;
+}
+
+.login-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 5px;
+}
+
+app-text-field {
+  padding: 0px 0px;
 }

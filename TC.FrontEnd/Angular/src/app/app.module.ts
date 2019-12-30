@@ -50,6 +50,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { CompanyInfoComponent } from './company-info/company-info.component';
 import { MatMenuModule } from '@angular/material/menu'
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatTabsModule,
     MatCardModule,
     MatMenuModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatChipsModule
   ],
   providers: [
     LayoutService

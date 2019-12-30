@@ -233,11 +233,12 @@ namespace TC.WebService.Controllers
             .Select(x => _projectRepository.FindById(x)).ToList()
             .ForEach(x =>
             {
-                x.IsActive = false;
-                x.ModifiedBy = user.Name;
-                x.DateModified = DateTime.Now;
+                //_projectRepository.Delete(x);
+               x.IsActive = false;
+               x.ModifiedBy = user.Name;
+               x.DateModified = DateTime.Now;
             });
-
+           
             _unitOfWork.SaveChanges();
             return Ok();
         }
