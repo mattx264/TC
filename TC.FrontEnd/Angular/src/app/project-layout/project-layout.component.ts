@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ProjectLayoutComponent implements OnInit {
   selection = new SelectionModel<ProjectViewModel>(true, []);
-  
+
   projects: ProjectViewModel[];
   displayedColumns: string[] = ['checkbox','name','edit','send test'];
   dataSource = new MatTableDataSource<ProjectViewModel>();

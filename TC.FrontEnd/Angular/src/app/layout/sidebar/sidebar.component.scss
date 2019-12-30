@@ -1,23 +1,26 @@
 mat-icon {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 label.project-name {
-    padding: 3px 10px;
-    font-weight: bold;
-    font-size: large;
-    margin-left: 1em;
-    text-decoration: underline;
+  b {
+    color: rgb(25, 77, 25)
+  }
+  font-family: "Abril Fatface", cursive;
+  padding: 3px 10px;
+  font-weight: bold;
+  font-size: large;
+  margin-left: 1em;
 }
 
 img {
-    height: 2em;
-    width: 3em;
-    margin-right: 2em;
+  height: 2em;
+  width: 3em;
+  margin-right: 2em;
 }
 
 .header-row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
 }

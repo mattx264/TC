@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">  
+<mat-toolbar color="primary">
   <mat-toolbar-row>
     <button mat-icon-button (click) = "toggleMenu()">
       <mat-icon>menu</mat-icon>
@@ -8,9 +8,13 @@
     <button mat-button routerLink="group"><mat-icon>group</mat-icon>Groups</button>
 
     <span class="space-filler"></span>
-    <div class="logout-wrapper">
-      <button mat-button (click)="logout()"><mat-icon>power_settings_new</mat-icon>Logout</button>    
+    <div>
+      <mat-icon class="mat-18">code</mat-icon>
+      <label class="project-name">Testing<b>.Center</b></label>
     </div>
-    
+    <div class="logout-wrapper">
+      <button mat-button (click)="logout()"><mat-icon>power_settings_new</mat-icon>Logout</button>
+    </div>
+
   </mat-toolbar-row>
 </mat-toolbar>

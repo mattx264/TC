@@ -12,6 +12,7 @@
 @import '~@angular/material/theming';
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "styles/reset";
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Black+Ops+One&display=swap');
 
 body {
   margin: 0;
@@ -37,6 +38,7 @@ app-root {
 .circle {
   width: 30px;
   height: 30px;
+  margin: 5px;
   display: inline-block;
   border-radius: 50px;
 

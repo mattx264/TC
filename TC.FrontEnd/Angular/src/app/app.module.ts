@@ -50,7 +50,6 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { CompanyInfoComponent } from './company-info/company-info.component';
 import { MatMenuModule } from '@angular/material/menu'
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { MainNavComponent } from './main-nav/main-nav.component';
 
 @NgModule({
   declarations: [
@@ -79,8 +78,7 @@ import { MainNavComponent } from './main-nav/main-nav.component';
     TestFlowLayoutComponent,
     TestFlowCreateComponent,
     PrivacyPolicyComponent,
-    CompanyInfoComponent,
-    MainNavComponent
+    CompanyInfoComponent
   ],
   imports: [
     BrowserModule,
