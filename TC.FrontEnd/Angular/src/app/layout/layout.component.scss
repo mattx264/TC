@@ -1,10 +1,12 @@
+$marigin-wrapper: 1rem;
 .main-wrapper {
   display: flex;
   margin: 0 1rem;
+  width: calc(100% - #{$marigin-wrapper});
   min-height: 80vh;
   main {
     width: 100%;
-   
+
   }
 }
 
@@ -17,5 +19,5 @@
 }
 
 mat-sidenav {
-  width: 15em;
+  width: 17em;
 }
