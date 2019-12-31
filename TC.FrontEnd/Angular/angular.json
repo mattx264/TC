@@ -145,13 +145,7 @@
             "aot": false,
             "assets": [
               "projects/tc-browser-recorder/src/favicon.ico",
-              "projects/tc-browser-recorder/src/assets",
-              "projects/tc-browser-recorder/src/manifest.json",
-              "projects/tc-browser-recorder/src/background.js",
-              "projects/tc-browser-recorder/src/chrome/main.js",
-              "projects/tc-browser-recorder/src/chrome/requestMonitor.js",
-              "projects/tc-browser-recorder/src/chrome/xpathHelper.js",
-              "projects/tc-browser-recorder/src/chrome/main.css"
+              "projects/tc-browser-recorder/src/assets"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",

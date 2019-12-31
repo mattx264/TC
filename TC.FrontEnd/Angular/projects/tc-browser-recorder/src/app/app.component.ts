@@ -6,4 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  constructor() {
+    chrome.tabs.getCurrent( function (tabs) {
+      console.log(tabs);
+    })
+  }
 }

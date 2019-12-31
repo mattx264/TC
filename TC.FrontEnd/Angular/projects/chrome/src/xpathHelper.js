@@ -1,8 +1,5 @@
-"use strict";
-var XpathHelper = /** @class */ (function () {
-    function XpathHelper() {
-    }
-    XpathHelper.prototype.getXPath = function (node) {
+class XpathHelper {
+    getXPath(node) {
         if (node.hasAttribute("id")) {
             return '//' + node.tagName + '[@id="' + node.id + '"]';
         }
@@ -10,11 +7,10 @@ var XpathHelper = /** @class */ (function () {
             return '//' + node.tagName + '[@class="' + node.getAttribute("class") + '"]';
         }
         var old = '/' + node.tagName;
-        var new_path = this.getXPath(node.parentNode) + old;
+        let new_path = this.getXPath(node.parentNode) + old;
         return new_path;
-    };
-    XpathHelper.prototype.getElementXPath = function (node, doc) {
-        if (doc === void 0) { doc = undefined; }
+    }
+    getElementXPath(node, doc = undefined) {
         if (doc == undefined)
             doc = document;
         var xpath = '';
@@ -34,10 +30,8 @@ var XpathHelper = /** @class */ (function () {
         xpath = '/' + doc.documentElement.nodeName + '/' + xpath;
         xpath = xpath.replace(/\/$/, '');
         return xpath;
-    };
-    XpathHelper.prototype.getElementXPathByType = function (node, doc, type) {
-        if (doc === void 0) { doc = undefined; }
-        if (type === void 0) { type = 'INPUT'; }
+    }
+    getElementXPathByType(node, doc = undefined, type = 'INPUT') {
         var nodeClone = node.cloneNode(true);
         if (doc == undefined)
             doc = document;
@@ -81,13 +75,11 @@ var XpathHelper = /** @class */ (function () {
         // 		   }
         // }
         return xpath;
-    };
-    XpathHelper.prototype.getInputElementXPath = function (node, doc) {
-        if (doc === void 0) { doc = undefined; }
+    }
+    getInputElementXPath(node, doc = undefined) {
         return this.getElementXPathByType(node, doc, "INPUT");
-    };
-    XpathHelper.prototype.getActionElementXPath = function (node, doc) {
-        if (doc === void 0) { doc = undefined; }
+    }
+    getActionElementXPath(node, doc = undefined) {
         var nodeClone = node.cloneNode(true);
         if (doc == undefined)
             doc = document;
@@ -131,8 +123,8 @@ var XpathHelper = /** @class */ (function () {
         // 		   }
         // }
         return xpath;
-    };
-    XpathHelper.prototype.getElementByXPath = function (xPath, doc) {
+    }
+    getElementByXPath(xPath, doc) {
         if (!doc)
             doc = document;
         if (doc.evaluate)
@@ -143,7 +135,7 @@ var XpathHelper = /** @class */ (function () {
         var prevElem = doc;
         var arr = xPath.split('/');
         for (var i = 0; i < arr.length; i++) {
-            var step = arr[i].split(/(\w*)\[(\d*)\]/gi).filter(function (v) { return !(v == '' || v.match(/\s/gi)); }, this);
+            var step = arr[i].split(/(\w*)\[(\d*)\]/gi).filter((v) => { return !(v == '' || v.match(/\s/gi)); }, this);
             var elem = step[0];
             var elemNum = step[1] ? step[1] - 1 : 0; // -1 since xpath is 1 based
             if (i < arr.length - 1)
@@ -151,11 +143,10 @@ var XpathHelper = /** @class */ (function () {
             else
                 return prevElem.getElementsByTagName(elem)[elemNum];
         }
-    };
-    XpathHelper.prototype.getElementByXPathCount = function (xPath, doc) {
+    }
+    getElementByXPathCount(xPath, doc) {
         if (!doc)
             doc = document;
         document.evaluate("count(" + xPath + ")", doc, null, XPathResult.ANY_TYPE, null);
-    };
-    return XpathHelper;
-}());
+    }
+}

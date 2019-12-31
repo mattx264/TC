@@ -1,4 +1,4 @@
-import { OperatorModel } from "../../../shared/src/lib/models/operatorModel";
+import { OperatorModel } from "../../shared/src/lib/models/operatorModel";
 
 class Main {
     xpathHelper: XpathHelper;
@@ -107,7 +107,7 @@ class Main {
         this.sendMessage(data);
     }
     addDoubleClickEventListener = (e: MouseEvent) => {
-        console.log("double click");
+        console.log("double click!!!");
         console.log(e)
     }
     addRightMouseListener = (e: MouseEvent) => {
@@ -182,8 +182,8 @@ class Main {
         document.addEventListener("dblclick", this.addDoubleClickEventListener);
     }
 }
-// //document.addEventListener('DOMContentLoaded', function () {
-new Main();
-// //}, false);
+document.addEventListener('DOMContentLoaded', function () {
+    new Main();
+}, false);
 
 

@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "build-browser-extension": "ng build tc-browser-recorder && npm run chrome",
+    "chrome": "cd projects/chrome && tsc && gulp copy",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
@@ -30,7 +32,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.21",
     "@angular-devkit/build-ng-packagr": "~0.801.3",
-    "@angular/cli": "^8.1.3",
+    "@angular/cli": "~8.1.2",
     "@angular/compiler-cli": "~8.1.2",
     "@angular/language-service": "~8.1.2",
     "@types/chrome": "0.0.65",
@@ -52,6 +54,7 @@
     "ts-node": "~7.0.0",
     "tsickle": "^0.35.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "~3.4.3",
+    "gulp": "4.0.2"
   }
 }
