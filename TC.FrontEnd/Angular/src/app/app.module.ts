@@ -5,9 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SzwagierDashboardComponent } from './szwagier-dashboard/szwagier-dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { SzwagierRCComponent } from './szwagier-rc/szwagier-rc.component';
-import { WebRtcComponent } from './web-rtc/web-rtc.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
@@ -21,7 +20,6 @@ import { LayoutService } from './layout/layout.service';
 import { environment } from '../environments/environment';
 import { SharedModule } from '../../projects/shared/src/lib/shared.module';
 import { GroupLayoutComponent } from './group-layout/group-layout.component';
-import { JwtInterceptorService } from '../../projects/shared/src/lib/services/jwt-interceptor.service';
 import { CreateNewGroupDialogComponent } from './group-layout/create-new-group-dialog/create-new-group-dialog.component';
 import { AddUserToGroupComponent } from './group-layout/add-user-to-group/add-user-to-group.component';
 import { GroupEditComponent } from './group-layout/group-edit/group-edit.component';
@@ -57,7 +55,6 @@ import { MatChipsModule } from '@angular/material';
     AppComponent,
     SzwagierDashboardComponent,
     SzwagierRCComponent,
-    WebRtcComponent,
     AuthComponent,
     LoginComponent,
     RegistrationComponent,

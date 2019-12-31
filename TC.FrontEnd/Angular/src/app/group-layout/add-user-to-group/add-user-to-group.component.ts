@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClientService } from '../../sharedToREmove/services/http-client.service';
+import { HttpClientService } from 'projects/shared/src/lib/services/http-client.service';
 
 @Component({
   selector: 'app-add-user-to-group',

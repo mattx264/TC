@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, UrlTree, DefaultUrlSerializer, UrlSerializer } from '@angular/router';
 import { SzwagierDashboardComponent } from './szwagier-dashboard/szwagier-dashboard.component';
 import { SzwagierRCComponent } from './szwagier-rc/szwagier-rc.component';
-import { WebRtcComponent } from './web-rtc/web-rtc.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { AuthGuard } from './auth/guard/auth.guard';
@@ -20,7 +19,6 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 const routes: Routes = [
   { path: 'szwagier-dashboard', data: { showSidebar: true }, component: SzwagierDashboardComponent, canActivate: [AuthGuard]  },
   { path: 'szwagier-rc/:id', component: SzwagierRCComponent, canActivate: [AuthGuard]  },
-  { path: 'webrtc', component: WebRtcComponent, canActivate: [AuthGuard]  },
   { path: 'group', component: GroupLayoutComponent, canActivate: [AuthGuard]  },
   { path: 'group/:id', component: GroupEditComponent, canActivate: [AuthGuard]  },
   { path: 'project', component: ProjectLayoutComponent, canActivate: [AuthGuard]  },
