@@ -40,10 +40,22 @@
  2. Set TC.WebService as a default project to start (right click)
  3. Start IIS express project TC.WebService (it should be by default)
  
+ ### TC Browser Plugin
+ #### Recording Web Session
+ 1. Open Chrome and a new tab
+ 2. Within the new tab, navigate to any website (e.g., www.google.com)
+ 3. Click on TC browser extension (you may have to login or create an account)
+ 4. Click on Sandbox button
+ 5. Navigate the website from the newly opened tab from step 2
+ #### Testing Web Session
+ 1. Make sure backend is started (see above *Start Backend* step)
+ 2. Right-click on the project *TC.BrowserEngine* --> *Debug* --> *Start New Instance*
+ 3. When done recording web session (from above steps), click the *run test* button
+ 
+ 
   ### Database connection
   name of database you can find in:
   ..\TC.WebService\appsettings.Development.json
-  
 
  
  #### Technology:
