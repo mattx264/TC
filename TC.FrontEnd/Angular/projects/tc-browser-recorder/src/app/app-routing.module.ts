@@ -9,6 +9,7 @@ import { ServerNotAvaiableComponent } from '../../../shared/src/lib/components/s
 import { RunTestComponent } from './run-test/run-test.component';
 import { SaveTestComponent } from './save-test/save-test.component';
 import { SimpleErrorPageComponent } from '../../../shared/src/lib/components/simple-error-page/simple-error-page.component';
+import { InformationPageComponent } from './information-page/information-page.component';
 
 
 
@@ -25,6 +26,8 @@ const routes: Routes = [
     path: 'error-page', component: SimpleErrorPageComponent
   }, {
     path: 'server-not-avaiable', component: ServerNotAvaiableComponent
+  }, {
+    path: 'information-page/:type', component: InformationPageComponent
   }, {
     path: 'landing-page', component: LandingPageComponent
     , canActivate: [AuthGuard]

@@ -23,6 +23,7 @@ import { SaveTestComponent } from './save-test/save-test.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { OperatorService } from './services/operator.service';
 import { MatToolbarModule } from '@angular/material';
+import { InformationPageComponent } from './information-page/information-page.component';
 
 
 
@@ -35,7 +36,8 @@ import { MatToolbarModule } from '@angular/material';
     RunTestComponent,
     HeaderComponent,
     SelectBrowserEngineComponent,
-    SaveTestComponent
+    SaveTestComponent,
+    InformationPageComponent
   ],
   imports: [
     BrowserModule,

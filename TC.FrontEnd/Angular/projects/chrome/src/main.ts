@@ -182,8 +182,6 @@ class Main {
         document.addEventListener("dblclick", this.addDoubleClickEventListener);
     }
 }
-document.addEventListener('DOMContentLoaded', function () {
     new Main();
-}, false);
 
 

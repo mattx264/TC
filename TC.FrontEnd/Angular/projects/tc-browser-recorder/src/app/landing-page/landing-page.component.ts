@@ -106,13 +106,13 @@ export class LandingPageComponent implements OnInit {
 
       if ((typeof error === "string") && error.indexOf('No matching signature') > -1) {
         this.ngZone.run(() =>
-          this.router.navigate(['/information-page'])
+          this.router.navigate(['/information-page', 'refreshPage'])
         );
       } else {
         console.error(error);
         // Dont know what to do with this
         this.ngZone.run(() =>
-          this.router.navigate(['/information-page'])
+          this.router.navigate(['/information-page', 'refreshPage'])
         );
       }
     }
@@ -129,7 +129,12 @@ export class LandingPageComponent implements OnInit {
     // this.sendMessageToBrowser('startXHRMonitor');
   }
   private getTabIdFromUrl(url): string {
-    const id = url.substr(url.indexOf("?") + 4)
+    const id = url.substr(url.indexOf("?") + 4);
+    if (isNaN(+id)) {
+      this.ngZone.run(() =>
+        this.router.navigate(['/information-page', 'refreshPage'])
+      );      
+    }
     return id == null ? null : id;
   }
   private addNewOperation(request: OperatorModel) {
