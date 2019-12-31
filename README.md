@@ -31,6 +31,8 @@
  
  # Back end
  Project architecture:
+ ![alt text](https://raw.githubusercontent.com/mattx264/TC/master/diagrams/Untitled%20Diagram.png)
+
  ...
  ### Start backend
  1. Open wsl ubuntu console and run `redis-server` (if redis is not setup - follow instruction in TC/Redis-setup.txt)
