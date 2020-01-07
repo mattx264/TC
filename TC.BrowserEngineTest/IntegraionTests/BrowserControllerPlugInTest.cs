@@ -69,26 +69,26 @@ namespace TC.BrowserEngineTest.IntegraionTests
             {
                 WebDriverOperationType = WebDriverOperationType.BrowserNavigationOperation,
                 OperationId = 3,
-                Values = new string[] { "https://int-enrollment.aiuniv.edu/#/LandingPage" }
+                Values = new string[] { "http://localhost:3000/form-test" }
             });
             commands.Add(new SeleniumCommand()
             {
                 WebDriverOperationType = WebDriverOperationType.JavascriptOperation,
-                Values = new string[] { "alert(getCampusInformation().CampusId);" }
+                Values = new string[] { "var script = document.createElement('script');script.src = 'javascript/main.js';document.body.appendChild(script);" }
 
             });
             commands.Add(new SeleniumCommand()
             {
                 WebDriverOperationType = WebDriverOperationType.JavascriptOperation,
-                Values = new string[] { "myF();" }
+                Values = new string[] { "alert(test)" }
 
             });
-            commands.Add(new SeleniumCommand()
-            {
-                WebDriverOperationType = WebDriverOperationType.JavascriptOperation,
-                Values = new string[] { "alert(myF())" }
+            //commands.Add(new SeleniumCommand()
+            //{
+            //    WebDriverOperationType = WebDriverOperationType.JavascriptOperation,
+            //    Values = new string[] { "alert(myF())" }
 
-            });
+            //});
             var commandMessage = new CommandMessage()
             {
                 ReceiverConnectionId = "receiverTest",
