@@ -17,20 +17,11 @@
  5. Setup redis (required WSL)
  6. Follow setup in TC/Redis-setup.txt
  
- # Start coding - front end
- 1. Open vscode 
- 2. Go to \TC\TC.FrontEnd\Angular
- 4. Run in console `npm install`
- 5. Run in console `ng serve` local service will start on port 4200, go to website http://localhost:4200/ - don't forget about backend setup 
- ### Setup chrome extension 
- 1. Go to \TC\TC.FrontEnd\Angular
- 2. Run command `ng build tc-browser-recorder`
- 1. Open Chrome
- 2. Settings -> Extnesnions -> turn on "Developer mode"
- 3. "Load unpacked" set path \TC\TC.FrontEnd\Angular\dist\tc-browser-recorder
  
  # Back end
  Project architecture:
+ ![alt text](https://raw.githubusercontent.com/mattx264/TC/master/diagrams/Untitled%20Diagram.png)
+
  ...
  ### Start backend
  1. Open wsl ubuntu console and run `redis-server` (if redis is not setup - follow instruction in TC/Redis-setup.txt)
@@ -38,10 +29,22 @@
  2. Set TC.WebService as a default project to start (right click)
  3. Start IIS express project TC.WebService (it should be by default)
  
+ ### TC Browser Plugin
+ #### Recording Web Session
+ 1. Open Chrome and a new tab
+ 2. Within the new tab, navigate to any website (e.g., www.google.com)
+ 3. Click on TC browser extension (you may have to login or create an account)
+ 4. Click on Sandbox button
+ 5. Navigate the website from the newly opened tab from step 2
+ #### Testing Web Session
+ 1. Make sure backend is started (see above *Start Backend* step)
+ 2. Right-click on the project *TC.BrowserEngine* --> *Debug* --> *Start New Instance*
+ 3. When done recording web session (from above steps), click the *run test* button
+ 
+ 
   ### Database connection
   name of database you can find in:
   ..\TC.WebService\appsettings.Development.json
-  
 
  
  #### Technology:
