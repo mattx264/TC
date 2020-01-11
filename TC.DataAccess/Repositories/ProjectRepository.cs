@@ -28,7 +28,7 @@ namespace TC.DataAccess.Repositories
         }
         public Project GetProjectByUser(string guid, int projectId)
         {
-            return FindAll().First(x => x.UserInProject.Any(x => x.UserModel.Guid.ToString() == guid && x.Id == projectId));
+            return FindAll().First(x => x.UserInProject.Any(x => x.UserModel.Guid.ToString() == guid && x.ProjectId == projectId));
         }
     }
 }

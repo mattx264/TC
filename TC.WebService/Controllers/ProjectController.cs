@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Collections;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -81,36 +83,36 @@ namespace TC.WebService.Controllers
 
             }
             var users = new List<UserInProject>();
-            if (!string.IsNullOrEmpty(viewModel.UsersEmail)){
-                foreach (var email in viewModel.UsersEmail.Split(","))
+            
+            foreach (var email in viewModel.UsersEmail)
+            {
+                if (string.IsNullOrEmpty(email))
                 {
-                    if (string.IsNullOrEmpty(email))
-                    {
-                        continue;
-                    }
-                    UserModel user = _userRepository.GetByEmail(email);
-                    if (user == null)
-                    {
-                        var password = Guid.NewGuid().ToString();
-                        //TODO send email with activation link and password
-                        _userRepository.Create(new UserModel
-                        {
-                            Email = email,
-                            Password = _userHelper.PasswordHash(password),
-                            Guid = System.Guid.NewGuid(),
-                            Name = viewModel.Name,
-                        });
-                        _unitOfWork.SaveChanges();
-                        user = _userRepository.GetByEmail(email);
-                    }
-                    users.Add(new UserInProject
-                    {
-                        UserModelId = user.Id,
-                        UserProjectStatusId = 1
-                    });
-
+                    continue;
                 }
+                UserModel user = _userRepository.GetByEmail(email);
+                if (user == null)
+                {
+                    var password = Guid.NewGuid().ToString();
+                    //TODO send email with activation link and password
+                    _userRepository.Create(new UserModel
+                    {
+                        Email = email,
+                        Password = _userHelper.PasswordHash(password),
+                        Guid = System.Guid.NewGuid(),
+                        Name = viewModel.Name,
+                    });
+                    _unitOfWork.SaveChanges();
+                    user = _userRepository.GetByEmail(email);
+                }
+                users.Add(new UserInProject
+                {
+                    UserModelId = user.Id,
+                    UserProjectStatusId = 1
+                });
+
             }
+
             // check is current user is in list if not added
             if (users.FirstOrDefault(x => x.Id == currnetUser.Id) == null)
             {
@@ -166,33 +168,39 @@ namespace TC.WebService.Controllers
                     return BadRequest(ex.Message);
                 }
             }
+
             var users = new List<UserInProject>();
-            foreach (var email in viewModel.UsersEmail.Split(","))
-            {
-                if (string.IsNullOrEmpty(email))
+
+            viewModel.UsersEmail
+                .Where(x => string.IsNullOrEmpty(x))
+                .ToList()
+                .ForEach(email =>
                 {
-                    continue;
-                }
-                UserModel user = _userRepository.GetByEmail(email);
-                if (user == null)
-                {
-                    var password = System.Guid.NewGuid().ToString();
-                    //TODO send email with activation link and password
-                    _userRepository.Create(new UserModel
+                    var user = _userRepository.GetByEmail(email);
+
+                    if (user == null)
                     {
-                        Email = email,
-                        Password = _userHelper.PasswordHash(password),
-                        Guid = System.Guid.NewGuid(),
-                        Name = viewModel.Name,
+                        var password = System.Guid.NewGuid().ToString();
+
+                        //TODO send email with activation link and password
+                        _userRepository.Create(new UserModel
+                        {
+                            Email = email,
+                            Password = _userHelper.PasswordHash(password),
+                            Guid = System.Guid.NewGuid(),
+                            Name = viewModel.Name,
+                        });
+
+                        _unitOfWork.SaveChanges();
+                        user = _userRepository.GetByEmail(email);
+                    }
+
+                    users.Add(new UserInProject
+                    {
+                        UserModelId = user.Id
                     });
-                    _unitOfWork.SaveChanges();
-                    user = _userRepository.GetByEmail(email);
-                }
-                users.Add(new UserInProject
-                {
-                    UserModelId = user.Id
                 });
-            }
+
             // check is current user is in list if not added
             if (users.FirstOrDefault(x => x.Id == currnetUser.Id) == null)
             {
@@ -201,7 +209,9 @@ namespace TC.WebService.Controllers
                     UserModelId = currnetUser.Id
                 });
             }
+
             _unitOfWork.SaveChanges();
+
             return Ok();
         }
         private ProjectViewModel GetProjectViewModel(Project project)

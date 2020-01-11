@@ -19,6 +19,6 @@ namespace TC.WebService.ViewModels
         public string Name { get; set; }
         public string Description { get; set; }
         public string Domains { get; set; }
-        public string UsersEmail { get; set; }
+        public IEnumerable<string> UsersEmail { get; set; }
     }
 }

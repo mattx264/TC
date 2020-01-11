@@ -124,8 +124,8 @@ namespace TC.WebServiceTest.Controllers
         [Fact]
         public void Post()
         {
-            const string userEmail = "test@test";
-            var controller = GetSimplePost(userEmail);
+            List<string> userEmail = new List<string>() { "test@test" };
+            var controller = GetSimplePost(userEmail.First());
 
             var result = controller.Post(new ProjectCreateViewModel()
             {
@@ -139,8 +139,8 @@ namespace TC.WebServiceTest.Controllers
         [Fact]
         public void Post_BadDomain()
         {
-            const string userEmail = "test@test";
-            var controller = GetSimplePost(userEmail);
+            List<string> userEmail = new List<string>() { "test@test" };
+            var controller = GetSimplePost(userEmail.First());
 
             var result = controller.Post(new ProjectCreateViewModel()
             {
