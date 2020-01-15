@@ -27,6 +27,7 @@ namespace TC.BrowserEngine.Selenium
         {
 
             TestProgressEmitter testProgressEmitter = new TestProgressEmitter();
+            
 
             foreach (var command in commandMessage.Commands)
             {
