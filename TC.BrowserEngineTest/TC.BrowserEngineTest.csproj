@@ -24,10 +24,6 @@
     <ProjectReference Include="..\TC.BrowserEngine\TC.BrowserEngine.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="IntegraionTests\" />
-  </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy $(SolutionDir)TC.BrowserEngine\BrowserDrivers $(TargetDir)BrowserDrivers /S /I /Q /Y /F" />
   </Target>

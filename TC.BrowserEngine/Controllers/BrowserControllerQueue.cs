@@ -38,7 +38,7 @@ namespace TC.BrowserEngine.Controllers
         {
           
             var browser = new BrowserController();
-            browser.Setup(BrowserType.Chrome, commandMessage);
+            browser.Setup(BrowserType.Chrome, commandMessage,new TestProgressEmitter());
             BrowserControllers.Enqueue(browser);
             Task.Run(() => StartBrowserFromQueue());
                   
