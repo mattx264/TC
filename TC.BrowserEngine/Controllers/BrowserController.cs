@@ -3,6 +3,7 @@ using OpenQA.Selenium.Chrome;
 using System;
 using TC.BrowserEngine.Helpers.Enums;
 using TC.BrowserEngine.Selenium;
+using TC.BrowserEngine.Services;
 using TC.Common.DTO;
 
 namespace TC.BrowserEngine.Controllers
@@ -10,11 +11,12 @@ namespace TC.BrowserEngine.Controllers
     public interface IBrowserController
     {
         public void Start();
-        public void Setup(BrowserType browserType, CommandMessage commandMessage);
+        public void Setup(BrowserType browserType, CommandMessage commandMessage, ITestProgressEmitter testProgressEmitter);
         public void RunCommandProcessor();
     }
     public class BrowserController : IBrowserController
     {
+        private ITestProgressEmitter _testProgressEmitter;
         private BrowserType _browserType;
         private IWebDriver driver;
         private CommandProcessor _commandProcessor;
@@ -23,8 +25,9 @@ namespace TC.BrowserEngine.Controllers
         {
 
         }
-        public void Setup(BrowserType browserType, CommandMessage commandMessage)
+        public void Setup(BrowserType browserType, CommandMessage commandMessage, ITestProgressEmitter testProgressEmitter)
         {
+            _testProgressEmitter = testProgressEmitter;
             _browserType = browserType;
             _commandMessage = commandMessage;
         }
@@ -35,7 +38,8 @@ namespace TC.BrowserEngine.Controllers
                 throw new Exception("Browser controller has to be Setup before call Start method");
             }
             driver = new BrowserDriver(_browserType).GetDriver() as ChromeDriver;
-            _commandProcessor = new CommandProcessor(driver);
+            _commandProcessor = new CommandProcessor(driver, (TestProgressEmitter)_testProgressEmitter);
+          
             //driver.Url = "http://www.google.com";
             //driver.ExecuteAsyncScript("alert('hey')");
             //Task.Delay(10000);

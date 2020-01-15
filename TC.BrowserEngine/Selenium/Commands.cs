@@ -10,13 +10,14 @@ namespace TC.BrowserEngine.Selenium
 {
     public class CommandProcessor
     {
+        private TestProgressEmitter _testProgressEmitter;
         private IWebDriver _driver;
         IWebElement element;
 
-        public CommandProcessor(IWebDriver driver)
+        public CommandProcessor(IWebDriver driver, TestProgressEmitter testProgressEmitter)
         {
+            _testProgressEmitter = testProgressEmitter;
             _driver = driver;
-
         }
 
         /// <summary>
@@ -26,27 +27,43 @@ namespace TC.BrowserEngine.Selenium
         public void Start(CommandMessage commandMessage)
         {
 
-            TestProgressEmitter testProgressEmitter = new TestProgressEmitter();
-
+            
             foreach (var command in commandMessage.Commands)
             {
-                TestProgress testProgress = new TestProgress()
+                ITestProgress testProgress = new TestProgress()
                 {
                     senderConnectionId = commandMessage.SenderConnectionId,
                     command = command
                 };
                 try
                 {
-                    element = RunCommand(command);
-                    testProgress.IsSuccesfull = true;
-                    testProgressEmitter.CommandComplete(testProgress);
+                    if (command.WebDriverOperationType == WebDriverOperationType.BrowserOperation
+                        && command.OperationId == (int)BrowserOperationEnum.GetScreenshot)
+                    {
+                      
+                        var screenshot = new BrowserOperation(_driver).GetScreenshot();
+                        ITestProgress testProgressImage = new ScreenshotTestProgress()
+                        {
+                            senderConnectionId = commandMessage.SenderConnectionId,
+                            command = command,
+                            IsSuccesfull = true,
+                            Screenshot= screenshot
+                        };
+                        _testProgressEmitter.ScreenshotComplete(testProgressImage);
+                    }
+                    else
+                    {
+                        element = RunCommand(command);
+                        testProgress.IsSuccesfull = true;
+                        _testProgressEmitter.CommandComplete(testProgress);
+                    }
                 }
                 catch (Exception ex)
                 {
                     // TODO - should it break when there is error ?????
                     testProgress.IsSuccesfull = false;
                     testProgress.Message = ex.Message;
-                    testProgressEmitter.CommandComplete(testProgress);
+                    _testProgressEmitter.CommandComplete(testProgress);
                 }
 
             }
@@ -71,6 +88,9 @@ namespace TC.BrowserEngine.Selenium
 
                 case WebDriverOperationType.BrowserNavigationOperation:
                     new BrowserNavigationOperation(_driver).GetByEnum(command.OperationId, command.Values);
+                    return null;
+                case WebDriverOperationType.BrowserOperation:
+                    new BrowserOperation(_driver).GetByEnum(command.OperationId, command.Values);
                     return null;
                 case WebDriverOperationType.ElementOperation:
                     new ElementOperation(_driver).GetByEnum(command.OperationId, command.Values, element);

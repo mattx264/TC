@@ -5,6 +5,7 @@ using System.Text;
 using TC.BrowserEngine.Controllers;
 using TC.BrowserEngine.Helpers.Enums;
 using TC.BrowserEngine.Selenium;
+using TC.BrowserEngine.Services;
 using TC.BrowserEngine.Signal;
 using TC.Common.DTO;
 using TC.Common.Selenium;
@@ -13,30 +14,7 @@ using TC.Common.Selenium.WebDriverOperation;
 namespace TC.BrowserEngineTest.IntegraionTests
 {
     class BrowserControllerPlugInTest
-    {
-        [Test]
-        public void UpdateTest()
-        {
-            var browserControllerPlugIn = new BrowserControllerPlug("test", new BrowserControllerQueue());
-            var commands = new List<SeleniumCommand>();
-            commands.Add(new SeleniumCommand()
-            {
-                WebDriverOperationType = WebDriverOperationType.BrowserNavigationOperation,
-                OperationId = 3,
-                Values = new string[] { "https://www.onet.pl/" }
-            });
-
-            var commandMessage = new CommandMessage()
-            {
-                ReceiverConnectionId = "receiverTest",
-                SenderConnectionId = "senderTest",
-                Commands = commands
-            };
-
-            browserControllerPlugIn.ReciveCommand(commandMessage);
-            // TODO add Assert
-           
-        }
+    {       
         [Test]
         public void CheckIfBrowserIsCloseAfterSimpleCommand()
         {
@@ -54,7 +32,7 @@ namespace TC.BrowserEngineTest.IntegraionTests
                 Commands = commands
             };
             var browser = new BrowserController();
-            browser.Setup(BrowserType.Chrome, commandMessage);
+            browser.Setup(BrowserType.Chrome, commandMessage, new TestProgressEmitter());
             var browserControllerQueue = new BrowserControllerQueue();
             browserControllerQueue.BrowserControllers.Enqueue(browser);
             browserControllerQueue.StartBrowserFromQueue();
@@ -96,7 +74,7 @@ namespace TC.BrowserEngineTest.IntegraionTests
                 Commands = commands
             };
             var browser = new BrowserController();
-            browser.Setup(BrowserType.Chrome, commandMessage);
+            browser.Setup(BrowserType.Chrome, commandMessage,new TestProgressEmitter());
             var browserControllerQueue = new BrowserControllerQueue();
             browserControllerQueue.BrowserControllers.Enqueue(browser);
             browserControllerQueue.StartBrowserFromQueue();

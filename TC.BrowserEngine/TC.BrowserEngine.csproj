@@ -37,6 +37,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TC.Common\TC.Common.csproj" />
     <ProjectReference Include="..\TC.Entity\TC.Entity.csproj" />
+    <ProjectReference Include="..\TC.WebService\TC.WebService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

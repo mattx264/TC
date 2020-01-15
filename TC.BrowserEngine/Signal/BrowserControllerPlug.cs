@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,10 +10,12 @@ using TC.BrowserEngine.Services;
 using TC.Common.DTO;
 using TC.Common.Selenium;
 using TC.Common.Selenium.WebDriverOperation;
+using TC.WebService.Helpers;
 
 namespace TC.BrowserEngine.Signal
 {
     public delegate void SendTestProgressDelegate(string senderConnectionId, string commandTestGuid);
+    public delegate void SendTestProgressImageDelegate(string senderConnectionId, string commandTestGuid,Screenshot screenshot);
 
     public class BrowserControllerPlug : SignalClientBase
     {
@@ -23,13 +26,15 @@ namespace TC.BrowserEngine.Signal
         public int maxBrowserOpen= 2;       
         public TestProgressSubscriber _subsciber;
         public SendTestProgressDelegate _sendTestProgressDelegate;
+        public SendTestProgressImageDelegate _sendTestProgressImageDelegate;
 
         public BrowserControllerPlug(string hubName, IBrowserControllerQueue browserControllerFactory) : base(hubName)
         {
             _browserControllerFactory = browserControllerFactory;
             _connection = StartAsync().GetAwaiter().GetResult();
             _sendTestProgressDelegate = SendTestProgress;
-            _subsciber = new TestProgressSubscriber(_sendTestProgressDelegate);
+            _sendTestProgressImageDelegate = SendTestProgressScreenshot;
+            _subsciber = new TestProgressSubscriber(_sendTestProgressDelegate, _sendTestProgressImageDelegate);
             TestProgressSubscriber.Set(new Guid(), _subsciber);            
             
             try
@@ -61,7 +66,19 @@ namespace TC.BrowserEngine.Signal
             {
                 IsSuccesful=true,
                 CommandTestGuid= commandTestGuid,
-                SenderConnectionId =senderConnectionId
+                SenderConnectionId =senderConnectionId,
+                
+            });
+        }
+        public void SendTestProgressScreenshot(string senderConnectionId, string commandTestGuid,Screenshot screenshot)
+        {
+            _connection.SendAsync("SendScreenShot", new TestProgressImage()
+            {
+                IsSuccesful = true,
+                CommandTestGuid = commandTestGuid,
+                SenderConnectionId = senderConnectionId,
+                ImageBase64= screenshot.AsBase64EncodedString
+                //ImageBinary = screenshot.ToByteArray()
             });
         }
         public void ReciveTriggerTest(int testId, CommandMessage commandMessage)
