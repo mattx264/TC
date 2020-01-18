@@ -121,7 +121,9 @@ namespace TC.WebService
                            .AllowCredentials();
                 }));
 
-            services.AddSignalR();
+            services.AddSignalR(hubOptions=> {
+                hubOptions.EnableDetailedErrors = true;
+            });
             services.AddDistributedRedisCache(options =>
             {
                 options.Configuration = "localhost";

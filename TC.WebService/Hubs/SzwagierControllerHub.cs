@@ -9,12 +9,12 @@ namespace TC.WebService.Hubs
    
     public partial class SzwagierHub : Hub
     {
-        public async Task SendCommand(CommandMessage obj)
+        public async Task SendCommand(CommandMessage message)
         {
             // TODO check if sender can make call to reciver (browser engine)
             // TODO add to testHistory
-            obj.SenderConnectionId = Context.ConnectionId;
-            await Clients.Client(obj.ReceiverConnectionId).SendAsync("ReciveCommand", obj);
+            message.SenderConnectionId = Context.ConnectionId;
+            await Clients.Client(message.ReceiverConnectionId).SendAsync("ReciveCommand", message);
         }
         public async Task TestProgress(TestProgressMessage message)
         {
@@ -22,9 +22,13 @@ namespace TC.WebService.Hubs
             await Clients.Client(message.SenderConnectionId).SendAsync("TestProgress", message);
         }
         
-        public async Task SendScreenShot(byte[] image)
+        public async Task SendScreenShot(TestProgressImage message)
         {
+            //1. Save image
+            //2. Send Url to client
 
+            // TODO add to testHistory
+            //await Clients.Client(message.SenderConnectionId).SendAsync("SendScreenShot", message);
         }
     }
 }
