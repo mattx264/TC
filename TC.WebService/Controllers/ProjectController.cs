@@ -252,5 +252,26 @@ namespace TC.WebService.Controllers
             _unitOfWork.SaveChanges();
             return Ok();
         }
+
+        [HttpGet]
+        [Route("getSeleniumCommands")]
+        public IActionResult GetSeleniumCommands(int projectId)
+        {
+            var user = GetUser();
+            var result = _projectRepository
+                .GetProjectByUser(user.Guid.ToString(), projectId)
+                .TestInfos
+                .Where(x => x.ProjectId == projectId);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("getProjects")]
+        public IActionResult GetProjects()
+        {
+            string guid = GetUserGuid();
+            return Ok(_projectRepository.GetProjectsByUser(guid));
+        }
     }
 }

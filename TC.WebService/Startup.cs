@@ -41,6 +41,7 @@ namespace TC.WebService
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+
             services.AddDefaultIdentity<UserModel>()
                 .AddEntityFrameworkStores<TestingCenterDbContext>()
                 .AddDefaultTokenProviders();
@@ -113,6 +114,7 @@ namespace TC.WebService
                     builder.WithOrigins("http://localhost:53353")
                            .WithOrigins("http://localhost:4200")
                            .WithOrigins("http://localhost:5000")
+                           .WithOrigins("http://localhost:5200")
                            .WithOrigins("chrome-extension://kiaoamdhbhjfgjjfodecilhhohjpabni")
                            .AllowAnyMethod()
                            .AllowAnyHeader()                           
