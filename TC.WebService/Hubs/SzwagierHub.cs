@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using TC.WebService.Models;
 using Microsoft.AspNetCore.Identity;
 using TC.Entity.Entities;
+using TC.WebService.Services;
 
 namespace TC.WebService.Hubs
 {
@@ -18,10 +19,12 @@ namespace TC.WebService.Hubs
         // private static List<SzwagierModel> szwagierModels = new List<SzwagierModel>();
         private IDistributedCache _distributedCache;
         private const string szwagierListKey = "SzwagierList";
-
-        public SzwagierHub(IDistributedCache distributedCache, UserManager<UserModel> userManager)
+        private IFileManager _fileManager;
+      
+        public SzwagierHub(IDistributedCache distributedCache, UserManager<UserModel> userManager, IFileManager fileManager)
         {
             _distributedCache = distributedCache;
+            _fileManager = fileManager;
         }
 
         public override Task OnConnectedAsync()

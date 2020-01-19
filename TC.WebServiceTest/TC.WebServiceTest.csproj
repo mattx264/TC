@@ -23,4 +23,8 @@
     <ProjectReference Include="..\TC.WebService\TC.WebService.csproj" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy $(ProjectDir)Assets $(TargetDir)Assets /S /I /Q /Y /F&#xD;&#xA;" />
+  </Target>
+
 </Project>

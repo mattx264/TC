@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using TC.DataAccess;
@@ -21,6 +23,7 @@ using TC.Entity.Entities;
 using TC.WebService.Helpers;
 using TC.WebService.Hubs;
 using TC.WebService.Services;
+using TC.WebService.Services.Files;
 
 namespace TC.WebService
 {
@@ -135,6 +138,8 @@ namespace TC.WebService
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IFileManager, FileManager>();
+            services.AddTransient<IFileStorageService,FileStorageService> ();
             services.AddScoped<TestInfoRepository>();
 
             services.AddSwaggerGen(c =>
@@ -157,7 +162,12 @@ namespace TC.WebService
                 app.UseHsts();
             }
             app.ConfigureExceptionHandler(logger);
-
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "Files")),
+                RequestPath = "/StaticFiles"
+            });
             app.UseRouting();
 
             app.UseAuthentication();
