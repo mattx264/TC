@@ -14,9 +14,9 @@ namespace TC.WebService.Services
     }
     public class FileManager : IFileManager
     {
-        private FileStorageService _fileStorageService;
+        private IFileStorageService _fileStorageService;
 
-        public FileManager(FileStorageService fileStorageService)
+        public FileManager(IFileStorageService fileStorageService)
         {
             _fileStorageService = fileStorageService;
         }
