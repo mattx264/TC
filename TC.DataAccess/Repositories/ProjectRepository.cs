@@ -30,5 +30,9 @@ namespace TC.DataAccess.Repositories
         {
             return FindAll().First(x => x.UserInProject.Any(x => x.UserModel.Guid.ToString() == guid && x.ProjectId == projectId));
         }
+        public IEnumerable<TestInfo> GetProjectTestInfo(Project project, int projectId)
+        {
+            return project.TestInfos.Where(x => x.ProjectId == projectId);
+        }
     }
 }

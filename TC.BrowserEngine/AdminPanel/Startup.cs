@@ -9,6 +9,8 @@ namespace TC.BrowserEngine.AdminPanel
 {
     public class Startup
     {
+        private const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             //Configuration = configuration;
@@ -25,6 +27,14 @@ namespace TC.BrowserEngine.AdminPanel
             //    //});
 
             services.AddMvcCore(option => option.EnableEndpointRouting = false).AddNewtonsoftJson();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:5200").AllowAnyHeader().AllowAnyOrigin();
+                });
+            });
 
             //    //services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
@@ -45,7 +55,7 @@ namespace TC.BrowserEngine.AdminPanel
             app.UseFileServer();
             //    if (env.IsDevelopment())
             //    {
-
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseDeveloperExceptionPage();
             //    }
             //    else
