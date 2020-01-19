@@ -83,7 +83,7 @@ namespace TC.WebService.Controllers
 
             }
             var users = new List<UserInProject>();
-            
+
             foreach (var email in viewModel.UsersEmail)
             {
                 if (string.IsNullOrEmpty(email))
@@ -119,7 +119,7 @@ namespace TC.WebService.Controllers
                 users.Add(new UserInProject
                 {
                     UserModelId = currnetUser.Id,
-                    UserProjectStatusId=2
+                    UserProjectStatusId = 2
                 });
             }
 
@@ -214,25 +214,6 @@ namespace TC.WebService.Controllers
 
             return Ok();
         }
-        private ProjectViewModel GetProjectViewModel(Project project)
-        {
-            return new ProjectViewModel()
-            {
-                Id = project.Id,
-                Name = project.Name,
-                ProjectDomain = project.ProjectDomains == null ? null : project.ProjectDomains.Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList(),
-                UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList()
-            };
-        }
-        private string GetDomain(string domainInput)
-        {
-
-            string domain = new Regex(@"^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)(\.[a-z]+)").Match(domainInput).Value;
-
-            return string.IsNullOrEmpty(domain) ? null : domain;
-
-        }
-
         [HttpPost]
         [Route("deleteProject")]
         public IActionResult DeleteProject(int[] projectId)
@@ -244,11 +225,11 @@ namespace TC.WebService.Controllers
             .ForEach(x =>
             {
                 //_projectRepository.Delete(x);
-               x.IsActive = false;
-               x.ModifiedBy = user.Name;
-               x.DateModified = DateTime.Now;
+                x.IsActive = false;
+                x.ModifiedBy = user.Name;
+                x.DateModified = DateTime.Now;
             });
-           
+
             _unitOfWork.SaveChanges();
             return Ok();
         }
@@ -271,7 +252,24 @@ namespace TC.WebService.Controllers
         public IActionResult GetProjects()
         {
             string guid = GetUserGuid();
-            return Ok(_projectRepository.GetProjectsByUser(guid));
+            return Ok(_projectRepository.GetProjectsByUser(guid).Select(x=> GetProjectViewModel(x)));
+        }
+        private ProjectViewModel GetProjectViewModel(Project project)
+        {
+            return new ProjectViewModel()
+            {
+                Id = project.Id,
+                Name = project.Name,
+                ProjectDomain = project.ProjectDomains == null ? null : project.ProjectDomains.Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList(),
+                UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList()
+            };
+        }
+        private string GetDomain(string domainInput)
+        {
+            string domain = new Regex(@"^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)(\.[a-z]+)").Match(domainInput).Value;
+
+            return string.IsNullOrEmpty(domain) ? null : domain;
+
         }
     }
 }
