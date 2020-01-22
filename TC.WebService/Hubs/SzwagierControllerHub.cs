@@ -24,22 +24,5 @@ namespace TC.WebService.Hubs
             // TODO add to testHistory
             await Clients.Client(message.SenderConnectionId).SendAsync("TestProgress", message);
         }
-
-        public async Task SendScreenShot(TestProgressImage message)
-        {
-            try
-            {
-                string filePath = await _fileManager.SaveFile(message.ImageBase64);
-                await Clients.Client(message.SenderConnectionId).SendAsync("ReciveScreenshot", new TestProgressImageRespons
-                {
-                    ImagePath = filePath,
-                    CommandTestGuid = message.CommandTestGuid
-                });
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("SendScreenshot", ex);
-            }
-        }
     }
 }

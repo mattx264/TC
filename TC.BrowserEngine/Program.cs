@@ -1,17 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.FileProviders;
-using PeterKottas.DotNetCore.WindowsService;
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using TC.BrowserEngine.AdminPanel;
 using TC.BrowserEngine.AdminPanel.DataAccess;
-using TC.BrowserEngine.Controllers;
-using TC.BrowserEngine.Helpers;
-using TC.BrowserEngine.Helpers.Enums;
-using TC.BrowserEngine.Services;
-using TC.Common.Selenium;
 
 namespace TC.BrowserEngine
 {

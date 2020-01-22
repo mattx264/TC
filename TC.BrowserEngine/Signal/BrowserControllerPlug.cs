@@ -72,14 +72,7 @@ namespace TC.BrowserEngine.Signal
         }
         public void SendTestProgressScreenshot(string senderConnectionId, string commandTestGuid,Screenshot screenshot)
         {
-            _connection.SendAsync("SendScreenShot", new TestProgressImage()
-            {
-                IsSuccesful = true,
-                CommandTestGuid = commandTestGuid,
-                SenderConnectionId = senderConnectionId,
-                ImageBase64= screenshot.AsBase64EncodedString
-                //ImageBinary = screenshot.ToByteArray()
-            });
+            FileUploadService.UploadScreenshotAsync(screenshot.AsByteArray, senderConnectionId, commandTestGuid);
         }
         public void ReciveTriggerTest(int testId, CommandMessage commandMessage)
         {
