@@ -8,14 +8,6 @@ namespace TC.BrowserEngine
     {
         private static void Main(string[] args)
         {
-
-            //var provider = new PhysicalFileProvider(@"C:\Users\mmachaj\source\repos\TestingCenter\TC.BrowserEngine\ImageTemp");
-            //var contents = provider.GetDirectoryContents(string.Empty);
-            //var fileInfo = provider.GetFileInfo("temp.jpg");
-
-            //await new FileUploadHelper().UploadImageAsync(fileInfo.CreateReadStream(), "test.jpg");
-
-
             var localServer = LocalServer.Instance;
 
             string token = new LocalUserRepository().GetToken();

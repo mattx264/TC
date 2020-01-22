@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using TC.BrowserEngine.Helpers;
 
 namespace TC.BrowserEngine.Services
 {
@@ -17,7 +18,7 @@ namespace TC.BrowserEngine.Services
                 content.Add(new StreamContent(stream),"file","screenshot.png");
                 content.Add(new StringContent(clientId), "clientId");
                 content.Add(new StringContent(guid), "guid");
-                var result = await client.PostAsync("https://localhost:44384/api/FileUpload/SaveScreenshot", content);
+                var result = await client.PostAsync($"{ConfigHelper.GetServerAddress()}+/api/FileUpload/SaveScreenshot", content);
             }
             catch (Exception ex)
             {
