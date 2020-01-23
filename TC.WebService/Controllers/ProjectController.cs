@@ -22,13 +22,20 @@ namespace TC.WebService.Controllers
     {
         private IProjectRepository _projectRepository;
         private IUserRepository _userRepository;
+        private IUtilHelper _utilHelper;
         private IUnitOfWork _unitOfWork;
 
-        public ProjectController(IProjectRepository projectRepository, IUserHelper userHelper, IUnitOfWork unitOfWork, IUserRepository userRepository)
+        public ProjectController(
+            IProjectRepository projectRepository,
+            IUserHelper userHelper,
+            IUnitOfWork unitOfWork,
+            IUserRepository userRepository,
+            IUtilHelper utilHelper)
             : base(userHelper)
         {
             _projectRepository = projectRepository;
             _userRepository = userRepository;
+            _utilHelper = utilHelper;
             _unitOfWork = unitOfWork;
         }
         [HttpGet]
@@ -66,7 +73,7 @@ namespace TC.WebService.Controllers
             {
                 try
                 {
-                    string host = GetDomain(domain);
+                    string host = _utilHelper.GetDomain(domain);
                     if (host == null)
                     {
                         return BadRequest($"Missing or Incorrect Domain Name: { domain}");
@@ -153,7 +160,7 @@ namespace TC.WebService.Controllers
             {
                 try
                 {
-                    string host = GetDomain(domain);
+                    string host =_utilHelper.GetDomain(domain);
                     domainsToCheck.Add(host);
                     if (project.ProjectDomains.FirstOrDefault(x => x.Domain == host) == null)
                     {
@@ -252,7 +259,7 @@ namespace TC.WebService.Controllers
         public IActionResult GetProjects()
         {
             string guid = GetUserGuid();
-            return Ok(_projectRepository.GetProjectsByUser(guid).Select(x=> GetProjectViewModel(x)));
+            return Ok(_projectRepository.GetProjectsByUser(guid).Select(x => GetProjectViewModel(x)));
         }
         private ProjectViewModel GetProjectViewModel(Project project)
         {
@@ -264,12 +271,6 @@ namespace TC.WebService.Controllers
                 UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList()
             };
         }
-        private string GetDomain(string domainInput)
-        {
-            string domain = new Regex(@"^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)(\.[a-z]+)").Match(domainInput).Value;
-
-            return string.IsNullOrEmpty(domain) ? null : domain;
-
-        }
+     
     }
 }

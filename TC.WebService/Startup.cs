@@ -143,7 +143,8 @@ namespace TC.WebService
             services.AddScoped<IFileManager, FileManager>();
             services.AddTransient<IFileStorageService,FileStorageService> ();
             services.AddScoped<TestInfoRepository>();
-
+            services.AddScoped<IUtilHelper, UtilHelper>();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
