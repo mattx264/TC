@@ -178,7 +178,7 @@ namespace TC.WebServiceTest.Controllers
             });
             userHelper.Setup(x => x.GetUser(It.IsAny<ClaimsPrincipal>())).Returns(() => new UserModel() { Id = 1 });
 
-            return new ProjectController(projectRepositoryMock.Object, userHelper.Object, unitOfWork.Object, userRepository.Object, utilHelper.Object);
+            return new ProjectController(projectRepositoryMock.Object, userHelper.Object, unitOfWork.Object, userRepository.Object, new UtilHelper());
         }
     }
 }
