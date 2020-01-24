@@ -220,6 +220,7 @@ namespace TC.WebService.Controllers
             {
                 Id = project.Id,
                 Name = project.Name,
+                Description = project.Description,
                 ProjectDomain = project.ProjectDomains == null ? null : project.ProjectDomains.Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList(),
                 UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList()
             };
@@ -266,12 +267,22 @@ namespace TC.WebService.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        [Route("getProjects")]
-        public IActionResult GetProjects()
-        {
-            string guid = GetUserGuid();
-            return Ok(_projectRepository.GetProjectsByUser(guid));
-        }
+        //[HttpGet]
+        //[Route("getTests")]
+        //public IActionResult GetTests()
+        //{
+        //    var user = GetUser();
+        //    var result = _projectRepository
+        //        .GetProjectsByUser(user.Guid.ToString())
+        //        .Select(x => new
+        //        {
+        //            Id = x.Id,
+        //            Name = x.Name,
+
+        //        })
+        //        .TestInfos
+
+        //    return Ok(result);
+        //}
     }
 }

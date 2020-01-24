@@ -28,6 +28,7 @@ namespace TC.WebService.Controllers
             _testInfoRepository = testInfoRepository;
             _unitOfWork = unitOfWork;
         }
+
         [HttpGet("{projectId}")]
         public async Task<List<TestInfoViewModel>> Get(int projectId)
         {
@@ -40,6 +41,25 @@ namespace TC.WebService.Controllers
                 Commands = x.SeleniumCommands
             }).ToList();
         }
+
+        [HttpGet]
+        public async Task<List<TestInfoViewModel>> Get()
+        {
+            var user = GetUser();
+            var projects = _projectRepository.GetProjectsByUser(user.Guid.ToString());
+            var testInfos = await _testInfoRepository.GetUsersTestInfo(projects.Select(x => x.Id).ToList());
+
+            return testInfos.Select(x => new TestInfoViewModel()
+            {
+                Id = x.Id,
+                ProjectId = x.ProjectId,
+                Name = x.Name,
+                Description = x.Description,
+                Commands = x.SeleniumCommands
+            }).ToList();
+        }
+
+
         [HttpPost]
         public IActionResult Post(ProjectTestViewModel viewModel)
         {

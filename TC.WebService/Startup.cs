@@ -115,7 +115,7 @@ namespace TC.WebService
                            .WithOrigins("http://localhost:4200")
                            .WithOrigins("http://localhost:5000")
                            .WithOrigins("http://localhost:5200")
-                           .WithOrigins("chrome-extension://kiaoamdhbhjfgjjfodecilhhohjpabni")
+                           .WithOrigins("chrome-extension://affmfbglfcdkienjdmopeljgahgcgalf")
                            .AllowAnyMethod()
                            .AllowAnyHeader()                           
                            .AllowCredentials();
