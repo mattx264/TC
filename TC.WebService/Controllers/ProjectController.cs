@@ -281,33 +281,5 @@ namespace TC.WebService.Controllers
             string guid = GetUserGuid();
             return Ok(_projectRepository.GetProjectsByUser(guid).Select(x => GetProjectViewModel(x)));
         }
-        private ProjectViewModel GetProjectViewModel(Project project)
-        {
-            return new ProjectViewModel()
-            {
-                Id = project.Id,
-                Name = project.Name,
-                ProjectDomain = project.ProjectDomains == null ? null : project.ProjectDomains.Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList(),
-                UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList()
-            };
-        }
-     
-        //[HttpGet]
-        //[Route("getTests")]
-        //public IActionResult GetTests()
-        //{
-        //    var user = GetUser();
-        //    var result = _projectRepository
-        //        .GetProjectsByUser(user.Guid.ToString())
-        //        .Select(x => new
-        //        {
-        //            Id = x.Id,
-        //            Name = x.Name,
-
-        //        })
-        //        .TestInfos
-
-        //    return Ok(result);
-        //}
     }
 }
