@@ -27,7 +27,7 @@ namespace TC.BrowserEngine.Selenium
         public void Start(CommandMessage commandMessage)
         {
 
-            
+
             foreach (var command in commandMessage.Commands)
             {
                 ITestProgress testProgress = new TestProgress()
@@ -40,14 +40,14 @@ namespace TC.BrowserEngine.Selenium
                     if (command.WebDriverOperationType == WebDriverOperationType.BrowserOperation
                         && command.OperationId == (int)BrowserOperationEnum.GetScreenshot)
                     {
-                      
+
                         var screenshot = new BrowserOperation(_driver).GetScreenshot();
                         ITestProgress testProgressImage = new ScreenshotTestProgress()
                         {
                             senderConnectionId = commandMessage.SenderConnectionId,
                             command = command,
                             IsSuccesfull = true,
-                            Screenshot= screenshot
+                            Screenshot = screenshot
                         };
                         _testProgressEmitter.ScreenshotComplete(testProgressImage);
                     }

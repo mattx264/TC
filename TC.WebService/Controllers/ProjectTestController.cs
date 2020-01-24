@@ -37,6 +37,7 @@ namespace TC.WebService.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
+                ProjectId= x.ProjectId,
                 Description = x.Description,
                 Commands = x.SeleniumCommands
             }).ToList();

@@ -33,7 +33,6 @@
 
   <ItemGroup>
     <Folder Include="BrowserDrivers\Firefox\0.24\" />
-    <Folder Include="ImageTemp\" />
   </ItemGroup>
 
   <ItemGroup>

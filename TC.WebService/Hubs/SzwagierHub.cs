@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using TC.WebService.Models;
 using Microsoft.AspNetCore.Identity;
 using TC.Entity.Entities;
+using TC.WebService.Services;
 
 namespace TC.WebService.Hubs
 {
-   // [Authorize]
+    //  [Authorize]
     public partial class SzwagierHub : Hub
     {
         // private static List<SzwagierModel> szwagierModels = new List<SzwagierModel>();
@@ -26,7 +27,8 @@ namespace TC.WebService.Hubs
 
         public override Task OnConnectedAsync()
         {
-              string type = Context.GetHttpContext().Request.Query["t"];
+
+            string type = Context.GetHttpContext().Request.Query["t"];
             SzwagierType szwagierType;
             switch (type)
             {
@@ -42,7 +44,7 @@ namespace TC.WebService.Hubs
                 default:
                     throw new Exception("Szwagier type unknown");
             }
-           
+
 
             var szwagierModels = _distributedCache.GetAsync<List<SzwagierModel>>(getCacheKey()).GetAwaiter().GetResult();
             if (szwagierModels == null)
@@ -69,19 +71,19 @@ namespace TC.WebService.Hubs
             //}
             //else
             //{
-                var searchedSzwagier = szwagierModels.Where(x => x.UserId == szwagier.UserId && x.SzwagierType == szwagier.SzwagierType);
-                if (searchedSzwagier != null)
+            var searchedSzwagier = szwagierModels.Where(x => x.UserId == szwagier.UserId && x.SzwagierType == szwagier.SzwagierType);
+            if (searchedSzwagier != null)
+            {
+                // TODO user is already connected -> should be disconnected or other connection shoud be disconnected ????
+                foreach (var szwagierItem in searchedSzwagier.ToList())
                 {
-                    // TODO user is already connected -> should be disconnected or other connection shoud be disconnected ????
-                    foreach (var szwagierItem in searchedSzwagier.ToList())
-                    {
-                        Clients.Client(szwagierItem.ConnectionId).SendAsync("duplicateConnection");
-                        szwagierModels = removeSzwagier(szwagierModels, szwagierItem.ConnectionId);
-                    }
-
+                    Clients.Client(szwagierItem.ConnectionId).SendAsync("duplicateConnection");
+                    szwagierModels = removeSzwagier(szwagierModels, szwagierItem.ConnectionId);
                 }
-                szwagierModels.Add(szwagier);
-          //  }
+
+            }
+            szwagierModels.Add(szwagier);
+            //  }
             _distributedCache.SetAsync<List<SzwagierModel>>(getCacheKey(), szwagierModels, new DistributedCacheEntryOptions() { AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2) }).GetAwaiter();
 
             foreach (var szw in szwagierModels)
@@ -98,7 +100,7 @@ namespace TC.WebService.Hubs
         public override Task OnDisconnectedAsync(Exception exception)
         {
             var szwagierModels = _distributedCache.GetAsync<List<SzwagierModel>>(getCacheKey()).GetAwaiter().GetResult();
-            szwagierModels= removeSzwagier(szwagierModels, Context.ConnectionId);
+            szwagierModels = removeSzwagier(szwagierModels, Context.ConnectionId);
             Clients.All.SendAsync("UpdateSzwagierList", szwagierModels);
             return base.OnDisconnectedAsync(exception);
         }

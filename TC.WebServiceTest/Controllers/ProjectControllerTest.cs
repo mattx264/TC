@@ -31,9 +31,10 @@ namespace TC.WebServiceTest.Controllers
             var projectRepositoryMock = new Mock<IProjectRepository>();
             var userHelper = new Mock<IUserHelper>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var userRepository = new Mock<IUserRepository>();
+            var userRepository = new Mock<IUserRepository>(); 
+            var utilHelper = new Mock<IUtilHelper>();
 
-            var controller = new ProjectController(projectRepositoryMock.Object, userHelper.Object, unitOfWork.Object, userRepository.Object);
+            var controller = new ProjectController(projectRepositoryMock.Object, userHelper.Object, unitOfWork.Object, userRepository.Object, utilHelper.Object);
             projectRepositoryMock.Setup(x => x.GetProjectByUser(It.IsAny<string>(), It.IsAny<int>())).Returns(() =>
             {
                
@@ -111,16 +112,19 @@ namespace TC.WebServiceTest.Controllers
             var userHelper = new Mock<IUserHelper>();
             var unitOfWork = new Mock<IUnitOfWork>();
             var userRepository = new Mock<IUserRepository>();
+            var utilHelper = new Mock<IUtilHelper>();
+
             userHelper.Setup(x => x.GetGuid(It.IsAny<ClaimsPrincipal>())).Returns(() => user.Guid.ToString());
            
 
-            var controller = new ProjectController(projectRepository, userHelper.Object, unitOfWork.Object, userRepository.Object);
+            var controller = new ProjectController(projectRepository, userHelper.Object, unitOfWork.Object, userRepository.Object, utilHelper.Object);
             
             var result=controller.Get("test.com").GetAwaiter().GetResult();
 
             Assert.NotNull(result);
         }
         #endregion //GetByDomain
+        #region Post
         [Fact]
         public void Post()
         {
@@ -151,6 +155,7 @@ namespace TC.WebServiceTest.Controllers
             });
             Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
         }
+        #endregion
         private ProjectController GetSimplePost(string userEmail)
         {
 
@@ -158,6 +163,8 @@ namespace TC.WebServiceTest.Controllers
             var userHelper = new Mock<IUserHelper>();
             var unitOfWork = new Mock<IUnitOfWork>();
             var userRepository = new Mock<IUserRepository>();
+            var utilHelper = new Mock<IUtilHelper>();
+
             bool isFirstTimte = true;
             userRepository.Setup(x => x.GetByEmail(userEmail)).Returns(() =>
             {
@@ -171,7 +178,7 @@ namespace TC.WebServiceTest.Controllers
             });
             userHelper.Setup(x => x.GetUser(It.IsAny<ClaimsPrincipal>())).Returns(() => new UserModel() { Id = 1 });
 
-            return new ProjectController(projectRepositoryMock.Object, userHelper.Object, unitOfWork.Object, userRepository.Object);
+            return new ProjectController(projectRepositoryMock.Object, userHelper.Object, unitOfWork.Object, userRepository.Object, new UtilHelper());
         }
     }
 }

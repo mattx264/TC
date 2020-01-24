@@ -28,7 +28,8 @@
  1. Open TestingCenter.sln project file in Visual Studio (as a administrator)
  2. Set TC.WebService as a default project to start (right click)
  3. Start IIS express project TC.WebService (it should be by default)
- 
+ ### Run Azure Storage local
+ Go to https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator
  ### TC Browser Plugin
  #### Recording Web Session
  1. Open Chrome and a new tab
