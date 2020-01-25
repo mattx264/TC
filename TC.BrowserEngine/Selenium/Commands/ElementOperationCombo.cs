@@ -55,12 +55,12 @@ namespace TC.BrowserEngine.Selenium.Commands
             
             switch ((ElementOperationComboEnum)operationId)
             {
-                case ElementOperationComboEnum.SendKeys:
-                    this.SendKeys(values[0], values[1]);
-                    break;
                 case ElementOperationComboEnum.Click:
                     this.Click(values[0]);
                     break;
+                case ElementOperationComboEnum.SendKeys:
+                    this.SendKeys(values[0], values[1]);
+                    break;              
                 case ElementOperationComboEnum.DropDownSelectByValue:
                     this.DropDownSelectByValue(values[0], values[1]);
                     break;

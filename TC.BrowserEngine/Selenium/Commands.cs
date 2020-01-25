@@ -27,6 +27,7 @@ namespace TC.BrowserEngine.Selenium
         public void Start(CommandMessage commandMessage)
         {
 
+
             foreach (var command in commandMessage.Commands)
             {
                 ITestProgress testProgress = new TestProgress()
@@ -36,7 +37,6 @@ namespace TC.BrowserEngine.Selenium
                 };
                 try
                 {
-
                     if (command.WebDriverOperationType == WebDriverOperationType.BrowserOperation
                         && command.OperationId == (int)BrowserOperationEnum.GetScreenshot)
                     {
@@ -53,22 +53,16 @@ namespace TC.BrowserEngine.Selenium
                     }
                     else
                     {
-                        element = RunCommand(command);
+                      
+                        element = RunCommand(command); 
+                        if(command.OperationId ==18 && command.WebDriverOperationType == WebDriverOperationType.BrowserNavigationOperation)
+                        {
+                            //close browser is not send with status - if we want to do it add guid to close browser command
+                            break; 
+                        }
                         testProgress.IsSuccesfull = true;
                         _testProgressEmitter.CommandComplete(testProgress);
                     }
-
-                    var xhrCalls = ((IJavaScriptExecutor)_driver).ExecuteScript(JavaScript.JavaScript.getXhrCalls());
-                    var s = xhrCalls;
-                    var b = xhrCalls.ToString();
-                    var x = b;
-
-                    var q = xhrCalls.GetType();
-                    var p = q;
-
-                    
-
-
                 }
                 catch (Exception ex)
                 {
@@ -77,6 +71,7 @@ namespace TC.BrowserEngine.Selenium
                     testProgress.Message = ex.Message;
                     _testProgressEmitter.CommandComplete(testProgress);
                 }
+
             }
             // _driver.Close();
         }
@@ -90,26 +85,29 @@ namespace TC.BrowserEngine.Selenium
             // TODO config
             // _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
+
+
             switch (command.WebDriverOperationType)
             {
+                case WebDriverOperationType.BrowserOperation:
+                    new BrowserOperation(_driver).GetByEnum(command.OperationId, command.Values);
+                    return null;
+                case WebDriverOperationType.ElementOperation:
+                    new ElementOperation(_driver).GetByEnum(command.OperationId, command.Values, element);
+                    return null;
                 case WebDriverOperationType.Locators:
                     return new Locator(_driver).GetByEnum(command.OperationId, command.Values);
 
                 case WebDriverOperationType.BrowserNavigationOperation:
                     new BrowserNavigationOperation(_driver).GetByEnum(command.OperationId, command.Values);
-                    break;
-                case WebDriverOperationType.BrowserOperation:
-                    new BrowserOperation(_driver).GetByEnum(command.OperationId, command.Values);
-                    break;
-                case WebDriverOperationType.ElementOperation:
-                    new ElementOperation(_driver).GetByEnum(command.OperationId, command.Values, element);
-                    break;
+                    return null;
+
                 case WebDriverOperationType.ElementOperationCombo:
                     new ElementOperationCombo(_driver).GetByEnum(command.OperationId, command.Values);
-                    break;
+                    return null;
                 case WebDriverOperationType.JavascriptOperation:
                     new JavascriptOperation(_driver).RunJS(command.Values);
-                    break;
+                    return null;
             }
 
             return null;

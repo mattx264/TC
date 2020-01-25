@@ -9,6 +9,7 @@ namespace TC.WebService.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public IList<ProjectDomainViewModel> ProjectDomain { get; set; }
         public IList<UserInProjectViewModel> UserInProject { get; set; }
 

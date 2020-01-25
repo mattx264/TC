@@ -18,9 +18,13 @@ namespace TC.DataAccess.Repositories
             return  FindAll().Where(x => x.ProjectId == projectId).ToListAsync();
         }
 
+        public Task<List<TestInfo>> GetUsersTestInfo(List<int> projectIds)
+        {
+            return FindAll().Where(x => projectIds.Contains(x.ProjectId)).ToListAsync();
+        }
+
         public TestInfo GetTestInfo(int projectId)
         {
-          
             return FindAll().FirstOrDefault(x => x.ProjectId == projectId);
         }
     }

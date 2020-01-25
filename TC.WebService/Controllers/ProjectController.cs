@@ -22,13 +22,20 @@ namespace TC.WebService.Controllers
     {
         private IProjectRepository _projectRepository;
         private IUserRepository _userRepository;
+        private IUtilHelper _utilHelper;
         private IUnitOfWork _unitOfWork;
 
-        public ProjectController(IProjectRepository projectRepository, IUserHelper userHelper, IUnitOfWork unitOfWork, IUserRepository userRepository)
+        public ProjectController(
+            IProjectRepository projectRepository,
+            IUserHelper userHelper,
+            IUnitOfWork unitOfWork,
+            IUserRepository userRepository,
+            IUtilHelper utilHelper)
             : base(userHelper)
         {
             _projectRepository = projectRepository;
             _userRepository = userRepository;
+            _utilHelper = utilHelper;
             _unitOfWork = unitOfWork;
         }
         [HttpGet]
@@ -66,7 +73,7 @@ namespace TC.WebService.Controllers
             {
                 try
                 {
-                    string host = GetDomain(domain);
+                    string host = _utilHelper.GetDomain(domain);
                     if (host == null)
                     {
                         return BadRequest($"Missing or Incorrect Domain Name: { domain}");
@@ -83,7 +90,7 @@ namespace TC.WebService.Controllers
 
             }
             var users = new List<UserInProject>();
-            
+
             foreach (var email in viewModel.UsersEmail)
             {
                 if (string.IsNullOrEmpty(email))
@@ -119,7 +126,7 @@ namespace TC.WebService.Controllers
                 users.Add(new UserInProject
                 {
                     UserModelId = currnetUser.Id,
-                    UserProjectStatusId=2
+                    UserProjectStatusId = 2
                 });
             }
 
@@ -153,7 +160,7 @@ namespace TC.WebService.Controllers
             {
                 try
                 {
-                    string host = GetDomain(domain);
+                    string host =_utilHelper.GetDomain(domain);
                     domainsToCheck.Add(host);
                     if (project.ProjectDomains.FirstOrDefault(x => x.Domain == host) == null)
                     {
@@ -220,6 +227,7 @@ namespace TC.WebService.Controllers
             {
                 Id = project.Id,
                 Name = project.Name,
+                Description = project.Description,
                 ProjectDomain = project.ProjectDomains == null ? null : project.ProjectDomains.Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList(),
                 UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList()
             };
@@ -244,13 +252,34 @@ namespace TC.WebService.Controllers
             .ForEach(x =>
             {
                 //_projectRepository.Delete(x);
-               x.IsActive = false;
-               x.ModifiedBy = user.Name;
-               x.DateModified = DateTime.Now;
+                x.IsActive = false;
+                x.ModifiedBy = user.Name;
+                x.DateModified = DateTime.Now;
             });
-           
+
             _unitOfWork.SaveChanges();
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("getSeleniumCommands")]
+        public IActionResult GetSeleniumCommands(int projectId)
+        {
+            var user = GetUser();
+            var result = _projectRepository
+                .GetProjectByUser(user.Guid.ToString(), projectId)
+                .TestInfos
+                .Where(x => x.ProjectId == projectId);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("getProjects")]
+        public IActionResult GetProjects()
+        {
+            string guid = GetUserGuid();
+            return Ok(_projectRepository.GetProjectsByUser(guid).Select(x => GetProjectViewModel(x)));
         }
     }
 }
