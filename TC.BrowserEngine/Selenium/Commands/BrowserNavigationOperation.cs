@@ -4,6 +4,7 @@ using System.Text;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using TC.Common.Selenium;
+using TC.Common.Selenium.WebDriverOperation;
 
 namespace TC.BrowserEngine.Selenium.Commands
 {
@@ -20,8 +21,9 @@ namespace TC.BrowserEngine.Selenium.Commands
             }
             else
             {
-                _driver.Navigate().GoToUrl(url);
-                _driver.Manage().Window.Maximize();
+                var xhrMonitor = JavaScript.JavaScript.XhrMonitor();
+                _driver.Navigate().GoToUrl(url);            
+                ((IJavaScriptExecutor)_driver).ExecuteScript(xhrMonitor);
             }
         }
         public void WaitUntilBrowserReady()

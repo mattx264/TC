@@ -47,12 +47,12 @@ namespace TC.BrowserEngineTest.IntegraionTests
             {
                 WebDriverOperationType = WebDriverOperationType.BrowserNavigationOperation,
                 OperationId = 3,
-                Values = new string[] { "http://localhost:3000/form-test" }
+                Values = new string[] { "http://dmp.localhost/#!/dashboards/main" }
             });
             commands.Add(new SeleniumCommand()
             {
                 WebDriverOperationType = WebDriverOperationType.JavascriptOperation,
-                Values = new string[] { "var script = document.createElement('script');script.src = 'javascript/main.js';document.body.appendChild(script);" }
+                Values = new string[] { "var script = document.createElement('script');script.src = 'http://localhost:4200/assets/xhr-monitor.js';document.body.appendChild(script);" }
 
             });
             commands.Add(new SeleniumCommand()

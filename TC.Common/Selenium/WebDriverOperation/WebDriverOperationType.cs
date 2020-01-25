@@ -12,6 +12,7 @@ namespace TC.Common.Selenium.WebDriverOperation
         SelectElementOperation,
         BrowserNavigationOperation,
         ElementOperationCombo,
-        JavascriptOperation
+        JavascriptOperation,
+        NetworkOperation
     }
 }

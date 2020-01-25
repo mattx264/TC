@@ -27,7 +27,6 @@ namespace TC.BrowserEngine.Selenium
         public void Start(CommandMessage commandMessage)
         {
 
-            
             foreach (var command in commandMessage.Commands)
             {
                 ITestProgress testProgress = new TestProgress()
@@ -37,17 +36,18 @@ namespace TC.BrowserEngine.Selenium
                 };
                 try
                 {
+
                     if (command.WebDriverOperationType == WebDriverOperationType.BrowserOperation
                         && command.OperationId == (int)BrowserOperationEnum.GetScreenshot)
                     {
-                      
+
                         var screenshot = new BrowserOperation(_driver).GetScreenshot();
                         ITestProgress testProgressImage = new ScreenshotTestProgress()
                         {
                             senderConnectionId = commandMessage.SenderConnectionId,
                             command = command,
                             IsSuccesfull = true,
-                            Screenshot= screenshot
+                            Screenshot = screenshot
                         };
                         _testProgressEmitter.ScreenshotComplete(testProgressImage);
                     }
@@ -57,6 +57,18 @@ namespace TC.BrowserEngine.Selenium
                         testProgress.IsSuccesfull = true;
                         _testProgressEmitter.CommandComplete(testProgress);
                     }
+
+                    var xhrCalls = ((IJavaScriptExecutor)_driver).ExecuteScript(JavaScript.JavaScript.getXhrCalls());
+                    var s = xhrCalls;
+                    var b = xhrCalls.ToString();
+                    var x = b;
+
+                    var q = xhrCalls.GetType();
+                    var p = q;
+
+                    
+
+
                 }
                 catch (Exception ex)
                 {
@@ -65,7 +77,6 @@ namespace TC.BrowserEngine.Selenium
                     testProgress.Message = ex.Message;
                     _testProgressEmitter.CommandComplete(testProgress);
                 }
-
             }
             // _driver.Close();
         }
@@ -79,8 +90,6 @@ namespace TC.BrowserEngine.Selenium
             // TODO config
             // _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
-
-
             switch (command.WebDriverOperationType)
             {
                 case WebDriverOperationType.Locators:
@@ -88,19 +97,19 @@ namespace TC.BrowserEngine.Selenium
 
                 case WebDriverOperationType.BrowserNavigationOperation:
                     new BrowserNavigationOperation(_driver).GetByEnum(command.OperationId, command.Values);
-                    return null;
+                    break;
                 case WebDriverOperationType.BrowserOperation:
                     new BrowserOperation(_driver).GetByEnum(command.OperationId, command.Values);
-                    return null;
+                    break;
                 case WebDriverOperationType.ElementOperation:
                     new ElementOperation(_driver).GetByEnum(command.OperationId, command.Values, element);
-                    return null;
+                    break;
                 case WebDriverOperationType.ElementOperationCombo:
                     new ElementOperationCombo(_driver).GetByEnum(command.OperationId, command.Values);
-                    return null;
+                    break;
                 case WebDriverOperationType.JavascriptOperation:
                     new JavascriptOperation(_driver).RunJS(command.Values);
-                    return null;
+                    break;
             }
 
             return null;

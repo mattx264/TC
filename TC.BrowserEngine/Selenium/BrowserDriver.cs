@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,10 +24,15 @@ namespace TC.BrowserEngine.Selenium
 
             if (browserType == BrowserType.Chrome)
             {
-              
+                var co = new ChromeOptions();
+                co.PageLoadStrategy = PageLoadStrategy.None;
+                co.AddArguments("start-maximized");           
+
+
                 //TODO get dynamic way to get version wmic datafile where name="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" get Version /value
                 _browserVersion = "78";
-                _driver = new ChromeDriver($"{path}/BrowserDrivers/Chrome/{_browserVersion}");
+                _driver = new ChromeDriver($"{path}/BrowserDrivers/Chrome/{_browserVersion}", co);
+
             } else if(browserType== BrowserType.Firefox)
             {
                 _browserVersion = "0.24";
