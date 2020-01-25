@@ -63,6 +63,14 @@ namespace TC.BrowserEngine.Selenium
                         testProgress.IsSuccesfull = true;
                         _testProgressEmitter.CommandComplete(testProgress);
                     }
+
+                    var xhrCalls = ((IJavaScriptExecutor)_driver).ExecuteScript(JavaScript.JavaScript.getXhrCalls());
+                    var s = xhrCalls;
+                    var b = xhrCalls.ToString();
+                    var x = b;
+
+                    var q = xhrCalls.GetType();
+                    var p = q;
                 }
                 catch (Exception ex)
                 {
