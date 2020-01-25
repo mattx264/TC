@@ -53,7 +53,13 @@ namespace TC.BrowserEngine.Selenium
                     }
                     else
                     {
-                        element = RunCommand(command);
+                      
+                        element = RunCommand(command); 
+                        if(command.OperationId ==18 && command.WebDriverOperationType == WebDriverOperationType.BrowserNavigationOperation)
+                        {
+                            //close browser is not send with status - if we want to do it add guid to close browser command
+                            break; 
+                        }
                         testProgress.IsSuccesfull = true;
                         _testProgressEmitter.CommandComplete(testProgress);
                     }
@@ -83,18 +89,19 @@ namespace TC.BrowserEngine.Selenium
 
             switch (command.WebDriverOperationType)
             {
-                case WebDriverOperationType.Locators:
-                    return new Locator(_driver).GetByEnum(command.OperationId, command.Values);
-
-                case WebDriverOperationType.BrowserNavigationOperation:
-                    new BrowserNavigationOperation(_driver).GetByEnum(command.OperationId, command.Values);
-                    return null;
                 case WebDriverOperationType.BrowserOperation:
                     new BrowserOperation(_driver).GetByEnum(command.OperationId, command.Values);
                     return null;
                 case WebDriverOperationType.ElementOperation:
                     new ElementOperation(_driver).GetByEnum(command.OperationId, command.Values, element);
                     return null;
+                case WebDriverOperationType.Locators:
+                    return new Locator(_driver).GetByEnum(command.OperationId, command.Values);
+
+                case WebDriverOperationType.BrowserNavigationOperation:
+                    new BrowserNavigationOperation(_driver).GetByEnum(command.OperationId, command.Values);
+                    return null;
+
                 case WebDriverOperationType.ElementOperationCombo:
                     new ElementOperationCombo(_driver).GetByEnum(command.OperationId, command.Values);
                     return null;

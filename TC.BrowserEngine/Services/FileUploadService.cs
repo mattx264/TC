@@ -18,7 +18,7 @@ namespace TC.BrowserEngine.Services
                 content.Add(new StreamContent(stream),"file","screenshot.png");
                 content.Add(new StringContent(clientId), "clientId");
                 content.Add(new StringContent(guid), "guid");
-                var result = await client.PostAsync($"{ConfigHelper.GetServerAddress()}+/api/FileUpload/SaveScreenshot", content);
+                var result = await client.PostAsync($"{ConfigHelper.GetServerAddress()}api/FileUpload/SaveScreenshot", content);
             }
             catch (Exception ex)
             {

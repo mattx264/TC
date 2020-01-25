@@ -19,7 +19,7 @@ namespace TC.WebService.Controllers
         {
             _testInfoRepository = testInfoRepository;
         }
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
            var testInfo= _testInfoRepository.FindById(id);
