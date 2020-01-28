@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using System;
+using TC.BrowserEngine.Helpers;
 using TC.BrowserEngine.Selenium.Commands;
 using TC.BrowserEngine.Services;
 using TC.Common.DTO;
@@ -37,6 +38,21 @@ namespace TC.BrowserEngine.Selenium
                 };
                 try
                 {
+                    if(command.WebDriverOperationType == WebDriverOperationType.NetworkOperation)
+                    {
+                        if(XhrMonitor.CheckUntilAllXhrCallIsDone(_driver, command.Values[0]))
+                        {
+                           _testProgressEmitter.CommandComplete(testProgress);
+                        }
+                        else
+                        {
+                            testProgress.IsSuccesfull = false;
+                            _testProgressEmitter.CommandComplete(testProgress);
+                        }
+
+                    }
+
+
                     if (command.WebDriverOperationType == WebDriverOperationType.BrowserOperation
                         && command.OperationId == (int)BrowserOperationEnum.GetScreenshot)
                     {
@@ -64,13 +80,7 @@ namespace TC.BrowserEngine.Selenium
                         _testProgressEmitter.CommandComplete(testProgress);
                     }
 
-                    var xhrCalls = ((IJavaScriptExecutor)_driver).ExecuteScript(JavaScript.JavaScript.getXhrCalls());
-                    var s = xhrCalls;
-                    var b = xhrCalls.ToString();
-                    var x = b;
-
-                    var q = xhrCalls.GetType();
-                    var p = q;
+                                  
                 }
                 catch (Exception ex)
                 {

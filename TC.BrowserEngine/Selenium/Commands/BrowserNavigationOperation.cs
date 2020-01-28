@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using TC.BrowserEngine.Helpers;
 using TC.Common.Selenium;
 using TC.Common.Selenium.WebDriverOperation;
 
@@ -24,6 +25,8 @@ namespace TC.BrowserEngine.Selenium.Commands
                 var xhrMonitor = JavaScript.JavaScript.XhrMonitor();
                 _driver.Navigate().GoToUrl(url);            
                 ((IJavaScriptExecutor)_driver).ExecuteScript(xhrMonitor);
+
+                XhrMonitor.CheckUntilAllXhrsCallsAreDone(_driver);
             }
         }
         public void WaitUntilBrowserReady()
