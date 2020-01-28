@@ -10,6 +10,8 @@ using TC.WebService.Models;
 using Microsoft.AspNetCore.Identity;
 using TC.Entity.Entities;
 using TC.WebService.Services;
+using TC.DataAccess.Repositories;
+using TC.DataAccess;
 
 namespace TC.WebService.Hubs
 {
@@ -18,11 +20,15 @@ namespace TC.WebService.Hubs
     {
         // private static List<SzwagierModel> szwagierModels = new List<SzwagierModel>();
         private IDistributedCache _distributedCache;
+        private ITestRunHistoryRepository _testRunHistoryRepository;
+        private IUnitOfWork _unitOfWork;
         private const string szwagierListKey = "SzwagierList";
 
-        public SzwagierHub(IDistributedCache distributedCache, UserManager<UserModel> userManager)
+        public SzwagierHub(IDistributedCache distributedCache, ITestRunHistoryRepository testRunHistoryRepository, IUnitOfWork unitOfWork)
         {
             _distributedCache = distributedCache;
+            _testRunHistoryRepository = testRunHistoryRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public override Task OnConnectedAsync()

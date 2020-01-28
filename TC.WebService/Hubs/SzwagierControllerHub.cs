@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using TC.Common.DTO;
+using TC.Entity.Entities;
 using TC.WebService.Services;
 
 namespace TC.WebService.Hubs
@@ -16,6 +17,11 @@ namespace TC.WebService.Hubs
         {
             // TODO check if sender can make call to reciver (browser engine)
             // TODO add to testHistory
+            _testRunHistoryRepository.Create(new TestRunHistory()
+            {
+                TestInfoId= message.TestInfoId                
+            });
+            _unitOfWork.SaveChanges();
             message.SenderConnectionId = Context.ConnectionId;
             await Clients.Client(message.ReceiverConnectionId).SendAsync("ReciveCommand", message);
         }
