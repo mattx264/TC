@@ -165,12 +165,7 @@ namespace TC.WebService
                 app.UseHsts();
             }
             app.ConfigureExceptionHandler(logger);
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                Path.Combine(Directory.GetCurrentDirectory(), "Files")),
-                RequestPath = "/StaticFiles"
-            });
+          
             app.UseRouting();
 
             app.UseAuthentication();
