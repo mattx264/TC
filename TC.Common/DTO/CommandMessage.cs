@@ -10,6 +10,6 @@ namespace TC.Common.DTO
         public string  ReceiverConnectionId { get; set; }
         public string SenderConnectionId { get; set; }
         public List<SeleniumCommand> Commands { get; set; }
-       
+        public int TestInfoId { get; set; }
     }
 }

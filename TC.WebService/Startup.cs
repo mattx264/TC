@@ -143,6 +143,7 @@ namespace TC.WebService
             services.AddScoped<IFileManager, FileManager>();
             services.AddTransient<IFileStorageService,FileStorageService> ();
             services.AddScoped<TestInfoRepository>();
+            services.AddScoped<ITestRunHistoryRepository,TestRunHistoryRepository>();
             services.AddScoped<IUtilHelper, UtilHelper>();
             
             services.AddSwaggerGen(c =>
