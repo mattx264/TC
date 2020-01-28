@@ -88,10 +88,6 @@ namespace TC.WebService.Hubs
 
             foreach (var szw in szwagierModels)
             {
-                if (szw.SzwagierType == SzwagierType.SzwagierDashboard)
-                {
-                    continue;
-                }
                 Clients.User(szw.ConnectionId).SendAsync("UpdateSzwagierList", szwagierModels);
             }
 
