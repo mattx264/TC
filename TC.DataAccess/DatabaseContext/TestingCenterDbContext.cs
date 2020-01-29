@@ -18,7 +18,7 @@ namespace TC.DataAccess.DatabaseContext
         public DbSet<ProjectTestRunConfig> ProjectTestRunConfig { get; set; }
         public DbSet<TestRunConfig> TestRunConfig { get; set; }
         public DbSet<TestRunHistory> TestRunHistory { get; set; }
-        public DbSet<TestRunResult> TestRunRestult { get; set; }
+        public DbSet<TestRunResult> TestRunResult { get; set; }
         
     }
 }

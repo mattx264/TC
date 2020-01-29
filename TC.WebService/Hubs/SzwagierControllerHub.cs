@@ -17,11 +17,14 @@ namespace TC.WebService.Hubs
         {
             // TODO check if sender can make call to reciver (browser engine)
             // TODO add to testHistory
-            _testRunHistoryRepository.Create(new TestRunHistory()
+            if (message.TestInfoId != null)
             {
-                TestInfoId= message.TestInfoId                
-            });
-            _unitOfWork.SaveChanges();
+                _testRunHistoryRepository.Create(new TestRunHistory()
+                {
+                    TestInfoId = message.TestInfoId.Value
+                });
+                _unitOfWork.SaveChanges();
+            }
             message.SenderConnectionId = Context.ConnectionId;
             await Clients.Client(message.ReceiverConnectionId).SendAsync("ReciveCommand", message);
         }
