@@ -6,6 +6,9 @@ namespace TC.WebServiceTest.Helpers
     public class UtilHelperTest
     {
         [Theory]
+        [InlineData("", null)]
+        [InlineData(" ", null)]
+        [InlineData("google.com", "google.com")]
         [InlineData("http://google.com", "google.com")]
         [InlineData("http://www.google.com", "google.com")]
         [InlineData("https://www.google.com/search?Q4dUDCAg&uact=5", "google.com")]

@@ -11,7 +11,11 @@ namespace TC.WebService.Helpers
     {
         public string GetDomain(string domainInput)
         {
-            Uri myUri = new Uri(domainInput);
+            if(String.IsNullOrWhiteSpace(domainInput))
+            {
+                return null;
+            }
+            UriBuilder myUri = new UriBuilder(domainInput);
             string domain = myUri.Host.Replace("www.", String.Empty);
             return string.IsNullOrEmpty(domain) ? null : domain;
 
