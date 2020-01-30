@@ -8,7 +8,6 @@ namespace TC.WebServiceTest.Helpers
         [Theory]
         [InlineData("", null)]
         [InlineData(" ", null)]
-        [InlineData("google", null)]        
         [InlineData("google.com", "google.com")]
         [InlineData("http://google.com", "google.com")]
         [InlineData("http://www.google.com", "google.com")]

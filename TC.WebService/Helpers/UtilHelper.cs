@@ -11,7 +11,7 @@ namespace TC.WebService.Helpers
     {
         public string GetDomain(string domainInput)
         {
-            if(String.IsNullOrWhiteSpace(domainInput) || domainInput.IndexOf('.') ==-1)
+            if(String.IsNullOrWhiteSpace(domainInput))
             {
                 return null;
             }
