@@ -16,9 +16,14 @@ namespace TC.BrowserEngine.JavaScript
             return @"checkIfAllXhrsCallsDone=(()=>{let e=JSON.parse(window.localStorage.getItem(""xhrCalls"")),l=!0;if(e)for(let a of e)if(4!==a.value.readyState){l=!1;break}return l}),checkIfAllXhrsCallsDone();";
         }
 
-        public static string CheckIfXhrCallDone(string xhrCall)
+        public static string CheckIfXhrStartCallIsDone(string xhrCall)
         {
-            return @"checkIfXhrCallIsDone=(()=>{let e=JSON.parse(window.localStorage.getItem(""xhrCalls""));if(e){for(let l of e)if(""" + xhrCall + @"""===l.value.responseURL)return 4===l.value.readyState;return!1}}),checkIfXhrCallIsDone();";
+            return @"checkIfXhrStartCallIsDone=(()=>{let e=JSON.parse(window.localStorage.getItem(""xhrCalls""));if(e){for(let l of e)if(""" + xhrCall + @"""===l.value.responseURL)return 4===l.value.readyState;return!1}}),checkIfXhrStartCallIsDone();";
+        }
+
+        public static string CheckIfXhrDoneCallIsDone(string xhrCall)
+        {
+            return @"checkIfXhrDoneCallIsDone=(()=>{let e=JSON.parse(window.localStorage.getItem(""xhrCalls""));if(e){for(let a of e)if(""" + xhrCall + @"""===a.value.responseURL)return 3===a.value.readyState||4===a.value.readyState;return!1}}),checkIfXhrDoneCallIsDone();";
         }
 
     }

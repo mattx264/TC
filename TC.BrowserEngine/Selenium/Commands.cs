@@ -38,17 +38,33 @@ namespace TC.BrowserEngine.Selenium
                 };
                 try
                 {
-                    if(command.WebDriverOperationType == WebDriverOperationType.NetworkOperation)
+                    if (command.WebDriverOperationType == WebDriverOperationType.NetworkOperation)
                     {
-                        if(XhrMonitor.CheckUntilAllXhrCallIsDone(_driver, command.Values[0]))
+                        if (command.OperationId == (int)NetworkOperationEnum.XhrStart)
                         {
-                           _testProgressEmitter.CommandComplete(testProgress);
+                            if (XhrMonitor.CheckUntilAllXhrStartCallIsDone(_driver, command.Values[0]))
+                            {
+                                _testProgressEmitter.CommandComplete(testProgress);
+                            }
+                            else
+                            {
+                                testProgress.IsSuccesfull = false;
+                                _testProgressEmitter.CommandComplete(testProgress);
+                            }
                         }
-                        else
+                        else if (command.OperationId == (int)NetworkOperationEnum.XhrDone)
                         {
-                            testProgress.IsSuccesfull = false;
-                            _testProgressEmitter.CommandComplete(testProgress);
+                            if (XhrMonitor.CheckUntilAllXhrDoneCallIsDone(_driver, command.Values[0]))
+                            {
+                                _testProgressEmitter.CommandComplete(testProgress);
+                            }
+                            else
+                            {
+                                testProgress.IsSuccesfull = false;
+                                _testProgressEmitter.CommandComplete(testProgress);
+                            }
                         }
+
 
                     }
 
@@ -69,18 +85,18 @@ namespace TC.BrowserEngine.Selenium
                     }
                     else
                     {
-                      
-                        element = RunCommand(command); 
-                        if(command.OperationId ==18 && command.WebDriverOperationType == WebDriverOperationType.BrowserNavigationOperation)
+
+                        element = RunCommand(command);
+                        if (command.OperationId == 18 && command.WebDriverOperationType == WebDriverOperationType.BrowserNavigationOperation)
                         {
                             //close browser is not send with status - if we want to do it add guid to close browser command
-                            break; 
+                            break;
                         }
                         testProgress.IsSuccesfull = true;
                         _testProgressEmitter.CommandComplete(testProgress);
                     }
 
-                                  
+
                 }
                 catch (Exception ex)
                 {
