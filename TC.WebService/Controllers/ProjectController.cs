@@ -229,12 +229,7 @@ namespace TC.WebService.Controllers
                 Name = project.Name,
                 Description = project.Description,
                 ProjectDomain = project.ProjectDomains == null ? null : project.ProjectDomains.Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList(),
-                UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList(),
-                DateModified = project.DateModified,
-                ModifiedBy = project.ModifiedBy,
-                LastTestRunDate = project.TestInfos.Select(x => x.TestRunHistory.DateAdded)
-                    .DefaultIfEmpty(Convert.ToDateTime("1/1/1900"))
-                    .OrderByDescending(x => x.Ticks).FirstOrDefault()
+                UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList()
             };
         }
         private string GetDomain(string domainInput)

@@ -12,9 +12,6 @@ namespace TC.WebService.ViewModels
         public string Description { get; set; }
         public IList<ProjectDomainViewModel> ProjectDomain { get; set; }
         public IList<UserInProjectViewModel> UserInProject { get; set; }
-        public DateTime DateModified { get; set; }
-        public string ModifiedBy { get; set; }
-        public DateTime LastTestRunDate { get; set; }
 
     }
     public class ProjectCreateViewModel
