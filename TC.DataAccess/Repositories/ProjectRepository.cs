@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using TC.DataAccess.DatabaseContext;
 using TC.Entity.Entities;
+using TC.Entity.Entities.Projects;
 
 namespace TC.DataAccess.Repositories
 {

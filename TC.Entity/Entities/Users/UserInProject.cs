@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using TC.Entity.Entities.Projects;
 using TC.Entity.Entities.User;
 
 namespace TC.Entity.Entities

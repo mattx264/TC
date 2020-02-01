@@ -1,19 +1,17 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Collections;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using TC.DataAccess;
 using TC.DataAccess.Repositories;
 using TC.Entity.Entities;
 using TC.WebService.Helpers;
 using TC.WebService.ViewModels;
-
-namespace TC.WebService.Controllers
+using TC.Entity.Entities.Projects;
+namespace TC.WebService.Controllers.Projects
 {
     [Route("api/[controller]")]
     [Authorize]
@@ -130,7 +128,7 @@ namespace TC.WebService.Controllers
                 });
             }
 
-            _projectRepository.Create(new Project()
+            _projectRepository.Create(new Entity.Entities.Projects.Project()
             {
                 Name = viewModel.Name,
                 Description = viewModel.Description,
@@ -160,7 +158,7 @@ namespace TC.WebService.Controllers
             {
                 try
                 {
-                    string host =_utilHelper.GetDomain(domain);
+                    string host = _utilHelper.GetDomain(domain);
                     domainsToCheck.Add(host);
                     if (project.ProjectDomains.FirstOrDefault(x => x.Domain == host) == null)
                     {
@@ -221,7 +219,7 @@ namespace TC.WebService.Controllers
 
             return Ok();
         }
-        private ProjectViewModel GetProjectViewModel(Project project)
+        private ProjectViewModel GetProjectViewModel(Entity.Entities.Projects.Project project)
         {
             return new ProjectViewModel()
             {

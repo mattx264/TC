@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
-namespace TC.Entity.Entities
+namespace TC.Entity.Entities.Projects
 {
     [Table("Project", Schema = "project")]
     public class Project : IEntity

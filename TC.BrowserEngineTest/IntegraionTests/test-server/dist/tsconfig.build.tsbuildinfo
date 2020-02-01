@@ -1118,7 +1118,7 @@
         "signature": "a908edafe8eb7ca3a33bae06fb3abf0575ab2d55b7eca3078c19e5705f0afa40"
       },
       "../src/ajax-test/ajax-test.controller.ts": {
-        "version": "ab01e08aba09e35a0289cf9281a74cddbcae6dbcdbbb7d824d93027be17ef0fc",
+        "version": "3c3369af3e423ca978ac18ec7f5e90c1711bf0ffe0b7fbe28e09151eed20aec0",
         "signature": "89509f8d29fa44aecb5440faf6c6c329f0b1a860ccfd9539f41c59eaa78d9197"
       },
       "../src/app.module.ts": {

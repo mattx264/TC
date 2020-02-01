@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TC.Common.Selenium;
 using TC.Common.Selenium.WebDriverOperation;
 using TC.Entity.Entities;
+using TC.Entity.Entities.Projects;
 using TC.Entity.Entities.User;
 
 namespace TC.DataAccess.DatabaseContext
@@ -31,17 +32,18 @@ namespace TC.DataAccess.DatabaseContext
             //    DateAdded = DateTime.Now,
             //    DateModified = DateTime.Now
             //});
-            modelBuilder.Entity<TestRunConfig>().Property(c => c.Type).HasConversion<int>();
+            modelBuilder.Entity<ConfigProjectTest>().Property(c => c.Type).HasConversion<int>();
             modelBuilder.Entity<UserProjectStatus>().HasData(new UserProjectStatus()
             {
                 Id = 1,
-                Name = "Pending",              
+                Name = "Pending",
                 IsActive = true,
                 CreatedBy = "system",
                 ModifiedBy = "system",
                 DateAdded = DateTime.Now,
                 DateModified = DateTime.Now
-            }, new UserProjectStatus() {
+            }, new UserProjectStatus()
+            {
                 Id = 2,
                 Name = "Accepted",
                 IsActive = true,
@@ -84,8 +86,8 @@ namespace TC.DataAccess.DatabaseContext
             });
             modelBuilder.Entity<ProjectDomain>().HasData(new ProjectDomain()
             {
-                Id=1,
-                Domain="google.com",
+                Id = 1,
+                Domain = "google.com",
                 ProjectId = projectId,
                 IsActive = true,
                 CreatedBy = "system",
@@ -97,7 +99,7 @@ namespace TC.DataAccess.DatabaseContext
             {
                 Id = 2,
                 Domain = "google.pl",
-                ProjectId= projectId,
+                ProjectId = projectId,
                 IsActive = true,
                 CreatedBy = "system",
                 ModifiedBy = "system",
@@ -106,11 +108,11 @@ namespace TC.DataAccess.DatabaseContext
             });
             modelBuilder.Entity<TestInfo>().HasData(new TestInfo
             {
-                Id=1,
-                ProjectId= projectId,
-                Name="Search for c# tutorial",
-                Description="Using google search find c# tutorial",
-                SeleniumCommands=new List<SeleniumCommand>()
+                Id = 1,
+                ProjectId = projectId,
+                Name = "Search for c# tutorial",
+                Description = "Using google search find c# tutorial",
+                SeleniumCommands = new List<SeleniumCommand>()
                 {
                     new SeleniumCommand
                     {
@@ -126,51 +128,51 @@ namespace TC.DataAccess.DatabaseContext
                 DateModified = DateTime.Now
 
             });
-            modelBuilder.Entity<TestRunConfig>().HasData(new TestRunConfig()
+            modelBuilder.Entity<ConfigProjectTest>().HasData(new ConfigProjectTest()
             {
                 Id = 1,
                 Name = "Take Screenshot After Every Command",
                 Description = "It will take a screenshot after every command.",
-                Type=Entity.Entities.TestRunConfig.TestRunConfigType.Boolean,
-                Value=null,
+                Type = Entity.Entities.ConfigProjectTest.ConfigProjectTestEnum.Boolean,
+                DefaultValue = "false",
                 IsActive = true,
                 CreatedBy = "system",
                 ModifiedBy = "system",
                 DateAdded = DateTime.Now,
                 DateModified = DateTime.Now
             });
-            modelBuilder.Entity<TestRunConfig>().HasData(new TestRunConfig()
+            modelBuilder.Entity<ConfigProjectTest>().HasData(new ConfigProjectTest()
             {
                 Id = 2,
                 Name = "Monitoring Http Calls",
                 Description = "Test will monitor every http call.",
-                Type = Entity.Entities.TestRunConfig.TestRunConfigType.Boolean,
-                Value = null,
+                Type = Entity.Entities.ConfigProjectTest.ConfigProjectTestEnum.Boolean,
+                DefaultValue = "false",
                 IsActive = true,
                 CreatedBy = "system",
                 ModifiedBy = "system",
                 DateAdded = DateTime.Now,
                 DateModified = DateTime.Now
             });
-            modelBuilder.Entity<TestRunConfig>().HasData(new TestRunConfig()
+            modelBuilder.Entity<ConfigProjectTest>().HasData(new ConfigProjectTest()
             {
                 Id = 3,
                 Name = "Continue After Command Failure",
                 Description = "Test will continue even if a command will fail.",
-                Type = Entity.Entities.TestRunConfig.TestRunConfigType.Boolean,
-                Value = null,
+                Type = Entity.Entities.ConfigProjectTest.ConfigProjectTestEnum.Boolean,
+                DefaultValue = "true",
                 IsActive = true,
                 CreatedBy = "system",
                 ModifiedBy = "system",
                 DateAdded = DateTime.Now,
                 DateModified = DateTime.Now
             });
-            modelBuilder.Entity<ProjectTestRunConfig>().HasData(new ProjectTestRunConfig()
+            modelBuilder.Entity<ProjectTestConfig>().HasData(new ProjectTestConfig()
             {
                 Id = 1,
                 ProjectId = projectId,
-                TestRunConfigId = 1,
-                Value="true",
+                ConfigProjectTestId = 1,
+                Value = "true",
                 IsActive = true,
                 CreatedBy = "system",
                 ModifiedBy = "system",
