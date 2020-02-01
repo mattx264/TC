@@ -88,3 +88,5 @@ baseline.json
 /TC.DataAccess/Migrations/20191221175313_Init.cs
 /TC.DataAccess/Migrations/20191221175313_Init.Designer.cs
 /TC.FrontEnd/Angular
+
+/TC.BrowserEngineTest/IntegraionTests/test-server/dist
