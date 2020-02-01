@@ -19,6 +19,86 @@ namespace TC.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("TC.Entity.Entities.ConfigProjectTest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DefaultValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ConfigProjectTest");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(2734),
+                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(3549),
+                            DefaultValue = "false",
+                            Description = "It will take a screenshot after every command.",
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            Name = "Take Screenshot After Every Command",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(5070),
+                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(5113),
+                            DefaultValue = "false",
+                            Description = "Test will monitor every http call.",
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            Name = "Monitoring Http Calls",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(5226),
+                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(5241),
+                            DefaultValue = "true",
+                            Description = "Test will continue even if a command will fail.",
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            Name = "Continue After Command Failure",
+                            Type = 0
+                        });
+                });
+
             modelBuilder.Entity("TC.Entity.Entities.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -56,8 +136,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 30, 11, 32, 47, 317, DateTimeKind.Local).AddTicks(7827),
-                            DateModified = new DateTime(2019, 12, 30, 11, 32, 47, 317, DateTimeKind.Local).AddTicks(8281),
+                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 516, DateTimeKind.Local).AddTicks(9928),
+                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(616),
                             Description = "",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -104,8 +184,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 30, 11, 32, 47, 318, DateTimeKind.Local).AddTicks(1525),
-                            DateModified = new DateTime(2019, 12, 30, 11, 32, 47, 318, DateTimeKind.Local).AddTicks(1947),
+                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(5356),
+                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(5957),
                             Domain = "google.com",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -115,8 +195,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 30, 11, 32, 47, 318, DateTimeKind.Local).AddTicks(2652),
-                            DateModified = new DateTime(2019, 12, 30, 11, 32, 47, 318, DateTimeKind.Local).AddTicks(2672),
+                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(6930),
+                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(6960),
                             Domain = "google.pl",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -124,12 +204,15 @@ namespace TC.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TC.Entity.Entities.ProjectTestRunConfig", b =>
+            modelBuilder.Entity("TC.Entity.Entities.ProjectTestConfig", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ConfigProjectTestId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -149,17 +232,14 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TestRunConfigId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("ConfigProjectTestId");
 
-                    b.HasIndex("TestRunConfigId");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectTestRunConfig","project");
 
@@ -167,13 +247,13 @@ namespace TC.DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            ConfigProjectTestId = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(6245),
-                            DateModified = new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(6661),
+                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 520, DateTimeKind.Local).AddTicks(917),
+                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 520, DateTimeKind.Local).AddTicks(1519),
                             IsActive = true,
                             ModifiedBy = "system",
                             ProjectId = 1,
-                            TestRunConfigId = 1,
                             Value = "true"
                         });
                 });
@@ -246,15 +326,15 @@ namespace TC.DataAccess.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("TestInfo");
+                    b.ToTable("TestInfo","test");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 30, 11, 32, 47, 318, DateTimeKind.Local).AddTicks(7724),
-                            DateModified = new DateTime(2019, 12, 30, 11, 32, 47, 318, DateTimeKind.Local).AddTicks(8152),
+                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 518, DateTimeKind.Local).AddTicks(5813),
+                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 518, DateTimeKind.Local).AddTicks(6517),
                             Description = "Using google search find c# tutorial",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -264,12 +344,15 @@ namespace TC.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TC.Entity.Entities.TestRunConfig", b =>
+            modelBuilder.Entity("TC.Entity.Entities.TestInfoConfig", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ConfigProjectTestId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -280,19 +363,13 @@ namespace TC.DataAccess.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Type")
+                    b.Property<int>("TestInfoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Value")
@@ -300,45 +377,11 @@ namespace TC.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TestRunConfig");
+                    b.HasIndex("ConfigProjectTestId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(1975),
-                            DateModified = new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(2429),
-                            Description = "It will take a screenshot after every command.",
-                            IsActive = true,
-                            ModifiedBy = "system",
-                            Name = "Take Screenshot After Every Command",
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(3104),
-                            DateModified = new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(3126),
-                            Description = "Test will monitor every http call.",
-                            IsActive = true,
-                            ModifiedBy = "system",
-                            Name = "Monitoring Http Calls",
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(3167),
-                            DateModified = new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(3171),
-                            Description = "Test will continue even if a command will fail.",
-                            IsActive = true,
-                            ModifiedBy = "system",
-                            Name = "Continue After Command Failure",
-                            Type = 0
-                        });
+                    b.HasIndex("TestInfoId");
+
+                    b.ToTable("TestInfoConfig","test");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.TestRunHistory", b =>
@@ -371,7 +414,7 @@ namespace TC.DataAccess.Migrations
                     b.HasIndex("TestInfoId")
                         .IsUnique();
 
-                    b.ToTable("TestRunHistory");
+                    b.ToTable("TestRunHistory","test");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.TestRunResult", b =>
@@ -418,7 +461,7 @@ namespace TC.DataAccess.Migrations
 
                     b.HasIndex("TestRunHistoryId");
 
-                    b.ToTable("TestRunRestult");
+                    b.ToTable("TestRunResult","test");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.User.UserProjectStatus", b =>
@@ -455,8 +498,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 30, 11, 32, 47, 312, DateTimeKind.Local).AddTicks(1550),
-                            DateModified = new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(1600),
+                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 511, DateTimeKind.Local).AddTicks(5676),
+                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7039),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Pending"
@@ -465,8 +508,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(2219),
-                            DateModified = new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(2243),
+                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7851),
+                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7882),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Accepted"
@@ -475,8 +518,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(2254),
-                            DateModified = new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(2257),
+                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7896),
+                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7899),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Rejected"
@@ -485,8 +528,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 4,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(2261),
-                            DateModified = new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(2264),
+                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7904),
+                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7907),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Deleted"
@@ -627,17 +670,17 @@ namespace TC.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TC.Entity.Entities.ProjectTestRunConfig", b =>
+            modelBuilder.Entity("TC.Entity.Entities.ProjectTestConfig", b =>
                 {
-                    b.HasOne("TC.Entity.Entities.Project", "Project")
+                    b.HasOne("TC.Entity.Entities.ConfigProjectTest", "ConfigProjectTest")
                         .WithMany()
-                        .HasForeignKey("ProjectId")
+                        .HasForeignKey("ConfigProjectTestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TC.Entity.Entities.TestRunConfig", "TestRunConfig")
+                    b.HasOne("TC.Entity.Entities.Project", "Project")
                         .WithMany()
-                        .HasForeignKey("TestRunConfigId")
+                        .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -647,6 +690,21 @@ namespace TC.DataAccess.Migrations
                     b.HasOne("TC.Entity.Entities.Project", "Project")
                         .WithMany("TestInfos")
                         .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TC.Entity.Entities.TestInfoConfig", b =>
+                {
+                    b.HasOne("TC.Entity.Entities.ConfigProjectTest", "ConfigProjectTest")
+                        .WithMany()
+                        .HasForeignKey("ConfigProjectTestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TC.Entity.Entities.TestInfo", "Project")
+                        .WithMany()
+                        .HasForeignKey("TestInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

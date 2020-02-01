@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>App</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    {{ message }}
+    <div>
+        <button id="btnGet">
+            Make get call 1st
+        </button>
+        <div id="getResponse" class="hidden">
+            <button id="btnGet2">
+                Make get 2nd call
+            </button>
+        </div>
+        <div id="getResponse2" class="hidden">
+            TEST COMPLETE
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btnGet").click(function () {
+                $.get('/ajax-test/get1', function () {
+                    $("#getResponse").removeClass("hidden");
+                })
+            })
+            $("#btnGet2").click(function () {
+                $.get('/ajax-test/get2', function () {
+                    $("#getResponse2").removeClass("hidden");
+                })
+            });
+        });
+    </script>
+    <script src="javascript/main.js"></script>
+</body>
+
+</html>

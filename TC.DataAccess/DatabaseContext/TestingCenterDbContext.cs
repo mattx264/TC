@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using TC.Common.Selenium;
 using TC.Entity.Entities;
+using TC.Entity.Entities.Projects;
 
 namespace TC.DataAccess.DatabaseContext
 {
@@ -15,10 +16,11 @@ namespace TC.DataAccess.DatabaseContext
         public DbSet<UserModel> UserModel { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<UserInProject> UserInProject { get; set; }
-        public DbSet<ProjectTestRunConfig> ProjectTestRunConfig { get; set; }
-        public DbSet<TestRunConfig> TestRunConfig { get; set; }
+        public DbSet<ProjectTestConfig> ProjectTestConfig { get; set; }
+        public DbSet<ConfigProjectTest> ConfigProjectTest { get; set; }
         public DbSet<TestRunHistory> TestRunHistory { get; set; }
         public DbSet<TestRunResult> TestRunResult { get; set; }
-        
+        public DbSet<TestInfoConfig> TestInfoConfig { get; set; }
+
     }
 }

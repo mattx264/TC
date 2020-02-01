@@ -11,7 +11,31 @@ namespace TC.DataAccess.Migrations
                 name: "project");
 
             migrationBuilder.EnsureSchema(
+                name: "test");
+
+            migrationBuilder.EnsureSchema(
                 name: "user");
+
+            migrationBuilder.CreateTable(
+                name: "ConfigProjectTest",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
+                    DefaultValue = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    DateAdded = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConfigProjectTest", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Screenshot",
@@ -29,27 +53,6 @@ namespace TC.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Screenshot", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TestRunConfig",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Type = table.Column<int>(nullable: false),
-                    Value = table.Column<string>(nullable: true),
-                    IsActive = table.Column<bool>(nullable: false),
-                    CreatedBy = table.Column<string>(nullable: true),
-                    ModifiedBy = table.Column<string>(nullable: true),
-                    DateAdded = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TestRunConfig", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -134,34 +137,6 @@ namespace TC.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TestInfo",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProjectId = table.Column<int>(nullable: false),
-                    SeleniumCommands = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    IsActive = table.Column<bool>(nullable: false),
-                    CreatedBy = table.Column<string>(nullable: true),
-                    ModifiedBy = table.Column<string>(nullable: true),
-                    DateAdded = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TestInfo", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TestInfo_Project_ProjectId",
-                        column: x => x.ProjectId,
-                        principalSchema: "project",
-                        principalTable: "Project",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProjectDomain",
                 schema: "project",
                 columns: table => new
@@ -196,7 +171,7 @@ namespace TC.DataAccess.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProjectId = table.Column<int>(nullable: false),
-                    TestRunConfigId = table.Column<int>(nullable: false),
+                    ConfigProjectTestId = table.Column<int>(nullable: false),
                     Value = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
                     CreatedBy = table.Column<string>(nullable: true),
@@ -208,16 +183,45 @@ namespace TC.DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_ProjectTestRunConfig", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_ProjectTestRunConfig_ConfigProjectTest_ConfigProjectTestId",
+                        column: x => x.ConfigProjectTestId,
+                        principalTable: "ConfigProjectTest",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_ProjectTestRunConfig_Project_ProjectId",
                         column: x => x.ProjectId,
                         principalSchema: "project",
                         principalTable: "Project",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TestInfo",
+                schema: "test",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProjectId = table.Column<int>(nullable: false),
+                    SeleniumCommands = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    DateAdded = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestInfo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectTestRunConfig_TestRunConfig_TestRunConfigId",
-                        column: x => x.TestRunConfigId,
-                        principalTable: "TestRunConfig",
+                        name: "FK_TestInfo_Project_ProjectId",
+                        column: x => x.ProjectId,
+                        principalSchema: "project",
+                        principalTable: "Project",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -264,7 +268,42 @@ namespace TC.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TestInfoConfig",
+                schema: "test",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TestInfoId = table.Column<int>(nullable: false),
+                    ConfigProjectTestId = table.Column<int>(nullable: false),
+                    Value = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    DateAdded = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestInfoConfig", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TestInfoConfig_ConfigProjectTest_ConfigProjectTestId",
+                        column: x => x.ConfigProjectTestId,
+                        principalTable: "ConfigProjectTest",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TestInfoConfig_TestInfo_TestInfoId",
+                        column: x => x.TestInfoId,
+                        principalSchema: "test",
+                        principalTable: "TestInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TestRunHistory",
+                schema: "test",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -282,13 +321,15 @@ namespace TC.DataAccess.Migrations
                     table.ForeignKey(
                         name: "FK_TestRunHistory_TestInfo_TestInfoId",
                         column: x => x.TestInfoId,
+                        principalSchema: "test",
                         principalTable: "TestInfo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TestRunRestult",
+                name: "TestRunResult",
+                schema: "test",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -306,29 +347,30 @@ namespace TC.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TestRunRestult", x => x.Id);
+                    table.PrimaryKey("PK_TestRunResult", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TestRunRestult_Screenshot_ScreenshotId",
+                        name: "FK_TestRunResult_Screenshot_ScreenshotId",
                         column: x => x.ScreenshotId,
                         principalTable: "Screenshot",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TestRunRestult_TestRunHistory_TestRunHistoryId",
+                        name: "FK_TestRunResult_TestRunHistory_TestRunHistoryId",
                         column: x => x.TestRunHistoryId,
+                        principalSchema: "test",
                         principalTable: "TestRunHistory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
-                table: "TestRunConfig",
-                columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Description", "IsActive", "ModifiedBy", "Name", "Type", "Value" },
+                table: "ConfigProjectTest",
+                columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "DefaultValue", "Description", "IsActive", "ModifiedBy", "Name", "Type" },
                 values: new object[,]
                 {
-                    { 1, "system", new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(1975), new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(2429), "It will take a screenshot after every command.", true, "system", "Take Screenshot After Every Command", 0, null },
-                    { 2, "system", new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(3104), new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(3126), "Test will monitor every http call.", true, "system", "Monitoring Http Calls", 0, null },
-                    { 3, "system", new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(3167), new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(3171), "Test will continue even if a command will fail.", true, "system", "Continue After Command Failure", 0, null }
+                    { 1, "system", new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(2734), new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(3549), "false", "It will take a screenshot after every command.", true, "system", "Take Screenshot After Every Command", 0 },
+                    { 2, "system", new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(5070), new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(5113), "false", "Test will monitor every http call.", true, "system", "Monitoring Http Calls", 0 },
+                    { 3, "system", new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(5226), new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(5241), "true", "Test will continue even if a command will fail.", true, "system", "Continue After Command Failure", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -336,22 +378,17 @@ namespace TC.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "IsActive", "ModifiedBy", "Name" },
                 values: new object[,]
                 {
-                    { 1, "system", new DateTime(2019, 12, 30, 11, 32, 47, 312, DateTimeKind.Local).AddTicks(1550), new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(1600), true, "system", "Pending" },
-                    { 2, "system", new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(2219), new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(2243), true, "system", "Accepted" },
-                    { 3, "system", new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(2254), new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(2257), true, "system", "Rejected" },
-                    { 4, "system", new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(2261), new DateTime(2019, 12, 30, 11, 32, 47, 316, DateTimeKind.Local).AddTicks(2264), true, "system", "Deleted" }
+                    { 1, "system", new DateTime(2020, 1, 31, 20, 58, 27, 511, DateTimeKind.Local).AddTicks(5676), new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7039), true, "system", "Pending" },
+                    { 2, "system", new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7851), new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7882), true, "system", "Accepted" },
+                    { 3, "system", new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7896), new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7899), true, "system", "Rejected" },
+                    { 4, "system", new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7904), new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7907), true, "system", "Deleted" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "project",
                 table: "Project",
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Description", "IsActive", "ModifiedBy", "Name" },
-                values: new object[] { 1, "system", new DateTime(2019, 12, 30, 11, 32, 47, 317, DateTimeKind.Local).AddTicks(7827), new DateTime(2019, 12, 30, 11, 32, 47, 317, DateTimeKind.Local).AddTicks(8281), "", true, "system", "Google" });
-
-            migrationBuilder.InsertData(
-                table: "TestInfo",
-                columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Description", "IsActive", "ModifiedBy", "Name", "ProjectId", "SeleniumCommands" },
-                values: new object[] { 1, "system", new DateTime(2019, 12, 30, 11, 32, 47, 318, DateTimeKind.Local).AddTicks(7724), new DateTime(2019, 12, 30, 11, 32, 47, 318, DateTimeKind.Local).AddTicks(8152), "Using google search find c# tutorial", true, "system", "Search for c# tutorial", 1, "[{\"OperationId\":3,\"WebDriverOperationType\":0,\"Values\":[\"https://www.google.com\"]}]" });
+                values: new object[] { 1, "system", new DateTime(2020, 1, 31, 20, 58, 27, 516, DateTimeKind.Local).AddTicks(9928), new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(616), "", true, "system", "Google" });
 
             migrationBuilder.InsertData(
                 schema: "project",
@@ -359,37 +396,21 @@ namespace TC.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Domain", "IsActive", "ModifiedBy", "ProjectId" },
                 values: new object[,]
                 {
-                    { 1, "system", new DateTime(2019, 12, 30, 11, 32, 47, 318, DateTimeKind.Local).AddTicks(1525), new DateTime(2019, 12, 30, 11, 32, 47, 318, DateTimeKind.Local).AddTicks(1947), "google.com", true, "system", 1 },
-                    { 2, "system", new DateTime(2019, 12, 30, 11, 32, 47, 318, DateTimeKind.Local).AddTicks(2652), new DateTime(2019, 12, 30, 11, 32, 47, 318, DateTimeKind.Local).AddTicks(2672), "google.pl", true, "system", 1 }
+                    { 1, "system", new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(5356), new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(5957), "google.com", true, "system", 1 },
+                    { 2, "system", new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(6930), new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(6960), "google.pl", true, "system", 1 }
                 });
 
             migrationBuilder.InsertData(
                 schema: "project",
                 table: "ProjectTestRunConfig",
-                columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "IsActive", "ModifiedBy", "ProjectId", "TestRunConfigId", "Value" },
-                values: new object[] { 1, "system", new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(6245), new DateTime(2019, 12, 30, 11, 32, 47, 319, DateTimeKind.Local).AddTicks(6661), true, "system", 1, 1, "true" });
+                columns: new[] { "Id", "ConfigProjectTestId", "CreatedBy", "DateAdded", "DateModified", "IsActive", "ModifiedBy", "ProjectId", "Value" },
+                values: new object[] { 1, 1, "system", new DateTime(2020, 1, 31, 20, 58, 27, 520, DateTimeKind.Local).AddTicks(917), new DateTime(2020, 1, 31, 20, 58, 27, 520, DateTimeKind.Local).AddTicks(1519), true, "system", 1, "true" });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_TestInfo_ProjectId",
+            migrationBuilder.InsertData(
+                schema: "test",
                 table: "TestInfo",
-                column: "ProjectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TestRunHistory_TestInfoId",
-                table: "TestRunHistory",
-                column: "TestInfoId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TestRunRestult_ScreenshotId",
-                table: "TestRunRestult",
-                column: "ScreenshotId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TestRunRestult_TestRunHistoryId",
-                table: "TestRunRestult",
-                column: "TestRunHistoryId");
+                columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Description", "IsActive", "ModifiedBy", "Name", "ProjectId", "SeleniumCommands" },
+                values: new object[] { 1, "system", new DateTime(2020, 1, 31, 20, 58, 27, 518, DateTimeKind.Local).AddTicks(5813), new DateTime(2020, 1, 31, 20, 58, 27, 518, DateTimeKind.Local).AddTicks(6517), "Using google search find c# tutorial", true, "system", "Search for c# tutorial", 1, "[{\"OperationId\":3,\"WebDriverOperationType\":0,\"Values\":[\"https://www.google.com\"]}]" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectDomain_ProjectId",
@@ -398,16 +419,54 @@ namespace TC.DataAccess.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProjectTestRunConfig_ConfigProjectTestId",
+                schema: "project",
+                table: "ProjectTestRunConfig",
+                column: "ConfigProjectTestId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProjectTestRunConfig_ProjectId",
                 schema: "project",
                 table: "ProjectTestRunConfig",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectTestRunConfig_TestRunConfigId",
-                schema: "project",
-                table: "ProjectTestRunConfig",
-                column: "TestRunConfigId");
+                name: "IX_TestInfo_ProjectId",
+                schema: "test",
+                table: "TestInfo",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestInfoConfig_ConfigProjectTestId",
+                schema: "test",
+                table: "TestInfoConfig",
+                column: "ConfigProjectTestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestInfoConfig_TestInfoId",
+                schema: "test",
+                table: "TestInfoConfig",
+                column: "TestInfoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestRunHistory_TestInfoId",
+                schema: "test",
+                table: "TestRunHistory",
+                column: "TestInfoId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestRunResult_ScreenshotId",
+                schema: "test",
+                table: "TestRunResult",
+                column: "ScreenshotId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestRunResult_TestRunHistoryId",
+                schema: "test",
+                table: "TestRunResult",
+                column: "TestRunHistoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserInProject_ProjectId",
@@ -437,9 +496,6 @@ namespace TC.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TestRunRestult");
-
-            migrationBuilder.DropTable(
                 name: "ProjectDomain",
                 schema: "project");
 
@@ -448,17 +504,26 @@ namespace TC.DataAccess.Migrations
                 schema: "project");
 
             migrationBuilder.DropTable(
+                name: "TestInfoConfig",
+                schema: "test");
+
+            migrationBuilder.DropTable(
+                name: "TestRunResult",
+                schema: "test");
+
+            migrationBuilder.DropTable(
                 name: "UserInProject",
                 schema: "user");
+
+            migrationBuilder.DropTable(
+                name: "ConfigProjectTest");
 
             migrationBuilder.DropTable(
                 name: "Screenshot");
 
             migrationBuilder.DropTable(
-                name: "TestRunHistory");
-
-            migrationBuilder.DropTable(
-                name: "TestRunConfig");
+                name: "TestRunHistory",
+                schema: "test");
 
             migrationBuilder.DropTable(
                 name: "UserModel",
@@ -468,7 +533,8 @@ namespace TC.DataAccess.Migrations
                 name: "UserProjectStatus");
 
             migrationBuilder.DropTable(
-                name: "TestInfo");
+                name: "TestInfo",
+                schema: "test");
 
             migrationBuilder.DropTable(
                 name: "Project",

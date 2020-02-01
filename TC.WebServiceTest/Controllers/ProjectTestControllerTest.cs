@@ -18,6 +18,7 @@ using TC.Entity.Entities;
 using TC.WebService.Helpers;
 using Xunit;
 using TC.DataAccess;
+using TC.Entity.Entities.Projects;
 
 namespace TC.WebServiceTest.Controllers
 {

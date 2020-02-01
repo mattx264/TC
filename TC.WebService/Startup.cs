@@ -7,13 +7,10 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
 using System;
-using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using TC.DataAccess;
@@ -118,13 +115,14 @@ namespace TC.WebService
                            .WithOrigins("http://localhost:4200")
                            .WithOrigins("http://localhost:5000")
                            .WithOrigins("http://localhost:5200")
-                           .WithOrigins("chrome-extension://affmfbglfcdkienjdmopeljgahgcgalf")
+                           .WithOrigins("chrome-extension://fbclfiefjpinfecnnjkjjmodhifkednb")
                            .AllowAnyMethod()
-                           .AllowAnyHeader()                           
+                           .AllowAnyHeader()
                            .AllowCredentials();
                 }));
 
-            services.AddSignalR(hubOptions=> {
+            services.AddSignalR(hubOptions =>
+            {
                 hubOptions.EnableDetailedErrors = true;
             });
             services.AddDistributedRedisCache(options =>
@@ -141,11 +139,11 @@ namespace TC.WebService
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IFileManager, FileManager>();
-            services.AddTransient<IFileStorageService,FileStorageService> ();
+            services.AddTransient<IFileStorageService, FileStorageService>();
             services.AddScoped<TestInfoRepository>();
-            services.AddScoped<ITestRunHistoryRepository,TestRunHistoryRepository>();
+            services.AddScoped<ITestRunHistoryRepository, TestRunHistoryRepository>();
             services.AddScoped<IUtilHelper, UtilHelper>();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
@@ -166,7 +164,7 @@ namespace TC.WebService
                 app.UseHsts();
             }
             app.ConfigureExceptionHandler(logger);
-          
+
             app.UseRouting();
 
             app.UseAuthentication();

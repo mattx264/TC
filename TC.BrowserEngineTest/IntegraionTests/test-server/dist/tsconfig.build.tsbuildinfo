@@ -1118,8 +1118,8 @@
         "signature": "a908edafe8eb7ca3a33bae06fb3abf0575ab2d55b7eca3078c19e5705f0afa40"
       },
       "../src/ajax-test/ajax-test.controller.ts": {
-        "version": "6b9713a96828e40b9077d9a32c9e4b612d3c08ceec86be9622604428599356e9",
-        "signature": "9edc76d4eb36edf5c9cb6d7e703f3c6b4b6375cf61262e873652898a00afb6a2"
+        "version": "3c3369af3e423ca978ac18ec7f5e90c1711bf0ffe0b7fbe28e09151eed20aec0",
+        "signature": "89509f8d29fa44aecb5440faf6c6c329f0b1a860ccfd9539f41c59eaa78d9197"
       },
       "../src/app.module.ts": {
         "version": "44aebdd275e1f4202cb215e8e6c8ae446d0ffc2c0feeb6c647856141606c3749",
@@ -7637,6 +7637,9 @@
       "../node_modules/@nestjs/common/utils/forward-ref.util.d.ts",
       "../node_modules/@nestjs/common/utils/index.d.ts",
       "../node_modules/@nestjs/common/index.d.ts",
+      "../src/app.service.ts",
+      "../src/app.controller.ts",
+      "../src/form-test/form-test.controller.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
       "../node_modules/@nestjs/core/injector/module-token-factory.d.ts",
@@ -7688,6 +7691,7 @@
       "../node_modules/@nestjs/platform-express/multer/multer.module.d.ts",
       "../node_modules/@nestjs/platform-express/multer/index.d.ts",
       "../node_modules/@nestjs/platform-express/index.d.ts",
+      "../src/main.ts",
       "../node_modules/@types/anymatch/index.d.ts",
       "../node_modules/@babel/types/lib/index.d.ts",
       "../node_modules/@types/babel__generator/index.d.ts",
@@ -7726,7 +7730,9 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts"
+      "../node_modules/@types/yargs/index.d.ts",
+      "../src/ajax-test/ajax-test.controller.ts",
+      "../src/app.module.ts"
     ]
   },
   "version": "3.7.4"
