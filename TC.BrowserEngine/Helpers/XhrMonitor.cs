@@ -5,13 +5,13 @@ using System.Text;
 
 namespace TC.BrowserEngine.Helpers
 {
-    class XhrMonitor
+    public class XhrMonitor
     {
         public static bool CheckUntilAllXhrsCallsAreDone(IWebDriver _driver)
         {
             var counter = 0;
 
-            while(counter < 100)
+            while (counter < 100)
             {
                 var driverResponse = ((IJavaScriptExecutor)_driver).ExecuteScript(JavaScript.JavaScript.CheckIfAllXhrCallsDone()).ToString();
 
@@ -23,7 +23,7 @@ namespace TC.BrowserEngine.Helpers
                 System.Threading.Thread.Sleep(100);
                 counter++;
             }
-            
+
             return false;
         }
 
