@@ -11,10 +11,9 @@ namespace TC.BrowserEngine.Helpers
         {
             var counter = 0;
 
-            while(counter < 100)
+            while (counter < 100)
             {
-                var js = JavaScript.JavaScript.CheckIfAllXhrCallsDone();
-                var driverResponse = ((IJavaScriptExecutor)_driver).ExecuteScript(js).ToString();
+                var driverResponse = ((IJavaScriptExecutor)_driver).ExecuteScript(JavaScript.JavaScript.CheckIfAllXhrCallsDone()).ToString();
 
                 if (driverResponse == "True")
                 {
@@ -24,7 +23,7 @@ namespace TC.BrowserEngine.Helpers
                 System.Threading.Thread.Sleep(100);
                 counter++;
             }
-            
+
             return false;
         }
 
