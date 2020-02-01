@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TC.BrowserEngine.Helpers
 {
-    class XhrMonitor
+    public class XhrMonitor
     {
         public static bool CheckUntilAllXhrsCallsAreDone(IWebDriver _driver)
         {
@@ -13,7 +13,8 @@ namespace TC.BrowserEngine.Helpers
 
             while(counter < 100)
             {
-                var driverResponse = ((IJavaScriptExecutor)_driver).ExecuteScript(JavaScript.JavaScript.CheckIfAllXhrCallsDone()).ToString();
+                var js = JavaScript.JavaScript.CheckIfAllXhrCallsDone();
+                var driverResponse = ((IJavaScriptExecutor)_driver).ExecuteScript(js).ToString();
 
                 if (driverResponse == "True")
                 {

@@ -33,16 +33,19 @@ namespace TC.BrowserEngine.Controllers
         }
         public void Start()
         {
-            if (_commandMessage == null)
+            try
             {
-                throw new Exception("Browser controller has to be Setup before call Start method");
+                if (_commandMessage == null)
+                {
+                    throw new Exception("Browser controller has to be Setup before call Start method");
+                }
+                driver = new BrowserDriver(_browserType).GetDriver() as ChromeDriver;
+                _commandProcessor = new CommandProcessor(driver, (TestProgressEmitter)_testProgressEmitter);
+            }catch(Exception ex)
+            {
+                throw new Exception("BrowserController",ex);
             }
-            driver = new BrowserDriver(_browserType).GetDriver() as ChromeDriver;
-            _commandProcessor = new CommandProcessor(driver, (TestProgressEmitter)_testProgressEmitter);
-          
-            //driver.Url = "http://www.google.com";
-            //driver.ExecuteAsyncScript("alert('hey')");
-            //Task.Delay(10000);
+           
         }
         public void RunCommandProcessor()
         {
