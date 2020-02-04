@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TC.DataAccess.Repositories;
+using TC.DataAccess.Repositories.Interfaces;
 using TC.WebService.ViewModels;
 
 namespace TC.WebService.Controllers
@@ -14,16 +15,16 @@ namespace TC.WebService.Controllers
     public class ConfigProjectTestController : ControllerBase
     {
         #region private
-        private ConfigProjectTestRepository _configProjectTestRepository;
+        private IConfigProjectTestRepository _configProjectTestRepository;
         #endregion
         #region constructor
-        public ConfigProjectTestController(ConfigProjectTestRepository configProjectTestRepository)
+        public ConfigProjectTestController(IConfigProjectTestRepository configProjectTestRepository)
         {
             _configProjectTestRepository = configProjectTestRepository;
 
         }
         #endregion
-        #region public methods
+        #region GET
         [HttpGet]
         public IActionResult GetAll()
         {

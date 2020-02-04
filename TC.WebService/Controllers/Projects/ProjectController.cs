@@ -65,7 +65,7 @@ namespace TC.WebService.Controllers.Projects
         {
 
             var currnetUser = GetUser();
-
+            
             var domains = new List<ProjectDomain>();
             foreach (var domain in viewModel.Domains.Split(","))
             {

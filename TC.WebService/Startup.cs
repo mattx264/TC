@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using TC.DataAccess;
 using TC.DataAccess.DatabaseContext;
 using TC.DataAccess.Repositories;
+using TC.DataAccess.Repositories.Interfaces;
 using TC.Entity.Entities;
 using TC.WebService.Helpers;
 using TC.WebService.Hubs;
@@ -143,7 +144,8 @@ namespace TC.WebService
             services.AddScoped<TestInfoRepository>();
             services.AddScoped<ITestRunHistoryRepository, TestRunHistoryRepository>();
             services.AddScoped<IUtilHelper, UtilHelper>();
-
+            services.AddScoped<IConfigProjectTestRepository, ConfigProjectTestRepository>();
+            services.AddScoped<IProjectTestConfigRepository, ProjectTestConfigRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
