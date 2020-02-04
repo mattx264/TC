@@ -13,9 +13,9 @@ namespace TC.DataAccess.Repositories
         public ProjectTestConfigRepository(TestingCenterDbContext context) : base(context)
         {
         }
-        public ProjectTestConfig GetByProjectId(int projectId)
+        public IList<ProjectTestConfig> GetByProjectId(int projectId)
         {
-            return FindAll().FirstOrDefault(x => x.ProjectId == projectId);
+            return FindAll().Where(x => x.ProjectId == projectId).ToList();
         }
         
     }

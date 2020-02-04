@@ -7,6 +7,6 @@ namespace TC.DataAccess.Repositories.Interfaces
 {
     public interface IProjectTestConfigRepository : IRepositoryBase<ProjectTestConfig>
     {
-        ProjectTestConfig GetByProjectId(int projectId);
+        IList<ProjectTestConfig> GetByProjectId(int projectId);
     }
 }

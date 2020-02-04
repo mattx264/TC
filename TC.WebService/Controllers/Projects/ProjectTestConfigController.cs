@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using TC.DataAccess;
 using TC.DataAccess.Repositories;
 using TC.DataAccess.Repositories.Interfaces;
@@ -17,7 +19,7 @@ namespace TC.WebService.Controllers.Project
         private IUnitOfWork _unitOfWork;
         #endregion
         #region constructor
-        public ProjectTestConfigController(IProjectTestConfigRepository projectTestConfigRepository, IConfigProjectTestRepository configProjectTestRepository,IUnitOfWork unitOfWork)
+        public ProjectTestConfigController(IProjectTestConfigRepository projectTestConfigRepository, IConfigProjectTestRepository configProjectTestRepository, IUnitOfWork unitOfWork)
         {
             _projectTestConfigRepository = projectTestConfigRepository;
             _configProjectTestRepository = configProjectTestRepository;
@@ -25,54 +27,69 @@ namespace TC.WebService.Controllers.Project
         }
         #endregion
         #region GET
-        [HttpGet]
+        [HttpGet("{projectId}")]
         public IActionResult Get(int projectId)
         {
-            if(projectId == 0)
+            if (projectId == 0)
             {
                 return BadRequest("Project Id is required");
             }
             var projectTestConfig = _projectTestConfigRepository.GetByProjectId(projectId);
-            if(projectTestConfig == null)
+            if (projectTestConfig.Count == 0)
             {
-                return BadRequest("Project not found");
+                var result = _configProjectTestRepository.FindAll().Select(x => new ProjectTestConfigViewModel().Convert(0, projectId, x));
+                return Ok(result);
             }
-            return Ok(new ProjectTestConfigViewModel(projectTestConfig));
+            return Ok(projectTestConfig.Select(x => new ProjectTestConfigViewModel().Convert(x)));
         }
         #endregion
         #region POST
-        public IActionResult Post(ProjectTestConfigViewModel viewModel)
+        [HttpPost]
+        public IActionResult Post(IList<ProjectTestConfigViewModel> viewModel)
         {
-            var configProjectTest = _configProjectTestRepository.FindById(viewModel.ConfigProjectTestId);
-            if (configProjectTest == null)
+            foreach (var config in viewModel)
             {
-                return BadRequest("Config project cannot be null");
-            }
-            //validate if valus is correct with type
-            switch (configProjectTest.Type)
-            {
-                case ConfigProjectTest.ConfigProjectTestEnum.Boolean:
-                    bool result;
-                    bool.TryParse(viewModel.Value, out result);
-                    if (result == false)
-                    {
-                        return BadRequest("Value boolean is not valid");
-                    }
-                    break;
-                case ConfigProjectTest.ConfigProjectTestEnum.List:
-                    // OPEN QUESTION
-                    break;
-                case ConfigProjectTest.ConfigProjectTestEnum.String:
-                    // String cannot be invalid
-                    break;
+                var configProjectTest = _configProjectTestRepository.FindById(config.ConfigProjectTestId);
+                if (configProjectTest == null)
+                {
+                    return BadRequest("Config project cannot be null");
+                }
+                //validate if valus is correct with type
+                switch (configProjectTest.Type)
+                {
+                    case ConfigProjectTest.ConfigProjectTestEnum.Boolean:
 
+                        if (config.Value == "false" || config.Value == "true")
+                        {
+                            break;
+                        }
+                        return BadRequest("Value boolean is not valid");
+                        break;
+                    case ConfigProjectTest.ConfigProjectTestEnum.List:
+                        // OPEN QUESTION
+                        break;
+                    case ConfigProjectTest.ConfigProjectTestEnum.String:
+                        // String cannot be invalid
+                        break;
+
+                }
+                if (config.Id == 0)
+                {
+                    _projectTestConfigRepository.Create(new ProjectTestConfig()
+                    {
+                        ConfigProjectTestId = config.ConfigProjectTestId,
+                        ProjectId = config.ProjectId,
+                        Value = config.Value
+                    });
+                }
+                else
+                {
+                    var projectTestConfig = _projectTestConfigRepository.FindById(config.Id);
+                    projectTestConfig.ConfigProjectTestId = config.ConfigProjectTestId;
+                    projectTestConfig.ProjectId = config.ProjectId;
+                    projectTestConfig.Value = config.Value;
+                }
             }
-            _projectTestConfigRepository.Create(new ProjectTestConfig()
-            {
-                ConfigProjectTestId = viewModel.ConfigProjectTestId,
-                ProjectId = viewModel.ProjectId,
-                Value = viewModel.Value
-            });
             _unitOfWork.SaveChanges();
             return Ok();
         }

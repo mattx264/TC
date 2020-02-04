@@ -24,19 +24,11 @@ namespace TC.WebServiceTest.Controllers.Projects
         public void Get()
         {
              var projectTestConfigController = GetType();
-            _projectTestConfigRepository.Setup(x => x.GetByProjectId(It.IsAny<int>())).Returns(new Mock<ProjectTestConfig>().Object);
+            _projectTestConfigRepository.Setup(x => x.GetByProjectId(It.IsAny<int>())).Returns(new Mock<IList<ProjectTestConfig>>().Object);
             var response = projectTestConfigController.Get(1);
           
             Assert.IsType<OkObjectResult>(response);
-        }
-        [Fact]
-        public void Get_Project_Not_Exists()
-        {
-            var projectTestConfigController = GetType();
-            var response = projectTestConfigController.Get(1);
-
-            Assert.IsType<BadRequestObjectResult>(response);
-        }
+        }       
         [Fact]
         public void Get_Id_Zero()
         {
@@ -61,7 +53,7 @@ namespace TC.WebServiceTest.Controllers.Projects
             var projectTestConfigController = GetType();
             _configProjectTestRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(new Mock<ConfigProjectTest>().Object);
 
-            var reponse = projectTestConfigController.Post(new ProjectTestConfigViewModel(model));
+            var reponse = projectTestConfigController.Post(new List<ProjectTestConfigViewModel>() { new ProjectTestConfigViewModel().Convert(model) });
             Assert.IsType<OkResult>(reponse);
 
         }
@@ -76,7 +68,7 @@ namespace TC.WebServiceTest.Controllers.Projects
                 ConfigProjectTestId = 1
             };
             var projectTestConfigController = GetType();
-            var reponse=projectTestConfigController.Post(new ProjectTestConfigViewModel(model));
+            var reponse=projectTestConfigController.Post(new List<ProjectTestConfigViewModel>() { new ProjectTestConfigViewModel().Convert(model) });
             Assert.IsType<BadRequestObjectResult>(reponse);
     
         }
@@ -93,7 +85,7 @@ namespace TC.WebServiceTest.Controllers.Projects
             var projectTestConfigController = GetType();
             _configProjectTestRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(new Mock<ConfigProjectTest>().Object);
 
-            var reponse = projectTestConfigController.Post(new ProjectTestConfigViewModel(model));
+            var reponse = projectTestConfigController.Post(new List<ProjectTestConfigViewModel>() { new ProjectTestConfigViewModel().Convert(model) });
             Assert.IsType<BadRequestObjectResult>(reponse);
 
         }

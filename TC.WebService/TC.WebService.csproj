@@ -39,4 +39,43 @@
     <ProjectReference Include="..\TC.Entity\TC.Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="ViewModels\typescripts\ConfigProjectTestViewModel.ts">
+      <CustomToolNamespace>ViewModels\ConfigProjectTestViewModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ViewModels\typescripts\LoginModelViewModel.ts">
+      <CustomToolNamespace>ViewModels\Users\LoginModelViewModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ViewModels\typescripts\ProjectDomainViewModel.ts">
+      <CustomToolNamespace>ViewModels\Projects\ProjectDomainViewModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ViewModels\typescripts\ProjectTestConfigViewModel.ts">
+      <CustomToolNamespace>ViewModels\Projects\ProjectTestConfigViewModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ViewModels\typescripts\ProjectTestViewModel.ts">
+      <CustomToolNamespace>ViewModels\Projects\ProjectTestViewModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ViewModels\typescripts\ProjectUserViewModel.ts">
+      <CustomToolNamespace>ViewModels\Projects\ProjectUserViewModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ViewModels\typescripts\ProjectViewModel.ts">
+      <CustomToolNamespace>ViewModels\Projects\ProjectViewModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ViewModels\typescripts\RegistrationViewModel.ts">
+      <CustomToolNamespace>ViewModels\Users\RegistrationViewModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ViewModels\typescripts\SzwagierModel.ts">
+      <CustomToolNamespace>Models\SzwagierModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ViewModels\typescripts\TestInfoViewModel.ts">
+      <CustomToolNamespace>ViewModels\Tests\TestInfoViewModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ViewModels\typescripts\UserInProjectViewModel.ts">
+      <CustomToolNamespace>ViewModels\Users\UserInProjectViewModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ViewModels\typescripts\UserModel.ts">
+      <CustomToolNamespace>..\TC.Entity\Entities\Users\UserModel.cs</CustomToolNamespace>
+    </None>
+  </ItemGroup>
+
 </Project>
