@@ -45,7 +45,7 @@ namespace TC.WebServiceTest.Controllers.Projects
         {
             var model = new ProjectTestConfig()
             {
-                Id = 1,
+                Id = 0,
                 ProjectId = 1,
                 Value = "true",
                 ConfigProjectTestId = 1
