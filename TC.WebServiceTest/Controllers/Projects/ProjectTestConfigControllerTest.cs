@@ -92,6 +92,7 @@ namespace TC.WebServiceTest.Controllers.Projects
         private ProjectTestConfigController GetType()
         {
             _projectTestConfigRepository = new Mock<IProjectTestConfigRepository>();
+            _projectTestConfigRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(new Mock<ProjectTestConfig>().Object);
             _configProjectTestRepository = new Mock<IConfigProjectTestRepository>();
             _unitOfWork = new Mock<IUnitOfWork>();
             return new ProjectTestConfigController(_projectTestConfigRepository.Object, _configProjectTestRepository.Object, _unitOfWork.Object);
