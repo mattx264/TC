@@ -14,7 +14,7 @@ using TC.WebService.Helpers;
 
 namespace TC.BrowserEngine.Signal
 {
-    public delegate void SendTestProgressDelegate(string senderConnectionId, string commandTestGuid);
+    public delegate void SendTestProgressDelegate(string senderConnectionId, string commandTestGuid,int testRunHistoryId);
     public delegate void SendTestProgressImageDelegate(string senderConnectionId, string commandTestGuid,Screenshot screenshot);
 
     public class BrowserControllerPlug : SignalClientBase
@@ -60,14 +60,14 @@ namespace TC.BrowserEngine.Signal
                 _connection.InvokeAsync("SendError", ex);
             }
         }
-        public void SendTestProgress(string senderConnectionId, string commandTestGuid )
+        public void SendTestProgress(string senderConnectionId, string commandTestGuid,int testRunHistoryId)
         {
             _connection.SendAsync("TestProgress",new TestProgressMessage()
             {
                 IsSuccesful=true,
                 CommandTestGuid= commandTestGuid,
                 SenderConnectionId =senderConnectionId,
-                
+                TestRunHistoryId=testRunHistoryId
             });
         }
         public void SendTestProgressScreenshot(string senderConnectionId, string commandTestGuid,Screenshot screenshot)

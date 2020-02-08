@@ -21,7 +21,6 @@ namespace TC.WebService.Controllers
         [NonAction]
         public UserModel GetUser()
         {
-            
             return _userHelper.GetUser(User); 
         }
 

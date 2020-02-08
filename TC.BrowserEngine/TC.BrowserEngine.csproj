@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="BrowserDrivers\Chrome\80\" />
     <Folder Include="BrowserDrivers\Firefox\0.24\" />
   </ItemGroup>
 

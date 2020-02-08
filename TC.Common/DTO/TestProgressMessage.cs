@@ -10,6 +10,7 @@ namespace TC.Common.DTO
         public string CommandTestGuid { get; set; }
         public string SenderConnectionId { get; set; }
         public bool IsSuccesful { get; set; }
+        public int TestRunHistoryId { get; set; }
 
     }
 }

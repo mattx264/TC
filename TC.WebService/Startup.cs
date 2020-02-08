@@ -103,6 +103,7 @@ namespace TC.WebService
             services.AddDbContext<TestingCenterDbContext>(options =>
              options
              .UseLazyLoadingProxies()
+             .EnableSensitiveDataLogging(true)
              .UseSqlServer(
                  Configuration.GetConnectionString("DefaultConnection")));
 
@@ -146,6 +147,8 @@ namespace TC.WebService
             services.AddScoped<IUtilHelper, UtilHelper>();
             services.AddScoped<IConfigProjectTestRepository, ConfigProjectTestRepository>();
             services.AddScoped<IProjectTestConfigRepository, ProjectTestConfigRepository>();
+            services.AddScoped<ITestRunResultRepository, TestRunResultRepository>();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });

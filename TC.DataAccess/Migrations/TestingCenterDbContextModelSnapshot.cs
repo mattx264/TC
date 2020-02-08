@@ -62,8 +62,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(2734),
-                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(3549),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(7455),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(8016),
                             DefaultValue = "false",
                             Description = "It will take a screenshot after every command.",
                             IsActive = true,
@@ -75,8 +75,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(5070),
-                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(5113),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(8931),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(8958),
                             DefaultValue = "false",
                             Description = "Test will monitor every http call.",
                             IsActive = true,
@@ -88,60 +88,14 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(5226),
-                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 519, DateTimeKind.Local).AddTicks(5241),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(9015),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(9022),
                             DefaultValue = "true",
                             Description = "Test will continue even if a command will fail.",
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Continue After Command Failure",
                             Type = 0
-                        });
-                });
-
-            modelBuilder.Entity("TC.Entity.Entities.Project", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Project","project");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 516, DateTimeKind.Local).AddTicks(9928),
-                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(616),
-                            Description = "",
-                            IsActive = true,
-                            ModifiedBy = "system",
-                            Name = "Google"
                         });
                 });
 
@@ -184,8 +138,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(5356),
-                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(5957),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 873, DateTimeKind.Local).AddTicks(3309),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 873, DateTimeKind.Local).AddTicks(3884),
                             Domain = "google.com",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -195,8 +149,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(6930),
-                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 517, DateTimeKind.Local).AddTicks(6960),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 873, DateTimeKind.Local).AddTicks(4743),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 873, DateTimeKind.Local).AddTicks(4773),
                             Domain = "google.pl",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -249,12 +203,58 @@ namespace TC.DataAccess.Migrations
                             Id = 1,
                             ConfigProjectTestId = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 520, DateTimeKind.Local).AddTicks(917),
-                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 520, DateTimeKind.Local).AddTicks(1519),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 875, DateTimeKind.Local).AddTicks(3151),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 875, DateTimeKind.Local).AddTicks(3697),
                             IsActive = true,
                             ModifiedBy = "system",
                             ProjectId = 1,
                             Value = "true"
+                        });
+                });
+
+            modelBuilder.Entity("TC.Entity.Entities.Projects.Project", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Project","project");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 872, DateTimeKind.Local).AddTicks(8278),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 872, DateTimeKind.Local).AddTicks(8887),
+                            Description = "",
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            Name = "Google"
                         });
                 });
 
@@ -333,8 +333,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 518, DateTimeKind.Local).AddTicks(5813),
-                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 518, DateTimeKind.Local).AddTicks(6517),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(1593),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(2160),
                             Description = "Using google search find c# tutorial",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -411,8 +411,7 @@ namespace TC.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TestInfoId")
-                        .IsUnique();
+                    b.HasIndex("TestInfoId");
 
                     b.ToTable("TestRunHistory","test");
                 });
@@ -448,7 +447,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("RunTime")
                         .HasColumnType("int");
 
-                    b.Property<int>("ScreenshotId")
+                    b.Property<int?>("ScreenshotId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TestRunHistoryId")
@@ -456,8 +455,7 @@ namespace TC.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ScreenshotId")
-                        .IsUnique();
+                    b.HasIndex("ScreenshotId");
 
                     b.HasIndex("TestRunHistoryId");
 
@@ -498,8 +496,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 511, DateTimeKind.Local).AddTicks(5676),
-                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7039),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 868, DateTimeKind.Local).AddTicks(1660),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(8486),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Pending"
@@ -508,8 +506,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7851),
-                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7882),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(9261),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(9290),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Accepted"
@@ -518,8 +516,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7896),
-                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7899),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(9305),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(9309),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Rejected"
@@ -528,8 +526,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 4,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7904),
-                            DateModified = new DateTime(2020, 1, 31, 20, 58, 27, 514, DateTimeKind.Local).AddTicks(7907),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(9313),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(9317),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Deleted"
@@ -663,7 +661,7 @@ namespace TC.DataAccess.Migrations
 
             modelBuilder.Entity("TC.Entity.Entities.ProjectDomain", b =>
                 {
-                    b.HasOne("TC.Entity.Entities.Project", "Project")
+                    b.HasOne("TC.Entity.Entities.Projects.Project", "Project")
                         .WithMany("ProjectDomains")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -678,7 +676,7 @@ namespace TC.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TC.Entity.Entities.Project", "Project")
+                    b.HasOne("TC.Entity.Entities.Projects.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -687,7 +685,7 @@ namespace TC.DataAccess.Migrations
 
             modelBuilder.Entity("TC.Entity.Entities.TestInfo", b =>
                 {
-                    b.HasOne("TC.Entity.Entities.Project", "Project")
+                    b.HasOne("TC.Entity.Entities.Projects.Project", "Project")
                         .WithMany("TestInfos")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -712,8 +710,8 @@ namespace TC.DataAccess.Migrations
             modelBuilder.Entity("TC.Entity.Entities.TestRunHistory", b =>
                 {
                     b.HasOne("TC.Entity.Entities.TestInfo", "TestInfo")
-                        .WithOne("TestRunHistory")
-                        .HasForeignKey("TC.Entity.Entities.TestRunHistory", "TestInfoId")
+                        .WithMany("TestRunHistory")
+                        .HasForeignKey("TestInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -721,10 +719,8 @@ namespace TC.DataAccess.Migrations
             modelBuilder.Entity("TC.Entity.Entities.TestRunResult", b =>
                 {
                     b.HasOne("TC.Entity.Entities.Screenshot", "Screenshot")
-                        .WithOne("TestRunResult")
-                        .HasForeignKey("TC.Entity.Entities.TestRunResult", "ScreenshotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ScreenshotId");
 
                     b.HasOne("TC.Entity.Entities.TestRunHistory", null)
                         .WithMany("TestRunResults")
@@ -733,7 +729,7 @@ namespace TC.DataAccess.Migrations
 
             modelBuilder.Entity("TC.Entity.Entities.UserInProject", b =>
                 {
-                    b.HasOne("TC.Entity.Entities.Project", "Project")
+                    b.HasOne("TC.Entity.Entities.Projects.Project", "Project")
                         .WithMany("UserInProject")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)

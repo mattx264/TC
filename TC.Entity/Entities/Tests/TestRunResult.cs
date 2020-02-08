@@ -11,8 +11,9 @@ namespace TC.Entity.Entities
         public int Id { get; set; }
         public string CommandTestGuid { get; set; }
         public int RunTime { get; set; }
+        public int TestRunHistoryId { get; set; }
         public virtual Screenshot Screenshot { get; set; }
-        public int ScreenshotId { get; set; }
+        public int? ScreenshotId { get; set; }
         public bool IsSuccesful { get; set; } 
         public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
