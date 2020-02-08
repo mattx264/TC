@@ -34,7 +34,8 @@ namespace TC.BrowserEngine.Selenium
                 ITestProgress testProgress = new TestProgress()
                 {
                     senderConnectionId = commandMessage.SenderConnectionId,
-                    command = command
+                    command = command,
+                    TestRunHistoryId = commandMessage.TestRunHistoryId.Value
                 };
                 try
                 {
@@ -79,7 +80,8 @@ namespace TC.BrowserEngine.Selenium
                             senderConnectionId = commandMessage.SenderConnectionId,
                             command = command,
                             IsSuccesfull = true,
-                            Screenshot = screenshot
+                            Screenshot = screenshot,
+                            TestRunHistoryId=commandMessage.TestRunHistoryId.Value
                         };
                         _testProgressEmitter.ScreenshotComplete(testProgressImage);
                     }

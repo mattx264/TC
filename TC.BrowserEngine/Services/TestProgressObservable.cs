@@ -9,6 +9,7 @@ namespace TC.BrowserEngine.Services
     public interface ITestProgress
     {
         string senderConnectionId { get; set; }
+        int TestRunHistoryId { get; set; }
         SeleniumCommand command { get; set; }
         bool IsSuccesfull { get; set; }
         public string Message { get; set; }
@@ -19,6 +20,7 @@ namespace TC.BrowserEngine.Services
         public SeleniumCommand command { get; set; }
         public bool IsSuccesfull { get; set; }
         public string Message { get; set; }
+        public int TestRunHistoryId { get; set; }
     }
     public class ScreenshotTestProgress : ITestProgress
     {
@@ -27,6 +29,7 @@ namespace TC.BrowserEngine.Services
         public bool IsSuccesfull { get; set; }
         public Screenshot Screenshot { get; set; }
         public string Message { get; set; }
+        public int TestRunHistoryId { get; set; }
     }
     public interface ITestProgressEmitter
     {
@@ -140,7 +143,7 @@ namespace TC.BrowserEngine.Services
         {
             if(value is TestProgress)
             {
-                _sendTestProgressDelegate(value.senderConnectionId, value.command.Guid);
+                _sendTestProgressDelegate(value.senderConnectionId, value.command.Guid,value.TestRunHistoryId);
                 return; 
             }
             else if(value is ScreenshotTestProgress)

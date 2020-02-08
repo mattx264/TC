@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TC.Common.Selenium;
 using TC.Common.Selenium.WebDriverOperation;
 using TC.Entity.Entities;
@@ -13,7 +15,20 @@ namespace TC.DataAccess.DatabaseContext
 {
     public partial class TestingCenterDbContext : DbContext
     {
+        private const string Salt = "NZsP7NnmfBuYeJrRAKNuVQ==";
+        private string PasswordHash(string password)
+        {
+            // !! IMPORTANT COPY OF THIS CODE IS IN ENTITY FOR SEED USER CREATION
 
+            // derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password,
+                salt: Encoding.ASCII.GetBytes(Salt),
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 10000,
+                numBytesRequested: 256 / 8));
+            return hashed;
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TestInfo>().Property(e => e.SeleniumCommands)
@@ -22,16 +37,17 @@ namespace TC.DataAccess.DatabaseContext
               v => JsonConvert.DeserializeObject<IList<SeleniumCommand>>(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
             //modelBuilder.Entity<UserModel>().HasData(new UserModel
             //{
-            //    Id=1,
-            //    Guid= Guid.NewGuid(),
-            //    Email="test@test",
-            //    Password= "AzTnEg5EHn0BVNEo2LFQDryp+gLFqFutciZzqVgcDAA=",
+            //    Id = 1,
+            //   // Guid = Guid.NewGuid(),
+            //    Email = "test@test",
+            //    Password = PasswordHash("test123"),
             //    IsActive = true,
             //    CreatedBy = "system",
             //    ModifiedBy = "system",
             //    DateAdded = DateTime.Now,
             //    DateModified = DateTime.Now
-            //});
+            //}) ;
+
             modelBuilder.Entity<ConfigProjectTest>().Property(c => c.Type).HasConversion<int>();
             modelBuilder.Entity<UserProjectStatus>().HasData(new UserProjectStatus()
             {
