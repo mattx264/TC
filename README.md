@@ -30,6 +30,19 @@
  3. Start IIS express project TC.WebService (it should be by default)
  ### Run Azure Storage local
  Go to https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator
+ 
+ 1. Install Azure Storage (from above link)
+ 2. Install Microsoft SQL Server Management Studio
+    1. https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15
+   
+ 3. Run Azure Storage Emulator
+    1. Goto Start Menu and type Azure Storage Emulator
+    2. Type the following command to setup the emulator: *AzureStorageEmulator.exe init*
+       * This will create the AzureStorageEmulator Database
+    3. Start the emulator by typing: *AzureStorageEmulator.exe start*
+ 
+ 
+ 
  ### TC Browser Plugin
  #### Recording Web Session
  1. Open Chrome and a new tab
