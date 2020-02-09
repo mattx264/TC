@@ -17,6 +17,7 @@ namespace TC.BrowserEngine
             }
             BrowserEngineManager.Instance.StartNewInstance();
 
+
         }
 
         public static IConfiguration SetupConfig()

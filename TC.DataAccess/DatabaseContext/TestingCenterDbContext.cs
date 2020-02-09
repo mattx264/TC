@@ -21,6 +21,9 @@ namespace TC.DataAccess.DatabaseContext
         public DbSet<TestRunHistory> TestRunHistory { get; set; }
         public DbSet<TestRunResult> TestRunResult { get; set; }
         public DbSet<TestInfoConfig> TestInfoConfig { get; set; }
+        public DbSet<Screenshot> Screenshot { get; set; }
+
+        
 
     }
 }

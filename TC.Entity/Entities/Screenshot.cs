@@ -8,7 +8,6 @@ namespace TC.Entity.Entities
     {
         public int Id { get; set; }
         public string Path { get; set; }
-        public virtual TestRunResult TestRunResult { get; set; }
         public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }

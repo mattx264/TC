@@ -17,21 +17,55 @@ namespace TC.WebService.Hubs
         {
             // TODO check if sender can make call to reciver (browser engine)
             // TODO add to testHistory
-            if (message.TestInfoId != null)
+            try
             {
-                _testRunHistoryRepository.Create(new TestRunHistory()
+
+                if (message.TestInfoId == null)
+                {
+                    throw new Exception("TestInfoId is required");
+                }
+
+                TestRunHistory testRunHistory = new TestRunHistory()
                 {
                     TestInfoId = message.TestInfoId.Value
-                });
+                };
+                _testRunHistoryRepository.Create(testRunHistory);
                 _unitOfWork.SaveChanges();
+
+                message.SenderConnectionId = Context.ConnectionId;
+                message.TestRunHistoryId = testRunHistory.Id;
+                await Clients.Client(message.ReceiverConnectionId).SendAsync("ReciveCommand", message);
             }
-            message.SenderConnectionId = Context.ConnectionId;
-            await Clients.Client(message.ReceiverConnectionId).SendAsync("ReciveCommand", message);
+            catch (Exception ex)
+            {
+                //TODO log to db
+
+                throw ex;
+            }
         }
         public async Task TestProgress(TestProgressMessage message)
         {
-            // TODO add to testHistory
-            await Clients.Client(message.SenderConnectionId).SendAsync("TestProgress", message);
+            try
+            {
+                if (message.TestRunHistoryId == 0)
+                {
+                    throw new Exception("TestProgress TestRunHistoryId is 0");
+                }
+                _testRunResultRepository.Create(new TestRunResult()
+                {
+                    TestRunHistoryId = message.TestRunHistoryId,
+                    CommandTestGuid = message.CommandTestGuid,
+                    IsSuccesful = message.IsSuccesful
+                });
+                _unitOfWork.SaveChanges();
+                await Clients.Client(message.SenderConnectionId).SendAsync("TestProgress", message);
+            }
+            catch (Exception ex)
+            {
+                //TODO log to db
+
+                throw ex;
+            }
         }
     }
 }

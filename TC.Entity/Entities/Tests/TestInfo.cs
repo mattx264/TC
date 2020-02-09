@@ -13,7 +13,7 @@ namespace TC.Entity.Entities
         public int ProjectId { get; set; }
         public virtual Project Project { get; set; }
         public IList<SeleniumCommand> SeleniumCommands { get; set; }
-        public virtual TestRunHistory TestRunHistory { get; set; }     
+        public virtual IList<TestRunHistory> TestRunHistory { get; set; }     
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }

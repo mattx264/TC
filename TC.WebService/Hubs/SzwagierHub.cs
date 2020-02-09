@@ -12,6 +12,7 @@ using TC.Entity.Entities;
 using TC.WebService.Services;
 using TC.DataAccess.Repositories;
 using TC.DataAccess;
+using TC.DataAccess.Repositories.Interfaces;
 
 namespace TC.WebService.Hubs
 {
@@ -21,13 +22,19 @@ namespace TC.WebService.Hubs
         // private static List<SzwagierModel> szwagierModels = new List<SzwagierModel>();
         private IDistributedCache _distributedCache;
         private ITestRunHistoryRepository _testRunHistoryRepository;
+        private ITestRunResultRepository _testRunResultRepository;
         private IUnitOfWork _unitOfWork;
         private const string szwagierListKey = "SzwagierList";
 
-        public SzwagierHub(IDistributedCache distributedCache, ITestRunHistoryRepository testRunHistoryRepository, IUnitOfWork unitOfWork)
+        public SzwagierHub(
+            IDistributedCache distributedCache,
+            ITestRunHistoryRepository testRunHistoryRepository,
+            ITestRunResultRepository testRunResultRepository,
+            IUnitOfWork unitOfWork)
         {
             _distributedCache = distributedCache;
             _testRunHistoryRepository = testRunHistoryRepository;
+            _testRunResultRepository = testRunResultRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -50,7 +57,12 @@ namespace TC.WebService.Hubs
                 default:
                     throw new Exception("Szwagier type unknown");
             }
-
+            var cacheKey = getCacheKey();
+            if (cacheKey == null)
+            {
+                throw new Exception("Forbidden");
+            }
+                
 
             var szwagierModels = _distributedCache.GetAsync<List<SzwagierModel>>(getCacheKey()).GetAwaiter().GetResult();
             if (szwagierModels == null)
@@ -130,6 +142,10 @@ namespace TC.WebService.Hubs
         }
         private string getCacheKey()
         {
+            if (Context.User.Claims.First(x => x.Type == "Guid") == null)
+            {
+                return null;
+            }
             return szwagierListKey + Context.User.Claims.First(x => x.Type == "Guid").Value;
         }
     }

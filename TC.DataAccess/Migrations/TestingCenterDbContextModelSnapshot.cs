@@ -62,8 +62,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 1, 10, 49, 42, 149, DateTimeKind.Local).AddTicks(4838),
-                            DateModified = new DateTime(2020, 2, 1, 10, 49, 42, 149, DateTimeKind.Local).AddTicks(5246),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(7455),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(8016),
                             DefaultValue = "false",
                             Description = "It will take a screenshot after every command.",
                             IsActive = true,
@@ -75,8 +75,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 1, 10, 49, 42, 149, DateTimeKind.Local).AddTicks(5851),
-                            DateModified = new DateTime(2020, 2, 1, 10, 49, 42, 149, DateTimeKind.Local).AddTicks(5868),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(8931),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(8958),
                             DefaultValue = "false",
                             Description = "Test will monitor every http call.",
                             IsActive = true,
@@ -88,8 +88,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 1, 10, 49, 42, 149, DateTimeKind.Local).AddTicks(5898),
-                            DateModified = new DateTime(2020, 2, 1, 10, 49, 42, 149, DateTimeKind.Local).AddTicks(5901),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(9015),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(9022),
                             DefaultValue = "true",
                             Description = "Test will continue even if a command will fail.",
                             IsActive = true,
@@ -138,8 +138,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 1, 10, 49, 42, 148, DateTimeKind.Local).AddTicks(4335),
-                            DateModified = new DateTime(2020, 2, 1, 10, 49, 42, 148, DateTimeKind.Local).AddTicks(4752),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 873, DateTimeKind.Local).AddTicks(3309),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 873, DateTimeKind.Local).AddTicks(3884),
                             Domain = "google.com",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -149,8 +149,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 1, 10, 49, 42, 148, DateTimeKind.Local).AddTicks(5364),
-                            DateModified = new DateTime(2020, 2, 1, 10, 49, 42, 148, DateTimeKind.Local).AddTicks(5381),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 873, DateTimeKind.Local).AddTicks(4743),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 873, DateTimeKind.Local).AddTicks(4773),
                             Domain = "google.pl",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -203,8 +203,8 @@ namespace TC.DataAccess.Migrations
                             Id = 1,
                             ConfigProjectTestId = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 1, 10, 49, 42, 149, DateTimeKind.Local).AddTicks(9370),
-                            DateModified = new DateTime(2020, 2, 1, 10, 49, 42, 149, DateTimeKind.Local).AddTicks(9779),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 875, DateTimeKind.Local).AddTicks(3151),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 875, DateTimeKind.Local).AddTicks(3697),
                             IsActive = true,
                             ModifiedBy = "system",
                             ProjectId = 1,
@@ -249,8 +249,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 1, 10, 49, 42, 148, DateTimeKind.Local).AddTicks(377),
-                            DateModified = new DateTime(2020, 2, 1, 10, 49, 42, 148, DateTimeKind.Local).AddTicks(829),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 872, DateTimeKind.Local).AddTicks(8278),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 872, DateTimeKind.Local).AddTicks(8887),
                             Description = "",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -333,8 +333,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 1, 10, 49, 42, 149, DateTimeKind.Local).AddTicks(555),
-                            DateModified = new DateTime(2020, 2, 1, 10, 49, 42, 149, DateTimeKind.Local).AddTicks(970),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(1593),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 874, DateTimeKind.Local).AddTicks(2160),
                             Description = "Using google search find c# tutorial",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -411,8 +411,7 @@ namespace TC.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TestInfoId")
-                        .IsUnique();
+                    b.HasIndex("TestInfoId");
 
                     b.ToTable("TestRunHistory","test");
                 });
@@ -448,7 +447,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("RunTime")
                         .HasColumnType("int");
 
-                    b.Property<int>("ScreenshotId")
+                    b.Property<int?>("ScreenshotId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TestRunHistoryId")
@@ -456,8 +455,7 @@ namespace TC.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ScreenshotId")
-                        .IsUnique();
+                    b.HasIndex("ScreenshotId");
 
                     b.HasIndex("TestRunHistoryId");
 
@@ -498,8 +496,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 1, 10, 49, 42, 143, DateTimeKind.Local).AddTicks(5857),
-                            DateModified = new DateTime(2020, 2, 1, 10, 49, 42, 146, DateTimeKind.Local).AddTicks(6479),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 868, DateTimeKind.Local).AddTicks(1660),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(8486),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Pending"
@@ -508,8 +506,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 1, 10, 49, 42, 146, DateTimeKind.Local).AddTicks(7021),
-                            DateModified = new DateTime(2020, 2, 1, 10, 49, 42, 146, DateTimeKind.Local).AddTicks(7041),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(9261),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(9290),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Accepted"
@@ -518,8 +516,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 1, 10, 49, 42, 146, DateTimeKind.Local).AddTicks(7049),
-                            DateModified = new DateTime(2020, 2, 1, 10, 49, 42, 146, DateTimeKind.Local).AddTicks(7052),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(9305),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(9309),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Rejected"
@@ -528,8 +526,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 4,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 1, 10, 49, 42, 146, DateTimeKind.Local).AddTicks(7054),
-                            DateModified = new DateTime(2020, 2, 1, 10, 49, 42, 146, DateTimeKind.Local).AddTicks(7056),
+                            DateAdded = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(9313),
+                            DateModified = new DateTime(2020, 2, 7, 9, 20, 57, 870, DateTimeKind.Local).AddTicks(9317),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Deleted"
@@ -712,8 +710,8 @@ namespace TC.DataAccess.Migrations
             modelBuilder.Entity("TC.Entity.Entities.TestRunHistory", b =>
                 {
                     b.HasOne("TC.Entity.Entities.TestInfo", "TestInfo")
-                        .WithOne("TestRunHistory")
-                        .HasForeignKey("TC.Entity.Entities.TestRunHistory", "TestInfoId")
+                        .WithMany("TestRunHistory")
+                        .HasForeignKey("TestInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -721,10 +719,8 @@ namespace TC.DataAccess.Migrations
             modelBuilder.Entity("TC.Entity.Entities.TestRunResult", b =>
                 {
                     b.HasOne("TC.Entity.Entities.Screenshot", "Screenshot")
-                        .WithOne("TestRunResult")
-                        .HasForeignKey("TC.Entity.Entities.TestRunResult", "ScreenshotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ScreenshotId");
 
                     b.HasOne("TC.Entity.Entities.TestRunHistory", null)
                         .WithMany("TestRunResults")

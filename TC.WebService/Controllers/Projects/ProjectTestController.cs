@@ -47,6 +47,7 @@ namespace TC.WebService.Controllers
         public async Task<List<TestInfoViewModel>> Get()
         {
             var user = GetUser();
+           
             var projects = _projectRepository.GetProjectsByUser(user.Guid.ToString());
             var testInfos = await _testInfoRepository.GetUsersTestInfo(projects.Select(x => x.Id).ToList());
 
