@@ -230,6 +230,25 @@ namespace TC.WebService.Controllers.Projects
                 UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList()
             };
         }
+
+        private ProjectDetailsViewModel GetProjectDetailsViewModel(Entity.Entities.Projects.Project project)
+        {
+            return new ProjectDetailsViewModel()
+            {
+                Id = project.Id,
+                Name = project.Name,
+                Description = project.Description,
+                ProjectDomain = project.ProjectDomains == null ? null : project.ProjectDomains.Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList(),
+                UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList(),
+                DateModified = project.DateModified,
+                ModifiedBy = project.ModifiedBy,
+                LastTestRunDate = project.TestInfos.OrderByDescending(x => x.DateModified)
+                    .Select(x => x.DateAdded)
+                    .DefaultIfEmpty(Convert.ToDateTime("1/1/1900"))
+                    .FirstOrDefault()
+            };
+        }
+
         private string GetDomain(string domainInput)
         {
 
@@ -278,6 +297,14 @@ namespace TC.WebService.Controllers.Projects
         {
             string guid = GetUserGuid();
             return Ok(_projectRepository.GetProjectsByUser(guid).Select(x => GetProjectViewModel(x)));
+        }
+
+        [HttpGet]
+        [Route("getProjectDetails")]
+        public IActionResult GetProjectDetails(int id)
+        {
+            string guid = GetUserGuid();
+            return Ok(_projectRepository.GetProjectsByUser(guid).Select(x => GetProjectDetailsViewModel(x)).ToList());
         }
     }
 }
