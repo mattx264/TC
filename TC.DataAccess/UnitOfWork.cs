@@ -15,7 +15,6 @@ namespace TC.DataAccess
         }
         public int SaveChanges()
         {
-
             return _context.SaveChanges(this); ;
         }
     }

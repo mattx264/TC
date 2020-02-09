@@ -63,19 +63,21 @@ namespace TC.WebService.Controllers.Projects
         [HttpPost]
         public IActionResult Post(ProjectCreateViewModel viewModel)
         {
+            string guid = GetUserGuid();
+            var currnetUser = _userRepository.GetByGuid(guid);
+            var users = new List<UserInProject>();
 
-            var currnetUser = GetUser();
-            
+            #region Domain Information
             var domains = new List<ProjectDomain>();
+
             foreach (var domain in viewModel.Domains.Split(","))
             {
                 try
                 {
-                    string host = _utilHelper.GetDomain(domain);
+                    var host = _utilHelper.GetDomain(domain.Trim());
                     if (host == null)
-                    {
-                        return BadRequest($"Missing or Incorrect Domain Name: { domain}");
-                    }
+                        return BadRequest($"Missing or Incorrect Domain Name: {domain.Trim()}");
+
                     domains.Add(new ProjectDomain
                     {
                         Domain = host
@@ -87,15 +89,18 @@ namespace TC.WebService.Controllers.Projects
                 }
 
             }
-            var users = new List<UserInProject>();
+            #endregion
 
+
+            #region User Email
             foreach (var email in viewModel.UsersEmail)
             {
                 if (string.IsNullOrEmpty(email))
                 {
                     continue;
                 }
-                UserModel user = _userRepository.GetByEmail(email);
+
+                var user = _userRepository.GetByEmail(email);
                 if (user == null)
                 {
                     var password = Guid.NewGuid().ToString();
@@ -107,19 +112,24 @@ namespace TC.WebService.Controllers.Projects
                         Guid = System.Guid.NewGuid(),
                         Name = viewModel.Name,
                     });
+                    
                     _unitOfWork.SaveChanges();
+                    
                     user = _userRepository.GetByEmail(email);
                 }
-                users.Add(new UserInProject
-                {
-                    UserModelId = user.Id,
-                    UserProjectStatusId = 1
-                });
 
+                if(users.FirstOrDefault(x => x.UserModelId == user.Id) == null)
+                {
+                    users.Add(new UserInProject
+                    {
+                        UserModelId = user.Id,
+                        UserProjectStatusId = 1
+                    });
+                }   
             }
 
             // check is current user is in list if not added
-            if (users.FirstOrDefault(x => x.Id == currnetUser.Id) == null)
+            if (users.FirstOrDefault(x => x.UserModelId == currnetUser.Id) == null)
             {
                 users.Add(new UserInProject
                 {
@@ -127,6 +137,7 @@ namespace TC.WebService.Controllers.Projects
                     UserProjectStatusId = 2
                 });
             }
+            #endregion
 
             _projectRepository.Create(new Entity.Entities.Projects.Project()
             {
@@ -135,31 +146,57 @@ namespace TC.WebService.Controllers.Projects
                 ProjectDomains = domains,
                 UserInProject = users
             });
+
             _unitOfWork.SaveChanges();
             return Ok();
         }
+
+
+
+
         [HttpPut]
         public IActionResult Put(ProjectCreateViewModel viewModel)
         {
+            #region User Information
             var currnetUser = GetUser();
             if (viewModel.Id == null)
             {
                 return BadRequest("Project id has to be set");
             }
             var project = _projectRepository.FindById(viewModel.Id.Value);
+            
             var userInProject = project.UserInProject.FirstOrDefault(x => x.UserModelId == currnetUser.Id);
             if (userInProject == null)
             {
                 return BadRequest("User is not part of project");
             }
+            var users = new List<UserInProject>() { userInProject };
+            #endregion
 
-            var domainsToCheck = new List<string>();
-            foreach (var domain in viewModel.Domains.Split(","))
+            #region Domain Information
+            var proposedDomains = new List<string>(viewModel.Domains.Split(","));
+
+            try
             {
-                try
+                // Remove existing domains
+                project.ProjectDomains.Where(x => x.IsActive).ToList().ForEach(existingDomain =>
                 {
-                    string host = _utilHelper.GetDomain(domain);
-                    domainsToCheck.Add(host);
+                    if (proposedDomains.FirstOrDefault(
+                        pd => _utilHelper.GetDomain(pd.Trim())
+                                        .Equals(existingDomain.Domain.Trim(), 
+                                                StringComparison.OrdinalIgnoreCase)) == null)
+                    {
+                        existingDomain.IsActive = false;
+                        existingDomain.DateModified = DateTime.Now;
+                        existingDomain.ModifiedBy = currnetUser.Email;
+                    }
+                });
+
+                // Adding new domains
+                proposedDomains.ForEach(x =>
+                {
+                    var host = _utilHelper.GetDomain(x.Trim());
+
                     if (project.ProjectDomains.FirstOrDefault(x => x.Domain == host) == null)
                     {
                         project.ProjectDomains.Add(new ProjectDomain
@@ -167,22 +204,38 @@ namespace TC.WebService.Controllers.Projects
                             Domain = host
                         });
                     }
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
+            });
             }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            #endregion
 
-            var users = new List<UserInProject>();
+            #region User Emails
+            // Remove users no longer part of project
+            project.UserInProject.Where(x => x.IsActive).ToList().ForEach(existingUsers =>
+            {
+                if (viewModel.UsersEmail.FirstOrDefault(
+                        userEmail => userEmail.Equals(existingUsers.UserModel.Email,
+                                                StringComparison.OrdinalIgnoreCase)) == null)
+                {
+                    existingUsers.IsActive = false;
+                    existingUsers.DateModified = DateTime.Now;
+                    existingUsers.ModifiedBy = currnetUser.Email;
+                }
+            });
 
+
+            // Add new users
             viewModel.UsersEmail
-                .Where(x => string.IsNullOrEmpty(x))
+                .Where(x => !string.IsNullOrEmpty(x))
                 .ToList()
                 .ForEach(email =>
                 {
                     var user = _userRepository.GetByEmail(email);
 
+                    // Add new users
                     if (user == null)
                     {
                         var password = System.Guid.NewGuid().ToString();
@@ -196,29 +249,39 @@ namespace TC.WebService.Controllers.Projects
                             Name = viewModel.Name,
                         });
 
-                        _unitOfWork.SaveChanges();
                         user = _userRepository.GetByEmail(email);
                     }
 
-                    users.Add(new UserInProject
+                    var usersInProject = project.UserInProject.Where(x => x.UserModel.Email.Equals(user.Email, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+                    if (usersInProject == null)
                     {
-                        UserModelId = user.Id
-                    });
+                        project.UserInProject.Add(new UserInProject
+                        {
+                            UserModelId = user.Id
+                        });
+                    } 
+                    else if (usersInProject.IsActive == false)
+                    {
+                        usersInProject.IsActive = true;
+                        usersInProject.DateModified = DateTime.Now;
+                        usersInProject.ModifiedBy = currnetUser.Email;
+                    }
                 });
+            #endregion
 
-            // check is current user is in list if not added
-            if (users.FirstOrDefault(x => x.Id == currnetUser.Id) == null)
-            {
-                users.Add(new UserInProject
-                {
-                    UserModelId = currnetUser.Id
-                });
-            }
+            project.Name = viewModel.Name;
+            project.Description = viewModel.Description;
 
+
+            _projectRepository.Update(project);
             _unitOfWork.SaveChanges();
 
             return Ok();
         }
+
+
+
         private ProjectViewModel GetProjectViewModel(Entity.Entities.Projects.Project project)
         {
             return new ProjectViewModel()
@@ -226,8 +289,8 @@ namespace TC.WebService.Controllers.Projects
                 Id = project.Id,
                 Name = project.Name,
                 Description = project.Description,
-                ProjectDomain = project.ProjectDomains == null ? null : project.ProjectDomains.Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList(),
-                UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList()
+                ProjectDomain = project.ProjectDomains == null ? null : project.ProjectDomains.Where(x => x.IsActive).Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList(),
+                UserInProject = project.UserInProject == null ? null : project.UserInProject.Where(x => x.IsActive).Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList()
             };
         }
 
@@ -238,11 +301,11 @@ namespace TC.WebService.Controllers.Projects
                 Id = project.Id,
                 Name = project.Name,
                 Description = project.Description,
-                ProjectDomain = project.ProjectDomains == null ? null : project.ProjectDomains.Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList(),
-                UserInProject = project.UserInProject == null ? null : project.UserInProject.Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList(),
+                ProjectDomain = project.ProjectDomains == null ? null : project.ProjectDomains.Where(x => x.IsActive).Select(x => new ProjectDomainViewModel { Domain = x.Domain }).ToList(),
+                UserInProject = project.UserInProject == null ? null : project.UserInProject.Where(x => x.IsActive).Select(x => new UserInProjectViewModel { UserEmail = x.UserModel.Email, Status = x.UserProjectStatus.Name }).ToList(),
                 DateModified = project.DateModified,
                 ModifiedBy = project.ModifiedBy,
-                LastTestRunDate = project.TestInfos.OrderByDescending(x => x.DateModified)
+                LastTestRunDate = project.TestInfos.Where(x => x.IsActive).OrderByDescending(x => x.DateModified)
                     .Select(x => x.DateAdded)
                     .DefaultIfEmpty(Convert.ToDateTime("1/1/1900"))
                     .FirstOrDefault()
