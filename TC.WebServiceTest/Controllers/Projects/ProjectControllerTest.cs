@@ -168,6 +168,7 @@ namespace TC.WebServiceTest.Controllers
             var utilHelper = new Mock<IUtilHelper>();
 
             bool isFirstTimte = true;
+
             userRepository.Setup(x => x.GetByEmail(userEmail)).Returns(() =>
             {
                 if (isFirstTimte)
@@ -178,6 +179,7 @@ namespace TC.WebServiceTest.Controllers
                 }
                 return new UserModel() { Id = 2 };
             });
+            userRepository.Setup(x => x.GetByGuid(It.IsAny<string>())).Returns(new Mock<UserModel>().Object);
             userHelper.Setup(x => x.GetUser(It.IsAny<ClaimsPrincipal>())).Returns(() => new UserModel() { Id = 1 });
 
             return new ProjectController(projectRepositoryMock.Object, userHelper.Object, unitOfWork.Object, userRepository.Object, new UtilHelper());

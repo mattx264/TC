@@ -162,6 +162,10 @@ namespace TC.WebService
                 // Enable middleware to serve generated Swagger as a JSON endpoint.
                 app.UseSwagger();
                 app.UseDeveloperExceptionPage();
+                using (var scope =
+                    app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                using (var context = scope.ServiceProvider.GetService<TestingCenterDbContext>())
+                    context.Database.Migrate();
             }
             else
             {
