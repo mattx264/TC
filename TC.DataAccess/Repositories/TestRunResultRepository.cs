@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TC.DataAccess.DatabaseContext;
 using TC.DataAccess.Repositories.Interfaces;
@@ -11,6 +12,10 @@ namespace TC.DataAccess.Repositories
     {
         public TestRunResultRepository(TestingCenterDbContext context) : base(context)
         {
+        }
+        public IList<TestRunResult> GetByTestHistoryId(int testHistoryId)
+        {
+            return FindAll().Where(x => x.TestRunHistoryId == testHistoryId).ToList();
         }
     }
 }

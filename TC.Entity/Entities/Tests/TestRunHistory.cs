@@ -10,7 +10,9 @@ namespace TC.Entity.Entities
     {
         public int Id { get; set; }
         public int TestInfoId { get; set; }
-        public virtual TestInfo TestInfo { get; set; }
+        public string SelectedBrowserEngine { get; set; }
+        public string Configuration { get; set; }
+        public virtual TestInfo TestInfo { get; set; }       
         public virtual IList<TestRunResult> TestRunResults { get; set; }
         public bool IsActive { get; set; }
         public string CreatedBy { get; set; }

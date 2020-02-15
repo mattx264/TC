@@ -5,8 +5,8 @@ using TC.Entity.Entities;
 
 namespace TC.DataAccess.Repositories.Interfaces
 {
-    public interface ITestRunResultRepository : IRepositoryBase<TestRunResult>
+    public interface ITestRunHistoryRepository : IRepositoryBase<TestRunHistory>
     {
-        IList<TestRunResult> GetByTestHistoryId(int testHistoryId);
+
     }
 }
