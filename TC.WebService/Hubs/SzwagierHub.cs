@@ -142,11 +142,19 @@ namespace TC.WebService.Hubs
         }
         private string getCacheKey()
         {
-            if (Context.User.Claims.First(x => x.Type == "Guid") == null)
+            try
             {
+                if (Context.User.Claims.First(x => x.Type == "Guid") == null)
+                {
+                    return null;
+                }
+                return szwagierListKey + Context.User.Claims.First(x => x.Type == "Guid").Value;
+            }
+            catch (Exception)
+            {
+                //TODO log this error
                 return null;
             }
-            return szwagierListKey + Context.User.Claims.First(x => x.Type == "Guid").Value;
         }
     }
 }

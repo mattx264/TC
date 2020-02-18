@@ -112,20 +112,20 @@ namespace TC.WebService.Controllers.Projects
                         Guid = System.Guid.NewGuid(),
                         Name = viewModel.Name,
                     });
-                    
+
                     _unitOfWork.SaveChanges();
-                    
+
                     user = _userRepository.GetByEmail(email);
                 }
 
-                if(users.FirstOrDefault(x => x.UserModelId == user.Id) == null)
+                if (users.FirstOrDefault(x => x.UserModelId == user.Id) == null)
                 {
                     users.Add(new UserInProject
                     {
                         UserModelId = user.Id,
                         UserProjectStatusId = 1
                     });
-                }   
+                }
             }
 
             // check is current user is in list if not added
@@ -164,7 +164,7 @@ namespace TC.WebService.Controllers.Projects
                 return BadRequest("Project id has to be set");
             }
             var project = _projectRepository.FindById(viewModel.Id.Value);
-            
+
             var userInProject = project.UserInProject.FirstOrDefault(x => x.UserModelId == currnetUser.Id);
             if (userInProject == null)
             {
@@ -183,7 +183,7 @@ namespace TC.WebService.Controllers.Projects
                 {
                     if (proposedDomains.FirstOrDefault(
                         pd => _utilHelper.GetDomain(pd.Trim())
-                                        .Equals(existingDomain.Domain.Trim(), 
+                                        .Equals(existingDomain.Domain.Trim(),
                                                 StringComparison.OrdinalIgnoreCase)) == null)
                     {
                         existingDomain.IsActive = false;
@@ -204,7 +204,7 @@ namespace TC.WebService.Controllers.Projects
                             Domain = host
                         });
                     }
-            });
+                });
             }
             catch (Exception ex)
             {
@@ -251,21 +251,24 @@ namespace TC.WebService.Controllers.Projects
 
                         user = _userRepository.GetByEmail(email);
                     }
-
-                    var usersInProject = project.UserInProject.Where(x => x.UserModel.Email.Equals(user.Email, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
-
-                    if (usersInProject == null)
+                    else
                     {
-                        project.UserInProject.Add(new UserInProject
+                        var usersInProject = project.UserInProject.Where(x => x.UserModel.Email.Equals(user.Email, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+                        if (usersInProject == null)
                         {
-                            UserModelId = user.Id
-                        });
-                    } 
-                    else if (usersInProject.IsActive == false)
-                    {
-                        usersInProject.IsActive = true;
-                        usersInProject.DateModified = DateTime.Now;
-                        usersInProject.ModifiedBy = currnetUser.Email;
+                            project.UserInProject.Add(new UserInProject
+                            {
+                                UserModelId = user.Id,
+                                UserProjectStatusId = 2
+                            });
+                        }
+                        else if (usersInProject.IsActive == false)
+                        {
+                            usersInProject.IsActive = true;
+                            usersInProject.DateModified = DateTime.Now;
+                            usersInProject.ModifiedBy = currnetUser.Email;
+                        }
                     }
                 });
             #endregion
