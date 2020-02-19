@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 using TC.Common.DTO;
 using TC.Entity.Entities;
@@ -27,7 +28,9 @@ namespace TC.WebService.Hubs
 
                 TestRunHistory testRunHistory = new TestRunHistory()
                 {
-                    TestInfoId = message.TestInfoId.Value
+                    TestInfoId = message.TestInfoId.Value,
+                    SelectedBrowserEngine = message.ReceiverConnectionId,
+                    Configuration = JsonSerializer.Serialize(message.Configurations)
                 };
                 _testRunHistoryRepository.Create(testRunHistory);
                 _unitOfWork.SaveChanges();

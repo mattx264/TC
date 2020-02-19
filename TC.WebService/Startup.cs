@@ -142,12 +142,13 @@ namespace TC.WebService
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IFileManager, FileManager>();
             services.AddTransient<IFileStorageService, FileStorageService>();
-            services.AddScoped<TestInfoRepository>();
+            services.AddScoped<ITestInfoRepository,TestInfoRepository>();
             services.AddScoped<ITestRunHistoryRepository, TestRunHistoryRepository>();
             services.AddScoped<IUtilHelper, UtilHelper>();
             services.AddScoped<IConfigProjectTestRepository, ConfigProjectTestRepository>();
             services.AddScoped<IProjectTestConfigRepository, ProjectTestConfigRepository>();
             services.AddScoped<ITestRunResultRepository, TestRunResultRepository>();
+            services.AddScoped<ITestInfoConfigRepository, TestInfoConfigRepository>();
             
             services.AddSwaggerGen(c =>
             {

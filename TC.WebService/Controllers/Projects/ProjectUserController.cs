@@ -16,11 +16,11 @@ namespace TC.WebService.Controllers
     [ApiController]
     public class ProjectUserController : AuthBaseController
     {
-        private ProjectRepository _projectRepository;
+        private IProjectRepository _projectRepository;
         private IUserRepository _userRepository;
         private IUnitOfWork _unitOfWork;
 
-        public ProjectUserController(ProjectRepository projectRepository, IUserRepository userRepository, IUnitOfWork unitOfWork, IUserHelper userHelper)
+        public ProjectUserController(IProjectRepository projectRepository, IUserRepository userRepository, IUnitOfWork unitOfWork, IUserHelper userHelper)
             : base(userHelper)
         {
             _projectRepository = projectRepository;

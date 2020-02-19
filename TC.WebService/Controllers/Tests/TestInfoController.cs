@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TC.DataAccess;
-using TC.DataAccess.Repositories;
+using TC.DataAccess.Repositories.Interfaces;
 using TC.WebService.ViewModels;
 
 namespace TC.WebService.Controllers
@@ -14,10 +9,10 @@ namespace TC.WebService.Controllers
     [ApiController]
     public class TestInfoController : ControllerBase
     {
-        private TestInfoRepository _testInfoRepository;
+        private ITestInfoRepository _testInfoRepository;
         private IUnitOfWork _unitOfWork;
 
-        public TestInfoController(TestInfoRepository testInfoRepository, IUnitOfWork unitOfWork)
+        public TestInfoController(ITestInfoRepository testInfoRepository, IUnitOfWork unitOfWork)
         {
             _testInfoRepository = testInfoRepository;
             _unitOfWork = unitOfWork;
@@ -26,7 +21,7 @@ namespace TC.WebService.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-           var testInfo= _testInfoRepository.FindById(id);
+            var testInfo = _testInfoRepository.FindById(id);
             return Ok(new TestInfoViewModel()
             {
                 Commands = testInfo.SeleniumCommands,
@@ -45,7 +40,7 @@ namespace TC.WebService.Controllers
             testInfo.Name = viewModel.Name;
             _unitOfWork.SaveChanges();
             return Ok();
-         
+
         }
     }
 }
