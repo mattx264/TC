@@ -32,7 +32,7 @@ namespace TC.WebService.Controllers
                 .Select(x =>  new ConfigProjectTestViewModel(x))
                 .ToList();
             return Ok(result);
-        }
+        }        
         #endregion
     }
 }

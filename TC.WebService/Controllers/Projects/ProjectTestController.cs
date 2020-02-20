@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TC.DataAccess;
 using TC.DataAccess.Repositories;
+using TC.DataAccess.Repositories.Interfaces;
 using TC.Entity.Entities;
 using TC.WebService.Helpers;
 using TC.WebService.ViewModels;
@@ -18,10 +19,10 @@ namespace TC.WebService.Controllers
     public class ProjectTestController : AuthBaseController
     {
         private IProjectRepository _projectRepository;
-        private TestInfoRepository _testInfoRepository;
+        private ITestInfoRepository _testInfoRepository;
         private IUnitOfWork _unitOfWork;
 
-        public ProjectTestController(TestInfoRepository testInfoRepository, IProjectRepository projectRepository, IUnitOfWork unitOfWork, IUserHelper userHelper)
+        public ProjectTestController(ITestInfoRepository testInfoRepository, IProjectRepository projectRepository, IUnitOfWork unitOfWork, IUserHelper userHelper)
             : base(userHelper)
         {
             _projectRepository = projectRepository;

@@ -27,7 +27,7 @@ namespace TC.DataAccess.Repositories
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            return this.context.Set<T>().Where(expression);
+            return this.context.Set<T>().Where(x => x.IsActive).Where(expression);
         }
 
         public void Create(T entity)

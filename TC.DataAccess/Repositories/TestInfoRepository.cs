@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TC.DataAccess.DatabaseContext;
+using TC.DataAccess.Repositories.Interfaces;
 using TC.Entity.Entities;
 
 namespace TC.DataAccess.Repositories
 {
-    public class TestInfoRepository : RepositoryBase<TestInfo>
+    public class TestInfoRepository : RepositoryBase<TestInfo> , ITestInfoRepository
     {
         public TestInfoRepository(TestingCenterDbContext context) : base(context)
         {
