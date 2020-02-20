@@ -9,8 +9,8 @@ namespace TC.Common.DTO
         public int Id { get; set; }
         public int ConfigProjectTestId { get; set; }
         public int ProjectId { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public string value { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Value { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace TC.WebService.Hubs
         public async Task SendCommand(CommandMessage message)
         {
             // TODO check if sender can make call to reciver (browser engine)
-            // TODO add to testHistory
+          
             try
             {
 
