@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using System;
+using System.Linq;
 using TC.BrowserEngine.Helpers;
 using TC.BrowserEngine.Selenium.Commands;
 using TC.BrowserEngine.Services;
@@ -73,17 +74,7 @@ namespace TC.BrowserEngine.Selenium
                     if (command.WebDriverOperationType == WebDriverOperationType.BrowserOperation
                         && command.OperationId == (int)BrowserOperationEnum.GetScreenshot)
                     {
-
-                        var screenshot = new BrowserOperation(_driver).GetScreenshot();
-                        ITestProgress testProgressImage = new ScreenshotTestProgress()
-                        {
-                            senderConnectionId = commandMessage.SenderConnectionId,
-                            command = command,
-                            IsSuccesfull = true,
-                            Screenshot = screenshot,
-                            TestRunHistoryId=commandMessage.TestRunHistoryId.Value
-                        };
-                        _testProgressEmitter.ScreenshotComplete(testProgressImage);
+                        TakeScreenshot(commandMessage, command);
                     }
                     else
                     {
@@ -96,6 +87,11 @@ namespace TC.BrowserEngine.Selenium
                         }
                         testProgress.IsSuccesfull = true;
                         _testProgressEmitter.CommandComplete(testProgress);
+                        var config = commandMessage.Configurations.FirstOrDefault(x => x.Id == 1);
+                        if (config?.Value == "true")//Take Screenshot After Every Command
+                        {
+                            TakeScreenshot(commandMessage, command);
+                        }
                     }
 
 
@@ -111,7 +107,19 @@ namespace TC.BrowserEngine.Selenium
             }
             // _driver.Close();
         }
-
+        private void TakeScreenshot(CommandMessage commandMessage, SeleniumCommand command)
+        {
+            var screenshot = new BrowserOperation(_driver).GetScreenshot();
+            ITestProgress testProgressImage = new ScreenshotTestProgress()
+            {
+                senderConnectionId = commandMessage.SenderConnectionId,
+                command = command,
+                IsSuccesfull = true,
+                Screenshot = screenshot,
+                TestRunHistoryId = commandMessage.TestRunHistoryId.Value
+            };
+            _testProgressEmitter.ScreenshotComplete(testProgressImage);
+        }
         private IWebElement RunCommand(SeleniumCommand command)
         {
             if (_driver == null)

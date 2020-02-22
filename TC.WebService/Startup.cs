@@ -149,6 +149,7 @@ namespace TC.WebService
             services.AddScoped<IProjectTestConfigRepository, ProjectTestConfigRepository>();
             services.AddScoped<ITestRunResultRepository, TestRunResultRepository>();
             services.AddScoped<ITestInfoConfigRepository, TestInfoConfigRepository>();
+            services.AddScoped<IScreenshotRepository, ScreenshotRepository>();
             
             services.AddSwaggerGen(c =>
             {
