@@ -160,21 +160,6 @@ namespace TC.BrowserEngine.Selenium
         public string GetPageSource()
         {
             return _driver.PageSource;
-        }
-
-        public static void WaitForAjax(IWebDriver driver, String action)
-        {
-            // driver.Manage().Timeouts().ImplicitWaitsetScriptTimeout(5, TimeUnit.SECONDS);
-            ((IJavaScriptExecutor)driver).ExecuteAsyncScript(
-                    "var callback = arguments[arguments.length - 1];" +
-                            "var xhr = new XMLHttpRequest();" +
-                            "xhr.open('POST', '/" + action + "', true);" +
-                            "xhr.onreadystatechange = function() {" +
-                            "  if (xhr.readyState == 4) {" +
-                            "    callback(xhr.responseText);" +
-                            "  }" +
-                            "};" +
-                            "xhr.send();");
-        }
+        }       
     }
 }

@@ -143,13 +143,13 @@ namespace TC.BrowserEngine.Services
         {
             if(value is TestProgress)
             {
-                _sendTestProgressDelegate(value.senderConnectionId, value.command.Guid,value.TestRunHistoryId);
+                _sendTestProgressDelegate(value);
                 return; 
             }
             else if(value is ScreenshotTestProgress)
             {
                 ScreenshotTestProgress screenshot= value as ScreenshotTestProgress;
-                _sendTestProgressImageDelegate(value.senderConnectionId, value.command.Guid, screenshot.Screenshot);
+                _sendTestProgressImageDelegate(screenshot);
                 return;
             }
            

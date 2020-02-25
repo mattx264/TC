@@ -14,8 +14,8 @@ using TC.WebService.Helpers;
 
 namespace TC.BrowserEngine.Signal
 {
-    public delegate void SendTestProgressDelegate(string senderConnectionId, string commandTestGuid,int testRunHistoryId);
-    public delegate void SendTestProgressImageDelegate(string senderConnectionId, string commandTestGuid,Screenshot screenshot);
+    public delegate void SendTestProgressDelegate(ITestProgress testProgress);
+    public delegate void SendTestProgressImageDelegate(ScreenshotTestProgress testProgress);
 
     public class BrowserControllerPlug : SignalClientBase
     {
@@ -60,19 +60,21 @@ namespace TC.BrowserEngine.Signal
                 _connection.InvokeAsync("SendError", ex);
             }
         }
-        public void SendTestProgress(string senderConnectionId, string commandTestGuid,int testRunHistoryId)
+        public void SendTestProgress(ITestProgress testProgress)
         {
             _connection.SendAsync("TestProgress",new TestProgressMessage()
             {
-                IsSuccesful=true,
-                CommandTestGuid= commandTestGuid,
-                SenderConnectionId =senderConnectionId,
-                TestRunHistoryId=testRunHistoryId
+                IsSuccesful= testProgress.IsSuccesfull,
+                CommandTestGuid= testProgress.command.Guid,
+                SenderConnectionId = testProgress.senderConnectionId,
+                TestRunHistoryId= testProgress.TestRunHistoryId,
+                Message= testProgress.Message
             });
         }
-        public void SendTestProgressScreenshot(string senderConnectionId, string commandTestGuid,Screenshot screenshot)
+        public void SendTestProgressScreenshot(ScreenshotTestProgress testProgress)
         {
-            FileUploadService.UploadScreenshotAsync(screenshot.AsByteArray, senderConnectionId, commandTestGuid);
+           
+            FileUploadService.UploadScreenshotAsync(testProgress.Screenshot.AsByteArray, testProgress.senderConnectionId, testProgress.command.Guid);
         }
         public void ReciveTriggerTest(int testId, CommandMessage commandMessage)
         {

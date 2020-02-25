@@ -16,6 +16,7 @@ using TC.WebService.Controllers;
 using TC.WebService.Controllers.Projects;
 using TC.WebService.Helpers;
 using TC.WebService.ViewModels;
+using TC.WebService.ViewModels.Projects;
 using Xunit;
 
 namespace TC.WebServiceTest.Controllers

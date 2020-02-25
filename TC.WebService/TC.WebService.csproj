@@ -46,6 +46,12 @@
     <None Update="ViewModels\typescripts\LoginModelViewModel.ts">
       <CustomToolNamespace>ViewModels\Users\LoginModelViewModel.cs</CustomToolNamespace>
     </None>
+    <None Update="ViewModels\typescripts\ProjectCreateViewModel.ts">
+      <CustomToolNamespace>ViewModels\Projects\ProjectCreateViewModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ViewModels\typescripts\ProjectDetailsViewModel.ts">
+      <CustomToolNamespace>ViewModels\Projects\ProjectDetailsViewModel.cs</CustomToolNamespace>
+    </None>
     <None Update="ViewModels\typescripts\ProjectDomainViewModel.ts">
       <CustomToolNamespace>ViewModels\Projects\ProjectDomainViewModel.cs</CustomToolNamespace>
     </None>

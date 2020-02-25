@@ -11,6 +11,8 @@ using TC.Entity.Entities;
 using TC.WebService.Helpers;
 using TC.WebService.ViewModels;
 using TC.Entity.Entities.Projects;
+using TC.WebService.ViewModels.Projects;
+
 namespace TC.WebService.Controllers.Projects
 {
     [Route("api/[controller]")]

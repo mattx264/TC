@@ -13,9 +13,9 @@ namespace TC.BrowserEngine.Helpers
 
             while (counter < 100)
             {
-                var driverResponse = ((IJavaScriptExecutor)_driver).ExecuteScript(JavaScript.JavaScript.CheckIfAllXhrCallsDone()).ToString();
-
-                if (driverResponse == "True")
+                var script = JavaScript.JavaScript.CheckIfAllXhrCallsDone();
+                var driverResponse = ((IJavaScriptExecutor)_driver).ExecuteScript(script);
+                if (driverResponse != null && driverResponse.ToString() == "True")
                 {
                     return true;
                 }
