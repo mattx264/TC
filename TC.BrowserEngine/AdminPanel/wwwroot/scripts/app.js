@@ -23,7 +23,7 @@
       }, function (error) {        
       });
     } 
-  }).controller('loginCtrl', function ($scope, $http) {
+  }).controller('loginCtrl', function ($scope, $http, $location) {
     $scope.submit = function () {
       var data = {
         email: $scope.email,
