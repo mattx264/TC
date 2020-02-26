@@ -10,7 +10,7 @@ namespace TC.BrowserEngine.Helpers
         public static bool CheckUntilAllXhrsCallsAreDone(IWebDriver _driver)
         {
             var counter = 0;
-
+            System.Threading.Thread.Sleep(3000);
             while (counter < 100)
             {
                 var script = JavaScript.JavaScript.CheckIfAllXhrCallsDone();

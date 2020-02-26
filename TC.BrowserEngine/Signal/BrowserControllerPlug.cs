@@ -73,8 +73,9 @@ namespace TC.BrowserEngine.Signal
         }
         public void SendTestProgressScreenshot(ScreenshotTestProgress testProgress)
         {
-           
-            FileUploadService.UploadScreenshotAsync(testProgress.Screenshot.AsByteArray, testProgress.senderConnectionId, testProgress.command.Guid);
+            FileUploadService.UploadScreenshotAsync(testProgress);
+
+            //FileUploadService.UploadScreenshotAsync(testProgress.Screenshot.AsByteArray, testProgress.senderConnectionId, testProgress.command.Guid);
         }
         public void ReciveTriggerTest(int testId, CommandMessage commandMessage)
         {
