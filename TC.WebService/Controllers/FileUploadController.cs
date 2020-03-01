@@ -46,27 +46,28 @@ namespace TC.WebService.Controllers
 
                 string filePath = await _fileManager.SaveFile(file);
                 string commandTestGuid = Request.Form["guid"];
-                int testRunHistoryId = int.Parse(Request.Form["testRunHistoryId"]);
-                
-                if (String.IsNullOrEmpty(commandTestGuid))
+                var testRunHistoryIdValue= Request.Form["testRunHistoryId"];
+                if (!String.IsNullOrWhiteSpace(testRunHistoryIdValue))
                 {
-                    throw new Exception($"CommandTestGuid is invalid :{commandTestGuid}");
+                    int testRunHistoryId = int.Parse(testRunHistoryIdValue);
+
+                    var testRunResult = _testRunResultRepository.FindByCondition(x => x.CommandTestGuid == commandTestGuid && x.TestRunHistoryId == testRunHistoryId).FirstOrDefault();
+                    if (testRunResult == null)
+                    {
+                        throw new Exception($"TestRunResult is not found for commandTestGuid:{commandTestGuid}");
+                    }
+
+                    var screenshot = new Screenshot()
+                    {
+                        Path = filePath
+                    };
+                    _screenshotRepository.Create(screenshot);
+
+                    _unitOfWork.SaveChanges();
+                    testRunResult.ScreenshotId = screenshot.Id;
+                    _unitOfWork.SaveChanges();
                 }
-                var testRunResult=_testRunResultRepository.FindByCondition(x => x.CommandTestGuid == commandTestGuid && x.TestRunHistoryId== testRunHistoryId).FirstOrDefault();
-                if (testRunResult == null)
-                {
-                    throw new Exception($"TestRunResult is not found for commandTestGuid:{commandTestGuid}");
-                }
                 
-                var screenshot= new Screenshot()
-                {
-                    Path = filePath
-                };
-                _screenshotRepository.Create(screenshot);
-                
-                _unitOfWork.SaveChanges();
-                testRunResult.ScreenshotId = screenshot.Id;
-                _unitOfWork.SaveChanges();
                 await _hubcontext.Clients.Clients(Request.Form["clientId"]).SendAsync("ReciveScreenshot", new TestProgressImageRespons
                 {
                     ImagePath = filePath,

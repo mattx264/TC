@@ -17,26 +17,22 @@ namespace TC.WebService.Hubs
         public async Task SendCommand(CommandMessage message)
         {
             // TODO check if sender can make call to reciver (browser engine)
-          
             try
             {
-
-                if (message.TestInfoId == null)
+                //TODO do case wgeb testrunhistory is null
+                if (message.TestInfoId != null)
                 {
-                    throw new Exception("TestInfoId is required");
+                    TestRunHistory testRunHistory = new TestRunHistory()
+                    {
+                        TestInfoId = message.TestInfoId.Value,
+                        SelectedBrowserEngine = message.ReceiverConnectionId,
+                        Configuration = JsonSerializer.Serialize(message.Configurations)
+                    };
+                    _testRunHistoryRepository.Create(testRunHistory);
+                    _unitOfWork.SaveChanges();
+                    message.TestRunHistoryId = testRunHistory.Id;
                 }
-
-                TestRunHistory testRunHistory = new TestRunHistory()
-                {
-                    TestInfoId = message.TestInfoId.Value,
-                    SelectedBrowserEngine = message.ReceiverConnectionId,
-                    Configuration = JsonSerializer.Serialize(message.Configurations)
-                };
-                _testRunHistoryRepository.Create(testRunHistory);
-                _unitOfWork.SaveChanges();
-
                 message.SenderConnectionId = Context.ConnectionId;
-                message.TestRunHistoryId = testRunHistory.Id;
                 await Clients.Client(message.ReceiverConnectionId).SendAsync("ReciveCommand", message);
             }
             catch (Exception ex)
@@ -50,17 +46,18 @@ namespace TC.WebService.Hubs
         {
             try
             {
-                if (message.TestRunHistoryId == 0)
+                //TODO do case wgeb testrunhistory is null
+                if (message.TestRunHistoryId != null)
                 {
-                    throw new Exception("TestProgress TestRunHistoryId is 0");
+                    _testRunResultRepository.Create(new TestRunResult()
+                    {
+                        TestRunHistoryId = message.TestRunHistoryId.Value,
+                        CommandTestGuid = message.CommandTestGuid,
+                        IsSuccesful = message.IsSuccesful
+                    });
+                    _unitOfWork.SaveChanges();
                 }
-                _testRunResultRepository.Create(new TestRunResult()
-                {
-                    TestRunHistoryId = message.TestRunHistoryId,
-                    CommandTestGuid = message.CommandTestGuid,
-                    IsSuccesful = message.IsSuccesful
-                });
-                _unitOfWork.SaveChanges();
+                
                 await Clients.Client(message.SenderConnectionId).SendAsync("TestProgress", message);
             }
             catch (Exception ex)
