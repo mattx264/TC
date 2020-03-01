@@ -25,7 +25,7 @@ namespace TC.BrowserEngine.Selenium
             if (browserType == BrowserType.Chrome)
             {
                 var co = new ChromeOptions();
-               // co.PageLoadStrategy = PageLoadStrategy.None;
+                co.PageLoadStrategy = PageLoadStrategy.Normal;
                 co.AddArguments("start-maximized");           
 
 
