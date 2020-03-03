@@ -370,9 +370,9 @@ namespace TC.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "DefaultValue", "Description", "IsActive", "ModifiedBy", "Name", "Type" },
                 values: new object[,]
                 {
-                    { 1, "system", new DateTime(2020, 2, 14, 21, 35, 14, 927, DateTimeKind.Local).AddTicks(4475), new DateTime(2020, 2, 14, 21, 35, 14, 927, DateTimeKind.Local).AddTicks(5030), "false", "It will take a screenshot after every command.", true, "system", "Take Screenshot After Every Command", 0 },
-                    { 2, "system", new DateTime(2020, 2, 14, 21, 35, 14, 927, DateTimeKind.Local).AddTicks(5950), new DateTime(2020, 2, 14, 21, 35, 14, 927, DateTimeKind.Local).AddTicks(5976), "false", "Test will monitor every http call.", true, "system", "Monitoring Http Calls", 0 },
-                    { 3, "system", new DateTime(2020, 2, 14, 21, 35, 14, 927, DateTimeKind.Local).AddTicks(6041), new DateTime(2020, 2, 14, 21, 35, 14, 927, DateTimeKind.Local).AddTicks(6125), "true", "Test will continue even if a command will fail.", true, "system", "Continue After Command Failure", 0 }
+                    { 1, "system", new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(2993), new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(3335), "false", "It will take a screenshot after every command.", true, "system", "Take Screenshot After Every Command", 0 },
+                    { 2, "system", new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(3882), new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(3899), "false", "Test will monitor every http call.", true, "system", "Monitoring Http Calls", 0 },
+                    { 3, "system", new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(3929), new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(3933), "true", "Test will continue even if a command will fail.", true, "system", "Continue After Command Failure", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -380,17 +380,17 @@ namespace TC.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "IsActive", "ModifiedBy", "Name" },
                 values: new object[,]
                 {
-                    { 1, "system", new DateTime(2020, 2, 14, 21, 35, 14, 920, DateTimeKind.Local).AddTicks(9746), new DateTime(2020, 2, 14, 21, 35, 14, 923, DateTimeKind.Local).AddTicks(4856), true, "system", "Pending" },
-                    { 2, "system", new DateTime(2020, 2, 14, 21, 35, 14, 923, DateTimeKind.Local).AddTicks(5575), new DateTime(2020, 2, 14, 21, 35, 14, 923, DateTimeKind.Local).AddTicks(5602), true, "system", "Accepted" },
-                    { 3, "system", new DateTime(2020, 2, 14, 21, 35, 14, 923, DateTimeKind.Local).AddTicks(5614), new DateTime(2020, 2, 14, 21, 35, 14, 923, DateTimeKind.Local).AddTicks(5618), true, "system", "Rejected" },
-                    { 4, "system", new DateTime(2020, 2, 14, 21, 35, 14, 923, DateTimeKind.Local).AddTicks(5622), new DateTime(2020, 2, 14, 21, 35, 14, 923, DateTimeKind.Local).AddTicks(5625), true, "system", "Deleted" }
+                    { 1, "system", new DateTime(2020, 2, 22, 9, 31, 4, 134, DateTimeKind.Local).AddTicks(4768), new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8278), true, "system", "Pending" },
+                    { 2, "system", new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8779), new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8797), true, "system", "Accepted" },
+                    { 3, "system", new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8806), new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8809), true, "system", "Rejected" },
+                    { 4, "system", new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8811), new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8813), true, "system", "Deleted" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "project",
                 table: "Project",
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Description", "IsActive", "ModifiedBy", "Name" },
-                values: new object[] { 1, "system", new DateTime(2020, 2, 14, 21, 35, 14, 925, DateTimeKind.Local).AddTicks(3639), new DateTime(2020, 2, 14, 21, 35, 14, 925, DateTimeKind.Local).AddTicks(4211), "", true, "system", "Google" });
+                values: new object[] { 1, "system", new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(930), new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(1300), "", true, "system", "Google" });
 
             migrationBuilder.InsertData(
                 schema: "project",
@@ -398,21 +398,21 @@ namespace TC.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Domain", "IsActive", "ModifiedBy", "ProjectId" },
                 values: new object[,]
                 {
-                    { 1, "system", new DateTime(2020, 2, 14, 21, 35, 14, 925, DateTimeKind.Local).AddTicks(9202), new DateTime(2020, 2, 14, 21, 35, 14, 926, DateTimeKind.Local).AddTicks(14), "google.com", true, "system", 1 },
-                    { 2, "system", new DateTime(2020, 2, 14, 21, 35, 14, 926, DateTimeKind.Local).AddTicks(1253), new DateTime(2020, 2, 14, 21, 35, 14, 926, DateTimeKind.Local).AddTicks(1282), "google.pl", true, "system", 1 }
+                    { 1, "system", new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(4280), new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(4634), "google.com", true, "system", 1 },
+                    { 2, "system", new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(5195), new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(5212), "google.pl", true, "system", 1 }
                 });
 
             migrationBuilder.InsertData(
                 schema: "project",
                 table: "ProjectTestRunConfig",
                 columns: new[] { "Id", "ConfigProjectTestId", "CreatedBy", "DateAdded", "DateModified", "IsActive", "ModifiedBy", "ProjectId", "Value" },
-                values: new object[] { 1, 1, "system", new DateTime(2020, 2, 14, 21, 35, 14, 928, DateTimeKind.Local).AddTicks(388), new DateTime(2020, 2, 14, 21, 35, 14, 928, DateTimeKind.Local).AddTicks(947), true, "system", 1, "true" });
+                values: new object[] { 1, 1, "system", new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(6434), new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(6772), true, "system", 1, "true" });
 
             migrationBuilder.InsertData(
                 schema: "test",
                 table: "TestInfo",
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Description", "IsActive", "ModifiedBy", "Name", "ProjectId", "SeleniumCommands" },
-                values: new object[] { 1, "system", new DateTime(2020, 2, 14, 21, 35, 14, 926, DateTimeKind.Local).AddTicks(8723), new DateTime(2020, 2, 14, 21, 35, 14, 926, DateTimeKind.Local).AddTicks(9290), "Using google search find c# tutorial", true, "system", "Search for c# tutorial", 1, "[{\"OperationId\":3,\"WebDriverOperationType\":0,\"Values\":[\"https://www.google.com\"]}]" });
+                values: new object[] { 1, "system", new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(9445), new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(9793), "Using google search find c# tutorial", true, "system", "Search for c# tutorial", 1, "[{\"OperationId\":3,\"WebDriverOperationType\":0,\"Values\":[\"https://www.google.com\"]}]" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectDomain_ProjectId",
