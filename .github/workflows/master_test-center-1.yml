@@ -21,7 +21,7 @@ jobs:
         dotnet-version: 3.1.100
 
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: cd TC.WebService && dotnet build --configuration Release
 
     - name: dotnet publish
       run:  cd TC.WebService && dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
