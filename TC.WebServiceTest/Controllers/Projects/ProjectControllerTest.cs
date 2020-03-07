@@ -51,7 +51,7 @@ namespace TC.WebServiceTest.Controllers
                 };
             });
             //EXERCISE
-            var result = controller.Get(projectid).Result;
+            var result = controller.Get(projectid);
 
             //VERIFY
             Assert.NotNull(result);
@@ -122,7 +122,7 @@ namespace TC.WebServiceTest.Controllers
 
             var controller = new ProjectController(projectRepository, userHelper.Object, unitOfWork.Object, userRepository.Object, utilHelper.Object);
             
-            var result=controller.Get("test.com").GetAwaiter().GetResult();
+            var result=controller.Get("test.com");
 
             Assert.NotNull(result);
         }

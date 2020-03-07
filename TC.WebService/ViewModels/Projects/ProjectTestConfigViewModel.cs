@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TC.Entity.Entities;
+﻿using TC.Entity.Entities;
 
 namespace TC.WebService.ViewModels.Projects
 {
@@ -12,7 +8,7 @@ namespace TC.WebService.ViewModels.Projects
         public int ProjectId { get; set; }
         public int ConfigProjectTestId { get; set; }
         public string Value { get; set; }
-        
+
         public ProjectTestConfigViewModel Convert(int id, int projectId, ConfigProjectTest configProjectTest)
         {
             Id = id;
@@ -29,15 +25,6 @@ namespace TC.WebService.ViewModels.Projects
             Value = projectTestConfig.Value;
             return this;
         }
-        public ProjectTestConfigViewModel Convert(TestInfoConfig testInfoConfig)
-        {
-            Id = testInfoConfig.Id;
-            ProjectId = testInfoConfig.Project.ProjectId;
-            ConfigProjectTestId = testInfoConfig.ConfigProjectTestId;
-            Value = testInfoConfig.Value;
-            return this;
-        }
-        
     }
-    
+
 }

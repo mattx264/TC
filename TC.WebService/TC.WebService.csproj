@@ -73,6 +73,9 @@
     <None Update="ViewModels\typescripts\SzwagierModel.ts">
       <CustomToolNamespace>Models\SzwagierModel.cs</CustomToolNamespace>
     </None>
+    <None Update="ViewModels\typescripts\TestInfoConfigViewModel.ts">
+      <CustomToolNamespace>ViewModels\Tests\TestInfoConfigViewModel.cs</CustomToolNamespace>
+    </None>
     <None Update="ViewModels\typescripts\TestInfoViewModel.ts">
       <CustomToolNamespace>ViewModels\Tests\TestInfoViewModel.cs</CustomToolNamespace>
     </None>

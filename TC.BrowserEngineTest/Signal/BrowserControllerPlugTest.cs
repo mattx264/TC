@@ -38,10 +38,8 @@ namespace TC.BrowserEngineTest.Signal
         [Test, Description("Test reciveCommand function when there is more than max brwoser open")]
         public void ReciveCommandWaitTest()
         {
-            int count = 1;
             Task.Delay(2000).ContinueWith((task) =>
             {
-                count = 0;
             });
 
             var browserControllerFactoryMock = new Mock<IBrowserControllerQueue>();

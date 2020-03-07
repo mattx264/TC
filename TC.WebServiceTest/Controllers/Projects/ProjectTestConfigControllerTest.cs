@@ -89,7 +89,7 @@ namespace TC.WebServiceTest.Controllers.Projects
             Assert.IsType<BadRequestObjectResult>(reponse);
 
         }
-        private ProjectTestConfigController GetType()
+        private new ProjectTestConfigController GetType()
         {
             _projectTestConfigRepository = new Mock<IProjectTestConfigRepository>();
             _projectTestConfigRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(new Mock<ProjectTestConfig>().Object);

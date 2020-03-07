@@ -9,7 +9,7 @@ namespace TC.Entity.Entities
     public class TestInfoConfig : IEntity
     {
         public int Id { get; set; }
-        public virtual TestInfo Project { get; set; }
+        public virtual TestInfo TestInfo { get; set; }
         public int TestInfoId { get; set; }
         public int ConfigProjectTestId { get; set; }
         public virtual ConfigProjectTest ConfigProjectTest { get; set; }

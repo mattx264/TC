@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using TC.DataAccess;
-using TC.DataAccess.Repositories;
 using TC.DataAccess.Repositories.Interfaces;
 using TC.Entity.Entities;
 using TC.WebService.ViewModels.Projects;
@@ -64,7 +63,6 @@ namespace TC.WebService.Controllers.Project
                             break;
                         }
                         return BadRequest("Value boolean is not valid");
-                        break;
                     case ConfigProjectTest.ConfigProjectTestEnum.List:
                         // OPEN QUESTION
                         break;
