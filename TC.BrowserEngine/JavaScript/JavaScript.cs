@@ -13,17 +13,17 @@ namespace TC.BrowserEngine.JavaScript
 
         public static string CheckIfAllXhrCallsDone()
         {
-            return @"checkIfAllXhrsCallsDone=(()=>{let e=JSON.parse(window.localStorage.getItem(""xhrCalls"")),l=!0;if(e)for(let a of e)if(4!==a.value.readyState){l=!1;break}return l}),checkIfAllXhrsCallsDone();";
+            return @"checkIfAllXhrsCallsDone=(()=>{let e=JSON.parse(window.localStorage.getItem(""xhrCalls"")),l=!0;if(e)for(let a of e)if(4!==a.value.readyState){l=!1;break}return l});return checkIfAllXhrsCallsDone();";
         }
 
         public static string CheckIfXhrStartCallIsDone(string xhrCall)
         {
-            return @"checkIfXhrStartCallIsDone=(()=>{let e=JSON.parse(window.localStorage.getItem(""xhrCalls""));if(e){for(let l of e)if(""" + xhrCall + @"""===l.value.responseURL)return 4===l.value.readyState;return!1}}),checkIfXhrStartCallIsDone();";
+            return @"checkIfXhrStartCallIsDone=(()=>{let e=JSON.parse(window.localStorage.getItem(""xhrCalls""));if(e){for(let l of e)if(""" + xhrCall + @"""===l.value.responseURL)return 4===l.value.readyState;return!1}});return checkIfXhrStartCallIsDone();";
         }
 
         public static string CheckIfXhrDoneCallIsDone(string xhrCall)
         {
-            return @"checkIfXhrDoneCallIsDone=(()=>{let e=JSON.parse(window.localStorage.getItem(""xhrCalls""));if(e){for(let a of e)if(""" + xhrCall + @"""===a.value.responseURL)return 3===a.value.readyState||4===a.value.readyState;return!1}}),checkIfXhrDoneCallIsDone();";
+            return @"checkIfXhrDoneCallIsDone=(()=>{let e=JSON.parse(window.localStorage.getItem(""xhrCalls""));if(e){for(let a of e)if(""" + xhrCall + @"""===a.value.responseURL)return 3===a.value.readyState||4===a.value.readyState;return!1}});return checkIfXhrDoneCallIsDone();";
         }
 
     }

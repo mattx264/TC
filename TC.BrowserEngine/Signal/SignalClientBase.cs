@@ -45,14 +45,16 @@ namespace TC.BrowserEngine.Signal
                 connection.Reconnected += async (info) =>
                 {
                     Console.WriteLine("Connection Reconnected");
+                  
                     // await Task.Delay(new Random().Next(0, 5) * 1000);
                     // await connection.StartAsync();
                 };
-                connection.Reconnecting += async (info) =>
+                 connection.Reconnecting += async (info) =>
                 {
                     // await Task.Delay(new Random().Next(0, 5) * 1000);
                     // await connection.StartAsync();
                     Console.WriteLine("Connection Reconnecting");
+                   
                 };
 
                 //await connection.StartAsync();

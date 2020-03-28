@@ -183,6 +183,19 @@ namespace TC.DataAccess.DatabaseContext
                 DateAdded = DateTime.Now,
                 DateModified = DateTime.Now
             });
+            modelBuilder.Entity<ConfigProjectTest>().HasData(new ConfigProjectTest()
+            {
+                Id = 4,
+                Name = "Wait for network call finish",
+                Description = "Every step is waiting for all network e.g. api xhr, images,etc. to finish before go to next command",
+                Type = Entity.Entities.ConfigProjectTest.ConfigProjectTestEnum.Boolean,
+                DefaultValue = "true",
+                IsActive = true,
+                CreatedBy = "system",
+                ModifiedBy = "system",
+                DateAdded = DateTime.Now,
+                DateModified = DateTime.Now
+            });
             modelBuilder.Entity<ProjectTestConfig>().HasData(new ProjectTestConfig()
             {
                 Id = 1,

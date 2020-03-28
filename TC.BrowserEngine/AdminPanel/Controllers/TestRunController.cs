@@ -22,7 +22,7 @@ namespace TC.BrowserEngine.AdminPanel.Controllers
             _localUserRepository = new LocalUserRepository();
         }
         [HttpPost]
-        public async Task<ActionResult> PostAsync(List<SeleniumCommand> commands)
+        public ActionResult PostAsync(List<SeleniumCommand> commands)
         {
             return Ok();
         }

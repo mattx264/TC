@@ -11,6 +11,8 @@ using TC.Entity.Entities;
 using TC.WebService.Helpers;
 using TC.WebService.ViewModels;
 using TC.Entity.Entities.Projects;
+using TC.WebService.ViewModels.Projects;
+
 namespace TC.WebService.Controllers.Projects
 {
     [Route("api/[controller]")]
@@ -37,21 +39,21 @@ namespace TC.WebService.Controllers.Projects
             _unitOfWork = unitOfWork;
         }
         [HttpGet]
-        public async Task<List<ProjectViewModel>> Get()
+        public List<ProjectViewModel> Get()
         {
             string guid = GetUserGuid();
 
             return _projectRepository.GetProjectsByUser(guid).Select(x => GetProjectViewModel(x)).ToList();
         }
         [HttpGet("domain/{domain}")]
-        public async Task<ProjectViewModel> Get(string domain)
+        public ProjectViewModel Get(string domain)
         {
             string guid = GetUserGuid();
             var project = _projectRepository.GetProjectByDomain(guid, domain);
             return project == null ? null : GetProjectViewModel(project);
         }
         [HttpGet("{id}")]
-        public async Task<ProjectViewModel> Get(int id)
+        public ProjectViewModel Get(int id)
         {
             string guid = GetUserGuid();
 

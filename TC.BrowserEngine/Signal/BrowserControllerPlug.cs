@@ -1,42 +1,33 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
-using OpenQA.Selenium;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+using System.Threading.Tasks;
 using TC.BrowserEngine.Controllers;
-using TC.BrowserEngine.Helpers.Enums;
 using TC.BrowserEngine.Services;
 using TC.Common.DTO;
-using TC.Common.Selenium;
-using TC.Common.Selenium.WebDriverOperation;
-using TC.WebService.Helpers;
 
 namespace TC.BrowserEngine.Signal
 {
-    public delegate void SendTestProgressDelegate(string senderConnectionId, string commandTestGuid,int testRunHistoryId);
-    public delegate void SendTestProgressImageDelegate(string senderConnectionId, string commandTestGuid,Screenshot screenshot);
+    public delegate void SendTestProgressDelegate(ITestProgress testProgress);
+    public delegate void SendTestProgressImageDelegate(ScreenshotTestProgress testProgress);
 
     public class BrowserControllerPlug : SignalClientBase
     {
-        private BrowserController browserController;
         private IBrowserControllerQueue _browserControllerFactory;
         private HubConnection _connection;
         // TODO move to config
-        public int maxBrowserOpen= 2;       
+        public int maxBrowserOpen = 2;
         public TestProgressSubscriber _subsciber;
         public SendTestProgressDelegate _sendTestProgressDelegate;
         public SendTestProgressImageDelegate _sendTestProgressImageDelegate;
-
         public BrowserControllerPlug(string hubName, IBrowserControllerQueue browserControllerFactory) : base(hubName)
         {
             _browserControllerFactory = browserControllerFactory;
             _connection = StartAsync().GetAwaiter().GetResult();
             _sendTestProgressDelegate = SendTestProgress;
-            _sendTestProgressImageDelegate = SendTestProgressScreenshot;
+            _sendTestProgressImageDelegate = SendTestProgressScreenshotAsync;
             _subsciber = new TestProgressSubscriber(_sendTestProgressDelegate, _sendTestProgressImageDelegate);
-            TestProgressSubscriber.Set(new Guid(), _subsciber);            
-            
+            TestProgressSubscriber.Set(new Guid(), _subsciber);
+
             try
             {
                 if (_connection == null)
@@ -44,15 +35,15 @@ namespace TC.BrowserEngine.Signal
                     //TODO what to do when connectio is null?
                     return;
                 }
-                _connection.On("ReciveTriggerTest", async (int testId, CommandMessage commandMessage) =>
+                _connection.On("ReciveTriggerTest", (int testId, CommandMessage commandMessage) =>
                 {
                     ReciveTriggerTest(testId, commandMessage);
                 });
-                _connection.On("ReciveCommand", async (CommandMessage commandMessage) =>
+                _connection.On("ReciveCommand", (CommandMessage commandMessage) =>
                 {
                     ReciveCommand(commandMessage);
                 });
-                
+
             }
             catch (Exception ex)
             {
@@ -60,31 +51,32 @@ namespace TC.BrowserEngine.Signal
                 _connection.InvokeAsync("SendError", ex);
             }
         }
-        public void SendTestProgress(string senderConnectionId, string commandTestGuid,int testRunHistoryId)
+        public void SendTestProgress(ITestProgress testProgress)
         {
-            _connection.SendAsync("TestProgress",new TestProgressMessage()
+            _connection.SendAsync("TestProgress", new TestProgressMessage()
             {
-                IsSuccesful=true,
-                CommandTestGuid= commandTestGuid,
-                SenderConnectionId =senderConnectionId,
-                TestRunHistoryId=testRunHistoryId
+                IsSuccesful = testProgress.IsSuccesfull,
+                CommandTestGuid = testProgress.command.Guid,
+                SenderConnectionId = testProgress.senderConnectionId,
+                TestRunHistoryId = testProgress.TestRunHistoryId,
+                Message = testProgress.Message
             });
         }
-        public void SendTestProgressScreenshot(string senderConnectionId, string commandTestGuid,Screenshot screenshot)
+        public void SendTestProgressScreenshotAsync(ScreenshotTestProgress testProgress)
         {
-            FileUploadService.UploadScreenshotAsync(screenshot.AsByteArray, senderConnectionId, commandTestGuid);
+            FileUploadService.UploadScreenshotAsync(testProgress).GetAwaiter();
         }
         public void ReciveTriggerTest(int testId, CommandMessage commandMessage)
         {
 
             _browserControllerFactory.AddNewBrowser(commandMessage);
-            
+
         }
         public void ReciveCommand(CommandMessage commandMessage)
         {
-           
-             _browserControllerFactory.AddNewBrowser(commandMessage);
-          
+
+            _browserControllerFactory.AddNewBrowser(commandMessage);
+
         }
     }
 }

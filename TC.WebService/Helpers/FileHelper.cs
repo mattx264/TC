@@ -34,7 +34,7 @@ namespace TC.WebService.Helpers
 
                 return thumb;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
