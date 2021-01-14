@@ -15,16 +15,16 @@ namespace TC.DataAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.1");
 
             modelBuilder.Entity("TC.Entity.Entities.ConfigProjectTest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -62,8 +62,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(2993),
-                            DateModified = new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(3335),
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(2110),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(2892),
                             DefaultValue = "false",
                             Description = "It will take a screenshot after every command.",
                             IsActive = true,
@@ -75,8 +75,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(3882),
-                            DateModified = new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(3899),
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(3835),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(3854),
                             DefaultValue = "false",
                             Description = "Test will monitor every http call.",
                             IsActive = true,
@@ -88,13 +88,26 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(3929),
-                            DateModified = new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(3933),
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(3895),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(3901),
                             DefaultValue = "true",
                             Description = "Test will continue even if a command will fail.",
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Continue After Command Failure",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(3934),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(3940),
+                            DefaultValue = "true",
+                            Description = "Every step is waiting for all network e.g. api xhr, images,etc. to finish before go to next command",
+                            IsActive = true,
+                            ModifiedBy = "system",
+                            Name = "Wait for network call finish",
                             Type = 0
                         });
                 });
@@ -104,7 +117,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -131,15 +144,15 @@ namespace TC.DataAccess.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectDomain","project");
+                    b.ToTable("ProjectDomain", "project");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(4280),
-                            DateModified = new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(4634),
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 800, DateTimeKind.Local).AddTicks(3056),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 800, DateTimeKind.Local).AddTicks(3782),
                             Domain = "google.com",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -149,8 +162,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(5195),
-                            DateModified = new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(5212),
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 800, DateTimeKind.Local).AddTicks(4774),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 800, DateTimeKind.Local).AddTicks(4794),
                             Domain = "google.pl",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -163,7 +176,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int>("ConfigProjectTestId")
                         .HasColumnType("int");
@@ -195,7 +208,7 @@ namespace TC.DataAccess.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectTestRunConfig","project");
+                    b.ToTable("ProjectTestRunConfig", "project");
 
                     b.HasData(
                         new
@@ -203,8 +216,8 @@ namespace TC.DataAccess.Migrations
                             Id = 1,
                             ConfigProjectTestId = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(6434),
-                            DateModified = new DateTime(2020, 2, 22, 9, 31, 4, 140, DateTimeKind.Local).AddTicks(6772),
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(9814),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 803, DateTimeKind.Local).AddTicks(553),
                             IsActive = true,
                             ModifiedBy = "system",
                             ProjectId = 1,
@@ -217,7 +230,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -242,15 +255,15 @@ namespace TC.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Project","project");
+                    b.ToTable("Project", "project");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(930),
-                            DateModified = new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(1300),
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 799, DateTimeKind.Local).AddTicks(4049),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 799, DateTimeKind.Local).AddTicks(4797),
                             Description = "",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -263,7 +276,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -293,7 +306,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -326,15 +339,15 @@ namespace TC.DataAccess.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("TestInfo","test");
+                    b.ToTable("TestInfo", "test");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(9445),
-                            DateModified = new DateTime(2020, 2, 22, 9, 31, 4, 139, DateTimeKind.Local).AddTicks(9793),
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 801, DateTimeKind.Local).AddTicks(3383),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 801, DateTimeKind.Local).AddTicks(4055),
                             Description = "Using google search find c# tutorial",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -349,7 +362,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int>("ConfigProjectTestId")
                         .HasColumnType("int");
@@ -381,7 +394,7 @@ namespace TC.DataAccess.Migrations
 
                     b.HasIndex("TestInfoId");
 
-                    b.ToTable("TestInfoConfig","test");
+                    b.ToTable("TestInfoConfig", "test");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.TestRunHistory", b =>
@@ -389,7 +402,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Configuration")
                         .HasColumnType("nvarchar(max)");
@@ -419,7 +432,7 @@ namespace TC.DataAccess.Migrations
 
                     b.HasIndex("TestInfoId");
 
-                    b.ToTable("TestRunHistory","test");
+                    b.ToTable("TestRunHistory", "test");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.TestRunResult", b =>
@@ -427,7 +440,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("CommandTestGuid")
                         .HasColumnType("nvarchar(max)");
@@ -465,7 +478,7 @@ namespace TC.DataAccess.Migrations
 
                     b.HasIndex("TestRunHistoryId");
 
-                    b.ToTable("TestRunResult","test");
+                    b.ToTable("TestRunResult", "test");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.User.UserProjectStatus", b =>
@@ -473,7 +486,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -502,8 +515,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 22, 9, 31, 4, 134, DateTimeKind.Local).AddTicks(4768),
-                            DateModified = new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8278),
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(5820),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(6571),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Pending"
@@ -512,8 +525,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8779),
-                            DateModified = new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8797),
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(7275),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(7293),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Accepted"
@@ -522,8 +535,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8806),
-                            DateModified = new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8809),
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(7298),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(7302),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Rejected"
@@ -532,8 +545,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 4,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8811),
-                            DateModified = new DateTime(2020, 2, 22, 9, 31, 4, 137, DateTimeKind.Local).AddTicks(8813),
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(7307),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(7310),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Deleted"
@@ -545,7 +558,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -579,7 +592,7 @@ namespace TC.DataAccess.Migrations
 
                     b.HasIndex("UserProjectStatusId");
 
-                    b.ToTable("UserInProject","user");
+                    b.ToTable("UserInProject", "user");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.UserModel", b =>
@@ -587,7 +600,7 @@ namespace TC.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -662,7 +675,29 @@ namespace TC.DataAccess.Migrations
 
                     b.HasIndex("MasterId");
 
-                    b.ToTable("UserModel","user");
+                    b.ToTable("UserModel", "user");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3782e886-91b8-4b5d-bfd8-192f88e9e744",
+                            CreatedBy = "system",
+                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 788, DateTimeKind.Local).AddTicks(4918),
+                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 795, DateTimeKind.Local).AddTicks(3327),
+                            Email = "test@test",
+                            EmailConfirmed = false,
+                            Guid = new Guid("d4488297-ec40-409f-a9f1-0537376fc9f8"),
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            ModifiedBy = "system",
+                            Password = "5lWUcAhyHCV2rTZqqyE8JIMZJjjAwlwRMrq5jxH+KQY=",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "20b4f208-a65f-46d8-aa59-cadc5dad3e46",
+                            TwoFactorEnabled = false,
+                            UserName = "tester"
+                        });
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.ProjectDomain", b =>
@@ -672,6 +707,8 @@ namespace TC.DataAccess.Migrations
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.ProjectTestConfig", b =>
@@ -687,6 +724,10 @@ namespace TC.DataAccess.Migrations
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ConfigProjectTest");
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.TestInfo", b =>
@@ -696,6 +737,8 @@ namespace TC.DataAccess.Migrations
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.TestInfoConfig", b =>
@@ -706,11 +749,15 @@ namespace TC.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TC.Entity.Entities.TestInfo", "Project")
+                    b.HasOne("TC.Entity.Entities.TestInfo", "TestInfo")
                         .WithMany()
                         .HasForeignKey("TestInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ConfigProjectTest");
+
+                    b.Navigation("TestInfo");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.TestRunHistory", b =>
@@ -720,6 +767,8 @@ namespace TC.DataAccess.Migrations
                         .HasForeignKey("TestInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("TestInfo");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.TestRunResult", b =>
@@ -733,6 +782,8 @@ namespace TC.DataAccess.Migrations
                         .HasForeignKey("TestRunHistoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Screenshot");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.UserInProject", b =>
@@ -754,6 +805,12 @@ namespace TC.DataAccess.Migrations
                         .HasForeignKey("UserProjectStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Project");
+
+                    b.Navigation("UserModel");
+
+                    b.Navigation("UserProjectStatus");
                 });
 
             modelBuilder.Entity("TC.Entity.Entities.UserModel", b =>
@@ -761,6 +818,27 @@ namespace TC.DataAccess.Migrations
                     b.HasOne("TC.Entity.Entities.UserModel", "Master")
                         .WithMany()
                         .HasForeignKey("MasterId");
+
+                    b.Navigation("Master");
+                });
+
+            modelBuilder.Entity("TC.Entity.Entities.Projects.Project", b =>
+                {
+                    b.Navigation("ProjectDomains");
+
+                    b.Navigation("TestInfos");
+
+                    b.Navigation("UserInProject");
+                });
+
+            modelBuilder.Entity("TC.Entity.Entities.TestInfo", b =>
+                {
+                    b.Navigation("TestRunHistory");
+                });
+
+            modelBuilder.Entity("TC.Entity.Entities.TestRunHistory", b =>
+                {
+                    b.Navigation("TestRunResults");
                 });
 #pragma warning restore 612, 618
         }

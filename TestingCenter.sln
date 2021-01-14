@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TC.BrowserEngine", "TC.BrowserEngine\TC.BrowserEngine.csproj", "{0D7627BF-8208-4FC2-B970-BA04097EC764}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TC.WebService", "TC.WebService\TC.WebService.csproj", "{13BCC688-7C60-437E-A2C1-694E8CB47D41}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TC.Common", "TC.Common\TC.Common.csproj", "{C73462EA-6C18-46EF-A147-07FE659388AB}"
@@ -12,8 +10,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TC.DataAccess", "TC.DataAccess\TC.DataAccess.csproj", "{E2B88499-BCB5-4581-B27F-405B50101DD3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TC.Entity", "TC.Entity\TC.Entity.csproj", "{C2C7053A-86B1-470D-8F9E-5238E79144E3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TC.BrowserEngineTest", "TC.BrowserEngineTest\TC.BrowserEngineTest.csproj", "{211A6087-D62E-4FA9-B5AE-41E0E6FAC2CC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4851FCA0-C4B0-4FA4-B97E-9B2D6C34D19B}"
 	ProjectSection(SolutionItems) = preProject
@@ -40,14 +36,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0D7627BF-8208-4FC2-B970-BA04097EC764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D7627BF-8208-4FC2-B970-BA04097EC764}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D7627BF-8208-4FC2-B970-BA04097EC764}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0D7627BF-8208-4FC2-B970-BA04097EC764}.Debug|x86.Build.0 = Debug|Any CPU
-		{0D7627BF-8208-4FC2-B970-BA04097EC764}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D7627BF-8208-4FC2-B970-BA04097EC764}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D7627BF-8208-4FC2-B970-BA04097EC764}.Release|x86.ActiveCfg = Release|Any CPU
-		{0D7627BF-8208-4FC2-B970-BA04097EC764}.Release|x86.Build.0 = Release|Any CPU
 		{13BCC688-7C60-437E-A2C1-694E8CB47D41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13BCC688-7C60-437E-A2C1-694E8CB47D41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13BCC688-7C60-437E-A2C1-694E8CB47D41}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -80,14 +68,6 @@ Global
 		{C2C7053A-86B1-470D-8F9E-5238E79144E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C2C7053A-86B1-470D-8F9E-5238E79144E3}.Release|x86.ActiveCfg = Release|Any CPU
 		{C2C7053A-86B1-470D-8F9E-5238E79144E3}.Release|x86.Build.0 = Release|Any CPU
-		{211A6087-D62E-4FA9-B5AE-41E0E6FAC2CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{211A6087-D62E-4FA9-B5AE-41E0E6FAC2CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{211A6087-D62E-4FA9-B5AE-41E0E6FAC2CC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{211A6087-D62E-4FA9-B5AE-41E0E6FAC2CC}.Debug|x86.Build.0 = Debug|Any CPU
-		{211A6087-D62E-4FA9-B5AE-41E0E6FAC2CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{211A6087-D62E-4FA9-B5AE-41E0E6FAC2CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{211A6087-D62E-4FA9-B5AE-41E0E6FAC2CC}.Release|x86.ActiveCfg = Release|Any CPU
-		{211A6087-D62E-4FA9-B5AE-41E0E6FAC2CC}.Release|x86.Build.0 = Release|Any CPU
 		{2D9C2693-7241-4C6A-9805-42011A227CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D9C2693-7241-4C6A-9805-42011A227CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D9C2693-7241-4C6A-9805-42011A227CB6}.Debug|x86.ActiveCfg = Debug|Any CPU

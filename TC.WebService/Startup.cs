@@ -134,7 +134,6 @@ namespace TC.WebService
             });
             services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ILoggerManager, LoggerManager>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();

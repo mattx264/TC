@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TC.DataAccess.Repositories;
 using TC.Entity.Entities;
 using TC.WebService.Helpers;
 
@@ -21,7 +20,7 @@ namespace TC.WebService.Controllers
         [NonAction]
         public UserModel GetUser()
         {
-            return _userHelper.GetUser(User); 
+            return _userHelper.GetUser(User);
         }
 
     }

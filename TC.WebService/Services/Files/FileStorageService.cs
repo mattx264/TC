@@ -1,7 +1,6 @@
-﻿using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.Auth;
-using Microsoft.Azure.Storage.Blob;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -73,13 +72,13 @@ namespace TC.WebService.Services.Files
             // using: https://[InsertYourStorageAccountNameHere].blob.core.windows.net/webappstoragedotnet-imagecontainer/FileName 
             await blobContainer.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
 
-            // Gets all Cloud Block Blobs in the blobContainerName and passes them to teh view
+           /* // Gets all Cloud Block Blobs in the blobContainerName and passes them to teh view
             List<Uri> allBlobs = new List<Uri>();
             foreach (IListBlobItem bloba in blobContainer.ListBlobs())
             {
                 if (bloba.GetType() == typeof(CloudBlockBlob))
                     allBlobs.Add(bloba.Uri);
-            }
+            }*/
             return blobContainer.GetBlockBlobReference(fileName);
         }
     }

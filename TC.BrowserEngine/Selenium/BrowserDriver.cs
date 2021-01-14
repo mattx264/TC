@@ -30,7 +30,7 @@ namespace TC.BrowserEngine.Selenium
 
 
                 //TODO get dynamic way to get version wmic datafile where name="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" get Version /value
-                _browserVersion = "80";
+                _browserVersion = "88";
                 _driver = new ChromeDriver($"{path}/BrowserDrivers/Chrome/{_browserVersion}", co);
 
             } else if(browserType== BrowserType.Firefox)

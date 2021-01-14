@@ -35,18 +35,19 @@ namespace TC.DataAccess.DatabaseContext
               .HasConversion(
               v => JsonConvert.SerializeObject(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
               v => JsonConvert.DeserializeObject<IList<SeleniumCommand>>(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
-            //modelBuilder.Entity<UserModel>().HasData(new UserModel
-            //{
-            //    Id = 1,
-            //   // Guid = Guid.NewGuid(),
-            //    Email = "test@test",
-            //    Password = PasswordHash("test123"),
-            //    IsActive = true,
-            //    CreatedBy = "system",
-            //    ModifiedBy = "system",
-            //    DateAdded = DateTime.Now,
-            //    DateModified = DateTime.Now
-            //}) ;
+            modelBuilder.Entity<UserModel>().HasData(new UserModel
+            {
+                Id = 1,
+                Name = "tester",
+                Guid = Guid.NewGuid(),
+                Email = "test@test",
+                Password = PasswordHash("test123"),
+                IsActive = true,
+                CreatedBy = "system",
+                ModifiedBy = "system",
+                DateAdded = DateTime.Now,
+                DateModified = DateTime.Now
+            });
 
             modelBuilder.Entity<ConfigProjectTest>().Property(c => c.Type).HasConversion<int>();
             modelBuilder.Entity<UserProjectStatus>().HasData(new UserProjectStatus()

@@ -114,11 +114,7 @@ namespace TC.WebService.Controllers
         {
 
             UserModel user = _userRepository.Login(login.Email, _userHelper.PasswordHash(login.Password));
-
-            // if (login.e == "mario" && login.Password == "secret")
-            // {
-            //     user = new User {  Email = "mario.rossi@domain.com", Guid= Guid.NewGuid() };
-            // }
+           
             return user;
         }
     }
