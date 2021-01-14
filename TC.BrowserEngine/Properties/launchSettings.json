@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "TC.BrowserEngine": {
-      "commandName": "Project",
-      "commandLineArgs": "email:test password:test"
-    }
-  }
-}

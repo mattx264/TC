@@ -1,1 +1,0 @@
-﻿dotnet.exe $serviceDllPath action:install
