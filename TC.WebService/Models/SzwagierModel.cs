@@ -10,9 +10,9 @@ namespace TC.WebService.Models
     {
         public string Name { get; set; }
         public SzwagierType SzwagierType { get; set; }
-        public string ConnectionId { get; internal set; }
-        public string Location { get; internal set; }
-        public string UserId { get; internal set; }
+        public string ConnectionId { get; set; }
+        public string Location { get; set; }
+        public string UserId { get; set; }
     }
     public enum SzwagierType
     {

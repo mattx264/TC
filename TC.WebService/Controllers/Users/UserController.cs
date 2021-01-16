@@ -39,7 +39,7 @@ namespace TC.WebService.Controllers
         }
         [AllowAnonymous]
         [HttpPost()]
-        public IActionResult CreateToken([FromBody]LoginModelViewModel login)
+        public IActionResult CreateToken([FromBody] LoginModelViewModel login)
         {
             IActionResult response = Unauthorized();
             _logger.LogInformation($"Login {login.Email}");
@@ -97,7 +97,15 @@ namespace TC.WebService.Controllers
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var claimsForAccessToken = new List<Claim>();
+            if (string.IsNullOrEmpty(user.Guid.ToString()))
+            {
+                throw new ArgumentNullException(nameof(user.Guid));               
+            }
             claimsForAccessToken.Add(new Claim("Guid", user.Guid.ToString()));
+            if (string.IsNullOrEmpty(user.Name))
+            {
+                throw new Exception("User Name cannot be empty");
+            }
             claimsForAccessToken.Add(new Claim("Name", user.Name));
             var token = new JwtSecurityToken(issuer: _config["Jwt:Issuer"],
                audience: _config["Jwt:Issuer"],
@@ -114,7 +122,7 @@ namespace TC.WebService.Controllers
         {
 
             UserModel user = _userRepository.Login(login.Email, _userHelper.PasswordHash(login.Password));
-           
+
             return user;
         }
     }

@@ -39,6 +39,7 @@ namespace TC.DataAccess.DatabaseContext
             {
                 Id = 1,
                 Name = "tester",
+                UserName ="user name",
                 Guid = Guid.NewGuid(),
                 Email = "test@test",
                 Password = PasswordHash("test123"),

@@ -37,8 +37,11 @@ namespace TC.WebService.Hubs
             _testRunResultRepository = testRunResultRepository;
             _unitOfWork = unitOfWork;
         }
-
         public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync();
+        }
+       /* public override async Task OnConnectedAsync()
         {
 
             string type = Context.GetHttpContext().Request.Query["t"];
@@ -62,9 +65,12 @@ namespace TC.WebService.Hubs
             {
                 throw new Exception("Forbidden");
             }
-                
 
-            var szwagierModels = _distributedCache.GetAsync<List<SzwagierModel>>(getCacheKey()).GetAwaiter().GetResult();
+            List<SzwagierModel> szwagierModels = null;
+
+
+            szwagierModels = await _distributedCache.GetAsync<List<SzwagierModel>>(getCacheKey());
+
             if (szwagierModels == null)
             {
                 szwagierModels = new List<SzwagierModel>();
@@ -90,27 +96,31 @@ namespace TC.WebService.Hubs
             //else
             //{
             var searchedSzwagier = szwagierModels.Where(x => x.UserId == szwagier.UserId && x.SzwagierType == szwagier.SzwagierType);
+
             if (searchedSzwagier != null)
             {
                 // TODO user is already connected -> should be disconnected or other connection shoud be disconnected ????
                 foreach (var szwagierItem in searchedSzwagier.ToList())
                 {
-                    Clients.Client(szwagierItem.ConnectionId).SendAsync("duplicateConnection");
+                    await Clients.Client(szwagierItem.ConnectionId).SendAsync("duplicateConnection");
                     szwagierModels = removeSzwagier(szwagierModels, szwagierItem.ConnectionId);
                 }
 
             }
             szwagierModels.Add(szwagier);
             //  }
-            _distributedCache.SetAsync<List<SzwagierModel>>(getCacheKey(), szwagierModels, new DistributedCacheEntryOptions() { AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2) }).GetAwaiter();
+            await _distributedCache.SetAsync<List<SzwagierModel>>(getCacheKey(), szwagierModels, new DistributedCacheEntryOptions() { AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2) });
+
+            var tempszwagierModels = await _distributedCache.GetAsync<List<SzwagierModel>>(getCacheKey());
+
 
             foreach (var szw in szwagierModels)
             {
-                Clients.User(szw.ConnectionId).SendAsync("UpdateSzwagierList", szwagierModels);
+                await Clients.User(szw.ConnectionId).SendAsync("UpdateSzwagierList", szwagierModels);
             }
 
-            return base.OnConnectedAsync();
-        }
+            await base.OnConnectedAsync();
+        }*/
         public override Task OnDisconnectedAsync(Exception exception)
         {
             var szwagierModels = _distributedCache.GetAsync<List<SzwagierModel>>(getCacheKey()).GetAwaiter().GetResult();
@@ -144,7 +154,7 @@ namespace TC.WebService.Hubs
         {
             try
             {
-                if (Context.User.Claims.First(x => x.Type == "Guid") == null)
+                if (Context.User.Claims.FirstOrDefault(x => x.Type == "Guid") == null)
                 {
                     return null;
                 }
