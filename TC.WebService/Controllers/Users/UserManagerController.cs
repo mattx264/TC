@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TC.DataAccess.Repositories;
-using TC.WebService.Helpers;
+using TC.WebService.Extensions;
 
 namespace TC.WebService.Controllers
 {

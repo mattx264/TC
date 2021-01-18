@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +20,7 @@ using TC.DataAccess.DatabaseContext;
 using TC.DataAccess.Repositories;
 using TC.DataAccess.Repositories.Interfaces;
 using TC.Entity.Entities;
-using TC.WebService.Helpers;
+using TC.WebService.Extensions;
 using TC.WebService.Hubs;
 using TC.WebService.Services;
 using TC.WebService.Services.Files;
@@ -33,9 +35,22 @@ namespace TC.WebService
         }
 
         public IConfiguration Configuration { get; }
+        public object AutofacContainer { get; private set; }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            // Add any Autofac modules or registrations.
+            // This is called AFTER ConfigureServices so things you
+            // register here OVERRIDE things registered in ConfigureServices.
+            //
+            // You must have the call to `UseServiceProviderFactory(new AutofacServiceProviderFactory())`
+            // when building the host or this won't be called.
+            builder.RegisterModule(new AutofacModule());
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -135,7 +150,7 @@ namespace TC.WebService
             services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
             services.AddScoped<ILoggerManager, LoggerManager>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
@@ -173,6 +188,8 @@ namespace TC.WebService
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+            AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+
             app.ConfigureExceptionHandler(logger);
 
             app.UseRouting();

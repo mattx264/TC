@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TC.WebService.Helpers
+namespace TC.WebService.Extensions
 {
     public static class DistributedCaching
     {

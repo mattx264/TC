@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using TC.Common.Selenium.WebDriverOperation;
 using Microsoft.AspNetCore.Mvc;
 using TC.Entity.Entities;
-using TC.WebService.Helpers;
+using TC.WebService.Extensions;
 using Xunit;
 using TC.DataAccess;
 using TC.Entity.Entities.Projects;

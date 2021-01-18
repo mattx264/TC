@@ -14,7 +14,7 @@ using TC.Entity.Entities.Projects;
 using TC.Entity.Entities.User;
 using TC.WebService.Controllers;
 using TC.WebService.Controllers.Projects;
-using TC.WebService.Helpers;
+using TC.WebService.Extensions;
 using TC.WebService.ViewModels;
 using TC.WebService.ViewModels.Projects;
 using Xunit;

@@ -1,18 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TC.WebService.Helpers;
 using System.Threading.Tasks;
-using TC.WebService.Models;
-using Microsoft.AspNetCore.Identity;
-using TC.Entity.Entities;
-using TC.WebService.Services;
-using TC.DataAccess.Repositories;
 using TC.DataAccess;
 using TC.DataAccess.Repositories.Interfaces;
+using TC.WebService.Extensions;
+using TC.WebService.Models;
 
 namespace TC.WebService.Hubs
 {
@@ -37,11 +32,8 @@ namespace TC.WebService.Hubs
             _testRunResultRepository = testRunResultRepository;
             _unitOfWork = unitOfWork;
         }
-        public override Task OnConnectedAsync()
-        {
-            return base.OnConnectedAsync();
-        }
-       /* public override async Task OnConnectedAsync()
+
+        public override async Task OnConnectedAsync()
         {
 
             string type = Context.GetHttpContext().Request.Query["t"];
@@ -69,7 +61,7 @@ namespace TC.WebService.Hubs
             List<SzwagierModel> szwagierModels = null;
 
 
-            szwagierModels = await _distributedCache.GetAsync<List<SzwagierModel>>(getCacheKey());
+            szwagierModels = await _distributedCache.GetAsync<List<SzwagierModel>>(cacheKey);
 
             if (szwagierModels == null)
             {
@@ -109,10 +101,7 @@ namespace TC.WebService.Hubs
             }
             szwagierModels.Add(szwagier);
             //  }
-            await _distributedCache.SetAsync<List<SzwagierModel>>(getCacheKey(), szwagierModels, new DistributedCacheEntryOptions() { AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2) });
-
-            var tempszwagierModels = await _distributedCache.GetAsync<List<SzwagierModel>>(getCacheKey());
-
+            await _distributedCache.SetAsync<List<SzwagierModel>>(cacheKey, szwagierModels, new DistributedCacheEntryOptions() { AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2) });
 
             foreach (var szw in szwagierModels)
             {
@@ -120,7 +109,8 @@ namespace TC.WebService.Hubs
             }
 
             await base.OnConnectedAsync();
-        }*/
+        }
+
         public override Task OnDisconnectedAsync(Exception exception)
         {
             var szwagierModels = _distributedCache.GetAsync<List<SzwagierModel>>(getCacheKey()).GetAwaiter().GetResult();

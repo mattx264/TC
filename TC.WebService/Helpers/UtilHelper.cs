@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace TC.WebService.Helpers
+namespace TC.WebService.Extensions
 {
     public interface IUtilHelper
     {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TC.WebService.Models;
 using Xunit;
-using TC.WebService.Helpers;
+using TC.WebService.Extensions;
 using System.Text.Json;
 
 namespace TC.WebServiceIntegrationTest.Redis

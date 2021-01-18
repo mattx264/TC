@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace TC.WebService.Helpers
+namespace TC.WebService.Extensions
 {
     public static class Serialization
     {

@@ -1,4 +1,4 @@
-﻿using TC.WebService.Helpers;
+﻿using TC.WebService.Extensions;
 using Xunit;
 
 namespace TC.WebServiceTest.Helpers

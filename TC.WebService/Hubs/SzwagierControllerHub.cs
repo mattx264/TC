@@ -44,28 +44,28 @@ namespace TC.WebService.Hubs
         }
         public async Task TestProgress(TestProgressMessage message)
         {
-            try
+            //try
+            //{
+            //TODO do case wgeb testrunhistory is null
+            if (message.TestRunHistoryId != null)
             {
-                //TODO do case wgeb testrunhistory is null
-                if (message.TestRunHistoryId != null)
+                _testRunResultRepository.Create(new TestRunResult()
                 {
-                    _testRunResultRepository.Create(new TestRunResult()
-                    {
-                        TestRunHistoryId = message.TestRunHistoryId.Value,
-                        CommandTestGuid = message.CommandTestGuid,
-                        IsSuccesful = message.IsSuccesful
-                    });
-                    _unitOfWork.SaveChanges();
-                }
-                
-                await Clients.Client(message.SenderConnectionId).SendAsync("TestProgress", message);
+                    TestRunHistoryId = message.TestRunHistoryId.Value,
+                    CommandTestGuid = message.CommandTestGuid,
+                    IsSuccesful = message.IsSuccesful
+                });
+                _unitOfWork.SaveChanges();
             }
-            catch (Exception ex)
-            {
-                //TODO log to db
 
-                throw ex;
-            }
+            await Clients.Client(message.SenderConnectionId).SendAsync("TestProgress", message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    //TODO log to db
+
+            //    throw ex;
+            //}
         }
     }
 }

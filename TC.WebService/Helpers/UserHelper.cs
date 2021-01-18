@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TC.DataAccess.Repositories;
 using TC.Entity.Entities;
 
-namespace TC.WebService.Helpers
+namespace TC.WebService.Extensions
 {
     public interface IUserHelper
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace TC.WebService.Helpers
+namespace TC.WebService.Extensions
 {
     public class FileHelper
     {

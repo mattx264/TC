@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TC.Entity.Entities;
-using TC.WebService.Helpers;
+using TC.WebService.Extensions;
 
 namespace TC.WebService.Controllers
 {

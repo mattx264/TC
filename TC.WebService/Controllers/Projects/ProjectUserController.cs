@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using TC.DataAccess;
 using TC.DataAccess.Repositories;
 using TC.Entity.Entities;
-using TC.WebService.Helpers;
+using TC.WebService.Extensions;
 using TC.WebService.ViewModels;
 
 namespace TC.WebService.Controllers

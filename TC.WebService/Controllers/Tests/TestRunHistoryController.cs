@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TC.DataAccess.Repositories;
 using TC.DataAccess.Repositories.Interfaces;
-using TC.WebService.Helpers;
+using TC.WebService.Extensions;
 using TC.WebService.ViewModels.Tests;
 
 namespace TC.WebService.Controllers.Tests
