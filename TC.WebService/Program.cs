@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using NLog.Web;
 using System;
@@ -9,7 +10,7 @@ namespace TC.WebService
     {
         public static void Main(string[] args)
         {
-            var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
             {
                 CreateWebHostBuilder(args).Build().Run();
@@ -29,6 +30,7 @@ namespace TC.WebService
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                 .ConfigureServices(services => services.AddAutofac())
                 .UseStartup<Startup>()
              .UseNLog();  // NLog: setup NLog for Dependency injection
     }

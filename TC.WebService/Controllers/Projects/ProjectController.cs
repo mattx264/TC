@@ -4,13 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using TC.DataAccess;
 using TC.DataAccess.Repositories;
 using TC.Entity.Entities;
 using TC.WebService.Extensions;
 using TC.WebService.ViewModels;
-using TC.Entity.Entities.Projects;
 using TC.WebService.ViewModels.Projects;
 
 namespace TC.WebService.Controllers.Projects
@@ -149,12 +147,11 @@ namespace TC.WebService.Controllers.Projects
                 UserInProject = users
             });
 
+
+
             _unitOfWork.SaveChanges();
             return Ok();
         }
-
-
-
 
         [HttpPut]
         public IActionResult Put(ProjectCreateViewModel viewModel)

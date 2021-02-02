@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using TC.WebService.Services.Interface;
 
 namespace TC.WebService.Controllers
 {
@@ -11,24 +12,14 @@ namespace TC.WebService.Controllers
 
     public class ValuesController : ControllerBase
     {
-        private IDistributedCache _distributedCache;
         private readonly ILogger<ValuesController> _logger;
 
-        public ValuesController(IDistributedCache distributedCache, ILogger<ValuesController> logger)
+        public ValuesController( ILogger<ValuesController> logger)
         {
             _logger = logger;
-            _distributedCache = distributedCache;
 
         }
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
        
-            var test = _distributedCache.GetAsync("test");
-            return new string[] { "value1", "value2" };
-        }
-
         // GET api/values/5
         [HttpGet("{id}")]
         [Authorize]

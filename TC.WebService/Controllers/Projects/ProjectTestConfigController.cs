@@ -17,6 +17,7 @@ namespace TC.WebService.Controllers.Project
         private IConfigProjectTestRepository _configProjectTestRepository;
         private IUnitOfWork _unitOfWork;
         #endregion
+
         #region constructor
         public ProjectTestConfigController(IProjectTestConfigRepository projectTestConfigRepository, IConfigProjectTestRepository configProjectTestRepository, IUnitOfWork unitOfWork)
         {
@@ -25,6 +26,7 @@ namespace TC.WebService.Controllers.Project
             _unitOfWork = unitOfWork;
         }
         #endregion
+
         #region GET
         [HttpGet("{projectId}")]
         public IActionResult Get(int projectId)
@@ -42,6 +44,7 @@ namespace TC.WebService.Controllers.Project
             return Ok(projectTestConfig.Select(x => new ProjectTestConfigViewModel().Convert(x)));
         }
         #endregion
+
         #region POST
         [HttpPost]
         public IActionResult Post(IList<ProjectTestConfigViewModel> viewModel)

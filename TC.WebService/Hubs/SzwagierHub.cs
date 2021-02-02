@@ -4,10 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TC.Common.Consts;
 using TC.DataAccess;
 using TC.DataAccess.Repositories.Interfaces;
 using TC.WebService.Extensions;
 using TC.WebService.Models;
+using TC.WebService.Services.Interface;
 
 namespace TC.WebService.Hubs
 {
@@ -15,19 +17,19 @@ namespace TC.WebService.Hubs
     public partial class SzwagierHub : Hub
     {
         // private static List<SzwagierModel> szwagierModels = new List<SzwagierModel>();
-        private IDistributedCache _distributedCache;
+        private ICacheService _cacheService;
         private ITestRunHistoryRepository _testRunHistoryRepository;
         private ITestRunResultRepository _testRunResultRepository;
         private IUnitOfWork _unitOfWork;
-        private const string szwagierListKey = "SzwagierList";
+      
 
         public SzwagierHub(
-            IDistributedCache distributedCache,
+            ICacheService cacheService,
             ITestRunHistoryRepository testRunHistoryRepository,
             ITestRunResultRepository testRunResultRepository,
             IUnitOfWork unitOfWork)
         {
-            _distributedCache = distributedCache;
+            _cacheService = cacheService;
             _testRunHistoryRepository = testRunHistoryRepository;
             _testRunResultRepository = testRunResultRepository;
             _unitOfWork = unitOfWork;
@@ -61,7 +63,7 @@ namespace TC.WebService.Hubs
             List<SzwagierModel> szwagierModels = null;
 
 
-            szwagierModels = await _distributedCache.GetAsync<List<SzwagierModel>>(cacheKey);
+            szwagierModels = await _cacheService.GetSzwagierModelAsync(cacheKey);
 
             if (szwagierModels == null)
             {
@@ -95,14 +97,14 @@ namespace TC.WebService.Hubs
                 foreach (var szwagierItem in searchedSzwagier.ToList())
                 {
                     await Clients.Client(szwagierItem.ConnectionId).SendAsync("duplicateConnection");
-                    szwagierModels = removeSzwagier(szwagierModels, szwagierItem.ConnectionId);
+                    szwagierModels = await removeSzwagierAsync(szwagierModels, szwagierItem.ConnectionId);
                 }
 
             }
             szwagierModels.Add(szwagier);
             //  }
-            await _distributedCache.SetAsync<List<SzwagierModel>>(cacheKey, szwagierModels, new DistributedCacheEntryOptions() { AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2) });
-
+            await _cacheService.SetSzwagierModelAsync(cacheKey, szwagierModels);
+           
             foreach (var szw in szwagierModels)
             {
                 await Clients.User(szw.ConnectionId).SendAsync("UpdateSzwagierList", szwagierModels);
@@ -111,12 +113,12 @@ namespace TC.WebService.Hubs
             await base.OnConnectedAsync();
         }
 
-        public override Task OnDisconnectedAsync(Exception exception)
-        {
-            var szwagierModels = _distributedCache.GetAsync<List<SzwagierModel>>(getCacheKey()).GetAwaiter().GetResult();
-            szwagierModels = removeSzwagier(szwagierModels, Context.ConnectionId);
-            Clients.All.SendAsync("UpdateSzwagierList", szwagierModels);
-            return base.OnDisconnectedAsync(exception);
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {            
+            var szwagierModels = await _cacheService.GetSzwagierModelAsync(getCacheKey());
+            szwagierModels = await removeSzwagierAsync(szwagierModels, Context.ConnectionId);
+            await Clients.All.SendAsync("UpdateSzwagierList", szwagierModels);
+            await base.OnDisconnectedAsync(exception);
         }
         public async Task SendTriggerTest(int testId)
         {
@@ -124,10 +126,10 @@ namespace TC.WebService.Hubs
         }
         public async Task GetSzwagierList()
         {
-            var szwagierModels = _distributedCache.GetAsync<List<SzwagierModel>>(getCacheKey()).GetAwaiter().GetResult();
+            var szwagierModels = await _cacheService.GetSzwagierModelAsync(getCacheKey());
             await Clients.All.SendAsync("UpdateSzwagierList", szwagierModels);
         }
-        private List<SzwagierModel> removeSzwagier(List<SzwagierModel> szwagierModels, string connectionId)
+        private async Task<List<SzwagierModel>> removeSzwagierAsync(List<SzwagierModel> szwagierModels, string connectionId)
         {
             if (szwagierModels != null)
             {
@@ -136,7 +138,7 @@ namespace TC.WebService.Hubs
                 {
                     szwagierModels.Remove(itemToRemove);
                 }
-                _distributedCache.SetAsync<List<SzwagierModel>>(getCacheKey(), szwagierModels, new DistributedCacheEntryOptions() { AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2) }).GetAwaiter();
+                await _cacheService.SetSzwagierModelAsync(getCacheKey(), szwagierModels);
             }
             return szwagierModels;
         }
@@ -148,7 +150,7 @@ namespace TC.WebService.Hubs
                 {
                     return null;
                 }
-                return szwagierListKey + Context.User.Claims.First(x => x.Type == "Guid").Value;
+                return GenericConsts.SZWAGIER_LIST_KEY + Context.User.Claims.First(x => x.Type == "Guid").Value;
             }
             catch (Exception)
             {

@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -142,11 +143,13 @@ namespace TC.WebService
             {
                 hubOptions.EnableDetailedErrors = true;
             });
-            services.AddDistributedRedisCache(options =>
-            {
-                options.Configuration = "localhost";
+            //services.AddDistributedRedisCache(options =>
+            //{
+            //    options.Configuration = "localhost";
 
-            });
+            //});
+            services.AddRedisMultiplexer(() =>
+                ConfigurationOptions.Parse(Configuration["ConnectionStrings:Redis"]));
             services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
             services.AddScoped<ILoggerManager, LoggerManager>();
@@ -156,7 +159,7 @@ namespace TC.WebService
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IFileManager, FileManager>();
             services.AddTransient<IFileStorageService, FileStorageService>();
-            services.AddScoped<ITestInfoRepository,TestInfoRepository>();
+            services.AddScoped<ITestInfoRepository, TestInfoRepository>();
             services.AddScoped<ITestRunHistoryRepository, TestRunHistoryRepository>();
             services.AddScoped<IUtilHelper, UtilHelper>();
             services.AddScoped<IConfigProjectTestRepository, ConfigProjectTestRepository>();
@@ -164,7 +167,7 @@ namespace TC.WebService
             services.AddScoped<ITestRunResultRepository, TestRunResultRepository>();
             services.AddScoped<ITestInfoConfigRepository, TestInfoConfigRepository>();
             services.AddScoped<IScreenshotRepository, ScreenshotRepository>();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
@@ -236,5 +239,7 @@ namespace TC.WebService
             //});
             //app.UseMvc();
         }
+        
     }
+
 }

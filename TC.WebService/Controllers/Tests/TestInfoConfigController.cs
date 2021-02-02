@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TC.DataAccess;
@@ -12,7 +13,6 @@ namespace TC.WebService.Controllers.Test
     [ApiController]
     public class TestInfoConfigController : ControllerBase
     {
-
         #region Constructor
         private ITestInfoConfigRepository _testInfoConfigRepository;
         private IConfigProjectTestRepository _configProjectTestRepository;
@@ -35,10 +35,16 @@ namespace TC.WebService.Controllers.Test
             _unitOfWork = unitOfWork;
         }
         #endregion
+
         #region GET
         [HttpGet("{testId}")]
         public IActionResult Get(int testId)
         {
+            if(testId == 0)
+            {
+                throw new ArgumentNullException(nameof(testId));
+            }
+
             var configs = _configProjectTestRepository.FindAll().ToList();
             var testInfoConfig = _testInfoConfigRepository.FindByTestId(testId);
             if (testInfoConfig != null && testInfoConfig.Count > 0)
@@ -46,20 +52,26 @@ namespace TC.WebService.Controllers.Test
                 var testInfoConfigViewMode = testInfoConfig.Select(x => new TestInfoConfigViewModel(x));
                 return Ok(testInfoConfigViewMode);
             }
-            //var projectId = _testInfoRepository.FindById(testId).ProjectId;
-            //var projectTestConfigs = _projectTestConfigRepository.GetByProjectId(projectId);
-            //if (projectTestConfigs != null && projectTestConfigs.Count > 0)
-            //{
-            //    var configProjectTestViewModel = projectTestConfigs.Select(x => new ProjectTestConfigViewModel().Convert(x));
-            //    return Ok(configProjectTestViewModel);
-            //}
+            var projectId = _testInfoRepository.FindById(testId).ProjectId;
+            var projectTestConfigs = _projectTestConfigRepository.GetByProjectId(projectId);
+            if (projectTestConfigs != null && projectTestConfigs.Count > 0)
+            {
+                var configProjectTestViewModel = projectTestConfigs.Select(x => new ProjectTestConfigViewModel().Convert(x));
+                return Ok(configProjectTestViewModel);
+            }
             return Ok();
         }
         #endregion
+
         #region POST
         [HttpPost]
         public IActionResult Post(IList<ProjectTestConfigViewModel> viewModel)
         {
+            if (viewModel is null)
+            {
+                throw new ArgumentNullException(nameof(viewModel));
+            }
+
             foreach (var config in viewModel)
             {
                 var configProjectTest = _configProjectTestRepository.FindById(config.ConfigProjectTestId);

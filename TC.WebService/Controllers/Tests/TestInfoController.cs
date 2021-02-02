@@ -42,5 +42,13 @@ namespace TC.WebService.Controllers
             return Ok();
 
         }
+        [HttpDelete]
+        public IActionResult Delete(int testInfoId)
+        {
+            var testInfo = _testInfoRepository.FindById(testInfoId);
+            _testInfoRepository.Delete(testInfo);
+            _unitOfWork.SaveChanges();
+            return Ok();
+        }
     }
 }
