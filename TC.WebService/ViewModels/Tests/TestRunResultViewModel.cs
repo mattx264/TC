@@ -15,7 +15,7 @@ namespace TC.WebService.ViewModels.Tests
             SeleniumCommand = testInfo.SeleniumCommands.FirstOrDefault(x => x.Guid == testRunResult.CommandTestGuid);
             CommandTestGuid = testRunResult.CommandTestGuid;
             RunTime = testRunResult.RunTime;
-            ScreenshotUrl = testRunResult !=null ? testRunResult.Screenshot.Path:null;
+            ScreenshotUrl = testRunResult?.Screenshot != null ? testRunResult?.Screenshot?.Path:null;
             IsSuccesful = testRunResult.IsSuccesful;
             CreatedBy = testRunResult.CreatedBy;
             DateAdded = testRunResult.DateAdded;

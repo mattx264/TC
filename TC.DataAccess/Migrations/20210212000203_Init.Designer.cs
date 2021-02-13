@@ -10,7 +10,7 @@ using TC.DataAccess.DatabaseContext;
 namespace TC.DataAccess.Migrations
 {
     [DbContext(typeof(TestingCenterDbContext))]
-    [Migration("20210111022959_Init")]
+    [Migration("20210212000203_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace TC.DataAccess.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("TC.Entity.Entities.ConfigProjectTest", b =>
                 {
@@ -64,8 +64,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(2110),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(2892),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(7980),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(8764),
                             DefaultValue = "false",
                             Description = "It will take a screenshot after every command.",
                             IsActive = true,
@@ -77,8 +77,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(3835),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(3854),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(9803),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(9821),
                             DefaultValue = "false",
                             Description = "Test will monitor every http call.",
                             IsActive = true,
@@ -90,8 +90,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(3895),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(3901),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(9858),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(9864),
                             DefaultValue = "true",
                             Description = "Test will continue even if a command will fail.",
                             IsActive = true,
@@ -103,8 +103,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 4,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(3934),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(3940),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(9894),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(9899),
                             DefaultValue = "true",
                             Description = "Every step is waiting for all network e.g. api xhr, images,etc. to finish before go to next command",
                             IsActive = true,
@@ -153,8 +153,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 800, DateTimeKind.Local).AddTicks(3056),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 800, DateTimeKind.Local).AddTicks(3782),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 316, DateTimeKind.Local).AddTicks(876),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 316, DateTimeKind.Local).AddTicks(1478),
                             Domain = "google.com",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -164,8 +164,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 800, DateTimeKind.Local).AddTicks(4774),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 800, DateTimeKind.Local).AddTicks(4794),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 316, DateTimeKind.Local).AddTicks(2320),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 316, DateTimeKind.Local).AddTicks(2337),
                             Domain = "google.pl",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -218,8 +218,8 @@ namespace TC.DataAccess.Migrations
                             Id = 1,
                             ConfigProjectTestId = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 802, DateTimeKind.Local).AddTicks(9814),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 803, DateTimeKind.Local).AddTicks(553),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 318, DateTimeKind.Local).AddTicks(5202),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 318, DateTimeKind.Local).AddTicks(5816),
                             IsActive = true,
                             ModifiedBy = "system",
                             ProjectId = 1,
@@ -264,8 +264,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 799, DateTimeKind.Local).AddTicks(4049),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 799, DateTimeKind.Local).AddTicks(4797),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 315, DateTimeKind.Local).AddTicks(5205),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 315, DateTimeKind.Local).AddTicks(5819),
                             Description = "",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -348,8 +348,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 801, DateTimeKind.Local).AddTicks(3383),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 801, DateTimeKind.Local).AddTicks(4055),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 316, DateTimeKind.Local).AddTicks(9941),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(616),
                             Description = "Using google search find c# tutorial",
                             IsActive = true,
                             ModifiedBy = "system",
@@ -517,8 +517,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(5820),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(6571),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(7720),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(8381),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Pending"
@@ -527,8 +527,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(7275),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(7293),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(9034),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(9052),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Accepted"
@@ -537,8 +537,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(7298),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(7302),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(9057),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(9060),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Rejected"
@@ -547,8 +547,8 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 4,
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(7307),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 798, DateTimeKind.Local).AddTicks(7310),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(9063),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(9066),
                             IsActive = true,
                             ModifiedBy = "system",
                             Name = "Deleted"
@@ -684,21 +684,22 @@ namespace TC.DataAccess.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3782e886-91b8-4b5d-bfd8-192f88e9e744",
+                            ConcurrencyStamp = "df1606fc-6185-4f81-90c0-632379bea16c",
                             CreatedBy = "system",
-                            DateAdded = new DateTime(2021, 1, 10, 20, 29, 58, 788, DateTimeKind.Local).AddTicks(4918),
-                            DateModified = new DateTime(2021, 1, 10, 20, 29, 58, 795, DateTimeKind.Local).AddTicks(3327),
+                            DateAdded = new DateTime(2021, 2, 11, 18, 2, 2, 305, DateTimeKind.Local).AddTicks(9941),
+                            DateModified = new DateTime(2021, 2, 11, 18, 2, 2, 311, DateTimeKind.Local).AddTicks(7176),
                             Email = "test@test",
                             EmailConfirmed = false,
-                            Guid = new Guid("d4488297-ec40-409f-a9f1-0537376fc9f8"),
+                            Guid = new Guid("7ebadc39-00ee-4f17-84e8-4783b52a6f55"),
                             IsActive = true,
                             LockoutEnabled = false,
                             ModifiedBy = "system",
+                            Name = "tester",
                             Password = "5lWUcAhyHCV2rTZqqyE8JIMZJjjAwlwRMrq5jxH+KQY=",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "20b4f208-a65f-46d8-aa59-cadc5dad3e46",
+                            SecurityStamp = "b83bee4f-6afe-4b69-92ee-80ccd1641da0",
                             TwoFactorEnabled = false,
-                            UserName = "tester"
+                            UserName = "user name"
                         });
                 });
 

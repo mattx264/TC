@@ -90,3 +90,5 @@ baseline.json
 /TC.FrontEnd/Angular
 
 /TC.BrowserEngineTest/IntegraionTests/test-server/dist
+
+/TC.WebService/wwwroot

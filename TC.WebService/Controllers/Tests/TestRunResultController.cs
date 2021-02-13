@@ -31,7 +31,7 @@ namespace TC.WebService.Controllers.Tests
                 return Ok();
             }
             var testInfo = _testRunHistoryRepository.FindById(testRunResults.FirstOrDefault().TestRunHistoryId).TestInfo;
-            var result = _testRunResultRepository.GetByTestHistoryId(testHistoryId).Select(x => new TestRunResultViewModel(x, testInfo));
+            var result = testRunResults.Select(x => new TestRunResultViewModel(x, testInfo));
 
             return Ok(result);
         }

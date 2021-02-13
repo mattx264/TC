@@ -25,6 +25,7 @@ using TC.WebService.Extensions;
 using TC.WebService.Hubs;
 using TC.WebService.Services;
 using TC.WebService.Services.Files;
+using TC.WebService.Services.Interface;
 
 namespace TC.WebService
 {
@@ -239,7 +240,7 @@ namespace TC.WebService
             //});
             //app.UseMvc();
         }
-        
+
     }
 
 }

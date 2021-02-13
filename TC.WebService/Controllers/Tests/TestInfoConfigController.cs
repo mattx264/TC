@@ -40,7 +40,7 @@ namespace TC.WebService.Controllers.Test
         [HttpGet("{testId}")]
         public IActionResult Get(int testId)
         {
-            if(testId == 0)
+            if (testId == 0)
             {
                 throw new ArgumentNullException(nameof(testId));
             }
@@ -109,6 +109,7 @@ namespace TC.WebService.Controllers.Test
                 else
                 {
                     var projectTestConfig = _testInfoConfigRepository.FindById(config.Id);
+
                     projectTestConfig.ConfigProjectTestId = config.ConfigProjectTestId;
                     projectTestConfig.TestInfoId = config.Id;
                     projectTestConfig.Value = config.Value;
