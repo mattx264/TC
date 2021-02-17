@@ -5,6 +5,7 @@ using System.Linq;
 using TC.DataAccess;
 using TC.DataAccess.Repositories.Interfaces;
 using TC.Entity.Entities;
+using TC.WebService.Services.Interface;
 using TC.WebService.ViewModels.Projects;
 
 namespace TC.WebService.Controllers.Test
@@ -18,6 +19,7 @@ namespace TC.WebService.Controllers.Test
         private IConfigProjectTestRepository _configProjectTestRepository;
         private IProjectTestConfigRepository _projectTestConfigRepository;
         private ITestInfoRepository _testInfoRepository;
+        private IProjectTestConfigService _projectTestConfigService;
         private IUnitOfWork _unitOfWork;
 
         public TestInfoConfigController(
@@ -25,6 +27,7 @@ namespace TC.WebService.Controllers.Test
             IConfigProjectTestRepository configProjectTestRepository,
             IProjectTestConfigRepository projectTestConfigRepository,
             ITestInfoRepository testInfoRepository,
+            IProjectTestConfigService projectTestConfigService,
             IUnitOfWork unitOfWork
             )
         {
@@ -32,34 +35,23 @@ namespace TC.WebService.Controllers.Test
             _configProjectTestRepository = configProjectTestRepository;
             _projectTestConfigRepository = projectTestConfigRepository;
             _testInfoRepository = testInfoRepository;
+            _projectTestConfigService = projectTestConfigService;
             _unitOfWork = unitOfWork;
         }
         #endregion
 
         #region GET
         [HttpGet("{testId}")]
-        public IActionResult Get(int testId)
+        public ActionResult<IList<ProjectTestConfigViewModel>> Get(int testId)
         {
             if (testId == 0)
             {
                 throw new ArgumentNullException(nameof(testId));
             }
 
-            var configs = _configProjectTestRepository.FindAll().ToList();
-            var testInfoConfig = _testInfoConfigRepository.FindByTestId(testId);
-            if (testInfoConfig != null && testInfoConfig.Count > 0)
-            {
-                var testInfoConfigViewMode = testInfoConfig.Select(x => new TestInfoConfigViewModel(x));
-                return Ok(testInfoConfigViewMode);
-            }
-            var projectId = _testInfoRepository.FindById(testId).ProjectId;
-            var projectTestConfigs = _projectTestConfigRepository.GetByProjectId(projectId);
-            if (projectTestConfigs != null && projectTestConfigs.Count > 0)
-            {
-                var configProjectTestViewModel = projectTestConfigs.Select(x => new ProjectTestConfigViewModel().Convert(x));
-                return Ok(configProjectTestViewModel);
-            }
-            return Ok();
+            return Ok(_projectTestConfigService.GetByTestId(testId));
+
+         
         }
         #endregion
 

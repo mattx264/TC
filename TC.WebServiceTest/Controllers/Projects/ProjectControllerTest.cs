@@ -1,21 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Moq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using TC.DataAccess;
 using TC.DataAccess.DatabaseContext;
 using TC.DataAccess.Repositories;
 using TC.Entity.Entities;
 using TC.Entity.Entities.Projects;
 using TC.Entity.Entities.User;
-using TC.WebService.Controllers;
 using TC.WebService.Controllers.Projects;
 using TC.WebService.Extensions;
-using TC.WebService.ViewModels;
 using TC.WebService.ViewModels.Projects;
 using Xunit;
 
@@ -34,34 +29,34 @@ namespace TC.WebServiceTest.Controllers
             var projectRepositoryMock = new Mock<IProjectRepository>();
             var userHelper = new Mock<IUserHelper>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var userRepository = new Mock<IUserRepository>(); 
+            var userRepository = new Mock<IUserRepository>();
             var utilHelper = new Mock<IUtilHelper>();
 
             var controller = new ProjectController(projectRepositoryMock.Object, userHelper.Object, unitOfWork.Object, userRepository.Object, utilHelper.Object);
             projectRepositoryMock.Setup(x => x.GetProjectByUser(It.IsAny<string>(), It.IsAny<int>())).Returns(() =>
             {
-               
+
                 return new Project()
                 {
                     Id = projectid,
                     Name = "project.Name",
                     ProjectDomains = domains,
-                    UserInProject=userInProject
-                    
+                    UserInProject = userInProject
+
                 };
             });
             //EXERCISE
-            var result = controller.Get(projectid);
+            var result = controller.GetProject(projectid);
 
             //VERIFY
             Assert.NotNull(result);
 
-           
-        }       
+
+        }
 
         public static IEnumerable<object[]> GetData()
         {
-          
+
             return new List<object[]>
             {
                 new object[] { new List<ProjectDomain>() { new ProjectDomain() { Domain = "google.com" } },null },
@@ -69,7 +64,7 @@ namespace TC.WebServiceTest.Controllers
                   new UserInProject() { UserModelId=1,UserModel =new UserModel() { Email = "test@test", Id = 1 }
                 ,UserProjectStatus=new Entity.Entities.User.UserProjectStatus() { Name="Pending"} } } },
             new object[] { null,null }
-          
+
             };
         }
         #endregion //Get
@@ -80,11 +75,12 @@ namespace TC.WebServiceTest.Controllers
             var options = new DbContextOptionsBuilder<TestingCenterDbContext>()
                .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
                .Options;
-           var  context = new TestingCenterDbContext(options);
-            context.Projects.Add(new Project() { 
-                Name="Test",
-                IsActive=true,
-                ProjectDomains=new List<ProjectDomain>()
+            var context = new TestingCenterDbContext(options);
+            context.Projects.Add(new Project()
+            {
+                Name = "Test",
+                IsActive = true,
+                ProjectDomains = new List<ProjectDomain>()
                 {
                     new ProjectDomain()
                     {
@@ -92,14 +88,14 @@ namespace TC.WebServiceTest.Controllers
                         IsActive=true
                     }
                 },
-                UserInProject=new List<UserInProject>()
+                UserInProject = new List<UserInProject>()
                 {
                     new UserInProject(){
                         IsActive=true,
                         UserModel=new UserModel()
                         {
                             IsActive=true
-                            
+
                         },
                        UserProjectStatus=new UserProjectStatus()
                        {
@@ -110,7 +106,7 @@ namespace TC.WebServiceTest.Controllers
                 }
             });
             context.SaveChanges();
-            var user = context.UserModel.FirstOrDefault(x=>x.IsActive);
+            var user = context.UserModel.FirstOrDefault(x => x.IsActive);
             var projectRepository = new ProjectRepository(context);
             var userHelper = new Mock<IUserHelper>();
             var unitOfWork = new Mock<IUnitOfWork>();
@@ -118,11 +114,11 @@ namespace TC.WebServiceTest.Controllers
             var utilHelper = new Mock<IUtilHelper>();
 
             userHelper.Setup(x => x.GetGuid(It.IsAny<ClaimsPrincipal>())).Returns(() => user.Guid.ToString());
-           
+
 
             var controller = new ProjectController(projectRepository, userHelper.Object, unitOfWork.Object, userRepository.Object, utilHelper.Object);
-            
-            var result=controller.Get("test.com");
+
+            var result = controller.Get("test.com");
 
             Assert.NotNull(result);
         }

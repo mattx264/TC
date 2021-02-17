@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using TC.DataAccess.Repositories;
 using TC.DataAccess.Repositories.Interfaces;
 using TC.WebService.ViewModels.Tests;
 

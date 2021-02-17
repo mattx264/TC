@@ -124,7 +124,7 @@ namespace TC.WebService
              .UseSqlServer(
                  Configuration.GetConnectionString("DefaultConnection")));
 
-
+            services.AddOpenApiDocument();
             services.AddMvc();
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
@@ -180,7 +180,11 @@ namespace TC.WebService
             if (env.IsDevelopment())
             {
                 // Enable middleware to serve generated Swagger as a JSON endpoint.
-                app.UseSwagger();
+                app.UseSwagger(c =>
+                {
+                    c.SerializeAsV2 = true;
+                });             
+
                 app.UseDeveloperExceptionPage();
                 using (var scope =
                     app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())

@@ -6,7 +6,7 @@ using TC.Entity.Entities.Projects;
 
 namespace TC.Entity.Entities
 {
-    [Table("ProjectTestRunConfig", Schema = "project")]
+    [Table("ProjectTestConfig", Schema = "project")]
     public class ProjectTestConfig : IEntity
     {
         public int Id { get; set; }

@@ -29,19 +29,34 @@ namespace TC.WebService.Controllers.Project
 
         #region GET
         [HttpGet("{projectId}")]
-        public IActionResult Get(int projectId)
+        public ActionResult<IList<ProjectTestConfigViewModel>> Get(int projectId)
         {
             if (projectId == 0)
             {
                 return BadRequest("Project Id is required");
             }
-            var projectTestConfig = _projectTestConfigRepository.GetByProjectId(projectId);
-            if (projectTestConfig.Count == 0)
+            var projectTestConfigs = _projectTestConfigRepository.GetByProjectId(projectId);
+            var configProjectTests = _configProjectTestRepository.FindAll().ToList();
+            if (projectTestConfigs.Count == configProjectTests.Count())
             {
-                var result = _configProjectTestRepository.FindAll().Select(x => new ProjectTestConfigViewModel().Convert(0, projectId, x));
-                return Ok(result);
+                return Ok(projectTestConfigs.Select(x => new ProjectTestConfigViewModel().Convert(x)));
+
             }
-            return Ok(projectTestConfig.Select(x => new ProjectTestConfigViewModel().Convert(x)));
+
+            var result = new List<ProjectTestConfigViewModel>();
+            foreach (var configProjectTest in configProjectTests)
+            {
+                var projectTestConfig = projectTestConfigs.FirstOrDefault(x => x.ConfigProjectTestId == configProjectTest.Id);
+                if (projectTestConfig == null)
+                {
+                    result.Add(new ProjectTestConfigViewModel().Convert(0, projectId, configProjectTest));
+                }
+                else
+                {
+                    result.Add(new ProjectTestConfigViewModel().Convert(projectTestConfig));
+                }
+            }
+            return Ok(result);
         }
         #endregion
 

@@ -93,9 +93,20 @@ namespace TC.DataAccess.DatabaseContext
             {
                 Id = projectId,
                 Name = "Google",
-                Description = "",
-                ProjectDomains = null,
-                UserInProject = null,
+                Description = "Google",
+                ProjectDomains = null,               
+                IsActive = true,
+                CreatedBy = "system",
+                ModifiedBy = "system",
+                DateAdded = DateTime.Now,
+                DateModified = DateTime.Now
+            });
+            modelBuilder.Entity<UserInProject>().HasData(new UserInProject()
+            {
+                Id=1,
+                ProjectId= projectId,
+                UserModelId=1,
+                UserProjectStatusId=2,
                 IsActive = true,
                 CreatedBy = "system",
                 ModifiedBy = "system",

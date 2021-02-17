@@ -36,13 +36,13 @@ namespace TC.WebService.Controllers.Projects
             _utilHelper = utilHelper;
             _unitOfWork = unitOfWork;
         }
-        [HttpGet]
-        public List<ProjectViewModel> Get()
-        {
-            string guid = GetUserGuid();
+        //[HttpGet]
+        //public List<ProjectViewModel> Get()
+        //{
+        //    string guid = GetUserGuid();
 
-            return _projectRepository.GetProjectsByUser(guid).Select(x => GetProjectViewModel(x)).ToList();
-        }
+        //    return _projectRepository.GetProjectsByUser(guid).Select(x => GetProjectViewModel(x)).ToList();
+        //}
         [HttpGet("domain/{domain}")]
         public ProjectViewModel Get(string domain)
         {
@@ -51,7 +51,7 @@ namespace TC.WebService.Controllers.Projects
             return project == null ? null : GetProjectViewModel(project);
         }
         [HttpGet("{id}")]
-        public ProjectViewModel Get(int id)
+        public ActionResult<ProjectViewModel> GetProject(int id)
         {
             string guid = GetUserGuid();
 
@@ -146,8 +146,6 @@ namespace TC.WebService.Controllers.Projects
                 ProjectDomains = domains,
                 UserInProject = users
             });
-
-
 
             _unitOfWork.SaveChanges();
             return Ok();
@@ -358,7 +356,7 @@ namespace TC.WebService.Controllers.Projects
 
         [HttpGet]
         [Route("getProjects")]
-        public IActionResult GetProjects()
+        public ActionResult<IList<ProjectViewModel>> GetProjects()
         {
             string guid = GetUserGuid();
             return Ok(_projectRepository.GetProjectsByUser(guid).Select(x => GetProjectViewModel(x)));
@@ -366,7 +364,7 @@ namespace TC.WebService.Controllers.Projects
 
         [HttpGet]
         [Route("getProjectDetails")]
-        public IActionResult GetProjectDetails(int id)
+        public ActionResult<ProjectDetailsViewModel> GetProjectDetails(int id)
         {
             string guid = GetUserGuid();
             return Ok(_projectRepository.GetProjectsByUser(guid).Select(x => GetProjectDetailsViewModel(x)).ToList());

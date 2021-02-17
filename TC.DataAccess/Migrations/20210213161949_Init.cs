@@ -370,10 +370,10 @@ namespace TC.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "DefaultValue", "Description", "IsActive", "ModifiedBy", "Name", "Type" },
                 values: new object[,]
                 {
-                    { 1, "system", new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(7980), new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(8764), "false", "It will take a screenshot after every command.", true, "system", "Take Screenshot After Every Command", 0 },
-                    { 2, "system", new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(9803), new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(9821), "false", "Test will monitor every http call.", true, "system", "Monitoring Http Calls", 0 },
-                    { 3, "system", new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(9858), new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(9864), "true", "Test will continue even if a command will fail.", true, "system", "Continue After Command Failure", 0 },
-                    { 4, "system", new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(9894), new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(9899), "true", "Every step is waiting for all network e.g. api xhr, images,etc. to finish before go to next command", true, "system", "Wait for network call finish", 0 }
+                    { 1, "system", new DateTime(2021, 2, 13, 10, 19, 48, 94, DateTimeKind.Local).AddTicks(9214), new DateTime(2021, 2, 13, 10, 19, 48, 95, DateTimeKind.Local).AddTicks(272), "false", "It will take a screenshot after every command.", true, "system", "Take Screenshot After Every Command", 0 },
+                    { 2, "system", new DateTime(2021, 2, 13, 10, 19, 48, 95, DateTimeKind.Local).AddTicks(1982), new DateTime(2021, 2, 13, 10, 19, 48, 95, DateTimeKind.Local).AddTicks(2007), "false", "Test will monitor every http call.", true, "system", "Monitoring Http Calls", 0 },
+                    { 3, "system", new DateTime(2021, 2, 13, 10, 19, 48, 95, DateTimeKind.Local).AddTicks(2180), new DateTime(2021, 2, 13, 10, 19, 48, 95, DateTimeKind.Local).AddTicks(2192), "true", "Test will continue even if a command will fail.", true, "system", "Continue After Command Failure", 0 },
+                    { 4, "system", new DateTime(2021, 2, 13, 10, 19, 48, 95, DateTimeKind.Local).AddTicks(2280), new DateTime(2021, 2, 13, 10, 19, 48, 95, DateTimeKind.Local).AddTicks(2292), "true", "Every step is waiting for all network e.g. api xhr, images,etc. to finish before go to next command", true, "system", "Wait for network call finish", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -381,23 +381,23 @@ namespace TC.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "IsActive", "ModifiedBy", "Name" },
                 values: new object[,]
                 {
-                    { 1, "system", new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(7720), new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(8381), true, "system", "Pending" },
-                    { 2, "system", new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(9034), new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(9052), true, "system", "Accepted" },
-                    { 3, "system", new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(9057), new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(9060), true, "system", "Rejected" },
-                    { 4, "system", new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(9063), new DateTime(2021, 2, 11, 18, 2, 2, 314, DateTimeKind.Local).AddTicks(9066), true, "system", "Deleted" }
+                    { 1, "system", new DateTime(2021, 2, 13, 10, 19, 48, 89, DateTimeKind.Local).AddTicks(8332), new DateTime(2021, 2, 13, 10, 19, 48, 89, DateTimeKind.Local).AddTicks(9186), true, "system", "Pending" },
+                    { 2, "system", new DateTime(2021, 2, 13, 10, 19, 48, 89, DateTimeKind.Local).AddTicks(9861), new DateTime(2021, 2, 13, 10, 19, 48, 89, DateTimeKind.Local).AddTicks(9880), true, "system", "Accepted" },
+                    { 3, "system", new DateTime(2021, 2, 13, 10, 19, 48, 89, DateTimeKind.Local).AddTicks(9885), new DateTime(2021, 2, 13, 10, 19, 48, 89, DateTimeKind.Local).AddTicks(9887), true, "system", "Rejected" },
+                    { 4, "system", new DateTime(2021, 2, 13, 10, 19, 48, 89, DateTimeKind.Local).AddTicks(9892), new DateTime(2021, 2, 13, 10, 19, 48, 89, DateTimeKind.Local).AddTicks(9895), true, "system", "Deleted" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "project",
                 table: "Project",
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Description", "IsActive", "ModifiedBy", "Name" },
-                values: new object[] { 1, "system", new DateTime(2021, 2, 11, 18, 2, 2, 315, DateTimeKind.Local).AddTicks(5205), new DateTime(2021, 2, 11, 18, 2, 2, 315, DateTimeKind.Local).AddTicks(5819), "", true, "system", "Google" });
+                values: new object[] { 1, "system", new DateTime(2021, 2, 13, 10, 19, 48, 90, DateTimeKind.Local).AddTicks(5557), new DateTime(2021, 2, 13, 10, 19, 48, 90, DateTimeKind.Local).AddTicks(6266), "Google", true, "system", "Google" });
 
             migrationBuilder.InsertData(
                 schema: "user",
                 table: "UserModel",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedBy", "DateAdded", "DateModified", "Email", "EmailConfirmed", "Guid", "IsActive", "LockoutEnabled", "LockoutEnd", "MasterId", "ModifiedBy", "Name", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "df1606fc-6185-4f81-90c0-632379bea16c", "system", new DateTime(2021, 2, 11, 18, 2, 2, 305, DateTimeKind.Local).AddTicks(9941), new DateTime(2021, 2, 11, 18, 2, 2, 311, DateTimeKind.Local).AddTicks(7176), "test@test", false, new Guid("7ebadc39-00ee-4f17-84e8-4783b52a6f55"), true, false, null, null, "system", "tester", null, null, "5lWUcAhyHCV2rTZqqyE8JIMZJjjAwlwRMrq5jxH+KQY=", null, null, false, "b83bee4f-6afe-4b69-92ee-80ccd1641da0", false, "user name" });
+                values: new object[] { 1, 0, "d79c807a-edd1-423e-b5dd-d6991ef5ccb1", "system", new DateTime(2021, 2, 13, 10, 19, 48, 81, DateTimeKind.Local).AddTicks(4103), new DateTime(2021, 2, 13, 10, 19, 48, 86, DateTimeKind.Local).AddTicks(6640), "test@test", false, new Guid("ae1ba3dd-63e2-4273-abd5-4010640603c4"), true, false, null, null, "system", "tester", null, null, "5lWUcAhyHCV2rTZqqyE8JIMZJjjAwlwRMrq5jxH+KQY=", null, null, false, "7369c970-f989-4b5a-8eeb-6053b869bc75", false, "user name" });
 
             migrationBuilder.InsertData(
                 schema: "project",
@@ -405,21 +405,27 @@ namespace TC.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Domain", "IsActive", "ModifiedBy", "ProjectId" },
                 values: new object[,]
                 {
-                    { 1, "system", new DateTime(2021, 2, 11, 18, 2, 2, 316, DateTimeKind.Local).AddTicks(876), new DateTime(2021, 2, 11, 18, 2, 2, 316, DateTimeKind.Local).AddTicks(1478), "google.com", true, "system", 1 },
-                    { 2, "system", new DateTime(2021, 2, 11, 18, 2, 2, 316, DateTimeKind.Local).AddTicks(2320), new DateTime(2021, 2, 11, 18, 2, 2, 316, DateTimeKind.Local).AddTicks(2337), "google.pl", true, "system", 1 }
+                    { 1, "system", new DateTime(2021, 2, 13, 10, 19, 48, 92, DateTimeKind.Local).AddTicks(1312), new DateTime(2021, 2, 13, 10, 19, 48, 92, DateTimeKind.Local).AddTicks(2452), "google.com", true, "system", 1 },
+                    { 2, "system", new DateTime(2021, 2, 13, 10, 19, 48, 92, DateTimeKind.Local).AddTicks(3968), new DateTime(2021, 2, 13, 10, 19, 48, 92, DateTimeKind.Local).AddTicks(3998), "google.pl", true, "system", 1 }
                 });
 
             migrationBuilder.InsertData(
                 schema: "project",
                 table: "ProjectTestRunConfig",
                 columns: new[] { "Id", "ConfigProjectTestId", "CreatedBy", "DateAdded", "DateModified", "IsActive", "ModifiedBy", "ProjectId", "Value" },
-                values: new object[] { 1, 1, "system", new DateTime(2021, 2, 11, 18, 2, 2, 318, DateTimeKind.Local).AddTicks(5202), new DateTime(2021, 2, 11, 18, 2, 2, 318, DateTimeKind.Local).AddTicks(5816), true, "system", 1, "true" });
+                values: new object[] { 1, 1, "system", new DateTime(2021, 2, 13, 10, 19, 48, 96, DateTimeKind.Local).AddTicks(1263), new DateTime(2021, 2, 13, 10, 19, 48, 96, DateTimeKind.Local).AddTicks(2370), true, "system", 1, "true" });
 
             migrationBuilder.InsertData(
                 schema: "test",
                 table: "TestInfo",
                 columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "Description", "IsActive", "ModifiedBy", "Name", "ProjectId", "SeleniumCommands" },
-                values: new object[] { 1, "system", new DateTime(2021, 2, 11, 18, 2, 2, 316, DateTimeKind.Local).AddTicks(9941), new DateTime(2021, 2, 11, 18, 2, 2, 317, DateTimeKind.Local).AddTicks(616), "Using google search find c# tutorial", true, "system", "Search for c# tutorial", 1, "[{\"OperationId\":3,\"WebDriverOperationType\":0,\"Values\":[\"https://www.google.com\"]}]" });
+                values: new object[] { 1, "system", new DateTime(2021, 2, 13, 10, 19, 48, 93, DateTimeKind.Local).AddTicks(6647), new DateTime(2021, 2, 13, 10, 19, 48, 93, DateTimeKind.Local).AddTicks(7548), "Using google search find c# tutorial", true, "system", "Search for c# tutorial", 1, "[{\"OperationId\":3,\"WebDriverOperationType\":0,\"Values\":[\"https://www.google.com\"]}]" });
+
+            migrationBuilder.InsertData(
+                schema: "user",
+                table: "UserInProject",
+                columns: new[] { "Id", "CreatedBy", "DateAdded", "DateModified", "IsActive", "ModifiedBy", "ProjectId", "UserModelId", "UserProjectStatusId" },
+                values: new object[] { 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, null, 1, 1, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectDomain_ProjectId",

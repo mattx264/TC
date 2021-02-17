@@ -11,7 +11,6 @@ namespace TC.WebService.Services
 {
     public class CacheService : ICacheService
     {
-        private object _redis;
         private IConnectionMultiplexer _connectionMultiplexer;
 
         public CacheService(IConnectionMultiplexer connectionMultiplexer)
