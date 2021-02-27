@@ -4,6 +4,7 @@ using System.Linq;
 using TC.DataAccess;
 using TC.DataAccess.Repositories.Interfaces;
 using TC.Entity.Entities;
+using TC.WebService.Services.Interface;
 using TC.WebService.ViewModels.Projects;
 
 namespace TC.WebService.Controllers.Project
@@ -16,13 +17,19 @@ namespace TC.WebService.Controllers.Project
         private IProjectTestConfigRepository _projectTestConfigRepository;
         private IConfigProjectTestRepository _configProjectTestRepository;
         private IUnitOfWork _unitOfWork;
+        private IProjectTestConfigService _projectTestConfigService;
         #endregion
 
         #region constructor
-        public ProjectTestConfigController(IProjectTestConfigRepository projectTestConfigRepository, IConfigProjectTestRepository configProjectTestRepository, IUnitOfWork unitOfWork)
+        public ProjectTestConfigController(
+            IProjectTestConfigRepository projectTestConfigRepository,
+            IConfigProjectTestRepository configProjectTestRepository,
+            IProjectTestConfigService projectTestConfigService,
+            IUnitOfWork unitOfWork)
         {
             _projectTestConfigRepository = projectTestConfigRepository;
             _configProjectTestRepository = configProjectTestRepository;
+            _projectTestConfigService = projectTestConfigService;
             _unitOfWork = unitOfWork;
         }
         #endregion
@@ -35,27 +42,11 @@ namespace TC.WebService.Controllers.Project
             {
                 return BadRequest("Project Id is required");
             }
-            var projectTestConfigs = _projectTestConfigRepository.GetByProjectId(projectId);
-            var configProjectTests = _configProjectTestRepository.FindAll().ToList();
-            if (projectTestConfigs.Count == configProjectTests.Count())
-            {
-                return Ok(projectTestConfigs.Select(x => new ProjectTestConfigViewModel().Convert(x)));
 
-            }
 
-            var result = new List<ProjectTestConfigViewModel>();
-            foreach (var configProjectTest in configProjectTests)
-            {
-                var projectTestConfig = projectTestConfigs.FirstOrDefault(x => x.ConfigProjectTestId == configProjectTest.Id);
-                if (projectTestConfig == null)
-                {
-                    result.Add(new ProjectTestConfigViewModel().Convert(0, projectId, configProjectTest));
-                }
-                else
-                {
-                    result.Add(new ProjectTestConfigViewModel().Convert(projectTestConfig));
-                }
-            }
+            var result = _projectTestConfigService.GetProjectConfigByTestId(projectId);
+
+
             return Ok(result);
         }
         #endregion
@@ -101,8 +92,6 @@ namespace TC.WebService.Controllers.Project
                 else
                 {
                     var projectTestConfig = _projectTestConfigRepository.FindById(config.Id);
-                    projectTestConfig.ConfigProjectTestId = config.ConfigProjectTestId;
-                    projectTestConfig.ProjectId = config.ProjectId;
                     projectTestConfig.Value = config.Value;
                 }
             }

@@ -8,6 +8,7 @@ using TC.DataAccess.Repositories;
 using TC.DataAccess.Repositories.Interfaces;
 using TC.Entity.Entities;
 using TC.WebService.Controllers.Project;
+using TC.WebService.Services.Interface;
 using TC.WebService.ViewModels.Projects;
 using Xunit;
 
@@ -17,25 +18,26 @@ namespace TC.WebServiceTest.Controllers.Projects
     {
         private Mock<IProjectTestConfigRepository> _projectTestConfigRepository;
         private Mock<IConfigProjectTestRepository> _configProjectTestRepository;
+        private Mock<IProjectTestConfigService> _projectTestConfigService;
         private Mock<IUnitOfWork> _unitOfWork;
 
         #region GET
         [Fact]
         public void Get()
         {
-             var projectTestConfigController = GetType();
+            var projectTestConfigController = GetType();
             _projectTestConfigRepository.Setup(x => x.GetByProjectId(It.IsAny<int>())).Returns(new Mock<IList<ProjectTestConfig>>().Object);
             var response = projectTestConfigController.Get(1);
-          
-            Assert.IsType<OkObjectResult>(response);
-        }       
+
+            Assert.IsType<OkObjectResult>(response.Result);
+        }
         [Fact]
         public void Get_Id_Zero()
         {
             var projectTestConfigController = GetType();
             var response = projectTestConfigController.Get(0);
 
-            Assert.IsType<BadRequestObjectResult>(response);
+            Assert.IsType<BadRequestObjectResult>(response.Result);
         }
 
         #endregion
@@ -68,9 +70,9 @@ namespace TC.WebServiceTest.Controllers.Projects
                 ConfigProjectTestId = 1
             };
             var projectTestConfigController = GetType();
-            var reponse=projectTestConfigController.Post(new List<ProjectTestConfigViewModel>() { new ProjectTestConfigViewModel().Convert(model) });
+            var reponse = projectTestConfigController.Post(new List<ProjectTestConfigViewModel>() { new ProjectTestConfigViewModel().Convert(model) });
             Assert.IsType<BadRequestObjectResult>(reponse);
-    
+
         }
         [Fact]
         public void Post_Incorrect_bool_value()
@@ -94,8 +96,9 @@ namespace TC.WebServiceTest.Controllers.Projects
             _projectTestConfigRepository = new Mock<IProjectTestConfigRepository>();
             _projectTestConfigRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(new Mock<ProjectTestConfig>().Object);
             _configProjectTestRepository = new Mock<IConfigProjectTestRepository>();
+            _projectTestConfigService = new Mock<IProjectTestConfigService>();
             _unitOfWork = new Mock<IUnitOfWork>();
-            return new ProjectTestConfigController(_projectTestConfigRepository.Object, _configProjectTestRepository.Object, _unitOfWork.Object);
+            return new ProjectTestConfigController(_projectTestConfigRepository.Object, _configProjectTestRepository.Object, _projectTestConfigService.Object, _unitOfWork.Object);
         }
         #endregion
     }

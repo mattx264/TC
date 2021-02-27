@@ -218,7 +218,6 @@ namespace TC.WebService
             });
             app.UseEndpoints((endpoints) =>
             {
-                endpoints.MapHub<ChatHub>("/chathub");
                 endpoints.MapHub<SzwagierHub>("/hubs/szwagier");
             });
 

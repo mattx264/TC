@@ -26,19 +26,12 @@ namespace TC.WebService.Services
             _projectTestConfigRepository = projectTestConfigRepository;
             _testInfoRepository = testInfoRepository;
         }
-        public IList<ProjectTestConfigViewModel> GetByTestId(int testId)
+        public IList<ProjectTestConfigViewModel> GetProjectConfigByTestId(int projectId)
         {
-            var testInfo = _testInfoRepository.FindById(testId);
 
-            var configs = _configProjectTestRepository.FindAll().ToList();
-            var testInfoConfig = _testInfoConfigRepository.FindByTestId(testId);
+            var configs = _configProjectTestRepository.FindAll().ToList();           
 
-            if (testInfoConfig != null && testInfoConfig.Count == configs.Count)
-            {
-                var testInfoConfigViewMode = testInfoConfig.Select(x => new TestInfoConfigViewModel(x));
-            }
-
-            var projectTestConfigs = _projectTestConfigRepository.GetByProjectId(testInfo.ProjectId);
+            var projectTestConfigs = _projectTestConfigRepository.GetByProjectId(projectId);
 
 
             var result = new List<ProjectTestConfigViewModel>();
@@ -47,7 +40,7 @@ namespace TC.WebService.Services
                 var projectTestConfig = projectTestConfigs.FirstOrDefault(x => x.ConfigProjectTestId == configProjectTest.Id);
                 if (projectTestConfig == null)
                 {
-                    result.Add(new ProjectTestConfigViewModel().Convert(0, testInfo.ProjectId, configProjectTest));
+                    result.Add(new ProjectTestConfigViewModel().Convert(0, projectId, configProjectTest));
                 }
                 else
                 {
@@ -56,13 +49,35 @@ namespace TC.WebService.Services
             }
             return result;
 
-            //var projectId = _testInfoRepository.FindById(testId).ProjectId;
-            //var projectTestConfigs = _projectTestConfigRepository.GetByProjectId(projectId);
-            //if (projectTestConfigs != null && projectTestConfigs.Count > 0)
-            //{
-            //    var configProjectTestViewModel = projectTestConfigs.Select(x => new ProjectTestConfigViewModel().Convert(x));
-            //    return Ok(configProjectTestViewModel);
-            //}
+        }
+
+        public IList<TestInfoConfigViewModel> GetTestConfigByTestId(int testInfoId)
+        {
+            var testInfo = _testInfoRepository.FindById(testInfoId);
+
+            var configs = _configProjectTestRepository.FindAll().ToList();
+            var testInfoConfig = _testInfoConfigRepository.FindByTestId(testInfoId);
+            var result = new List<TestInfoConfigViewModel>();
+            if (testInfoConfig != null && testInfoConfig.Count == configs.Count)
+            {
+                result = testInfoConfig.Select(x => new TestInfoConfigViewModel(x)).ToList();
+            }
+
+            var projectTestConfigs = _projectTestConfigRepository.GetByProjectId(testInfo.ProjectId);
+
+            foreach (var configProjectTest in configs)
+            {
+                var projectTestConfig = projectTestConfigs.FirstOrDefault(x => x.ConfigProjectTestId == configProjectTest.Id);
+                if (projectTestConfig == null)
+                {
+                    result.Add(new TestInfoConfigViewModel(configProjectTest, testInfoId));
+                }
+                else
+                {
+                    result.Add(new TestInfoConfigViewModel(projectTestConfig, testInfoId));
+                }
+            }
+            return result;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace TC.WebService.Services.Interface
 {
     public interface IProjectTestConfigService
     {
-       public IList<ProjectTestConfigViewModel> GetByTestId(int testId);
+        public IList<ProjectTestConfigViewModel> GetProjectConfigByTestId(int projectId);
+        public IList<TestInfoConfigViewModel> GetTestConfigByTestId(int testId);
     }
 }

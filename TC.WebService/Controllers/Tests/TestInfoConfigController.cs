@@ -17,47 +17,42 @@ namespace TC.WebService.Controllers.Test
         #region Constructor
         private ITestInfoConfigRepository _testInfoConfigRepository;
         private IConfigProjectTestRepository _configProjectTestRepository;
-        private IProjectTestConfigRepository _projectTestConfigRepository;
-        private ITestInfoRepository _testInfoRepository;
         private IProjectTestConfigService _projectTestConfigService;
         private IUnitOfWork _unitOfWork;
+     
 
         public TestInfoConfigController(
             ITestInfoConfigRepository testInfoConfigRepository,
             IConfigProjectTestRepository configProjectTestRepository,
-            IProjectTestConfigRepository projectTestConfigRepository,
-            ITestInfoRepository testInfoRepository,
             IProjectTestConfigService projectTestConfigService,
             IUnitOfWork unitOfWork
             )
         {
             _testInfoConfigRepository = testInfoConfigRepository;
             _configProjectTestRepository = configProjectTestRepository;
-            _projectTestConfigRepository = projectTestConfigRepository;
-            _testInfoRepository = testInfoRepository;
             _projectTestConfigService = projectTestConfigService;
             _unitOfWork = unitOfWork;
         }
         #endregion
 
         #region GET
-        [HttpGet("{testId}")]
-        public ActionResult<IList<ProjectTestConfigViewModel>> Get(int testId)
+        [HttpGet("{testInfoId}")]
+        public ActionResult<IList<TestInfoConfigViewModel>> Get(int testInfoId)
         {
-            if (testId == 0)
+            if (testInfoId == 0)
             {
-                throw new ArgumentNullException(nameof(testId));
+                throw new ArgumentNullException(nameof(testInfoId));
             }
 
-            return Ok(_projectTestConfigService.GetByTestId(testId));
+            return Ok(_projectTestConfigService.GetTestConfigByTestId(testInfoId));
 
-         
+
         }
         #endregion
 
         #region POST
         [HttpPost]
-        public IActionResult Post(IList<ProjectTestConfigViewModel> viewModel)
+        public IActionResult Post(IList<TestInfoConfigViewModel> viewModel)
         {
             if (viewModel is null)
             {
@@ -94,17 +89,26 @@ namespace TC.WebService.Controllers.Test
                     _testInfoConfigRepository.Create(new TestInfoConfig()
                     {
                         ConfigProjectTestId = config.ConfigProjectTestId,
-                        TestInfoId = config.Id,
+                        TestInfoId = config.TestInfoId,
                         Value = config.Value
                     });
                 }
                 else
                 {
                     var projectTestConfig = _testInfoConfigRepository.FindById(config.Id);
-
-                    projectTestConfig.ConfigProjectTestId = config.ConfigProjectTestId;
-                    projectTestConfig.TestInfoId = config.Id;
-                    projectTestConfig.Value = config.Value;
+                    if (projectTestConfig == null)
+                    {
+                        _testInfoConfigRepository.Create(new TestInfoConfig()
+                        {
+                            ConfigProjectTestId = config.ConfigProjectTestId,
+                            TestInfoId = config.TestInfoId,
+                            Value = config.Value
+                        });
+                    }
+                    else
+                    {
+                        projectTestConfig.Value = config.Value;
+                    }
                 }
             }
             _unitOfWork.SaveChanges();

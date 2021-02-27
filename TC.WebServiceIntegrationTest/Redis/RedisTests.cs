@@ -52,28 +52,28 @@ namespace TC.WebServiceIntegrationTest.Redis
             Assert.Equal(value, returnValue);
         }
 
-        [Fact]
-        public async Task SzwagierModelTests_Can()
-        {
-            var szwagierModels = new List<SzwagierModel>()
-            {
-                new SzwagierModel()
-                {
-                    ConnectionId=Guid.NewGuid().ToString(),
-                    Location="test location Mars",
-                    Name="my name",
-                    SzwagierType =SzwagierType.SzwagierBrowserExtension,
-                    UserId = Guid.NewGuid().ToString()
-                }
-            };
-            var modelJson = JsonSerializer.Serialize(szwagierModels);
-            await GetDistributedCache().GetDatabase().StringSetAsync(KEY, szwagierModels.ToByteArray());
+        //[Fact]
+        //public async Task SzwagierModelTests_Can()
+        //{
+        //    var szwagierModels = new List<SzwagierModel>()
+        //    {
+        //        new SzwagierModel()
+        //        {
+        //            ConnectionId=Guid.NewGuid().ToString(),
+        //            Location="test location Mars",
+        //            Name="my name",
+        //            SzwagierType =SzwagierType.SzwagierBrowserExtension,
+        //            UserId = Guid.NewGuid().ToString()
+        //        }
+        //    };
+        //    var modelJson = JsonSerializer.Serialize(szwagierModels);
+        //    await GetDistributedCache().GetDatabase().StringSetAsync(KEY, szwagierModels.ToByteArray());
 
-            var resultJson = await GetDistributedCache().GetDatabase().StringGetAsync(KEY);
-            var szwagierModelsResult = JsonSerializer.Deserialize<List<SzwagierModel>>(resultJson);
-            Assert.Equal(szwagierModels.Count, szwagierModelsResult.Count);
-            Assert.Equal(szwagierModels.First().Name, szwagierModelsResult.First().Name);
-        }
+        //    var resultJson = await GetDistributedCache().GetDatabase().StringGetAsync(KEY);
+        //    var szwagierModelsResult = JsonSerializer.Deserialize<List<SzwagierModel>>(resultJson);
+        //    Assert.Equal(szwagierModels.Count, szwagierModelsResult.Count);
+        //    Assert.Equal(szwagierModels.First().Name, szwagierModelsResult.First().Name);
+        //}
 
         //[Fact]
         //public async Task SzwagierModelTests()
